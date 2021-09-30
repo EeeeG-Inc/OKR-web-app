@@ -19,8 +19,8 @@
 - Web サーバ
     - Apache 2.4.48
 
+
 ## 環境構築
-​
 - ローカル開発環境: Docker
 
 - 本番環境: 未定
@@ -29,8 +29,8 @@
 		- RDS
 		- S3
 ​
+
 ## 下記仕様要望
-​
 - Login
     - ログイン画面
     - メールアドレス変更
@@ -73,6 +73,7 @@
 Unit テストを実装すること
 main ブランチにマージする前 rebase で develop のコミットを整理すること
 ​
+
 ## ライブラリ
 ​
 下記ライブラリを composer インストール・利用すること
@@ -85,9 +86,16 @@ main ブランチにマージする前 rebase で develop のコミットを整�
 - laravelcollective/html
 - livewire/livewire
 ​
+
 ## Git 運用
 ​
-- Git-Flow
+Git-Flow にて運用：初期手順と運用方法は下記参照
+-  `brew install git-flow-avh` を実行
+-  `git flow init` で初期化
+-  対話形式の質問はデフォルト値推奨
+- `develop` ブランチをベースとし  `git flow` コマンドで開発すること
+  - 機能毎の開発は `feature` , 緊急対応は `hotfix` での対応とする
+
 
 ## License
 
