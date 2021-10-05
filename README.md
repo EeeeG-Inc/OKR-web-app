@@ -85,7 +85,25 @@ main ブランチにマージする前 rebase で develop のコミットを整�
 - guzzlehttp/guzzle
 - laravelcollective/html
 - livewire/livewire
-​
+​- nunomaduro/phpinsights
+- nunomaduro/larastan
+
+### phpinsights
+
+```sh
+# 実行
+php artisan insights
+```
+
+### larastan
+
+`phpstan.neon` に静的解析の設定を記述する
+
+```sh
+# 実行
+./vendor/bin/phpstan analyse
+./vendor/bin/phpstan analyse --memory-limit=2G
+```
 
 ## Git 運用
 ​
