@@ -67,3 +67,6 @@ jobs:
       #- run: ./vendor/bin/phpunit
       - run: ./vendor/bin/codecept build
       - run: ./vendor/bin/codecept run
+      - run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/phpstan analyse --memory-limit=2G
+      - run: php artisan insights
