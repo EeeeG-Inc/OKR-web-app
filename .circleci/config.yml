@@ -74,7 +74,4 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      - run:
-          command: php artisan insights
-          no_output_timeout: 30m
-
+      - run: php artisan insights -v
