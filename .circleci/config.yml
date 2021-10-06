@@ -16,7 +16,7 @@ jobs:
       - APP_DEBUG: true
       - APP_ENV: testing
       - APP_KEY: base64:moUEs0Mj9oom1JBTbG0uPYmjJlcXO0NzJhrxar0XXrU=
-      - DB_CONNECTION: circle_test
+      - DB_CONNECTION: circle_testing
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
