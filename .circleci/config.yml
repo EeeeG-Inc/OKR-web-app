@@ -75,3 +75,4 @@ jobs:
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
       - run: php artisan insights
+        no_output_timeout: 30m
