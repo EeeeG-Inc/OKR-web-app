@@ -15,7 +15,7 @@ jobs:
           - APP_DEBUG: true
           - APP_ENV: ci-testing
           - APP_KEY: base64:j0QhjXx+TEDfE5lgUCM//HMHlR95Mh26f7CEdFtcv9U=
-          - DB_CONNECTION: circle_testing
+          - DB_CONNECTION: mysql
           - DB_DATABASE: circle_test
           - DB_USERNAME: root
       - image: circleci/mysql:5.7
