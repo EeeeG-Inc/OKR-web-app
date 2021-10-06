@@ -13,8 +13,11 @@ jobs:
       - image: circleci/php:7.3-node-browsers
       - image: circleci/mysql:5.7
     environment:
-      - DB_CONNECTION: circle_testing
-
+      - APP_DEBUG: true
+      - APP_ENV: testing
+      - APP_KEY: base64:moUEs0Mj9oom1JBTbG0uPYmjJlcXO0NzJhrxar0XXrU=
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -30,7 +33,7 @@ jobs:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install zip pdo_mysql
 
       # Download and cache dependencies
       - restore_cache:
@@ -58,6 +61,7 @@ jobs:
 
       # prepare the database
       - run: php artisan migrate --env=circle_testing --database=circle_test --force
+      - run: php artisan db:seed
 
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
