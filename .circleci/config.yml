@@ -19,6 +19,7 @@ jobs:
       - DB_CONNECTION: circle_testing
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
       - MYSQL_ROOT_HOST: "%"
+      - DB_PASSWORD: 
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
