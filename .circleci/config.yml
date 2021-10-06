@@ -18,6 +18,7 @@ jobs:
       - APP_KEY: base64:moUEs0Mj9oom1JBTbG0uPYmjJlcXO0NzJhrxar0XXrU=
       - DB_CONNECTION: circle_testing
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
+      - MYSQL_ROOT_HOST: "%"
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
