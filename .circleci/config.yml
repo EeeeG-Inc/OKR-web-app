@@ -67,9 +67,6 @@ jobs:
             - node_modules
 
       # prepare the database
-      - run: pwd
-      - run: ls -la
-      - run: cp .env.ci-testing .env
       - run: php artisan config:clear
       - run: php artisan config:cache
       - run: php artisan migrate
