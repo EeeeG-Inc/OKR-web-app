@@ -15,7 +15,7 @@ jobs:
       - APP_DEBUG: true
       - APP_ENV: ci-testing
       - APP_KEY: j0QhjXx+TEDfE5lgUCM//HMHlR95Mh26f7CEdFtcv9U=
-      - DB_CONNECTION: circle_test
+      - DB_CONNECTION: circle_testing
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     working_directory: ~/repo
