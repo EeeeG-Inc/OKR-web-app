@@ -62,7 +62,7 @@ jobs:
       # prepare the database
       - run: php artisan config:clear
       - run: php artisan config:cache
-      - run: php artisan migrate --env=circle_testing --database=circle_test --force
+      - run: php artisan migrate
       - run: php artisan db:seed
 
       # run tests with phpunit or codecept
