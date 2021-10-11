@@ -28,10 +28,10 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function view(User $user, Team $team)
-    {
-        return $user->belongsToTeam($team);
-    }
+    // public function view(User $user, Team $team)
+    // {
+    //     return $user->belongsToTeam($team);
+    // }
 
     /**
      * Determine whether the user can create models.
@@ -51,10 +51,10 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function update(User $user, Team $team)
-    {
-        return $user->ownsTeam($team);
-    }
+    // public function update(User $user, Team $team)
+    // {
+    //     return $user->ownsTeam($team);
+    // }
 
     /**
      * Determine whether the user can add team members.
@@ -63,10 +63,10 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function addTeamMember(User $user, Team $team)
-    {
-        return $user->ownsTeam($team);
-    }
+    // public function addTeamMember(User $user, Team $team)
+    // {
+    //     return $user->ownsTeam($team);
+    // }
 
     /**
      * Determine whether the user can update team member permissions.
@@ -75,10 +75,10 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function updateTeamMember(User $user, Team $team)
-    {
-        return $user->ownsTeam($team);
-    }
+    // public function updateTeamMember(User $user, Team $team)
+    // {
+    //     return $user->ownsTeam($team);
+    // }
 
     /**
      * Determine whether the user can remove team members.
@@ -87,10 +87,10 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function removeTeamMember(User $user, Team $team)
-    {
-        return $user->ownsTeam($team);
-    }
+    // public function removeTeamMember(User $user, Team $team)
+    // {
+    //     return $user->ownsTeam($team);
+    // }
 
     /**
      * Determine whether the user can delete the model.
@@ -99,8 +99,8 @@ class TeamPolicy
      * @param  \App\Models\Team  $team
      * @return mixed
      */
-    public function delete(User $user, Team $team)
-    {
-        return $user->ownsTeam($team);
-    }
+    // public function delete(User $user, Team $team)
+    // {
+    //     return $user->ownsTeam($team);
+    // }
 }
