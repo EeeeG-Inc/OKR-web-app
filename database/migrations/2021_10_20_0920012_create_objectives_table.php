@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyTable extends Migration
+class CreateObjectivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateCompanyTable extends Migration
      */
     public function up()
     {
-        Schema::create('company', function (Blueprint $table) {
-            $table->id();
+        Schema::create('objectives', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('result')->comment('成果詳細');
+            $table->integer('score')->nullable()->comment('スコア');
+            $table->boolean('delete_flag')->comment('削除フラグ');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateCompanyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company');
+        Schema::dropIfExists('objectives');
     }
 }
