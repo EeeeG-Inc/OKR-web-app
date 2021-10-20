@@ -16,11 +16,11 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name')->comment('部署名');
-            $table->bigInteger('company_id')->unsigned()->comment('会社コード');
+            $table->bigInteger('companies_id')->unsigned()->comment('会社コード');
             $table->boolean('delete_flag')->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('companies_id')
             ->references('id')
             ->on('companies')
             ->onDelete('cascade')
