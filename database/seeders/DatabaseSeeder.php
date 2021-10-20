@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // 各テーブルへのデータの流し込みを呼び出す
+        $this->call('CompaniesTableSeeder::class');
+        $this->call('CompanyGroupsTableSeeder::class');
+        $this->call('DepartmentsTableSeeder::class');
+        $this->call('ObjectivesTableSeeder::class');
+        $this->call('OkrsTableSeeder::class');
+        $this->call('QuatersTableSeeder::class');
+        $this->call('UsersTableSeeder::class');
     }
 }
