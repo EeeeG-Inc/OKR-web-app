@@ -17,7 +17,7 @@ class CreateObjectivesTable extends Migration
             $table->bigIncrements('id');
             $table->text('result')->comment('成果詳細');
             $table->integer('score')->nullable()->comment('スコア');
-            $table->boolean('delete_flag')->comment('削除フラグ');
+            $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
         });
     }

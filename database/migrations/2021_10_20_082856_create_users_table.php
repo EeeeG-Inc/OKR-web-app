@@ -22,20 +22,22 @@ class CreateUsersTable extends Migration
             $table->string('email', 250)->unique()->comment('メールアドレス');
             $table->timestamp('email_verified_at')->nullable()->comment('メールアドレス確認日時');
             $table->text('password')->comment('パスワード');
-            $table->boolean('delete_flag')->comment('削除フラグ');
+            $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('companies_id')
+            $table
+            ->foreign('companies_id')
             ->references('id')
             ->on('companies')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
 
-            $table->foreign('departments_id')
+            $table
+            ->foreign('departments_id')
             ->references('id')
             ->on('departments')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
         });
     }
 
@@ -46,6 +48,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['companies_id']);
+            $table->dropForeign(['departments_id']);
+        });
         Schema::dropIfExists('users');
     }
 }

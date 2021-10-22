@@ -16,7 +16,7 @@ class CreateCompanyGroupsTable extends Migration
         Schema::create('company_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name')->comment('系列名');
-            $table->boolean('delete_flag')->comment('削除フラグ');
+            $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
         });
     }
