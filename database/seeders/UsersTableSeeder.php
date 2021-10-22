@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  null,
                 'departments_id'    =>  null,
                 'role'              =>  Role::ADMIN,
-                'email'              =>  'admin@hoge.hoge',
+                'email'             =>  'admin@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  null,
                 'role'              =>  Role::COMPANY,
-                'email'              =>  'eeeeg@hoge.hoge',
+                'email'             =>  'eeeeg@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  1,
                 'role'              =>  Role::DEPARTMENT,
-                'email'              =>  'shisutemu@hoge.hoge',
+                'email'             =>  'shisutemu@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  2,
                 'role'              =>  Role::DEPARTMENT,
-                'email'              =>  'soumu@hoge.hoge',
+                'email'             =>  'soumu@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -61,7 +61,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  1,
                 'role'              =>  Role::MEMBER,
-                'email'              =>  'katakabe@hoge.hoge',
+                'email'             =>  'katakabe@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -71,7 +71,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  1,
                 'role'              =>  Role::MANAGER,
-                'email'              =>  'ikeda@hoge.hoge',
+                'email'             =>  'ikeda@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -81,7 +81,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  1,
                 'departments_id'    =>  3,
                 'role'              =>  Role::MEMBER,
-                'email'              =>  'kobayashi@hoge.hoge',
+                'email'             =>  'kobayashi@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
@@ -91,7 +91,7 @@ class UsersTableSeeder extends Seeder
                 'companies_id'      =>  2,
                 'departments_id'    =>  5,
                 'role'              =>  Role::MANAGER,
-                'email'              =>  'yamada@hoge.hoge',
+                'email'             =>  'yamada@hoge.hoge',
                 'password'          =>  'password',
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
