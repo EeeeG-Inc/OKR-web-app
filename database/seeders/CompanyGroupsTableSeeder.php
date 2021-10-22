@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CompanyGroupsTableSeeder extends Seeder
 {
@@ -16,16 +17,18 @@ class CompanyGroupsTableSeeder extends Seeder
         $seeds = [
             [
                 'name'               =>  'EeeeGグループ',
-                'delete_flag'        =>  'FALSE'
+                'created_at'         => now(),
+                'updated_at'         => now()
             ],
             [
                 'name'               =>  '山田グループ',
-                'delete_flag'        =>  'FALSE'
+                'created_at'         => now(),
+                'updated_at'         => now()
             ]
         ];
 
         foreach ($seeds as $seed) {
-           DB::table('company_groups')->insert($seed);
+            DB::table('company_groups')->insert($seed);
         }
     }
 }
