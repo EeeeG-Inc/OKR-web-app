@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Enums\Role;
 
 class UsersTableSeeder extends Seeder
@@ -17,66 +18,73 @@ class UsersTableSeeder extends Seeder
         $seeds = [
             [
                 'name'              =>  'EeeeG',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '',
+                'companies_id'      =>  1,
+                'departments_id'    =>  null,
                 'role'              =>  Role::COMPANY,
-                'mail'              =>  'eeeeg@hoge.hoge',
+                'email'              =>  'eeeeg@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  'システム事業部',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '1',
+                'companies_id'      =>  1,
+                'departments_id'    =>  1,
                 'role'              =>  Role::DEPARTMENT,
-                'mail'              =>  'shisutemu@hoge.hoge',
+                'email'              =>  'shisutemu@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  '総務部',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '2',
+                'companies_id'      =>  1,
+                'departments_id'    =>  2,
                 'role'              =>  Role::DEPARTMENT,
-                'mail'              =>  'soumu@hoge.hoge',
+                'email'              =>  'soumu@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  '片伯部',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '1',
+                'companies_id'      =>  1,
+                'departments_id'    =>  1,
                 'role'              =>  Role::MEMBER,
-                'mail'              =>  'katakabe@hoge.hoge',
+                'email'              =>  'katakabe@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  '池田',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '1',
+                'companies_id'      =>  1,
+                'departments_id'    =>  1,
                 'role'              =>  Role::MANAGER,
-                'mail'              =>  'ikeda@hoge.hoge',
+                'email'              =>  'ikeda@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  '小林',
-                'companies_id'      =>  '1',
-                'departments_id'    =>  '3',
+                'companies_id'      =>  1,
+                'departments_id'    =>  3,
                 'role'              =>  Role::MEMBER,
-                'mail'              =>  'kobayashi@hoge.hoge',
+                'email'              =>  'kobayashi@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'TRUE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ],
             [
                 'name'              =>  '山田',
-                'companies_id'      =>  '2',
-                'departments_id'    =>  '5',
+                'companies_id'      =>  2,
+                'departments_id'    =>  5,
                 'role'              =>  Role::MANAGER,
-                'mail'              =>  'yamada@hoge.hoge',
+                'email'              =>  'yamada@hoge.hoge',
                 'password'          =>  'password',
-                'delete_flag'       =>  'FALSE'
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
             ]
         ];
 
