@@ -17,6 +17,16 @@ class UsersTableSeeder extends Seeder
     {
         $seeds = [
             [
+                'name'              =>  'Admin',
+                'companies_id'      =>  null,
+                'departments_id'    =>  null,
+                'role'              =>  Role::ADMIN,
+                'email'              =>  'admin@hoge.hoge',
+                'password'          =>  'password',
+                'created_at'        =>  now(),
+                'updated_at'        =>  now()
+            ],
+            [
                 'name'              =>  'EeeeG',
                 'companies_id'      =>  1,
                 'departments_id'    =>  null,
