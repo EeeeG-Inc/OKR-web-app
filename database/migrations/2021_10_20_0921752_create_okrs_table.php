@@ -19,28 +19,31 @@ class CreateOkrsTable extends Migration
             $table->bigInteger('objectives_id')->unsigned()->comment('オブジェクトコード');
             $table->integer('score')->nullable()->comment('総合スコア');
             $table->bigInteger('users_id')->unsigned()->comment('ユーザコード');
-            $table->integer('yaer')->comment('年度');
+            $table->integer('year')->comment('年度');
             $table->bigInteger('quarters_id')->unsigned()->comment('四半期コード');
-            $table->boolean('delete_flag')->comment('削除フラグ');
+            $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('objectives_id')
+            $table
+            ->foreign('objectives_id')
             ->references('id')
             ->on('objectives')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
 
-            $table->foreign('users_id')
+            $table
+            ->foreign('users_id')
             ->references('id')
             ->on('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
 
-            $table->foreign('quarters_id')
+            $table
+            ->foreign('quarters_id')
             ->references('id')
             ->on('quarters')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
         });
     }
 
@@ -51,6 +54,11 @@ class CreateOkrsTable extends Migration
      */
     public function down()
     {
+        Schema::table('okrs', function (Blueprint $table) {
+            $table->dropForeign(['objectives_id']);
+            $table->dropForeign(['users_id']);
+            $table->dropForeign(['quarters_id']);
+        });
         Schema::dropIfExists('okrs');
     }
 }

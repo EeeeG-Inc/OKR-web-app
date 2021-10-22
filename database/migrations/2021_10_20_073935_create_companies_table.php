@@ -18,14 +18,15 @@ class CreateCompaniesTable extends Migration
             $table->text('name')->comment('会社名');
             $table->bigInteger('company_group_id')->comment('系列コード')->unsigned();
             $table->boolean('is_master')->comment('マスターフラグ');
-            $table->boolean('delete_flag')->comment('削除フラグ');
+            $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('company_group_id')
+            $table
+            ->foreign('company_group_id')
             ->references('id')
             ->on('company_groups')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
         });
     }
 
@@ -36,6 +37,9 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
+        Schema::table('companies', function (Blueprint $table) {
+            $table->dropForeign(['company_group_id']);
+        });
         Schema::dropIfExists('companies');
     }
 }
