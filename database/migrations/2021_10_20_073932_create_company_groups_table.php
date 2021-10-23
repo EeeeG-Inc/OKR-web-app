@@ -14,10 +14,16 @@ class CreateCompanyGroupsTable extends Migration
     public function up()
     {
         Schema::create('company_groups', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('name')->comment('系列名');
-            $table->softDeletes()->comment('削除フラグ');
-            $table->timestamps();
+            $table
+                ->bigIncrements('id');
+            $table
+                ->text('name')
+                ->comment('系列名');
+            $table
+                ->softDeletes()
+                ->comment('削除フラグ');
+            $table
+                ->timestamps();
         });
     }
 

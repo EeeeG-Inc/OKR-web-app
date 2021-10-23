@@ -14,30 +14,52 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('name')->comment('ユーザー名');
-            $table->integer('role')->nullable()->comment('権限');
-            $table->bigInteger('companies_id')->nullable()->unsigned()->comment('会社コード');
-            $table->bigInteger('departments_id')->nullable()->unsigned()->comment('部署コード');
-            $table->string('email', 250)->unique()->comment('メールアドレス');
-            $table->timestamp('email_verified_at')->nullable()->comment('メールアドレス確認日時');
-            $table->text('password')->comment('パスワード');
-            $table->softDeletes()->comment('削除フラグ');
-            $table->timestamps();
+            $table
+                ->bigIncrements('id');
+            $table
+                ->text('name')
+                ->comment('ユーザー名');
+            $table
+                ->integer('role')
+                ->nullable()
+                ->comment('権限');
+            $table
+                ->bigInteger('companies_id')
+                ->nullable()
+                ->unsigned()
+                ->comment('会社ID');
+            $table
+                ->bigInteger('departments_id')
+                ->nullable()
+                ->unsigned()
+                ->comment('部署ID');
+            $table
+                ->string('email', 250)
+                ->unique()
+                ->comment('メールアドレス');
+            $table
+                ->timestamp('email_verified_at')
+                ->nullable()
+                ->comment('メールアドレス確認日時');
+            $table
+                ->text('password')
+                ->comment('パスワード');
+            $table
+                ->softDeletes()
+                ->comment('削除フラグ');
+            $table
+                ->timestamps();
 
             $table
-            ->foreign('companies_id')
-            ->references('id')
-            ->on('companies')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
-
+                ->foreign('companies_id')
+                ->references('id')
+                ->on('companies')
+                ->cascadeOnUpdate();
             $table
-            ->foreign('departments_id')
-            ->references('id')
-            ->on('departments')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
+                ->foreign('departments_id')
+                ->references('id')
+                ->on('departments')
+                ->cascadeOnUpdate();
         });
     }
 
@@ -49,8 +71,10 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['companies_id']);
-            $table->dropForeign(['departments_id']);
+            $table
+                ->dropForeign(['companies_id']);
+            $table
+                ->dropForeign(['departments_id']);
         });
         Schema::dropIfExists('users');
     }

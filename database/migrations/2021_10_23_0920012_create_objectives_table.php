@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartmentsTable extends Migration
+class CreateObjectivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,21 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('objectives', function (Blueprint $table) {
             $table
                 ->bigIncrements('id');
             $table
-                ->text('name')
-                ->comment('部署名');
+                ->text('result')
+                ->comment('成果詳細');
             $table
-                ->bigInteger('companies_id')
+                ->integer('score')
+                ->nullable()
+                ->comment('OKR個別スコア');
+            $table
+                ->bigInteger('okrs_id')
                 ->unsigned()
-                ->comment('会社ID');
+                ->nullable()
+                ->comment('okrID');
             $table
                 ->softDeletes()
                 ->comment('削除フラグ');
@@ -30,9 +35,9 @@ class CreateDepartmentsTable extends Migration
                 ->timestamps();
 
             $table
-                ->foreign('companies_id')
+                ->foreign('okrs_id')
                 ->references('id')
-                ->on('companies')
+                ->on('okrs')
                 ->cascadeOnUpdate();
         });
     }
@@ -44,10 +49,10 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('departments', function (Blueprint $table) {
+        Schema::dropIfExists('objectives');
+        Schema::table('objectives', function (Blueprint $table) {
             $table
-                ->dropForeign(['companies_id']);
+                ->dropForeign(['okrs_id']);
         });
-        Schema::dropIfExists('departments');
     }
 }
