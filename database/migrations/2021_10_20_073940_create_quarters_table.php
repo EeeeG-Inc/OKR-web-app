@@ -14,19 +14,29 @@ class CreateQuartersTable extends Migration
     public function up()
     {
         Schema::create('quarters', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('from', 2)->comment('開始月');
-            $table->string('to', 2)->comment('終了月');
-            $table->bigInteger('companies_id')->comment('会社コード')->unsigned();
-            $table->softDeletes()->comment('削除フラグ');
-            $table->timestamps();
+            $table
+                ->bigIncrements('id');
+            $table
+                ->string('from', 2)
+                ->comment('開始月');
+            $table
+                ->string('to', 2)
+                ->comment('終了月');
+            $table
+                ->bigInteger('companies_id')
+                ->comment('会社ID')
+                ->unsigned();
+            $table
+                ->softDeletes()
+                ->comment('削除フラグ');
+            $table
+                ->timestamps();
 
             $table
-            ->foreign('companies_id')
-            ->references('id')
-            ->on('companies')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
+                ->foreign('companies_id')
+                ->references('id')
+                ->on('companies')
+                ->cascadeOnUpdate();
         });
     }
 
@@ -38,7 +48,8 @@ class CreateQuartersTable extends Migration
     public function down()
     {
         Schema::table('quarters', function (Blueprint $table) {
-            $table->dropForeign(['companies_id']);
+            $table
+                ->dropForeign(['companies_id']);
         });
         Schema::dropIfExists('quarters');
     }

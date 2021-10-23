@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             QuartersTableSeeder::class,
             DepartmentsTableSeeder::class,
             UsersTableSeeder::class,
-            ObjectivesTableSeeder::class,
             OkrsTableSeeder::class,
+            ObjectivesTableSeeder::class,
         ]);
     }
 }
