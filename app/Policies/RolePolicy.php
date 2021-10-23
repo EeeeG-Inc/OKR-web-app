@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Enums\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AnnouncementPolicy
+class RolePolicy
 {
     use HandlesAuthorization;
 
@@ -44,6 +44,7 @@ class AnnouncementPolicy
             Role::COMPANY,      // 会社
             Role::DEPARTMENT,   // 部署
             Role::MANAGER,      // マネージャー
+            Role::MEMBER        // 一般
         ];
         return (in_array($user->role, $user_types));
     }
