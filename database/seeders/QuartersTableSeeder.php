@@ -18,56 +18,56 @@ class QuartersTableSeeder extends Seeder
             [
                 'from'               =>  '05',
                 'to'                 =>  '06',
-                'companies_id'       =>  1,
+                'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '07',
                 'to'                 =>  '09',
-                'companies_id'       =>  1,
+                'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '10',
                 'to'                 =>  '12',
-                'companies_id'       =>  1,
+                'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '01',
                 'to'                 =>  '03',
-                'companies_id'       =>  1,
+                'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '04',
                 'to'                 =>  '06',
-                'companies_id'       =>  2,
+                'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '07',
                 'to'                 =>  '09',
-                'companies_id'       =>  2,
+                'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '10',
                 'to'                 =>  '12',
-                'companies_id'       =>  2,
+                'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
                 'from'               =>  '01',
                 'to'                 =>  '03',
-                'companies_id'       =>  2,
+                'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ]

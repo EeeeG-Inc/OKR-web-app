@@ -14,23 +14,15 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
+            $table->integer('id');
+            $table->text('name')->comment('会社名');
             $table
-                ->bigIncrements('id');
-            $table
-                ->text('name')
-                ->comment('会社名');
-            $table
-                ->bigInteger('company_group_id')
+                ->integer('company_group_id')
                 ->comment('系列ID')
                 ->unsigned();
-            $table
-                ->boolean('is_master')
-                ->comment('マスターフラグ');
-            $table
-                ->softDeletes()
-                ->comment('削除フラグ');
-            $table
-                ->timestamps();
+            $table->boolean('is_master')->comment('マスターフラグ');
+            $table->softDeletes()->comment('削除フラグ');
+            $table->timestamps();
 
             $table
                 ->foreign('company_group_id')

@@ -18,8 +18,8 @@ class UsersTableSeeder extends Seeder
         $seeds = [
             [
                 'name'              =>  'Admin',
-                'companies_id'      =>  null,
-                'departments_id'    =>  null,
+                'company_id'        =>  null,
+                'department_id'     =>  null,
                 'role'              =>  Role::ADMIN,
                 'email'             =>  'admin@hoge.hoge',
                 'password'          =>  'password',
@@ -28,8 +28,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  'EeeeG',
-                'companies_id'      =>  1,
-                'departments_id'    =>  null,
+                'company_id'        =>  1,
+                'department_id'     =>  null,
                 'role'              =>  Role::COMPANY,
                 'email'             =>  'eeeeg@hoge.hoge',
                 'password'          =>  'password',
@@ -38,8 +38,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  'システム事業部',
-                'companies_id'      =>  1,
-                'departments_id'    =>  1,
+                'company_id'        =>  1,
+                'department_id'     =>  1,
                 'role'              =>  Role::DEPARTMENT,
                 'email'             =>  'shisutemu@hoge.hoge',
                 'password'          =>  'password',
@@ -48,8 +48,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  '総務部',
-                'companies_id'      =>  1,
-                'departments_id'    =>  2,
+                'company_id'        =>  1,
+                'department_id'     =>  2,
                 'role'              =>  Role::DEPARTMENT,
                 'email'             =>  'soumu@hoge.hoge',
                 'password'          =>  'password',
@@ -58,8 +58,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  '片伯部',
-                'companies_id'      =>  1,
-                'departments_id'    =>  1,
+                'company_id'        =>  1,
+                'department_id'     =>  1,
                 'role'              =>  Role::MEMBER,
                 'email'             =>  'katakabe@hoge.hoge',
                 'password'          =>  'password',
@@ -68,8 +68,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  '池田',
-                'companies_id'      =>  1,
-                'departments_id'    =>  1,
+                'company_id'        =>  1,
+                'department_id'     =>  1,
                 'role'              =>  Role::MANAGER,
                 'email'             =>  'ikeda@hoge.hoge',
                 'password'          =>  'password',
@@ -78,8 +78,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  '小林',
-                'companies_id'      =>  1,
-                'departments_id'    =>  3,
+                'company_id'        =>  1,
+                'department_id'     =>  3,
                 'role'              =>  Role::MEMBER,
                 'email'             =>  'kobayashi@hoge.hoge',
                 'password'          =>  'password',
@@ -88,8 +88,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name'              =>  '山田',
-                'companies_id'      =>  2,
-                'departments_id'    =>  5,
+                'company_id'        =>  2,
+                'department_id'     =>  5,
                 'role'              =>  Role::MANAGER,
                 'email'             =>  'yamada@hoge.hoge',
                 'password'          =>  'password',
