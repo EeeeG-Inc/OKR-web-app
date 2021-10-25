@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Enums\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy
+class OkrPolicy
 {
     use HandlesAuthorization;
 
@@ -52,6 +52,10 @@ class RolePolicy
     /* 削除 */
     public function delete(User $user)
     {
-        return ($user->role == Role::ADMIN); // AdminだけOK
+        $user_types = [
+            Role::ADMIN,        // Admin
+            Role::COMPANY,      // 会社
+        ];
+        return (in_array($user->role, $user_types));
     }
 }
