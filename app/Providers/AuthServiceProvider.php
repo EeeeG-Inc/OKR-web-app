@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Team::class => TeamPolicy::class,
+        'App\Post' => 'App\Policies\OkrPolicy',
     ];
 
     /**
@@ -27,9 +28,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('announcements.view', 'App\Policies\RolePolicy@view');
-        Gate::define('announcements.create', 'App\Policies\RolePolicy@create');
-        Gate::define('announcements.update', 'App\Policies\RolePolicy@update');
-        Gate::define('announcements.delete', 'App\Policies\RolePolicy@delete');
+        // 開発者のみ許可
+        Gate::define('admin-only', function ($user) {
+            return ($user->role == 1);
+        });
+        // マネージャー以上（管理者＆会社＆部署）に許可
+        Gate::define('manager-higher', function ($user) {
+            return ($user->role > 0 && $user->role <= 4);
+        });
+        // 全員に許可
+        Gate::define('user-higher', function ($user) {
+            return ($user->role > 0 && $user->role <= 5);
+        });
     }
 }
