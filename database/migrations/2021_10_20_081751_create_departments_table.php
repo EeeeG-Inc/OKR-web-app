@@ -14,23 +14,17 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
+            $table->integer('id');
+            $table->text('name')->comment('部署名');
             $table
-                ->bigIncrements('id');
-            $table
-                ->text('name')
-                ->comment('部署名');
-            $table
-                ->bigInteger('companies_id')
+                ->integer('company_id')
                 ->unsigned()
                 ->comment('会社ID');
-            $table
-                ->softDeletes()
-                ->comment('削除フラグ');
-            $table
-                ->timestamps();
+            $table->softDeletes()->comment('削除フラグ');
+            $table->timestamps();
 
             $table
-                ->foreign('companies_id')
+                ->foreign('company_id')
                 ->references('id')
                 ->on('companies')
                 ->cascadeOnUpdate();
@@ -45,8 +39,7 @@ class CreateDepartmentsTable extends Migration
     public function down()
     {
         Schema::table('departments', function (Blueprint $table) {
-            $table
-                ->dropForeign(['companies_id']);
+            $table->dropForeign(['companies_id']);
         });
         Schema::dropIfExists('departments');
     }

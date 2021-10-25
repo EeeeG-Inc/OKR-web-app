@@ -18,9 +18,9 @@ class OkrsTableSeeder extends Seeder
             [
                 'name'               =>  '歩く',
                 'score'              =>  0.9,
-                'users_id'           =>  4,
+                'user_id'            =>  4,
                 'year'               =>  2021,
-                'quarters_id'         =>  1,
+                'quarter_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ]

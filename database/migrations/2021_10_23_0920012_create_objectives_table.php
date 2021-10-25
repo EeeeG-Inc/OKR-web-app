@@ -15,16 +15,16 @@ class CreateObjectivesTable extends Migration
     {
         Schema::create('objectives', function (Blueprint $table) {
             $table
-                ->bigIncrements('id');
+                ->integer('id');
             $table
                 ->text('result')
                 ->comment('成果詳細');
             $table
                 ->integer('score')
                 ->nullable()
-                ->comment('OKR個別スコア');
+                ->comment('個別スコア');
             $table
-                ->bigInteger('okrs_id')
+                ->integer('okr_id')
                 ->unsigned()
                 ->nullable()
                 ->comment('okrID');
@@ -35,7 +35,7 @@ class CreateObjectivesTable extends Migration
                 ->timestamps();
 
             $table
-                ->foreign('okrs_id')
+                ->foreign('okr_id')
                 ->references('id')
                 ->on('okrs')
                 ->cascadeOnUpdate();
@@ -52,7 +52,7 @@ class CreateObjectivesTable extends Migration
         Schema::dropIfExists('objectives');
         Schema::table('objectives', function (Blueprint $table) {
             $table
-                ->dropForeign(['okrs_id']);
+                ->dropForeign(['okr_id']);
         });
     }
 }
