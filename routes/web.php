@@ -32,7 +32,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // 全ユーザ
-Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
     // ユーザ一覧
     Route::get('/account', 'AccountController@index')->name('account.index');
 });
