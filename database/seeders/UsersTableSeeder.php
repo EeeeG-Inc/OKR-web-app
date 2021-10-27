@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Enums\Role;
 
 class UsersTableSeeder extends Seeder
@@ -22,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  null,
                 'role'              =>  Role::ADMIN,
                 'email'             =>  'admin@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('12345678'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -32,7 +33,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  null,
                 'role'              =>  Role::COMPANY,
                 'email'             =>  'eeeeg@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -42,7 +43,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  1,
                 'role'              =>  Role::DEPARTMENT,
                 'email'             =>  'shisutemu@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -52,7 +53,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  2,
                 'role'              =>  Role::DEPARTMENT,
                 'email'             =>  'soumu@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -62,7 +63,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  1,
                 'role'              =>  Role::MEMBER,
                 'email'             =>  'katakabe@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -72,7 +73,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  1,
                 'role'              =>  Role::MANAGER,
                 'email'             =>  'ikeda@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -82,7 +83,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  3,
                 'role'              =>  Role::MEMBER,
                 'email'             =>  'kobayashi@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ],
@@ -92,7 +93,7 @@ class UsersTableSeeder extends Seeder
                 'department_id'     =>  5,
                 'role'              =>  Role::MANAGER,
                 'email'             =>  'yamada@hoge.hoge',
-                'password'          =>  'password',
+                'password'          =>  Hash::make('password'),
                 'created_at'        =>  now(),
                 'updated_at'        =>  now()
             ]

@@ -14,7 +14,7 @@ class CreateOkrsTable extends Migration
     public function up()
     {
         Schema::create('okrs', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->text('name')->comment('目標');
             $table
                 ->integer('score')

@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->text('name')->comment('ユーザー名');
             $table
                 ->integer('role')
@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
                 ->timestamp('email_verified_at')
                 ->nullable()
                 ->comment('メールアドレス確認日時');
-            $table->text('password')->comment('パスワード');
+            $table->string('password')->comment('パスワード');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
