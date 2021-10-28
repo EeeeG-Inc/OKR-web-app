@@ -16,57 +16,57 @@ class QuartersTableSeeder extends Seeder
     {
         $seeds = [
             [
-                'from'               =>  '05',
-                'to'                 =>  '06',
+                'from'               =>  5,
+                'to'                 =>  6,
                 'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '07',
-                'to'                 =>  '09',
+                'from'               =>  7,
+                'to'                 =>  9,
                 'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '10',
-                'to'                 =>  '12',
+                'from'               =>  10,
+                'to'                 =>  12,
                 'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '01',
-                'to'                 =>  '03',
+                'from'               =>  1,
+                'to'                 =>  3,
                 'company_id'         =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '04',
-                'to'                 =>  '06',
+                'from'               =>  4,
+                'to'                 =>  6,
                 'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '07',
-                'to'                 =>  '09',
+                'from'               =>  7,
+                'to'                 =>  9,
                 'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '10',
-                'to'                 =>  '12',
+                'from'               =>  10,
+                'to'                 =>  12,
                 'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'from'               =>  '01',
-                'to'                 =>  '03',
+                'from'               =>  1,
+                'to'                 =>  3,
                 'company_id'         =>  2,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()

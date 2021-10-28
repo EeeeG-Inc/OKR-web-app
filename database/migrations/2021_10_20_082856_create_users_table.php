@@ -16,39 +16,32 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name')->comment('ユーザー名');
-            $table
-                ->integer('role')
+            $table->integer('role')
                 ->nullable()
                 ->comment('権限');
-            $table
-                ->integer('company_id')
+            $table->integer('company_id')
                 ->nullable()
                 ->unsigned()
                 ->comment('会社ID');
-            $table
-                ->integer('department_id')
+            $table->integer('department_id')
                 ->nullable()
                 ->unsigned()
                 ->comment('部署ID');
-            $table
-                ->string('email', 250)
+            $table->string('email', 250)
                 ->unique()
                 ->comment('メールアドレス');
-            $table
-                ->timestamp('email_verified_at')
+            $table->timestamp('email_verified_at')
                 ->nullable()
                 ->comment('メールアドレス確認日時');
             $table->string('password')->comment('パスワード');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table
-                ->foreign('company_id')
+            $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
                 ->cascadeOnUpdate();
-            $table
-                ->foreign('department_id')
+            $table->foreign('department_id')
                 ->references('id')
                 ->on('departments')
                 ->cascadeOnUpdate();

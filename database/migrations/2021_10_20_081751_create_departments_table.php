@@ -16,15 +16,13 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name')->comment('部署名');
-            $table
-                ->integer('company_id')
+            $table->integer('company_id')
                 ->unsigned()
                 ->comment('会社ID');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table
-                ->foreign('company_id')
+            $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
                 ->cascadeOnUpdate();

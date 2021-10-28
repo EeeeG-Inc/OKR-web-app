@@ -15,17 +15,15 @@ class CreateQuartersTable extends Migration
     {
         Schema::create('quarters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('from', 2)->comment('開始月');
-            $table->string('to', 2)->comment('終了月');
-            $table
-                ->integer('company_id')
+            $table->integer('from')->comment('開始月');
+            $table->integer('to')->comment('終了月');
+            $table->integer('company_id')
                 ->comment('会社ID')
                 ->unsigned();
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table
-                ->foreign('company_id')
+            $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
                 ->cascadeOnUpdate();

@@ -16,12 +16,12 @@ class CompanyGroupsTableSeeder extends Seeder
     {
         $seeds = [
             [
-                'name'               =>  'EeeeGグループ',
+                'name'               => 'EeeeGグループ',
                 'created_at'         => now(),
                 'updated_at'         => now()
             ],
             [
-                'name'               =>  '山田グループ',
+                'name'               => '山田グループ',
                 'created_at'         => now(),
                 'updated_at'         => now()
             ]
