@@ -16,16 +16,14 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name')->comment('会社名');
-            $table
-                ->integer('company_group_id')
+            $table->integer('company_group_id')
                 ->comment('系列ID')
                 ->unsigned();
             $table->boolean('is_master')->comment('マスターフラグ');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
-            $table
-                ->foreign('company_group_id')
+            $table->foreign('company_group_id')
                 ->references('id')
                 ->on('company_groups')
                 ->cascadeOnUpdate();
@@ -40,8 +38,7 @@ class CreateCompaniesTable extends Migration
     public function down()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table
-                ->dropForeign(['company_group_id']);
+            $table->dropForeign(['company_group_id']);
         });
         Schema::dropIfExists('companies');
     }

@@ -14,28 +14,20 @@ class CreateObjectivesTable extends Migration
     public function up()
     {
         Schema::create('objectives', function (Blueprint $table) {
-            $table
-                ->increments('id');
-            $table
-                ->text('result')
-                ->comment('成果詳細');
-            $table
-                ->integer('score')
+            $table->increments('id');
+            $table->text('result')->comment('成果詳細');
+            $table->integer('score')
                 ->nullable()
                 ->comment('個別スコア');
-            $table
-                ->integer('okr_id')
+            $table->integer('okr_id')
                 ->unsigned()
                 ->nullable()
                 ->comment('okrID');
-            $table
-                ->softDeletes()
+            $table->softDeletes()
                 ->comment('削除フラグ');
-            $table
-                ->timestamps();
+            $table->timestamps();
 
-            $table
-                ->foreign('okr_id')
+            $table->foreign('okr_id')
                 ->references('id')
                 ->on('okrs')
                 ->cascadeOnUpdate();
@@ -51,8 +43,7 @@ class CreateObjectivesTable extends Migration
     {
         Schema::dropIfExists('objectives');
         Schema::table('objectives', function (Blueprint $table) {
-            $table
-                ->dropForeign(['okr_id']);
+            $table->dropForeign(['okr_id']);
         });
     }
 }
