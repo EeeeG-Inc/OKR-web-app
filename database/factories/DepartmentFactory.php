@@ -15,7 +15,7 @@ class DepartmentFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->department(),
+            'name'          => $this->faker->company(),
             'company_id'    => Company::factory(),
         ];
     }

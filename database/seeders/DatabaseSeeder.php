@@ -13,15 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // 各テーブルへのデータの流し込みを呼び出す
-        $this->call([
-            CompanyGroupsTableSeeder::class,
-            CompaniesTableSeeder::class,
-            QuartersTableSeeder::class,
-            DepartmentsTableSeeder::class,
-            UsersTableSeeder::class,
-            OkrsTableSeeder::class,
-            ObjectivesTableSeeder::class,
-        ]);
+        \App\Models\CompanyGroup::factory(5)->create();
+        \App\Models\Company::factory(10)->create();
+        \App\Models\Quarter::factory(10)->create();
+        \App\Models\Department::factory(10)->create();
+        \App\Models\User::factory(10)->create();
+        \App\Models\Okr::factory(10)->create();
+        \App\Models\Objective::factory(10)->create();
     }
 }
