@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -69,6 +71,7 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -78,6 +81,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
@@ -87,9 +91,19 @@ class User extends Authenticatable
      *
      * @var array
      */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
+    protected $casts = [
+        'name'                      => 'string',
+        'role'                      => 'int',
+        'company_id'                => 'int',
+        'department_id'             => 'int',
+        'email'                     => 'string',
+        'email_verified_at'         => 'datetime',
+        'two_factor_secret'         => 'string',
+        'two_factor_recovery_codes' => 'string',
+        'deleted_at'                => 'boolean',
+        'created_at'                => 'datetime',
+        'updated_at'                => 'datetime',
+    ];
 
     /**
      * The accessors to append to the model's array form.
@@ -99,4 +113,26 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'users';
+
+    public function companies(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function departments(): BelongsTo
+    {
+        return $this->belongsTo(Depaetment::class, 'department_id');
+    }
+
+    public function okrs(): HasMany
+    {
+        return $this->hasMany(Okr::class, 'okr_id');
+    }
 }

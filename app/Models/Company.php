@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Company
@@ -40,5 +42,47 @@ class Company extends Model
         'name',
         'company_group_id',
         'is_master',
+        'deleted_at',
     ];
+
+     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name'              => 'string',
+        'company_group_id'  => 'int',
+        'is_master'         => 'boolean',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'companies';
+
+    public function companyGroups(): BelongsTo
+    {
+        return $this->belongsTo(CompanyGroup::class, 'company_group_id');
+    }
+
+    public function departments(): HasMany
+    {
+        return $this->hasManys(Department::class, 'department_id');
+    }
+
+    public function quarters(): HasMany
+    {
+        return $this->hasMany(Quarter::class, 'quarter_id');
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'user_id');
+    }
 }

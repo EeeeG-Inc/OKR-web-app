@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Okr
@@ -48,5 +50,44 @@ class Okr extends Model
         'user_id',
         'year',
         'quater_id',
+        'deleted_at',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name'              => 'string',
+        'score'             => 'float',
+        'user_id'           => 'int',
+        'year'              => 'int',
+        'quarter_id'        => 'int',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'okrs';
+
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function quarters(): BelongsTo
+    {
+        return $this->belongsTo(Quarter::class, 'quarter_id');
+    }
+
+    public function objectives(): HasMany
+    {
+        return $this->hasMany(Objectives::class, 'object_id');
+    }
 }

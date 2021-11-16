@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Department
@@ -37,5 +38,31 @@ class Department extends Model
     protected $fillable = [
         'name',
         'company_id',
+        'deleted_at',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name'              => 'string',
+        'company_id'        => 'int',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'departments';
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

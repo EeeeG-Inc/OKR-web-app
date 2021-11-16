@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Objective
@@ -28,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class Objective extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -39,4 +40,30 @@ class Objective extends Model
         'score',
         'okr_id',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'result'            => 'string',
+        'score'             => 'float',
+        'okr_id'            => 'int',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'objectives';
+
+    public function okrs(): BelongsTo
+    {
+        return $this->belongsTo(Okr::class, 'okr_id');
+    }
 }

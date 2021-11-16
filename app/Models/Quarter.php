@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Quarter
@@ -40,5 +42,37 @@ class Quarter extends Model
         'from',
         'to',
         'company_id',
+        'deleted_at',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'from'              => 'int',
+        'to'                => 'int',
+        'company_id'        => 'int',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'quarters';
+
+    public function companies(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function okrs(): HasMany
+    {
+        return $this->hasMany(Okr::class, 'okr_id');
+    }
 }
