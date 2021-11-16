@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\CompanyGroup
@@ -34,5 +35,30 @@ class CompanyGroup extends Model
      */
     protected $fillable = [
         'name',
+        'deleted_at',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name'              => 'string',
+        'deleted_at'        => 'boolean',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+    ];
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'company_groups';
+
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class, 'company_id');
+    }
 }
