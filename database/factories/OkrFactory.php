@@ -16,11 +16,11 @@ class OkrFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => $this->faker->realText(15),
-            'score'     => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
-            'user_id'   => User::factory(),
-            'year'      => $this->faker->year(),
-            'quater_id' => Quarter::factory(),
+            'name'       => $this->faker->realText(15),
+            'score'      => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
+            'user_id'    => User::factory(),
+            'year'       => $this->faker->year(),
+            'quarter_id' => Quarter::factory(),
         ];
     }
 }
