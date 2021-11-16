@@ -28,4 +28,15 @@ use Illuminate\Database\Eloquent\Model;
 class Objective extends Model
 {
     use HasFactory;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'result',
+        'score',
+        'okr_id',
+    ];
 }
