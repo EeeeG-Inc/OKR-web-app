@@ -25,10 +25,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Department whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Department whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $company_id 会社ID
+ * @property-read \App\Models\Company $company
+ * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Department whereCompanyId($value)
  */
 class Department extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'departments';
 
     /**
      * The attributes that are mass assignable.
@@ -49,17 +60,10 @@ class Department extends Model
     protected $casts = [
         'name'              => 'string',
         'company_id'        => 'int',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'departments';
 
     public function company(): BelongsTo
     {

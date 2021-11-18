@@ -15,7 +15,7 @@ class DepartmentFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => "営業部",
+            'name'          => "テスト事業部",
             'company_id'    => Company::factory(),
         ];
     }

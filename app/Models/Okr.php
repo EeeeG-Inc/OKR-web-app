@@ -34,10 +34,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUsersId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereYear($value)
  * @mixin \Eloquent
+ * @property int $user_id ユーザID
+ * @property int $quarter_id 四半期ID
+ * @property-read \App\Models\Quarter $quarters
+ * @property-read \App\Models\User $users
+ * @method static \Database\Factories\OkrFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereQuarterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
  */
 class Okr extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'okrs';
 
     /**
      * The attributes that are mass assignable.
@@ -64,17 +78,10 @@ class Okr extends Model
         'user_id'           => 'int',
         'year'              => 'int',
         'quarter_id'        => 'int',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'okrs';
 
     public function users(): BelongsTo
     {

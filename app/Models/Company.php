@@ -28,10 +28,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\CompanyGroup $companyGroups
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $departments
+ * @property-read int|null $departments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Quarter[] $quarters
+ * @property-read int|null $quarters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\CompanyFactory factory(...$parameters)
  */
 class Company extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'companies';
 
     /**
      * The attributes that are mass assignable.
@@ -54,17 +69,10 @@ class Company extends Model
         'name'              => 'string',
         'company_group_id'  => 'int',
         'is_master'         => 'boolean',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'companies';
 
     public function companyGroups(): BelongsTo
     {
@@ -73,7 +81,7 @@ class Company extends Model
 
     public function departments(): HasMany
     {
-        return $this->hasManys(Department::class, 'department_id');
+        return $this->hasMany(Department::class, 'department_id');
     }
 
     public function quarters(): HasMany

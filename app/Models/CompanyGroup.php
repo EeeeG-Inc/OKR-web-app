@@ -23,10 +23,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyGroup whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyGroup whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Company[] $companies
+ * @property-read int|null $companies_count
+ * @method static \Database\Factories\CompanyGroupFactory factory(...$parameters)
  */
 class CompanyGroup extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'company_groups';
 
     /**
      * The attributes that are mass assignable.
@@ -45,17 +55,10 @@ class CompanyGroup extends Model
      */
     protected $casts = [
         'name'              => 'string',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'company_groups';
 
     public function companies(): HasMany
     {

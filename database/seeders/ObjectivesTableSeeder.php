@@ -16,35 +16,35 @@ class ObjectivesTableSeeder extends Seeder
     {
         $seeds = [
             [
-                'result'             =>  '沢山歩いた',
+                'name'             =>  '沢山歩いた',
                 'score'              =>  0.9,
                 'okr_id'             =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'result'             =>  '歩けなかった',
+                'name'             =>  '歩けなかった',
                 'score'              =>  0.1,
                 'okr_id'             =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'result'             =>  'ちょっと歩いた',
+                'name'             =>  'ちょっと歩いた',
                 'score'              =>  0.5,
                 'okr_id'             =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'result'             =>  'ずっと歩いた',
+                'name'             =>  'ずっと歩いた',
                 'score'              =>  0.2,
                 'okr_id'             =>  1,
                 'created_at'         =>  now(),
                 'updated_at'         =>  now()
             ],
             [
-                'result'             =>  'ずっと歩いた',
+                'name'             =>  'ずっと歩いた',
                 'score'              =>  1.0,
                 'okr_id'             =>  1,
                 'created_at'         =>  now(),
