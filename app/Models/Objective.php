@@ -25,10 +25,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereScore($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $okr_id okrID
+ * @property-read \App\Models\Okr|null $okrs
+ * @method static \Database\Factories\ObjectiveFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
  */
 class Objective extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'objectives';
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +47,7 @@ class Objective extends Model
      * @var string[]
      */
     protected $fillable = [
-        'result',
+        'name',
         'score',
         'okr_id',
     ];
@@ -47,20 +58,13 @@ class Objective extends Model
      * @var array
      */
     protected $casts = [
-        'result'            => 'string',
+        'name'            => 'string',
         'score'             => 'float',
         'okr_id'            => 'int',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'objectives';
 
     public function okrs(): BelongsTo
     {

@@ -50,6 +50,13 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $company_id 会社ID
+ * @property int|null $department_id 部署ID
+ * @property-read \App\Models\Company|null $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Okr[] $okrs
+ * @property-read int|null $okrs_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
  */
 class User extends Authenticatable
 {
@@ -58,6 +65,13 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -100,7 +114,7 @@ class User extends Authenticatable
         'email_verified_at'         => 'datetime',
         'two_factor_secret'         => 'string',
         'two_factor_recovery_codes' => 'string',
-        'deleted_at'                => 'boolean',
+        'deleted_at'                => 'datetime',
         'created_at'                => 'datetime',
         'updated_at'                => 'datetime',
     ];
@@ -113,13 +127,6 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'users';
 
     public function companies(): BelongsTo
     {

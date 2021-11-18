@@ -28,10 +28,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $company_id 会社ID
+ * @property-read \App\Models\Company $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Okr[] $okrs
+ * @property-read int|null $okrs_count
+ * @method static \Database\Factories\QuarterFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
  */
 class Quarter extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var array
+     */
+    protected $table = 'quarters';
 
     /**
      * The attributes that are mass assignable.
@@ -54,17 +67,10 @@ class Quarter extends Model
         'from'              => 'int',
         'to'                => 'int',
         'company_id'        => 'int',
-        'deleted_at'        => 'boolean',
+        'deleted_at'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
-
-    /**
-     * Database table.
-     *
-     * @var array
-     */
-    protected $table = 'quarters';
 
     public function companies(): BelongsTo
     {
