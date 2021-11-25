@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OkrController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,24 +21,27 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
 })->name('dashboard');
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get(['/home', HomeController::class, 'index'])->name('home');
+
+// OKR 一覧
+Route::get('/okr', [OkrController::class, 'index'])->name('okr.index');
 
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
     // ユーザ一覧
-    Route::get('/account', 'AccountController@index')->name('account.index');
+    Route::get('/account', [AccountController::class, 'index'])->name('account.index');
 });
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:manager-higher']], function () {
     // ユーザ登録
-    Route::get('/account/regist', 'AccountController@regist')->name('account.regist');
-    Route::post('/account/regist', 'AccountController@createData')->name('account.regist');
+    Route::get('/account/regist', [AccountController::class, 'regist'])->name('account.regist');
+    Route::post('/account/regist', [AccountController::class, 'createData'])->name('account.regist');
 
     // ユーザ編集
-    Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
-    Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
+    Route::get('/account/edit/{user_id}', [AccountController::class, 'edit'])->name('account.edit');
+    Route::post('/account/edit/{user_id}', [AccountController::class, 'updateData'])->name('account.edit');
 
     // ユーザ削除
-    Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
+    Route::post('/account/delete/{user_id}', [AccountController::class, 'deleteData']);
 });
