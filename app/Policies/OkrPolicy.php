@@ -20,7 +20,7 @@ class OkrPolicy
             Role::MANAGER,      // マネージャー
             Role::MEMBER        // 一般
         ];
-        return (in_array($user->role, $user_types));
+        return in_array($user->role, $user_types);
     }
 
     /* 追加 */
@@ -33,7 +33,7 @@ class OkrPolicy
             Role::MANAGER,      // マネージャー
             Role::MEMBER        // 一般
         ];
-        return (in_array($user->role, $user_types));
+        return in_array($user->role, $user_types);
     }
 
     /* 変更 */
@@ -46,7 +46,7 @@ class OkrPolicy
             Role::MANAGER,      // マネージャー
             Role::MEMBER        // 一般
         ];
-        return (in_array($user->role, $user_types));
+        return in_array($user->role, $user_types);
     }
 
     /* 削除 */
@@ -56,6 +56,6 @@ class OkrPolicy
             Role::ADMIN,        // Admin
             Role::COMPANY,      // 会社
         ];
-        return (in_array($user->role, $user_types));
+        return in_array($user->role, $user_types);
     }
 }

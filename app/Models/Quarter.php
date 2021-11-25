@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Quarter
@@ -26,8 +28,59 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $company_id 会社ID
+ * @property-read \App\Models\Company $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Okr[] $okrs
+ * @property-read int|null $okrs_count
+ * @method static \Database\Factories\QuarterFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
+ * @property int $quater 四半期区分
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuater($value)
  */
 class Quarter extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var string
+     */
+    protected $table = 'quarters';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'from',
+        'to',
+        'company_id',
+        'deleted_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'from' => 'int',
+        'to' => 'int',
+        'company_id' => 'int',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    public function companies(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function okrs(): HasMany
+    {
+        return $this->hasMany(Okr::class, 'okr_id');
+    }
 }
