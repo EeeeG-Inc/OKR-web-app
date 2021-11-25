@@ -49,7 +49,7 @@ class Okr extends Model
     /**
      * Database table.
      *
-     * @var array
+     * @var string
      */
     protected $table = 'okrs';
 
@@ -95,6 +95,6 @@ class Okr extends Model
 
     public function objectives(): HasMany
     {
-        return $this->hasMany(Objectives::class, 'object_id');
+        return $this->hasMany(Objective::class, 'object_id');
     }
 }

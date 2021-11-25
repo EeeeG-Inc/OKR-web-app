@@ -44,7 +44,7 @@ class Company extends Model
     /**
      * Database table.
      *
-     * @var array
+     * @var string
      */
     protected $table = 'companies';
 

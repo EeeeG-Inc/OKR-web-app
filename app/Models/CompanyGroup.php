@@ -34,7 +34,7 @@ class CompanyGroup extends Model
     /**
      * Database table.
      *
-     * @var array
+     * @var string
      */
     protected $table = 'company_groups';
 
