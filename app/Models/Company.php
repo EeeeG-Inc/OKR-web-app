@@ -60,7 +60,7 @@ class Company extends Model
         'deleted_at',
     ];
 
-     /**
+    /**
      * The attributes that should be cast.
      *
      * @var array

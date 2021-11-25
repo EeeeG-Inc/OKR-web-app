@@ -54,10 +54,10 @@ class CompanyGroup extends Model
      * @var array
      */
     protected $casts = [
-        'name'              => 'string',
-        'deleted_at'        => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
+        'name' => 'string',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function companies(): HasMany

@@ -58,11 +58,11 @@ class Department extends Model
      * @var array
      */
     protected $casts = [
-        'name'              => 'string',
-        'company_id'        => 'int',
-        'deleted_at'        => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
+        'name' => 'string',
+        'company_id' => 'int',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function company(): BelongsTo
