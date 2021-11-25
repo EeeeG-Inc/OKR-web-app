@@ -66,12 +66,12 @@ class Quarter extends Model
      * @var array
      */
     protected $casts = [
-        'from'              => 'int',
-        'to'                => 'int',
-        'company_id'        => 'int',
-        'deleted_at'        => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
+        'from' => 'int',
+        'to' => 'int',
+        'company_id' => 'int',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function companies(): BelongsTo

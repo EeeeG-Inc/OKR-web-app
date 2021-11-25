@@ -107,17 +107,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'name'                      => 'string',
-        'role'                      => 'int',
-        'company_id'                => 'int',
-        'department_id'             => 'int',
-        'email'                     => 'string',
-        'email_verified_at'         => 'datetime',
-        'two_factor_secret'         => 'string',
+        'name' => 'string',
+        'role' => 'int',
+        'company_id' => 'int',
+        'department_id' => 'int',
+        'email' => 'string',
+        'email_verified_at' => 'datetime',
+        'two_factor_secret' => 'string',
         'two_factor_recovery_codes' => 'string',
-        'deleted_at'                => 'datetime',
-        'created_at'                => 'datetime',
-        'updated_at'                => 'datetime',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**

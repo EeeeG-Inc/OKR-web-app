@@ -139,11 +139,11 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * 系列会社の中で最初に生成された会社 (index 0) は is_master に true を返却する
-    *
-    * @param int $index     0 であれば is_master を真とする
-    * @return bool          is_master の真偽を返す
-    */
+     * 系列会社の中で最初に生成された会社 (index 0) は is_master に true を返却する
+     *
+     * @param int $index     0 であれば is_master を真とする
+     * @return bool          is_master の真偽を返す
+     */
     private function getIsMaster(int $index)
     {
         if ($index == 0) {
@@ -153,14 +153,14 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * 系列会社毎 quarter の開始月と終了月を返却する
-    *
-    * @param int $companyId     作成する会社の companyId ※外部キー
-    * @param int $quarter       何期の quarter を判別するかの指標(サンプルでは 1-4 の決め打ち)
-    * @param int $from          quarter の開始月(サンプルでは決め打ち)
-    * @param int $to            quarter の終了月(サンプルでは決め打ち)
-    * @return int               factory を使った INSERT 項目
-    */
+     * 系列会社毎 quarter の開始月と終了月を返却する
+     *
+     * @param int $companyId     作成する会社の companyId ※外部キー
+     * @param int $quarter       何期の quarter を判別するかの指標(サンプルでは 1-4 の決め打ち)
+     * @param int $from          quarter の開始月(サンプルでは決め打ち)
+     * @param int $to            quarter の終了月(サンプルでは決め打ち)
+     * @return int               factory を使った INSERT 項目
+     */
     private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
     {
         return Quarter::factory()->create([
@@ -172,11 +172,11 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * 1会社に付き1つ作成される CompanyUser の作成
-    *
-    * @param int $companyId     作成する会社の companyId ※外部キー
-    * @return array             factory を使った INSERT 項目
-    */
+     * 1会社に付き1つ作成される CompanyUser の作成
+     *
+     * @param int $companyId     作成する会社の companyId ※外部キー
+     * @return array             factory を使った INSERT 項目
+     */
     private function createUserForCompany(int $companyId) :array
     {
         $userIds = [];
@@ -190,12 +190,12 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * 1部署に1つの DepartmentUser 、マネージャー権限を持った ManagerUser 、 一般権限の MemberUser の作成
-    *
-    * @param int $companyId     作成する会社の companyId ※外部キー
-    * @param int $departmentId  作成する部署の departmentId ※外部キー
-    * @return array             factory を使った INSERT 項目
-    */
+     * 1部署に1つの DepartmentUser 、マネージャー権限を持った ManagerUser 、 一般権限の MemberUser の作成
+     *
+     * @param int $companyId     作成する会社の companyId ※外部キー
+     * @param int $departmentId  作成する部署の departmentId ※外部キー
+     * @return array             factory を使った INSERT 項目
+     */
     private function createUsersForDepartmentAndManagerAndMember(int $companyId, int $departmentId) :array
     {
         $userIds = [];
@@ -219,10 +219,10 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * 1アプリにつき1つのフルコントロールを持った Admin ユーザ作成
-    *
-    * @return void
-    */
+     * 1アプリにつき1つのフルコントロールを持った Admin ユーザ作成
+     *
+     * @return void
+     */
     private function createUserForAdmin() :void
     {
         User::factory()->create([
@@ -234,13 +234,13 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-    * Okr と Objective 作成
-    *
-    * @param int $userId     作成する会社の companyId ※外部キー
-    * @param int $quarterId  作成する quarter の quarterId ※外部キー
-    * @param int $year       Okr 及び Objective に紐付ける西暦
-    * @return void           factory を使った INSERT 項目
-    */
+     * Okr と Objective 作成
+     *
+     * @param int $userId     作成する会社の companyId ※外部キー
+     * @param int $quarterId  作成する quarter の quarterId ※外部キー
+     * @param int $year       Okr 及び Objective に紐付ける西暦
+     * @return void           factory を使った INSERT 項目
+     */
     private function createOkrAndObjective(int $userId, int $quarterId, int $year) :void
     {
         // OKR 作成
