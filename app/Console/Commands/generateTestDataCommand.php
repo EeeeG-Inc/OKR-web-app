@@ -13,6 +13,7 @@ use \App\Models\User;
 use \Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Collection;
 
 class GenerateTestDataCommand extends Command
 {
@@ -92,10 +93,10 @@ class GenerateTestDataCommand extends Command
             foreach ($companyIds as $companyId) {
                 // Quarter作成
                 $quarterIds = [];
-                $quarterIds[] = $this->createQuarter($companyId, 1, 4, 6)['id'];
-                $quarterIds[] = $this->createQuarter($companyId, 2, 7, 9)['id'];
-                $quarterIds[] = $this->createQuarter($companyId, 3, 10, 12)['id'];
-                $quarterIds[] = $this->createQuarter($companyId, 4, 1, 3)['id'];
+                $quarterIds[] = $this->createQuarter($companyId, 1, 4, 6);
+                $quarterIds[] = $this->createQuarter($companyId, 2, 7, 9);
+                $quarterIds[] = $this->createQuarter($companyId, 3, 10, 12);
+                $quarterIds[] = $this->createQuarter($companyId, 4, 1, 3);
 
                 // Department作成
                 $i = 0;
@@ -158,16 +159,16 @@ class GenerateTestDataCommand extends Command
     * @param int $quarter       何期の quarter を判別するかの指標(サンプルでは 1-4 の決め打ち)
     * @param int $from          quarter の開始月(サンプルでは決め打ち)
     * @param int $to            quarter の終了月(サンプルでは決め打ち)
-    * @return Quarter           factory を使った INSERT 項目
+    * @return int               factory を使った INSERT 項目
     */
-    private function createQuarter(int $companyId, int $quarter, int $from, int $to) :Quarter
+    private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
     {
         return Quarter::factory()->create([
             'quater'     => $quarter,
             'from'       => $from,
             'to'         => $to,
             'company_id' => $companyId
-        ]);
+        ])['id'];
     }
 
     /**
