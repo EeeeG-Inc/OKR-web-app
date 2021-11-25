@@ -12,6 +12,7 @@
             <tr>
                 <th>YEAR</th>
                 <th>OKR</th>
+                <th>UserName</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                 <tr>
                     <td>{{ $okr->year }}</td>
                     <td>{{ $okr->name }}</td>
+                    <td>{{ $okr->users->name }}</td>
                 </tr>
             @endforeach
         </tbody>
