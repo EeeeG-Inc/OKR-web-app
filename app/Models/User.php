@@ -57,6 +57,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $okrs_count
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
+ * @property-read \App\Models\Department|null $departments
  */
 class User extends Authenticatable
 {
