@@ -13,15 +13,5 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // 各テーブルへのデータの流し込みを呼び出す
-        $this->call([
-            CompanyGroupsTableSeeder::class,
-            CompaniesTableSeeder::class,
-            QuartersTableSeeder::class,
-            DepartmentsTableSeeder::class,
-            UsersTableSeeder::class,
-            OkrsTableSeeder::class,
-            ObjectivesTableSeeder::class,
-        ]);
     }
 }

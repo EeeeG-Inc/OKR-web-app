@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.66.0.
+ * Generated for Laravel 8.70.2.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -7412,6 +7412,17 @@
                         $instance->setParsedKey($key, $parsed);
         }
                     /**
+         * Flush the cache of parsed keys.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushParsedKeys()
+        {            //Method inherited from \Illuminate\Support\NamespacedItemResolver         
+                        /** @var \Illuminate\Translation\Translator $instance */
+                        $instance->flushParsedKeys();
+        }
+                    /**
          * Register a custom macro.
          *
          * @param string $name
@@ -9078,6 +9089,18 @@
         {
                         /** @var \Illuminate\Cache\RateLimiter $instance */
                         return $instance->availableIn($key);
+        }
+                    /**
+         * Clean the rate limiter key from unicode characters.
+         *
+         * @param string $key
+         * @return string 
+         * @static 
+         */ 
+        public static function cleanRateLimiterKey($key)
+        {
+                        /** @var \Illuminate\Cache\RateLimiter $instance */
+                        return $instance->cleanRateLimiterKey($key);
         }
          
     }
@@ -22154,6 +22177,19 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->addBinding($value, $type);
+            }
+             
+                /**
+             * Cast the given binding value.
+             *
+             * @param mixed $value
+             * @return mixed 
+             * @static 
+             */ 
+            public static function castBinding($value)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->castBinding($value);
             }
              
                 /**

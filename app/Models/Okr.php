@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Okr
@@ -32,8 +34,69 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUsersId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereYear($value)
  * @mixin \Eloquent
+ * @property int $user_id ユーザID
+ * @property int $quarter_id 四半期ID
+ * @property-read \App\Models\Quarter $quarters
+ * @property-read \App\Models\User $users
+ * @method static \Database\Factories\OkrFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereQuarterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
+ * @property-read int|null $objectives_count
  */
 class Okr extends Model
 {
     use HasFactory;
+
+    /**
+     * Database table.
+     *
+     * @var string
+     */
+    protected $table = 'okrs';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'score',
+        'user_id',
+        'year',
+        'quater_id',
+        'deleted_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name' => 'string',
+        'score' => 'float',
+        'user_id' => 'int',
+        'year' => 'int',
+        'quarter_id' => 'int',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function quarters(): BelongsTo
+    {
+        return $this->belongsTo(Quarter::class, 'quarter_id');
+    }
+
+    public function objectives(): HasMany
+    {
+        return $this->hasMany(Objective::class, 'object_id');
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -49,6 +50,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $company_id 会社ID
+ * @property int|null $department_id 部署ID
+ * @property-read \App\Models\Company|null $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Okr[] $okrs
+ * @property-read int|null $okrs_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
+ * @property-read \App\Models\Department|null $departments
  */
 class User extends Authenticatable
 {
@@ -59,14 +68,25 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
     /**
+     * Database table.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
         'name',
+        'company_id',
+        'department_id',
+        'role',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -87,7 +107,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'name' => 'string',
+        'role' => 'int',
+        'company_id' => 'int',
+        'department_id' => 'int',
+        'email' => 'string',
         'email_verified_at' => 'datetime',
+        'two_factor_secret' => 'string',
+        'two_factor_recovery_codes' => 'string',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**
@@ -98,4 +128,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function companies(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function departments(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function okrs(): HasMany
+    {
+        return $this->hasMany(Okr::class, 'okr_id');
+    }
 }
