@@ -37,7 +37,7 @@ class Department extends Model
     /**
      * Database table.
      *
-     * @var array
+     * @var string
      */
     protected $table = 'departments';
 

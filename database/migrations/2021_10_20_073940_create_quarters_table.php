@@ -15,6 +15,7 @@ class CreateQuartersTable extends Migration
     {
         Schema::create('quarters', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('quater')->comment('四半期区分');
             $table->integer('from')->comment('開始月');
             $table->integer('to')->comment('終了月');
             $table->integer('company_id')

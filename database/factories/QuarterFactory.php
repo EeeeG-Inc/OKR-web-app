@@ -15,6 +15,7 @@ class QuarterFactory extends Factory
     public function definition()
     {
         return [
+            'quater'        => 1,
             'from'          => $this->faker->month(),
             'to'            => $this->faker->month(),
             'company_id'    => Company::factory(),

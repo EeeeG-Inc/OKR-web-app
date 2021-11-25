@@ -69,7 +69,7 @@ class User extends Authenticatable
     /**
      * Database table.
      *
-     * @var array
+     * @var string
      */
     protected $table = 'users';
 
@@ -135,7 +135,7 @@ class User extends Authenticatable
 
     public function departments(): BelongsTo
     {
-        return $this->belongsTo(Depaetment::class, 'department_id');
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function okrs(): HasMany
