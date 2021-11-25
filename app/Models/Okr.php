@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Database\Factories\OkrFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereQuarterId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
+ * @property-read int|null $objectives_count
  */
 class Okr extends Model
 {

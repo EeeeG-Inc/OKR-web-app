@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\Okr|null $okrs
  * @method static \Database\Factories\ObjectiveFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
+ * @property string $name 成果指標
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereName($value)
  */
 class Objective extends Model
 {
