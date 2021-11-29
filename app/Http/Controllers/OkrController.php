@@ -23,21 +23,19 @@ class OkrController extends Controller
         return view('okr.index', compact('okrs'));
     }
 
-    public function okrlist(Request $request)
-    {
-        $title = Request::get('name');
+    // public function okrlist(Request $request)
+    // {
+    //     $title = Request::get('name');
 
-        if ($title) {
-            $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNumber);
-        } else {
-            $item = Okr::select('*')->simplePaginate($this->pagenateNumber);
-            //default は全件表示
-            $title='全件表示';
-        }
-
-        return view('okrlist', ['items'=>$item])->with('title', $title);
-    }
-}
+    //     if ($title) {
+    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNumber);
+    //     } else {
+    //         $item = Okr::select('*')->simplePaginate($this->pagenateNumber);
+    //         //default は全件表示
+    //         $title='全件表示';
+    //     }
+    //     return view('okrlist', ['items'=>$item])->with('title', $title);
+    // }
 
     /**
      * Show the form for creating a new resource.
