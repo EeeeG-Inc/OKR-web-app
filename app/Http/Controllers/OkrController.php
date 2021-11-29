@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Okr;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class OkrController extends Controller
 {
@@ -13,7 +14,7 @@ class OkrController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -22,15 +23,31 @@ class OkrController extends Controller
         return view('okr.index', compact('okrs'));
     }
 
+    public function okrlist(Request $request)
+    {
+        $title = Request::get('name');
+
+        if ($title) {
+            $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNumber);
+        } else {
+            $item = Okr::select('*')->simplePaginate($this->pagenateNumber);
+            //default は全件表示
+            $title='全件表示';
+        }
+
+        return view('okrlist', ['items'=>$item])->with('title', $title);
+    }
+}
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -38,10 +55,10 @@ class OkrController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -49,10 +66,10 @@ class OkrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -60,10 +77,10 @@ class OkrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -72,10 +89,10 @@ class OkrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -83,8 +100,8 @@ class OkrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }
