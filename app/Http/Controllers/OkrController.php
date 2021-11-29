@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OkrSearchRequest;
 use App\Models\Okr;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,21 @@ class OkrController extends Controller
     {
         // TODO:Paginate メソッドに変更して、表示崩れをなおす
         $okrs = Okr::simplePaginate($this->pagenateNumber);
+
+        return view('okr.index', compact('okrs'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function search(OkrSearchRequest $request)
+    {
+        $input = $request->validated();
+        // TODO:Paginate メソッドに変更して、表示崩れをなおす
+        $okrs = Okr::simplePaginate($this->pagenateNumber);
+
         return view('okr.index', compact('okrs'));
     }
 
