@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OkrController;
+use App\Http\Controllers\AccountController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,7 +25,7 @@ Auth::routes();
 // Route::get(['/home', HomeController::class, 'index'])->name('home');
 
 // OKR 一覧
-Route::get('/okr', [OkrController::class, 'index'])->name('okr.index');
+Route::resource('/okr', OkrController::class);
 
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:member-higher']], function () {

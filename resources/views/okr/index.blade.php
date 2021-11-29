@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <!-- TODO:header と footer の表示 -->
     <div class="pt-4 bg-gray-100">
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ $okr->year }}</td>
                     <td>{{ $okr->name }}</td>
-                    <td>{{ $okr->users->name }}</td>
+                    <td>{{ $okr->user->name }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -30,4 +30,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>
