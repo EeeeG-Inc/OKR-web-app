@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Okr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OkrController extends Controller
 {
+    /** @var int */
+    private $pagenateNumber = 15;
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +18,8 @@ class OkrController extends Controller
     public function index()
     {
         // TODO:Paginate メソッドに変更して、表示崩れをなおす
-        $okrs = Okr::simplePaginate(15);
-        return view('okr.index', [
-            'okrs'=>$okrs
-        ]);
+        $okrs = Okr::simplePaginate($this->pagenateNumber);
+        return view('okr.index', compact('okrs'));
     }
 
     /**
