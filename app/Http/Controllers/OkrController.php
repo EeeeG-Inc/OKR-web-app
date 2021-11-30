@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class OkrController extends Controller
 {
     /** @var int */
-    private $pagenateNumber = 15;
+    private $pagenateNum = 15;
 
     /**
      * Display a listing of the resource.
@@ -20,21 +20,22 @@ class OkrController extends Controller
     public function index()
     {
         // TODO:Paginate メソッドに変更して、表示崩れをなおす
-        $okrs = Okr::simplePaginate($this->pagenateNumber);
+        $okrs = Okr::simplePaginate($this->pagenateNum);
 
         return view('okr.index', compact('okrs'));
     }
 
     /**
-     * Display a listing of the resource.
+     * Search listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @param OkrSearchRequest $request 検索 Keyword
+     * @return  \Illuminate\View\View
      */
     public function search(OkrSearchRequest $request)
     {
         $input = $request->validated();
         // TODO:Paginate メソッドに変更して、表示崩れをなおす
-        $okrs = Okr::simplePaginate($this->pagenateNumber);
+        $okrs = Okr::simplePaginate($this->pagenateNum);
 
         return view('okr.index', compact('okrs'));
     }
@@ -44,9 +45,9 @@ class OkrController extends Controller
     //     $title = Request::get('name');
 
     //     if ($title) {
-    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNumber);
+    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNum);
     //     } else {
-    //         $item = Okr::select('*')->simplePaginate($this->pagenateNumber);
+    //         $item = Okr::select('*')->simplePaginate($this->pagenateNum);
     //         //default は全件表示
     //         $title='全件表示';
     //     }

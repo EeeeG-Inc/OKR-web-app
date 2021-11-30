@@ -24,7 +24,7 @@ class OkrSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'okr' => 'required|string'
+            'okr' => 'nullable|string'
         ];
     }
 }

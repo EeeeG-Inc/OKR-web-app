@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
  * @property string $name 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereName($value)
+ * @property string $detail 成果指標
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
  */
 class Objective extends Model
 {
@@ -49,7 +51,7 @@ class Objective extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'detail',
         'score',
         'okr_id',
     ];
@@ -60,7 +62,7 @@ class Objective extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string',
+        'detail' => 'string',
         'score' => 'float',
         'okr_id' => 'int',
         'deleted_at' => 'datetime',

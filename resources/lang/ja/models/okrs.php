@@ -3,7 +3,7 @@
 return [
     'fields' => [
         'id' => 'ID',
-        "name" => "目標",
+        "okr" => "目標",
         "score" => "総合スコア",
         "user_id" => "ユーザID",
         "year" => "年度",
