@@ -6,6 +6,7 @@ use App\Http\Requests\OkrSearchRequest;
 use App\Models\Okr;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Pagination\Paginator;
 
 class OkrController extends Controller
 {
@@ -20,7 +21,7 @@ class OkrController extends Controller
     public function index()
     {
         // TODO:Paginate メソッドに変更して、表示崩れをなおす
-        $okrs = Okr::simplePaginate($this->pagenateNum);
+        $okrs = Okr::paginate($this->pagenateNum);
 
         return view('okr.index', compact('okrs'));
     }
