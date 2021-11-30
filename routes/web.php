@@ -3,7 +3,7 @@
 use App\Http\Controllers\OkrController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+// use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +16,16 @@ use Inertia\Inertia;
 |
 */
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
+//     return Inertia::render('Dashboard');
+// })->name('dashboard');
 
 Auth::routes();
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+Route::get('/', [OkrController::class, 'index']);
 // Route::get(['/home', HomeController::class, 'index'])->name('home');
 
 Route::prefix('okr')->group(function () {
