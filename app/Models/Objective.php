@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * App\Models\Objective
  *
  * @property int $id
- * @property string $result 成果詳細
+ * @property string $detail 成果指標
  * @property int|null $score スコア
  * @property string|null $deleted_at 削除フラグ
  * @property \Illuminate\Support\Carbon|null $created_at
