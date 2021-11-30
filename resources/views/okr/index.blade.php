@@ -9,8 +9,8 @@
                     {{-- CSRF トークン --}}
                     {{ Form::token() }}
                     {{-- OKR --}}
-                    {{ Form::label('okr', __('models/okrs.fields.name')) }}
-                    {{ Form::text('okr', null, ['placeholder' => __('models/okrs.fields.name')]) }}
+                    {{ Form::label('okr', __('models/okrs.fields.okr')) }}
+                    {{ Form::text('okr', null, ['placeholder' => __('models/okrs.fields.okr')]) }}
                     @if ($errors->has('okr'))
                         <p>{{$errors->first('okr')}}</p>
                     @endif
@@ -31,7 +31,7 @@
                         @foreach($okrs as $okr)
                             <tr>
                                 <td>{{ $okr->year }}</td>
-                                <td>{{ $okr->name }}</td>
+                                <td>{{ $okr->okr }}</td>
                                 <td>{{ $okr->user->name }}</td>
                             </tr>
                         @endforeach

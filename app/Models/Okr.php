@@ -43,6 +43,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
  * @property-read int|null $objectives_count
+ * @property string $okr 目標
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
 class Okr extends Model
 {
@@ -61,7 +64,7 @@ class Okr extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'okr',
         'score',
         'user_id',
         'year',
@@ -75,7 +78,7 @@ class Okr extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string',
+        'okr' => 'string',
         'score' => 'float',
         'user_id' => 'int',
         'year' => 'int',
