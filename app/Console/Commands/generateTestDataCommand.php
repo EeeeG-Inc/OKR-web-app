@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use \App\Enums\Role;
-use \App\Models\CompanyGroup;
 use \App\Models\Company;
+use \App\Models\CompanyGroup;
 use \App\Models\Department;
 use \App\Models\Objective;
 use \App\Models\Okr;
@@ -12,8 +12,8 @@ use \App\Models\Quarter;
 use \App\Models\User;
 use \Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use PHPUnit\Framework\Test;
 
 class GenerateTestDataCommand extends Command
@@ -87,8 +87,8 @@ class GenerateTestDataCommand extends Command
             $companyIds = [];
             while ($this->companyCount !== $i) {
                 $companyIds[] = Company::factory()->create([
-                    'company_group_id'  => $companyGroup->id,
-                    'is_master'         => $this->isFirst($i)
+                    'company_group_id' => $companyGroup->id,
+                    'is_master' => $this->isFirst($i)
                 ])['id'];
                 $i++;
             }
@@ -106,7 +106,7 @@ class GenerateTestDataCommand extends Command
                 $departmentIds = [];
                 while ($this->departmentCount !== $i) {
                     $departmentIds[] = Department::factory()->create([
-                        'name'       => $this->departments[$i],
+                        'name' => $this->departments[$i],
                         'company_id' => $companyId
                     ])['id'];
                     $i++;
@@ -174,9 +174,9 @@ class GenerateTestDataCommand extends Command
     private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
     {
         return Quarter::factory()->create([
-            'quater'     => $quarter,
-            'from'       => $from,
-            'to'         => $to,
+            'quater' => $quarter,
+            'from' => $from,
+            'to' => $to,
             'company_id' => $companyId
         ])['id'];
     }
@@ -192,13 +192,13 @@ class GenerateTestDataCommand extends Command
     {
         $userIds = [];
         $data = [
-            'name'          => '株式会社テスト' . $companyId,
-            'company_id'    => $companyId,
+            'name' => '株式会社テスト' . $companyId,
+            'company_id' => $companyId,
             'department_id' => null,
-            'role'          => Role::COMPANY
+            'role' => Role::COMPANY
         ];
         if ($isFirst) {
-            $data['email']='company@test.com';
+            $data['email'] = 'company@test.com';
         }
         $userIds[] = User::factory()->create($data)['id'];
         return $userIds;
@@ -216,26 +216,26 @@ class GenerateTestDataCommand extends Command
     {
         $data = [
             [
-                'name'          => Department::find($departmentId)->name,
-                'company_id'    => $companyId,
+                'name' => Department::find($departmentId)->name,
+                'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role'          => Role::DEPARTMENT
+                'role' => Role::DEPARTMENT
             ],
             [
-                'company_id'    => $companyId,
+                'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role'          => Role::MANAGER
+                'role' => Role::MANAGER
             ],
             [
-                'company_id'    => $companyId,
+                'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role'          => Role::MEMBER
+                'role' => Role::MEMBER
             ]
         ];
         if ($isFirst) {
-            $data[0]['email']='department@test.com';
-            $data[1]['email']='manager@test.com';
-            $data[2]['email']='member@test.com';
+            $data[0]['email'] = 'department@test.com';
+            $data[1]['email'] = 'manager@test.com';
+            $data[2]['email'] = 'member@test.com';
         }
         $userIds = [];
         $userIds[] = User::factory()->create($data[0])['id'];
@@ -252,11 +252,11 @@ class GenerateTestDataCommand extends Command
     private function createUserForAdmin() :void
     {
         User::factory()->create([
-            'name'          => '管理者',
-            'company_id'    => null,
+            'name' => '管理者',
+            'company_id' => null,
             'department_id' => null,
-            'role'          => Role::ADMIN,
-            'email'         => 'admin@test.com',
+            'role' => Role::ADMIN,
+            'email' => 'admin@test.com',
         ]);
     }
 
@@ -275,10 +275,10 @@ class GenerateTestDataCommand extends Command
         $i = 0;
         while ($this->okrCount !== $i) {
             $okrIds[] = Okr::factory()->create([
-                'okr'          => $this->okrs[$i],
-                'user_id'       => $userId,
-                'quarter_id'    => $quarterId,
-                'year'          => $year,
+                'okr' => $this->okrs[$i],
+                'user_id' => $userId,
+                'quarter_id' => $quarterId,
+                'year' => $year,
             ])['id'];
             $i++;
         }
@@ -288,7 +288,7 @@ class GenerateTestDataCommand extends Command
             $j = 0;
             while ($j !== $this->objectiveCount) {
                 Objective::factory()->create([
-                    'detail' => 'okrs.id ' . $okrId . ' の成果指標' . ($j+1),
+                    'detail' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
                     'okr_id' => $okrId,
                 ]);
                 $j++;

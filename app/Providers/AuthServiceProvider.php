@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
+use App\Enums\Role;
 use App\Models\Team;
 use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Enums\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {

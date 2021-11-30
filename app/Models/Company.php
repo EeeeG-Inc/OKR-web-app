@@ -66,12 +66,12 @@ class Company extends Model
      * @var array
      */
     protected $casts = [
-        'name'              => 'string',
-        'company_group_id'  => 'int',
-        'is_master'         => 'boolean',
-        'deleted_at'        => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
+        'name' => 'string',
+        'company_group_id' => 'int',
+        'is_master' => 'boolean',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function companyGroups(): BelongsTo
