@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * App\Models\Okr
  *
  * @property int $id
- * @property string $name 登録名
+ * @property string $okr 登録名
  * @property int $objectives_id オブジェクトコード
  * @property int|null $score 総合スコア
  * @property int $users_id ユーザコード
