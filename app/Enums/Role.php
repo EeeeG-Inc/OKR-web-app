@@ -12,9 +12,9 @@ use BenSampo\Enum\Enum;
  */
 final class Role extends Enum implements LocalizedEnum
 {
-    const ADMIN      = 1;
-    const COMPANY    = 2;
+    const ADMIN = 1;
+    const COMPANY = 2;
     const DEPARTMENT = 3;
-    const MANAGER    = 4;
-    const MEMBER     = 5;
+    const MANAGER = 4;
+    const MEMBER = 5;
 }
