@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * App\Models\Okr
  *
  * @property int $id
- * @property string $name 登録名
+ * @property string $okr 登録名
  * @property int $objectives_id オブジェクトコード
  * @property int|null $score 総合スコア
  * @property int $users_id ユーザコード
@@ -43,6 +43,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
  * @property-read int|null $objectives_count
+ * @property string $okr 目標
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
 class Okr extends Model
 {
@@ -61,7 +64,7 @@ class Okr extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'okr',
         'score',
         'user_id',
         'year',
@@ -75,7 +78,7 @@ class Okr extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string',
+        'okr' => 'string',
         'score' => 'float',
         'user_id' => 'int',
         'year' => 'int',
@@ -85,7 +88,7 @@ class Okr extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function users(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

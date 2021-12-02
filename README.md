@@ -28,32 +28,6 @@
 		- EC2
 		- RDS
 		- S3
-​
-
-## Jetstreamの導入まで
-
-```sh
-// ① Jetstream のインストール
-% composer require laravel/jetstream      // composerを使ってインストール
-% php -d memory_limit=-1 /usr/local/bin/composer require laravel/jetstream     // メモリ制限エラーが出たら、メモリを上げてインストール
-% laravel new project-name --jet          // アプリの雛形作成のタイミングで、Jetstream をインストールも可能（Livewire/Inertiaやチーム機能を使うか?聞かれる）
-// インストールが完了したら、artisan コマンドでjetstreamが使えるようになる
-
-// ② セットアップ ： JSのパッケージをインストール（ livewire と inertia を選択できる）
-% php artisan jetstream:install livewire
-% php artisan jetstream:install livewire --teams  // チーム機能を使う場合
-% php artisan jetstream:install inertia          // vueやreactなどを使う場合は、コッチらしい。。
-
-// ③ マイグレーション実行
-% php artisan migrate            // usersテーブル、password_resetsテーブル作成のマイグレーションファイルが、自動生成されてる
-
-// ④ JSとCSSをビルド
-% npm install && npm run dev    // npmコマンドが無いエラーが出たら、Nodeのインストールが必要（https://nodejs.org/ja/）
-  // 若しくは、別々にNode.js と NPM をインストール
-  % npm install
-  % npm run dev
-// public/css/app.css、 public/js/app.js2ファイルが作成される
-```
 
 ## 下記仕様要望
 - Login
@@ -97,21 +71,6 @@
 権限は Gate の機能を使うこと
 Unit テストを実装すること
 main ブランチにマージする前 rebase で develop のコミットを整理すること
-​
-
-## ライブラリ
-​
-下記ライブラリを composer インストール・利用すること
-​
-- aws/aws-sdk-php-laravel
-- barryvdh/laravel-debugbar
-- barryvdh/laravel-ide-helper
-- bensampo/laravel-enum
-- guzzlehttp/guzzle
-- laravelcollective/html
-- livewire/livewire
-​- nunomaduro/phpinsights
-- nunomaduro/larastan
 
 ### phpinsights
 
