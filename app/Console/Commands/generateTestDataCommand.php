@@ -154,7 +154,7 @@ class GenerateTestDataCommand extends Command
      * @param int $index        初回ループの反映を実行
      * @return bool             初回時に true を返す
      */
-    private function isFirst(int $index)
+    private function isFirst(int $index) :bool
     {
         if ($index == 0) {
             return true;
