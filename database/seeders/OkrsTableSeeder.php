@@ -16,7 +16,7 @@ class OkrsTableSeeder extends Seeder
     {
         $seeds = [
             [
-                'name'               =>  '歩く',
+                'okr'               =>  '歩く',
                 'score'              =>  0.9,
                 'user_id'            =>  4,
                 'year'               =>  2021,

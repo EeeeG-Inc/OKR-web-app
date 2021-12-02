@@ -15,7 +15,7 @@ class CreateOkrsTable extends Migration
     {
         Schema::create('okrs', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name')->comment('目標');
+            $table->text('okr')->comment('目標');
             $table->float('score')
                 ->nullable()
                 ->comment('総合スコア');

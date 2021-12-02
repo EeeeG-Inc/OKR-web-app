@@ -15,7 +15,7 @@ class ObjectiveFactory extends Factory
     public function definition()
     {
         return [
-            'name'    => $this->faker->realText(50),
+            'detail'    => $this->faker->realText(50),
             'score'     => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
             'okr_id'    => Okr::factory(),
         ];

@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\OkrController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+// use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,29 +16,37 @@ use Inertia\Inertia;
 |
 */
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
-
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
-// 全ユーザ
-Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
-    // ユーザ一覧
-    Route::get('/account', 'AccountController@index')->name('account.index');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+Route::get('/', [OkrController::class, 'index']);
+// Route::get(['/home', HomeController::class, 'index'])->name('home');
+
+Route::prefix('okr')->group(function () {
+    // OKR 一覧
+    Route::resource('/', OkrController::class);
+    // OKR 検索
+    Route::post('search', [OkrController::class, 'search'])->name('okr.search');
 });
 
-// 管理者以上
-Route::group(['middleware' => ['auth', 'can:manager-higher']], function () {
-    // ユーザ登録
-    Route::get('/account/regist', 'AccountController@regist')->name('account.regist');
-    Route::post('/account/regist', 'AccountController@createData')->name('account.regist');
+// // 全ユーザ
+// Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
+//     // ユーザ一覧
+//     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+// });
 
-    // ユーザ編集
-    Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
-    Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
+// // 管理者以上
+// Route::group(['middleware' => ['auth', 'can:manager-higher']], function () {
+//     // ユーザ登録
+//     Route::get('/account/regist', [AccountController::class, 'regist'])->name('account.regist');
+//     Route::post('/account/regist', [AccountController::class, 'createData'])->name('account.regist');
 
-    // ユーザ削除
-    Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
-});
+//     // ユーザ編集
+//     Route::get('/account/edit/{user_id}', [AccountController::class, 'edit'])->name('account.edit');
+//     Route::post('/account/edit/{user_id}', [AccountController::class, 'updateData'])->name('account.edit');
+
+//     // ユーザ削除
+//     Route::post('/account/delete/{user_id}', [AccountController::class, 'deleteData']);
+// });
