@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-//     return Inertia::render('Dashboard');
-// })->name('dashboard');
-
 Auth::routes();
 
 Route::get('/', function () {
