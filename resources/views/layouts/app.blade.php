@@ -37,6 +37,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('index') }}">{{ __('common/title.okr.index') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('create') }}">{{ __('common/title.okr.create') }}</a>
+                            </li>
                         @endif
                     </ul>
 
