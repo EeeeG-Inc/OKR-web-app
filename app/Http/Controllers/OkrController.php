@@ -20,7 +20,6 @@ class OkrController extends Controller
      */
     public function index()
     {
-        // TODO:Paginate メソッドに変更して、表示崩れをなおす
         $okrs = Okr::paginate($this->pagenateNum);
 
         return view('okr.index', compact('okrs'));
@@ -35,8 +34,7 @@ class OkrController extends Controller
     public function search(OkrSearchRequest $request)
     {
         $input = $request->validated();
-        // TODO:Paginate メソッドに変更して、表示崩れをなおす
-        $okrs = Okr::simplePaginate($this->pagenateNum);
+        $okrs = Okr::paginate($this->pagenateNum);
 
         return view('okr.index', compact('okrs'));
     }
