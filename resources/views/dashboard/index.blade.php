@@ -15,11 +15,11 @@
                                     {{ Form::open(['url' => route('dashboard.search'), 'files' => true]) }}
                                     {{ Form::token() }}
 
-                                    {{-- ユーザ --}}
-                                    {{ Form::label('user', __('models/users.fields.name')) }}
-                                    {{ Form::text('user', null) }}
-                                    @if ($errors->has('okr'))
-                                        <p>{{$errors->first('okr')}}</p>
+                                    {{-- ユーザー名 --}}
+                                    {{ Form::label('name', __('models/users.fields.name')) }}
+                                    {{ Form::text('name', null) }}
+                                    @if ($errors->has('name'))
+                                        <p>{{ $errors->first('name') }}</p>
                                     @endif
 
                                     {{-- 送信ボタン --}}
