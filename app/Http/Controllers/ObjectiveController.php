@@ -13,10 +13,10 @@ class ObjectiveController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     // public function okrlist(Request $request)
     // {
@@ -56,8 +56,8 @@ class ObjectiveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  int  $okrId
+     * @return \Illuminate\View\View
      */
     public function show(int $okrId)
     {
