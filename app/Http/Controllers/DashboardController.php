@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OkrSearchRequest;
-use App\Models\Okr;
+use App\Http\Requests\DashboardSearchRequest;
 use App\Models\User;
 
 class DashboardController extends Controller
@@ -26,10 +25,10 @@ class DashboardController extends Controller
     /**
      * Search listing of the resource.
      *
-     * @param OkrSearchRequest $request 検索 Keyword
+     * @param DashboardSearchRequest $request
      * @return  \Illuminate\View\View
      */
-    public function search(OkrSearchRequest $request)
+    public function search(DashboardSearchRequest $request)
     {
         $input = $request->validated();
         $users = User::paginate($this->pagenateNum);
