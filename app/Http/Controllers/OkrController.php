@@ -79,7 +79,7 @@ class OkrController extends Controller
      * Display the specified resource.
      *
      * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(int $userId)
     {
