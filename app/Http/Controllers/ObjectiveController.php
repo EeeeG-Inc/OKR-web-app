@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ObjectiveIndexRequest;
 use App\Models\Objective;
 use App\Models\Okr;
-use Illuminate\View\View;
 
 class ObjectiveController extends Controller
 {
@@ -13,10 +13,14 @@ class ObjectiveController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function index(ObjectiveIndexRequest $request)
+    {
+        $okrId = $request->validated()['okr_id'];
+        $okr = Okr::find($okrId);
+        $objectives = Objective::where('okr_id', $okrId)->get();
+
+        return view('objective.index', compact('okr', 'objectives'));
+    }
 
     // public function okrlist(Request $request)
     // {
@@ -56,16 +60,13 @@ class ObjectiveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $okrId
+     * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show(int $okrId)
-    {
-        $okr = Okr::find($okrId);
-        $objectives = Objective::where('okr_id', $okrId)->get();
-
-        return view('objective.show', compact('okr', 'objectives'));
-    }
+    // public function show(int $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.

@@ -43,7 +43,7 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>
                                                     @if ($user->hasOkr)
-                                                        {{ link_to_route('okr.show', __('common/action.detail'), $user->id); }}
+                                                        {{ link_to_route('okr.index', __('common/action.detail'), ['user_id' => $user->id]); }}
                                                     @endif
                                                 </td>
                                             </tr>
