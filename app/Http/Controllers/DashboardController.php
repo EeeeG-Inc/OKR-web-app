@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OkrSearchRequest;
 use App\Models\Okr;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\View\View;
 
-class OkrController extends Controller
+class DashboardController extends Controller
 {
     /** @var int */
     private $pagenateNum = 15;
@@ -21,9 +18,9 @@ class OkrController extends Controller
      */
     public function index()
     {
-        $okrs = Okr::paginate($this->pagenateNum);
+        $users = User::paginate($this->pagenateNum);
 
-        return view('okr.index', compact('okrs'));
+        return view('dashboard.index', compact('users'));
     }
 
     /**
@@ -35,24 +32,10 @@ class OkrController extends Controller
     public function search(OkrSearchRequest $request)
     {
         $input = $request->validated();
-        $okrs = Okr::paginate($this->pagenateNum);
+        $users = User::paginate($this->pagenateNum);
 
-        return view('okr.index', compact('okrs'));
+        return view('dashboard.index', compact('users'));
     }
-
-    // public function okrlist(Request $request)
-    // {
-    //     $title = Request::get('name');
-
-    //     if ($title) {
-    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNum);
-    //     } else {
-    //         $item = Okr::select('*')->simplePaginate($this->pagenateNum);
-    //         //default は全件表示
-    //         $title='全件表示';
-    //     }
-    //     return view('okrlist', ['items'=>$item])->with('title', $title);
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -81,13 +64,10 @@ class OkrController extends Controller
      * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function show(int $userId)
-    {
-        $user = User::find($userId);
-        $okrs = Okr::where('user_id', $userId)->get();
-
-        return view('okr.show', compact('user', 'okrs'));
-    }
+    // public function show($userId)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.

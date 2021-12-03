@@ -174,7 +174,7 @@ class GenerateTestDataCommand extends Command
     private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
     {
         return Quarter::factory()->create([
-            'quater' => $quarter,
+            'quarter' => $quarter,
             'from' => $from,
             'to' => $to,
             'company_id' => $companyId

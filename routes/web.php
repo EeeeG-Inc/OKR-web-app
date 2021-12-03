@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\OkrController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-// use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +21,25 @@ Auth::routes();
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Route::get('/', [OkrController::class, 'index']);
-// Route::get(['/home', HomeController::class, 'index'])->name('home');
+
+Route::get('/', [DashboardController::class, 'index']);
+
+Route::resources([
+    'dashboard' => DashboardController::class,
+    'objective' => ObjectiveController::class,
+    'okr' => OkrController::class,
+]);
+
+
 
 Route::prefix('okr')->group(function () {
-    // OKR 一覧
-    Route::resource('/', OkrController::class);
     // OKR 検索
     Route::post('search', [OkrController::class, 'search'])->name('okr.search');
+});
+
+Route::prefix('dashboard')->group(function () {
+    // ユーザー検索
+    Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
 });
 
 // // 全ユーザ
