@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OkrSearchRequest;
 use App\Models\Okr;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\View\View;
 
 class OkrController extends Controller
 {
