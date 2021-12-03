@@ -84,10 +84,10 @@ class OkrController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $userId
+     * @param  int  $id
      * @return \Illuminate\View\View
      */
-    // public function show(int $userId)
+    // public function show(int $id)
     // {
     //     $user = User::find($userId);
     //     $okrs = Okr::where('user_id', $userId)->get();
