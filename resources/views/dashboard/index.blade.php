@@ -41,7 +41,11 @@
                                         @foreach($users as $user)
                                             <tr>
                                                 <td>{{ $user->name }}</td>
-                                                <td>{{ link_to_route('okr.show', __('common/action.detail'), $user->id); }}</td>
+                                                <td>
+                                                    @if ($user->hasOkr)
+                                                        {{ link_to_route('okr.show', __('common/action.detail'), $user->id); }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
