@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OkrIndexRequest;
 use App\Http\Requests\OkrSearchRequest;
 use App\Models\Okr;
 use App\Models\User;
@@ -16,10 +17,18 @@ class OkrController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(OkrIndexRequest $request)
     {
-        $okrs = Okr::paginate($this->pagenateNum);
+        $userId = $request->validated()['user_id'];
 
+        if ($userId) {
+            $user = User::find($userId);
+            $okrs = Okr::where('user_id', $userId)->get();
+            // TODO: index.blade.php にリネームする
+            return view('okr.index2', compact('user', 'okrs'));
+        }
+
+        $okrs = Okr::paginate($this->pagenateNum);
         return view('okr.index', compact('okrs'));
     }
 
@@ -78,13 +87,13 @@ class OkrController extends Controller
      * @param  int  $userId
      * @return \Illuminate\View\View
      */
-    public function show(int $userId)
-    {
-        $user = User::find($userId);
-        $okrs = Okr::where('user_id', $userId)->get();
+    // public function show(int $userId)
+    // {
+    //     $user = User::find($userId);
+    //     $okrs = Okr::where('user_id', $userId)->get();
 
-        return view('okr.show', compact('user', 'okrs'));
-    }
+    //     return view('okr.show', compact('user', 'okrs'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

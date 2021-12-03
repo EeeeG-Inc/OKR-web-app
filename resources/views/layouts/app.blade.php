@@ -35,10 +35,10 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">{{ __('common/title.dashboard.index') }}</a>
+                                <a class="nav-link" href="{{ route('dashboard.index') }}">{{ __('common/nav.dashboard.index') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('okr.index') }}">{{ __('common/title.okr.index') }}</a>
+                                <a class="nav-link" href="{{ route('okr.index') }}">{{ __('common/nav.okr.index') }}</a>
                             </li>
                         @endif
                     </ul>
