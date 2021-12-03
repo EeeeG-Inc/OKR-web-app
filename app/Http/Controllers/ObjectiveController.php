@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OkrSearchRequest;
+use App\Models\Objective;
 use App\Models\Okr;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 use Illuminate\View\View;
 
-class OkrController extends Controller
+class ObjectiveController extends Controller
 {
-    /** @var int */
-    private $pagenateNum = 15;
-
     /**
      * Display a listing of the resource.
      *
@@ -21,23 +15,7 @@ class OkrController extends Controller
      */
     public function index()
     {
-        $okrs = Okr::paginate($this->pagenateNum);
-
-        return view('okr.index', compact('okrs'));
-    }
-
-    /**
-     * Search listing of the resource.
-     *
-     * @param OkrSearchRequest $request 検索 Keyword
-     * @return  \Illuminate\View\View
-     */
-    public function search(OkrSearchRequest $request)
-    {
-        $input = $request->validated();
-        $okrs = Okr::paginate($this->pagenateNum);
-
-        return view('okr.index', compact('okrs'));
+        //
     }
 
     // public function okrlist(Request $request)
@@ -81,12 +59,12 @@ class OkrController extends Controller
      * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function show(int $userId)
+    public function show(int $okrId)
     {
-        $user = User::find($userId);
-        $okrs = Okr::where('user_id', $userId)->get();
+        $okr = Okr::find($okrId);
+        $objectives = Objective::where('okr_id', $okrId)->get();
 
-        return view('okr.show', compact('user', 'okrs'));
+        return view('objective.show', compact('okr', 'objectives'));
     }
 
     /**

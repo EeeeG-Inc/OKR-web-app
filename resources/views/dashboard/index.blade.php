@@ -1,47 +1,47 @@
 @extends('layouts.app')
-@section('title', __('common/title.okr.index'))
+@section('title', __('common/title.dashboard.index'))
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('common/title.okr.index') }}</div>
+                <div class="card-header">{{ __('common/title.dashboard.index') }}</div>
                 <div class="card-body">
                     <div class="pt-4 bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                 <div class="form" style="text-align: center">
-                                    {{ Form::open(['url' => route('okr.search'), 'files' => true]) }}
-                                    {{-- CSRF トークン --}}
+                                    {{ Form::open(['url' => route('dashboard.search'), 'files' => true]) }}
                                     {{ Form::token() }}
-                                    {{-- OKR --}}
-                                    {{ Form::label('okr', __('models/okrs.fields.okr')) }}
-                                    {{ Form::text('okr', null, ['placeholder' => __('models/okrs.fields.okr')]) }}
+
+                                    {{-- ユーザ --}}
+                                    {{ Form::label('user', __('models/users.fields.name')) }}
+                                    {{ Form::text('user', null) }}
                                     @if ($errors->has('okr'))
                                         <p>{{$errors->first('okr')}}</p>
                                     @endif
+
                                     {{-- 送信ボタン --}}
                                     {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 bg-green-400 text-white font-semibold rounded hover:bg-green-500;']) }}
                                     {{ Form::close() }}
+
                                     <p class="d-flex justify-content-center">
-                                    {{ $okrs->links() }}
+                                    {{ $users->links() }}
                                     </p>
                                 </div>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>YEAR</th>
-                                            <th>OKR</th>
-                                            <th>UserName</th>
+                                            <th>{{ __('models/users.fields.name') }}</th>
+                                            <th>{{ __('models/okrs.fields.okr') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($okrs as $okr)
+                                        @foreach($users as $user)
                                             <tr>
-                                                <td>{{ $okr->year }}</td>
-                                                <td>{{ $okr->okr }}</td>
-                                                <td>{{ $okr->users->name }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ link_to_route('okr.show', __('common/action.detail'), $user->id); }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

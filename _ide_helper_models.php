@@ -225,8 +225,8 @@ namespace App\Models{
  * @property-read int|null $okrs_count
  * @method static \Database\Factories\QuarterFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
- * @property int $quater 四半期区分
- * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuater($value)
+ * @property int $quarter 四半期区分
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
  */
 	class Quarter extends \Eloquent {}
 }
