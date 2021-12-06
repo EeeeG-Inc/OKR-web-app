@@ -19,9 +19,12 @@ class OkrController extends Controller
      */
     public function index(OkrIndexRequest $request)
     {
-        $userId = $request->validated()['user_id'];
+        $input = $request->validated();
 
-        if ($userId) {
+        // TODO: false の場合は現在ログイン中のユーザIDを使うようにする
+        if (array_key_exists('user_id', $input)) {
+            $userId = $input['user_id'];
+            // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
             $user = User::find($userId);
             $okrs = Okr::where('user_id', $userId)->get();
             // TODO: index.blade.php にリネームする
@@ -29,6 +32,7 @@ class OkrController extends Controller
         }
 
         $okrs = Okr::paginate($this->pagenateNum);
+        // TODO: index.blade2.php を使うようにする
         return view('okr.index', compact('okrs'));
     }
 
