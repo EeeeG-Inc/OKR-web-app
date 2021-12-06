@@ -147,8 +147,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
  * @property string $name 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereName($value)
- * @property string $detail 成果指標
- * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
+ * @property string $objective 成果指標
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereObjective($value)
  */
 	class Objective extends \Eloquent {}
 }

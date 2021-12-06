@@ -18,7 +18,7 @@
                                             <th>{{ __('models/quarters.fields.quarter') }}</th>
                                             <th>{{ __('models/okrs.fields.okr') }}</th>
                                             <th>{{ __('models/okrs.fields.score') }}</th>
-                                            <th>{{ __('models/objectives.fields.detail') }}</th>
+                                            <th>{{ __('models/objectives.fields.objective') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
