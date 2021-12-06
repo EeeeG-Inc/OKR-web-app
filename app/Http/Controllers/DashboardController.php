@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Http\Requests\DashboardSearchRequest;
 use App\Models\User;
 
@@ -17,7 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::paginate($this->pagenateNum);
+        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
+        $users = User::where('role', '!=', Role::ADMIN);
+        $users = $users->paginate($this->pagenateNum);
 
         return view('dashboard.index', compact('users'));
     }
@@ -30,6 +33,7 @@ class DashboardController extends Controller
      */
     public function search(DashboardSearchRequest $request)
     {
+        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         $input = $request->validated();
         $users = User::paginate($this->pagenateNum);
 

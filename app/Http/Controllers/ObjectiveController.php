@@ -15,6 +15,7 @@ class ObjectiveController extends Controller
      */
     public function index(ObjectiveIndexRequest $request)
     {
+        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         $okrId = $request->validated()['okr_id'];
         $okr = Okr::find($okrId);
         $objectives = Objective::where('okr_id', $okrId)->get();
