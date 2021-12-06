@@ -16,14 +16,14 @@
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('models/objectives.fields.detail') }}</th>
+                                            <th>{{ __('models/objectives.fields.objective') }}</th>
                                             <th>{{ __('models/objectives.fields.score') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($objectives as $objective)
                                             <tr>
-                                                <td>{{ $objective->detail }}</td>
+                                                <td>{{ $objective->objective }}</td>
                                                 <td>{{ $objective->score }}</td>
                                             </tr>
                                         @endforeach

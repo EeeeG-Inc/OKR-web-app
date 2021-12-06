@@ -288,7 +288,7 @@ class GenerateTestDataCommand extends Command
             $j = 0;
             while ($j !== $this->objectiveCount) {
                 Objective::factory()->create([
-                    'detail' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
+                    'objective' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
                     'okr_id' => $okrId,
                 ]);
                 $j++;
