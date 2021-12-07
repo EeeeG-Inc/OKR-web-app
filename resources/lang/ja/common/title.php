@@ -1,12 +1,15 @@
 <?php
 
 return [
+    'objective' => [
+        'index' => '【:name】:okrの成果指標',
+    ],
     'okr' => [
-        'index' => 'OKR 一覧',
+        'index' => '【:name】OKR 一覧',
         'create' => 'OKR 登録',
         'type' => '登録区分',
     ],
-    'objective' => [
-        'forOkr' => '成果指標に紐づく目標',
+    'dashboard' => [
+        'index' => 'ダッシュボード',
     ],
 ];

@@ -34,8 +34,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $okrs_count
  * @method static \Database\Factories\QuarterFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
- * @property int $quater 四半期区分
- * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuater($value)
+ * @property int $quarter 四半期区分
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
  */
 class Quarter extends Model
 {
@@ -54,6 +54,7 @@ class Quarter extends Model
      * @var string[]
      */
     protected $fillable = [
+        'quarter',
         'from',
         'to',
         'company_id',
@@ -66,6 +67,7 @@ class Quarter extends Model
      * @var array
      */
     protected $casts = [
+        'quarter' => 'int',
         'from' => 'int',
         'to' => 'int',
         'company_id' => 'int',

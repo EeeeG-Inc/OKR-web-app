@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * App\Models\Objective
  *
  * @property int $id
- * @property string $detail 成果指標
+ * @property string $objective 成果指標
  * @property int|null $score スコア
  * @property string|null $deleted_at 削除フラグ
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
  * @property string $name 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereName($value)
+ * @property string $objective 成果指標
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereObjective($value)
  * @property string $detail 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
  */
@@ -51,7 +53,7 @@ class Objective extends Model
      * @var string[]
      */
     protected $fillable = [
-        'detail',
+        'objective',
         'score',
         'okr_id',
     ];
@@ -62,7 +64,7 @@ class Objective extends Model
      * @var array
      */
     protected $casts = [
-        'detail' => 'string',
+        'objective' => 'string',
         'score' => 'float',
         'okr_id' => 'int',
         'deleted_at' => 'datetime',

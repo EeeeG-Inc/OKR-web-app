@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -35,7 +35,10 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('index') }}">{{ __('common/title.okr.index') }}</a>
+                                <a class="nav-link" href="{{ route('dashboard.index') }}">{{ __('common/nav.dashboard.index') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('okr.index') }}">{{ __('common/nav.okr.index') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('create') }}">{{ __('common/title.okr.create') }}</a>
@@ -66,7 +69,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                            onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
