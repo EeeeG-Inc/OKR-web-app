@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OkrCreateRequest extends FormRequest
+class OkrStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,13 @@ class OkrCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'okr' => 'nullable|string'
+            'user_id' => 'required|integer',
+            'okr' => 'required|string',
+            'year' => 'required|integer',
+            'quarter_id' => 'required|integer',
+            'objective1' => 'required|string',
+            'objective2' => 'nullable|string',
+            'objective3' => 'nullable|string',
         ];
     }
 }
