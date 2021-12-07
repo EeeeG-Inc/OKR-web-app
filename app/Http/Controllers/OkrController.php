@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OkrCreateRequest;
 use App\Http\Requests\OkrIndexRequest;
 use App\Http\Requests\OkrSearchRequest;
+use App\Http\Requests\OkrStoreRequest;
 use App\Models\Okr;
+use App\Models\Objective;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class OkrController extends Controller
 {
@@ -50,40 +58,63 @@ class OkrController extends Controller
         return view('okr.index', compact('okrs'));
     }
 
-    // public function okrlist(Request $request)
-    // {
-    //     $title = Request::get('name');
-
-    //     if ($title) {
-    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNum);
-    //     } else {
-    //         $item = Okr::select('*')->simplePaginate($this->pagenateNum);
-    //         //default は全件表示
-    //         $title='全件表示';
-    //     }
-    //     return view('okrlist', ['items'=>$item])->with('title', $title);
-    // }
-
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param OkrCreateRequest $request
+     * @return \Illuminate\View\View
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create(OkrCreateRequest $request)
+    {
+        $userId = Auth::id();
+        return view('okr.create', compact('userId'));
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param OkrStoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    public function store(OkrStoreRequest $request)
+    {
+        $input = $request->validated();
+
+        if (Auth::id() !== $input['user_id']) {
+            $request->session()->flash('message', '不正なユーザIDです。');
+            return redirect()->route('okr.create');
+        }
+
+        $objectives = [
+            $input['objective1'],
+            $input['objective2'],
+            $input['objective3'],
+        ];
+
+        try {
+            $okrId = Okr::create([
+                'user_id' => $input['user_id'],
+                'year' => $input['year'],
+                'quarter' => $input['quarter_id'],
+                'okr' => $input['okr'],
+            ])['id'];
+
+            foreach ($objectives as $objective) {
+                if (empty($objective)) {
+                    continue;
+                }
+                Objective::create([
+                    'user_id' => $input['user_id'],
+                    'okr_id' => $okrId,
+                    'objective' => $objective,
+                ]);
+            }
+        } catch (\Exception $e) {
+            session()->flash('message', $e->getMessage());
+        }
+        $request->session()->flash('message', '登録が完了いたしました。');
+        return redirect()->route('okr.create');
+    }
 
     /**
      * Display the specified resource.
