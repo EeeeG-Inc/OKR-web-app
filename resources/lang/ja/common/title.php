@@ -1,7 +1,13 @@
 <?php
 
 return [
+    'objective' => [
+        'index' => '【:name】:okrの成果指標',
+    ],
     'okr' => [
-        'index' => 'OKR 一覧'
+        'index' => '【:name】OKR一覧',
+    ],
+    'dashboard' => [
+        'index' => 'ダッシュボード',
     ],
 ];

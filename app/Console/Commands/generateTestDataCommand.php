@@ -174,7 +174,7 @@ class GenerateTestDataCommand extends Command
     private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
     {
         return Quarter::factory()->create([
-            'quater' => $quarter,
+            'quarter' => $quarter,
             'from' => $from,
             'to' => $to,
             'company_id' => $companyId
@@ -288,7 +288,7 @@ class GenerateTestDataCommand extends Command
             $j = 0;
             while ($j !== $this->objectiveCount) {
                 Objective::factory()->create([
-                    'detail' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
+                    'objective' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
                     'okr_id' => $okrId,
                 ]);
                 $j++;

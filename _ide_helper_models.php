@@ -147,8 +147,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereOkrId($value)
  * @property string $name 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereName($value)
- * @property string $detail 成果指標
- * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
+ * @property string $objective 成果指標
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereObjective($value)
  */
 	class Objective extends \Eloquent {}
 }
@@ -225,8 +225,8 @@ namespace App\Models{
  * @property-read int|null $okrs_count
  * @method static \Database\Factories\QuarterFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
- * @property int $quater 四半期区分
- * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuater($value)
+ * @property int $quarter 四半期区分
+ * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
  */
 	class Quarter extends \Eloquent {}
 }
