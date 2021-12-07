@@ -18,6 +18,7 @@ class CreateOkrsTable extends Migration
             $table->text('okr')->comment('目標');
             $table->float('score')
                 ->nullable()
+                ->default(0)
                 ->comment('総合スコア');
             $table->integer('user_id')
                 ->unsigned()
