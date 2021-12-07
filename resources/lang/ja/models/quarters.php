@@ -9,9 +9,9 @@ return [
         "company_id" => "会社ID",
     ],
     'quarter' => [
-        'firstQuarter' => '第1四半期',
-        'secondQuarter' => '第2四半期',
-        'thirdQuarter' => '第3四半期',
-        'fourthQuarter' => '第4四半期',
+        'first_quarter' => '第1四半期',
+        'second_quarter' => '第2四半期',
+        'third_quarter' => '第3四半期',
+        'fourth_quarter' => '第4四半期',
     ],
 ];
