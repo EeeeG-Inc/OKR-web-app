@@ -12,9 +12,10 @@
                                 <div
                                     class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
-                                        {{ Form::open(['url' => route('store'), 'files' => true]) }}
+                                        {{ Form::open(['url' => route('okr.store'), 'files' => true]) }}
                                         <!--CSRFトークン-->
                                         {{ Form::token() }}
+                                        {{ Form::hidden('user_id', $userId) }}
 
                                         <!--年度-->
                                         <div class="form-group pb-2">
@@ -34,23 +35,23 @@
                                         <!--四半期区分-->
                                         <div class="form-group row">
                                             <legend class="col-form-label col-md-2 mb-3">
-                                                {{ __('models/quarters.fields.quater') }}</legend>
+                                                {{ __('models/quarters.fields.quarter') }}</legend>
                                             <div class="col-md-10">
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuater', __('models/quarters.quarter.firstQuarter'), true, ['class' => 'custom-control-input', 'id' => 'radioQuarter1']) }}
-                                                    {{ Form::label('raidoQuater1', __('models/quarters.quarter.firstQuarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.first_quarter'), true, ['class' => 'custom-control-input', 'id' => 'radioQuarter1']) }}
+                                                    {{ Form::label('raidoQuarter1', __('models/quarters.quarter.first_quarter'), ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuater', __('models/quarters.quarter.secondQuarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuater2']) }}
-                                                    {{ Form::label('raidoQuater2', __('models/quarters.quarter.secondQuarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.second_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter2']) }}
+                                                    {{ Form::label('raidoQuarter2', __('models/quarters.quarter.second_quarter'), ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuater', __('models/quarters.quarter.thirdQuarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuater3']) }}
-                                                    {{ Form::label('raidoQuater3', __('models/quarters.quarter.thirdQuarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.third_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter3']) }}
+                                                    {{ Form::label('raidoQuarter3', __('models/quarters.quarter.third_quarter'), ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuater', __('models/quarters.quarter.fourthQuarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuater4']) }}
-                                                    {{ Form::label('raidoQuater4', __('models/quarters.quarter.fourthQuarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.fourth_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter4']) }}
+                                                    {{ Form::label('raidoQuarter4', __('models/quarters.quarter.fourth_quarter'), ['class' => 'custom-control-label']) }}
                                                 </div>
                                             </div>
                                         </div>

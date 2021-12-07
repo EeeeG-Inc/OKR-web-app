@@ -22,24 +22,24 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
 
-Route::resources([
-    'dashboard' => DashboardController::class,
-    'objective' => ObjectiveController::class,
-    'okr' => OkrController::class,
-]);
+    Route::resources([
+        'dashboard' => DashboardController::class,
+        'objective' => ObjectiveController::class,
+        'okr' => OkrController::class,
+    ]);
 
+    Route::prefix('okr')->group(function () {
+        // OKR 検索
+        Route::post('search', [OkrController::class, 'search'])->name('okr.search');
+    });
 
-
-Route::prefix('okr')->group(function () {
-    // OKR 検索
-    Route::post('search', [OkrController::class, 'search'])->name('okr.search');
-});
-
-Route::prefix('dashboard')->group(function () {
-    // ユーザー検索
-    Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+    Route::prefix('dashboard')->group(function () {
+        // ユーザー検索
+        Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+    });
 });
 
 // // 全ユーザ

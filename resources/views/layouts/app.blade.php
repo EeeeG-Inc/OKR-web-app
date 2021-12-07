@@ -35,13 +35,13 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">{{ __('common/nav.dashboard.index') }}</a>
+                                {{ link_to_route('dashboard.index', __('common/nav.dashboard.index'), null, ['class' => 'nav-link']) }}
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('okr.index') }}">{{ __('common/nav.okr.index') }}</a>
+                                {{ link_to_route('okr.index', __('common/nav.okr.index'), null, ['class' => 'nav-link']) }}
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('create') }}">{{ __('common/title.okr.create') }}</a>
+                                {{ link_to_route('okr.create', __('common/title.okr.create'), null, ['class' => 'nav-link']) }}
                             </li>
                         @endif
                     </ul>
@@ -52,13 +52,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    {{ link_to_route('login', __('Login'), null, ['class' => 'nav-link']) }}
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    {{ link_to_route('register', __('Register'), null, ['class' => 'nav-link']) }}
                                 </li>
                             @endif
                         @else
