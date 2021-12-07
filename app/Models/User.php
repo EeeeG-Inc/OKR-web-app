@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Okr;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -58,6 +58,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
  * @property-read \App\Models\Department|null $departments
+ * @property-read bool $has_okr
  */
 class User extends Authenticatable
 {
@@ -129,6 +130,10 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    /**
+     * Relations
+     */
+
     public function companies(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
@@ -139,8 +144,16 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'department_id');
     }
 
-    public function okrs(): HasMany
+    /**
+     * Accessors
+     */
+
+    /**
+     * OKR を持っているユーザーかどうか
+     */
+    public function getHasOkrAttribute(): bool
     {
-        return $this->hasMany(Okr::class, 'okr_id');
+        $okr = Okr::where('user_id', $this->id)->first();
+        return is_null($okr) ? false : true;
     }
 }

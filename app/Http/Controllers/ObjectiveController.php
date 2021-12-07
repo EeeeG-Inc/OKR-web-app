@@ -2,52 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OkrIndexRequest;
-use App\Http\Requests\OkrSearchRequest;
+use App\Http\Requests\ObjectiveIndexRequest;
+use App\Models\Objective;
 use App\Models\Okr;
-use App\Models\User;
 
-class OkrController extends Controller
+class ObjectiveController extends Controller
 {
-    /** @var int */
-    private $pagenateNum = 15;
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index(OkrIndexRequest $request)
+    public function index(ObjectiveIndexRequest $request)
     {
-        $input = $request->validated();
+        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
+        $okrId = $request->validated()['okr_id'];
+        $okr = Okr::find($okrId);
+        $objectives = Objective::where('okr_id', $okrId)->get();
 
-        // TODO: false の場合は現在ログイン中のユーザIDを使うようにする
-        if (array_key_exists('user_id', $input)) {
-            $userId = $input['user_id'];
-            // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-            $user = User::find($userId);
-            $okrs = Okr::where('user_id', $userId)->get();
-            // TODO: index.blade.php にリネームする
-            return view('okr.index2', compact('user', 'okrs'));
-        }
-
-        $okrs = Okr::paginate($this->pagenateNum);
-        // TODO: index.blade2.php を使うようにする
-        return view('okr.index', compact('okrs'));
-    }
-
-    /**
-     * Search listing of the resource.
-     *
-     * @param OkrSearchRequest $request 検索 Keyword
-     * @return  \Illuminate\View\View
-     */
-    public function search(OkrSearchRequest $request)
-    {
-        $input = $request->validated();
-        $okrs = Okr::paginate($this->pagenateNum);
-
-        return view('okr.index', compact('okrs'));
+        return view('objective.index', compact('okr', 'objectives'));
     }
 
     // public function okrlist(Request $request)
@@ -93,10 +66,7 @@ class OkrController extends Controller
      */
     // public function show(int $id)
     // {
-    //     $user = User::find($userId);
-    //     $okrs = Okr::where('user_id', $userId)->get();
-
-    //     return view('okr.show', compact('user', 'okrs'));
+    //     //
     // }
 
     /**
