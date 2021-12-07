@@ -18,6 +18,7 @@ class CreateObjectivesTable extends Migration
             $table->text('objective')->comment('成果指標');
             $table->float('score')
                 ->nullable()
+                ->default(0)
                 ->comment('個別スコア');
             $table->integer('okr_id')
                 ->unsigned()
