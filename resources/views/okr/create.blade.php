@@ -69,28 +69,28 @@
                                         <!--Objective-->
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective1', __('models/objectives.fields.detail') . '1') }}
+                                                {{ Form::label('inputObjective1', __('models/objectives.fields.objective') . '1') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective1', null, ['class' => 'form-control', 'id' => 'inputObjective1', 'placeholder' => __('models/objectives.fields.detail') . '1', 'rows' => '2']) }}
+                                                {{ Form::textarea('inputObjective1', null, ['class' => 'form-control', 'id' => 'inputObjective1', 'placeholder' => __('models/objectives.fields.objective') . '1', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective2', __('models/objectives.fields.detail') . '2') }}
+                                                {{ Form::label('inputObjective2', __('models/objectives.fields.objective') . '2') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective2', null, ['class' => 'form-control', 'id' => 'inputObjective2', 'placeholder' => __('models/objectives.fields.detail') . '2', 'rows' => '2']) }}
+                                                {{ Form::textarea('inputObjective2', null, ['class' => 'form-control', 'id' => 'inputObjective2', 'placeholder' => __('models/objectives.fields.objective') . '2', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective3', __('models/objectives.fields.detail') . '3') }}
+                                                {{ Form::label('inputObjective3', __('models/objectives.fields.objective') . '3') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective3', null, ['class' => 'form-control', 'id' => 'inputObjective3', 'placeholder' => __('models/objectives.fields.detail') . '3', 'rows' => '2']) }}
+                                                {{ Form::textarea('inputObjective3', null, ['class' => 'form-control', 'id' => 'inputObjective3', 'placeholder' => __('models/objectives.fields.objective') . '3', 'rows' => '2']) }}
                                             </div>
                                         </div>
                                         @if (count($errors) > 0)
@@ -103,7 +103,7 @@
                                         <!--内容確認ボタン-->
                                         <div class="form-group row">
                                             <div class="col-sm-12">
-                                                {{ Form::submit(__('common/action.confirm'), ['class' => 'btn btn-primary btn-block']) }}
+                                                {{ Form::submit(__('common/action.submit'), ['class' => 'btn btn-primary btn-block']) }}
                                             </div>
                                         </div>
 
