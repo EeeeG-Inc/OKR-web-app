@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
  * @property-read int|null $objectives_count
- * @property string $okr 目標
+ * @property string $okr OKR
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
