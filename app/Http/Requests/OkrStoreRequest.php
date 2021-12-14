@@ -27,7 +27,7 @@ class OkrStoreRequest extends FormRequest
             'user_id' => 'required|integer',
             'okr' => 'required|string',
             'year' => 'required|integer',
-            'quarter_id' => 'required|integer',
+            'quarter' => 'required|integer',
             'objective1' => 'required|string',
             'objective2' => 'nullable|string',
             'objective3' => 'nullable|string',
