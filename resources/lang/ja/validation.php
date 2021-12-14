@@ -131,4 +131,12 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'attributes' => [
+        'okr' => __('models/okrs.fields.okr'),
+        'objective1' => __('models/objectives.fields.objective') . '1',
+        'objective2' => __('models/objectives.fields.objective') . '2',
+        'objective3' => __('models/objectives.fields.objective') . '3',
+        'year' => __('models/okrs.fields.year'),
+        'quarter' => __('models/quarters.fields.quarter'),
+    ],
 ];
