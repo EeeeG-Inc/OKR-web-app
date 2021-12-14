@@ -21,14 +21,10 @@
                                         <div class="form-group pb-2">
                                             {{ Form::label('selectYear', __('models/okrs.fields.year')) }}
                                             {{ Form::select(
-                                                'selectYear',
-                                                [
-                                                    'thisYear' => \Carbon\Carbon::now()->format('Y'),
-                                                    'yearAfterNext' => \Carbon\Carbon::now()->addYear()->format('Y'),
-                                                    'threeYearsLater' => \Carbon\Carbon::now()->addYear(2)->format('Y'),
-                                                ],
+                                                'year',
+                                                $years,
                                                 'ordinarily',
-                                                ['class' => 'form-control', 'id' => 'selectYear'],
+                                                ['class' => 'form-control', 'id' => 'year'],
                                             ) }}
                                         </div>
 
@@ -38,20 +34,20 @@
                                                 {{ __('models/quarters.fields.quarter') }}</legend>
                                             <div class="col-md-10">
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.first_quarter'), true, ['class' => 'custom-control-input', 'id' => 'radioQuarter1']) }}
-                                                    {{ Form::label('raidoQuarter1', __('models/quarters.quarter.first_quarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('quarter', $quarters[0]->id, true, ['class' => 'custom-control-input', 'id' => 'radioQuarter1']) }}
+                                                    {{ Form::label('raidoQuarter1', $quarterLabels[0], ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.second_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter2']) }}
-                                                    {{ Form::label('raidoQuarter2', __('models/quarters.quarter.second_quarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('quarter', $quarters[1]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter2']) }}
+                                                    {{ Form::label('raidoQuarter2', $quarterLabels[1], ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.third_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter3']) }}
-                                                    {{ Form::label('raidoQuarter3', __('models/quarters.quarter.third_quarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('quarter', $quarters[2]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter3']) }}
+                                                    {{ Form::label('raidoQuarter3', $quarterLabels[2], ['class' => 'custom-control-label']) }}
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('raidoQuarter', __('models/quarters.quarter.fourth_quarter'), false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter4']) }}
-                                                    {{ Form::label('raidoQuarter4', __('models/quarters.quarter.fourth_quarter'), ['class' => 'custom-control-label']) }}
+                                                    {{ Form::radio('quarter', $quarters[3]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter4']) }}
+                                                    {{ Form::label('raidoQuarter4', $quarterLabels[3], ['class' => 'custom-control-label']) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -59,38 +55,38 @@
                                         <!--OKR-->
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputOkr', __('models/okrs.fields.okr')) }}
+                                                {{ Form::label('okr', __('models/okrs.fields.okr')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputOkr', null, ['class' => 'form-control', 'id' => 'inputOkr', 'placeholder' => __('models/okrs.fields.okr'), 'rows' => '2']) }}
+                                                {{ Form::textarea('okr', null, ['class' => 'form-control', 'id' => 'okr', 'placeholder' => __('models/okrs.fields.okr'), 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <!--Objective-->
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective1', __('models/objectives.fields.objective') . '1') }}
+                                                {{ Form::label('objective1', __('models/objectives.fields.objective') . '1') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective1', null, ['class' => 'form-control', 'id' => 'inputObjective1', 'placeholder' => __('models/objectives.fields.objective') . '1', 'rows' => '2']) }}
+                                                {{ Form::textarea('objective1', null, ['class' => 'form-control', 'id' => 'objective1', 'placeholder' => __('models/objectives.fields.objective') . '1', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective2', __('models/objectives.fields.objective') . '2') }}
+                                                {{ Form::label('objective2', __('models/objectives.fields.objective') . '2') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective2', null, ['class' => 'form-control', 'id' => 'inputObjective2', 'placeholder' => __('models/objectives.fields.objective') . '2', 'rows' => '2']) }}
+                                                {{ Form::textarea('objective2', null, ['class' => 'form-control', 'id' => 'objective2', 'placeholder' => __('models/objectives.fields.objective') . '2', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputObjective3', __('models/objectives.fields.objective') . '3') }}
+                                                {{ Form::label('objective3', __('models/objectives.fields.objective') . '3') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('inputObjective3', null, ['class' => 'form-control', 'id' => 'inputObjective3', 'placeholder' => __('models/objectives.fields.objective') . '3', 'rows' => '2']) }}
+                                                {{ Form::textarea('objective3', null, ['class' => 'form-control', 'id' => 'objective3', 'placeholder' => __('models/objectives.fields.objective') . '3', 'rows' => '2']) }}
                                             </div>
                                         </div>
                                         @if (count($errors) > 0)
@@ -100,10 +96,16 @@
                                                 @endforeach
                                             </ul>
                                         @endif
+                                        <!-- フラッシュメッセージ -->
+                                        @if (session('error'))
+                                            <div class="error">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
                                         <!--内容確認ボタン-->
                                         <div class="form-group row">
                                             <div class="col-sm-12">
-                                                {{ Form::submit(__('common/action.submit'), ['class' => 'btn btn-primary btn-block']) }}
+                                                {{ Form::submit(__('common/action.create'), ['class' => 'btn btn-primary btn-block']) }}
                                             </div>
                                         </div>
 

@@ -12,6 +12,12 @@
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                 <div class="form" style="text-align: center">
+                                    <!-- フラッシュメッセージ -->
+                                    @if (session('success'))
+                                        <div class="success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                                     {{ Form::open(['url' => route('okr.search'), 'files' => true]) }}
                                     {{-- CSRF トークン --}}
                                     {{ Form::token() }}
