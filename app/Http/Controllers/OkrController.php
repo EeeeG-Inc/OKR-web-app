@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OkrCreateRequest;
 use App\Http\Requests\OkrIndexRequest;
 use App\Http\Requests\OkrSearchRequest;
 use App\Http\Requests\OkrStoreRequest;
-use App\Models\Okr;
 use App\Models\Objective;
+use App\Models\Okr;
+use App\Models\Quarter;
 use App\Models\User;
+use \Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -61,13 +62,27 @@ class OkrController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param OkrCreateRequest $request
      * @return \Illuminate\View\View
      */
-    public function create(OkrCreateRequest $request)
+    public function create()
     {
         $userId = Auth::id();
-        return view('okr.create', compact('userId'));
+        $user = User::find($userId);
+        $companyId = $user->companies->id;
+        $quarters = Quarter::where('company_id', $companyId)->get();
+        // TODO: OKR Facade を作成して登録する。
+        $quarterLabels = [
+            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
+            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
+            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
+            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
+        ];
+        $years = [
+                Carbon::now()->format('Y'),
+                Carbon::now()->addYear()->format('Y'),
+                Carbon::now()->addYear(2)->format('Y'),
+        ];
+        return view('okr.create', compact('userId', 'quarters', 'quarterLabels', 'years'));
     }
 
     /**
@@ -80,7 +95,7 @@ class OkrController extends Controller
     {
         $input = $request->validated();
 
-        if (Auth::id() !== $input['user_id']) {
+        if (Auth::id() !== (int) $input['user_id']) {
             $request->session()->flash('message', '不正なユーザIDです。');
             return redirect()->route('okr.create');
         }
@@ -95,7 +110,7 @@ class OkrController extends Controller
             $okrId = Okr::create([
                 'user_id' => $input['user_id'],
                 'year' => $input['year'],
-                'quarter' => $input['quarter_id'],
+                'quarter_id' => $input['quarter'],
                 'okr' => $input['okr'],
             ])['id'];
 
@@ -110,10 +125,9 @@ class OkrController extends Controller
                 ]);
             }
         } catch (\Exception $e) {
-            session()->flash('message', $e->getMessage());
+            return redirect()->route('okr.index')->with('error', $e->getMessage());
         }
-        $request->session()->flash('message', '登録が完了いたしました。');
-        return redirect()->route('okr.create');
+        return redirect()->route('okr.index')->with('success', 'OKR の登録が完了いたしました。');
     }
 
     /**
