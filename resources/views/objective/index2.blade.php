@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', __('common/title.okr.index', ['name' => $user->name]))
+@section('title', __('common/title.objective.index', ['name' => $user->name]))
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('common/title.okr.index', ['name' => $user->name]) }}</div>
+                    <div class="card-header">{{ __('common/title.objective.index', ['name' => $user->name]) }}</div>
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -21,21 +21,21 @@
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>{{ __('models/okrs.fields.year') }}</th>
+                                                <th>{{ __('models/objectives.fields.year') }}</th>
                                                 <th>{{ __('models/quarters.fields.quarter') }}</th>
-                                                <th>{{ __('models/okrs.fields.okr') }}</th>
-                                                <th>{{ __('models/okrs.fields.score') }}</th>
                                                 <th>{{ __('models/objectives.fields.objective') }}</th>
+                                                <th>{{ __('models/objectives.fields.score') }}</th>
+                                                <th>{{ __('models/key-results.fields.key_result') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($okrs as $okr)
+                                            @foreach ($objectives as $objective)
                                                 <tr>
-                                                    <td>{{ $okr->year }}</td>
-                                                    <td>{{ $okr->quarters->quarter }}</td>
-                                                    <td>{{ $okr->okr }}</td>
-                                                    <td>{{ $okr->score }}</td>
-                                                    <td>{{ link_to_route('objective.index', __('common/action.detail'), ['okr_id' => $okr->id]) }}
+                                                    <td>{{ $objective->year }}</td>
+                                                    <td>{{ $objective->quarters->quarter }}</td>
+                                                    <td>{{ $objective->objective }}</td>
+                                                    <td>{{ $objective->score }}</td>
+                                                    <td>{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id]) }}
                                                     </td>
                                                 </tr>
                                             @endforeach

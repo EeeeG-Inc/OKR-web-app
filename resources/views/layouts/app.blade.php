@@ -38,10 +38,10 @@
                                 {{ link_to_route('dashboard.index', __('common/nav.dashboard.index'), null, ['class' => 'nav-link']) }}
                             </li>
                             <li class="nav-item">
-                                {{ link_to_route('okr.index', __('common/nav.okr.index'), null, ['class' => 'nav-link']) }}
+                                {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
                             </li>
                             <li class="nav-item">
-                                {{ link_to_route('okr.create', __('common/title.okr.create'), null, ['class' => 'nav-link']) }}
+                                {{ link_to_route('objective.create', __('common/title.objective.create'), null, ['class' => 'nav-link']) }}
                             </li>
                         @endif
                     </ul>
