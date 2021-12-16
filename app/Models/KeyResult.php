@@ -72,8 +72,8 @@ class KeyResult extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function okrs(): BelongsTo
+    public function objectives(): BelongsTo
     {
-        return $this->belongsTo(Okr::class, 'okr_id');
+        return $this->belongsTo(Objective::class, 'okr_id');
     }
 }

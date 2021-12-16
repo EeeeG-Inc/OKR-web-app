@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Okr;
+use App\Models\Objective;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class KeyResultFactory extends Factory

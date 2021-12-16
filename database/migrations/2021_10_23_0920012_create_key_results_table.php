@@ -30,7 +30,7 @@ class CreateKeyResultsTable extends Migration
 
             $table->foreign('okr_id')
                 ->references('id')
-                ->on('okrs')
+                ->on('objectives')
                 ->cascadeOnUpdate();
         });
     }

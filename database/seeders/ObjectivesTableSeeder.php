@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OkrsTableSeeder extends Seeder
+class ObjectivesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,7 +27,7 @@ class OkrsTableSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) {
-            DB::table('okrs')->insert($seed);
+            DB::table('objectives')->insert($seed);
         }
     }
 }
