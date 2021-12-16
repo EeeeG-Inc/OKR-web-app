@@ -103,7 +103,6 @@ return [
     'prohibited_unless'    => ':attributeフィールドは、:otherが:valuesでない限り禁止されています。',
     'prohibits'            => 'The :attribute field prohibits :other from being present.',
     'regex'                => ':attributeには、有効な正規表現を指定してください。',
-    'register'             => '登録に失敗しました。',
     'relatable'            => 'この:attributeきない場合に伴い資源です。',
     'required'             => ':attributeは、必ず指定してください。',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
@@ -125,6 +124,7 @@ return [
     'unique'               => '指定の:attributeは既に使用されています。',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
+    'user_id'              => '不正なユーザ ID です。',
     'uuid'                 => ':attributeは、有効なUUIDでなければなりません。',
     'custom'               => [
         'attribute-name' => [
@@ -132,11 +132,11 @@ return [
         ],
     ],
     'attributes' => [
-        'okr' => __('models/okrs.fields.okr'),
-        'objective1' => __('models/objectives.fields.objective') . '1',
-        'objective2' => __('models/objectives.fields.objective') . '2',
-        'objective3' => __('models/objectives.fields.objective') . '3',
-        'year' => __('models/okrs.fields.year'),
+        'okr' => __('models/objectives.fields.okr'),
+        'key_result1' => __('models/key-results.fields.key_result') . '1',
+        'key_result2' => __('models/key-results.fields.key_result') . '2',
+        'key_result3' => __('models/key-results.fields.key_result') . '3',
+        'year' => __('models/objectives.fields.year'),
         'quarter' => __('models/quarters.fields.quarter'),
     ],
 ];
