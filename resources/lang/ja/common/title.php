@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'objective' => [
+    'key_result' => [
         'index' => '【:name】:okrの成果指標',
     ],
-    'okr' => [
+    'objective' => [
         'index' => '【:name】OKR 一覧',
         'create' => 'OKR 登録',
         'type' => '登録区分',
