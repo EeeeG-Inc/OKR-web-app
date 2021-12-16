@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ObjectiveController;
-use App\Http\Controllers\OkrController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +26,13 @@ Route::middleware('auth')->group(function () {
 
     Route::resources([
         'dashboard' => DashboardController::class,
+        'key_result' => KeyResultController::class,
         'objective' => ObjectiveController::class,
-        'okr' => OkrController::class,
     ]);
 
-    Route::prefix('okr')->group(function () {
+    Route::prefix('objective')->group(function () {
         // OKR 検索
-        Route::post('search', [OkrController::class, 'search'])->name('okr.search');
+        Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');
     });
 
     Route::prefix('dashboard')->group(function () {
