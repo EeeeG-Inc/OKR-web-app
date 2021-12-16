@@ -132,7 +132,7 @@ return [
         ],
     ],
     'attributes' => [
-        'okr' => __('models/objectives.fields.okr'),
+        'objective' => __('models/objectives.fields.objective'),
         'key_result1' => __('models/key-results.fields.key_result') . '1',
         'key_result2' => __('models/key-results.fields.key_result') . '2',
         'key_result3' => __('models/key-results.fields.key_result') . '3',
