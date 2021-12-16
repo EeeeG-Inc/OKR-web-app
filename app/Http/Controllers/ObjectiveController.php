@@ -30,19 +30,16 @@ class ObjectiveController extends Controller
     {
         $input = $request->validated();
 
-        // TODO: false の場合は現在ログイン中のユーザIDを使うようにする
         if (array_key_exists('user_id', $input)) {
             $userId = $input['user_id'];
             // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
             $user = User::find($userId);
-            $objectives = Objective::where('user_id', $userId)->get();
-            // TODO: index.blade.php にリネームする
-            return view('objective.index2', compact('user', 'objectives'));
+            $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
+            return view('objective.index', compact('user', 'objectives'));
         }
-
-        $objectives = Objective::paginate($this->pagenateNum);
-        // TODO: index.blade2.php を使うようにする
-        return view('objective.index', compact('objectives'));
+        $user = Auth::user();
+        $objectives = Objective::where('user_id', $user->id)->paginate($this->pagenateNum);
+        return view('objective.index', compact('user', 'objectives'));
     }
 
     /**
@@ -78,8 +75,8 @@ class ObjectiveController extends Controller
         ];
         $years = [
                 Carbon::now()->format('Y'),
-                Carbon::now()->addYear(1)->format('Y'),
-                Carbon::now()->addYear(2)->format('Y'),
+                Carbon::now()->addYear()->format('Y'),
+                Carbon::now()->addYears(2)->format('Y'),
         ];
         return view('objective.create', compact('user', 'quarters', 'quarterLabels', 'years'));
     }
