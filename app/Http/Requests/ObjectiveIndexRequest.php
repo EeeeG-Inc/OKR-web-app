@@ -24,7 +24,7 @@ class ObjectiveIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'okr_id' => 'nullable|integer'
+            'user_id' => 'nullable|integer'
         ];
     }
 }

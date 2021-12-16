@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Okr;
+use App\Models\Objective;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -149,11 +149,11 @@ class User extends Authenticatable
      */
 
     /**
-     * OKR を持っているユーザーかどうか
+     * Objective を持っているユーザーかどうか
      */
-    public function getHasOkrAttribute(): bool
+    public function getHasObjectiveAttribute(): bool
     {
-        $okr = Objective::where('user_id', $this->id)->first();
-        return is_null($okr) ? false : true;
+        $objective = Objective::where('user_id', $this->id)->first();
+        return is_null($objective) ? false : true;
     }
 }

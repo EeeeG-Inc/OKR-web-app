@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ObjectiveIndexRequest;
+use App\Http\Requests\ObjectiveSearchRequest;
+use App\Http\Requests\ObjectiveStoreRequest;
 use App\Models\KeyResult;
 use App\Models\Objective;
+use App\Models\Quarter;
+use App\Models\User;
+use \Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ObjectiveController extends Controller
 {
+    /** @var int */
+    private $pagenateNum = 15;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,48 +28,106 @@ class ObjectiveController extends Controller
      */
     public function index(ObjectiveIndexRequest $request)
     {
-        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-        $okrId = $request->validated()['okr_id'];
-        $okr = Objective::find($okrId);
-        $objectives = KeyResult::where('okr_id', $okrId)->get();
+        $input = $request->validated();
 
-        return view('objective.index', compact('okr', 'objectives'));
+        // TODO: false の場合は現在ログイン中のユーザIDを使うようにする
+        if (array_key_exists('user_id', $input)) {
+            $userId = $input['user_id'];
+            // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
+            $user = User::find($userId);
+            $objectives = Objective::where('user_id', $userId)->get();
+            // TODO: index.blade.php にリネームする
+            return view('objective.index2', compact('user', 'objectives'));
+        }
+
+        $objectives = Objective::paginate($this->pagenateNum);
+        // TODO: index.blade2.php を使うようにする
+        return view('objective.index', compact('objectives'));
     }
 
-    // public function okrlist(Request $request)
-    // {
-    //     $title = Request::get('name');
+    /**
+     * Search listing of the resource.
+     *
+     * @param ObjectiveSearchRequest $request 検索 Keyword
+     * @return  \Illuminate\View\View
+     */
+    public function search(ObjectiveSearchRequest $request)
+    {
+        $input = $request->validated();
+        $objectives = Objective::paginate($this->pagenateNum);
 
-    //     if ($title) {
-    //         $item = Okr::where('name', 'LIKE', "%$name%")->simplePaginate($this->pagenateNum);
-    //     } else {
-    //         $item = Okr::select('*')->simplePaginate($this->pagenateNum);
-    //         //default は全件表示
-    //         $title='全件表示';
-    //     }
-    //     return view('okrlist', ['items'=>$item])->with('title', $title);
-    // }
+        return view('objective.index', compact('objectives'));
+    }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create()
+    {
+        $user = Auth::user()->id;
+        $companyId = Auth::user()->companies->id;
+        $quarters = Quarter::where('company_id', $companyId)->get();
+        // TODO: OKR Facade を作成して登録する。
+        $quarterLabels = [
+            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
+            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
+            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
+            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
+        ];
+        $years = [
+                Carbon::now()->format('Y'),
+                Carbon::now()->addYear(1)->format('Y'),
+                Carbon::now()->addYear(2)->format('Y'),
+        ];
+        return view('objective.create', compact('user', 'quarters', 'quarterLabels', 'years'));
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ObjectiveStoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    public function store(ObjectiveStoreRequest $request)
+    {
+        $input = $request->validated();
+
+        if (Auth::user()->id !== (int) $input['user_id']) {
+            $request->session()->flash('message', __('validation.user_id'));
+            return redirect()->route('objective.create');
+        }
+
+        $keyResults = [
+            $input['key_result1'],
+            $input['key_result2'],
+            $input['key_result3'],
+        ];
+
+        try {
+            $objectiveId = Objective::create([
+                'user_id' => $input['user_id'],
+                'year' => $input['year'],
+                'quarter_id' => $input['quarter'],
+                'objective' => $input['objective'],
+            ])['id'];
+
+            foreach ($keyResults as $keyResult) {
+                if (empty($keyResult)) {
+                    continue;
+                }
+                KeyResult::create([
+                    'user_id' => $input['user_id'],
+                    'objective_id' => $objectiveId,
+                    'key_result' => $keyResult,
+                ]);
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('objective.index')->with('error', $e->getMessage());
+        }
+        return redirect()->route('objective.index')->with('success', __('common/message.register.objective'));
+    }
 
     /**
      * Display the specified resource.
@@ -66,7 +137,10 @@ class ObjectiveController extends Controller
      */
     // public function show(int $id)
     // {
-    //     //
+    //     $user = User::find($userId);
+    //     $okrs = Okr::where('user_id', $userId)->get();
+
+    //     return view('okr.show', compact('user', 'okrs'));
     // }
 
     /**

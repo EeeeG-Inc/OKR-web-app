@@ -53,9 +53,9 @@ class KeyResult extends Model
      * @var string[]
      */
     protected $fillable = [
-        'objective',
+        'key_result',
         'score',
-        'okr_id',
+        'objective_id',
     ];
 
     /**
@@ -64,9 +64,9 @@ class KeyResult extends Model
      * @var array
      */
     protected $casts = [
-        'objective' => 'string',
+        'key_result' => 'string',
         'score' => 'float',
-        'okr_id' => 'int',
+        'objective_id' => 'int',
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -74,6 +74,6 @@ class KeyResult extends Model
 
     public function objectives(): BelongsTo
     {
-        return $this->belongsTo(Objective::class, 'okr_id');
+        return $this->belongsTo(Objective::class, 'objective_id');
     }
 }
