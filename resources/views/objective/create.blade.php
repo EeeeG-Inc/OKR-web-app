@@ -5,27 +5,22 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('common/title.okr.create') }}</div>
+                    <div class="card-header">{{ __('common/title.objective.create') }}</div>
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div
                                     class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
-                                        {{ Form::open(['url' => route('okr.store'), 'files' => true]) }}
+                                        {{ Form::open(['url' => route('objective.store'), 'files' => true]) }}
                                         <!--CSRFトークン-->
                                         {{ Form::token() }}
-                                        {{ Form::hidden('user_id', $userId) }}
+                                        {{ Form::hidden('user_id', $user) }}
 
                                         <!--年度-->
                                         <div class="form-group pb-2">
-                                            {{ Form::label('selectYear', __('models/okrs.fields.year')) }}
-                                            {{ Form::select(
-                                                'year',
-                                                $years,
-                                                'ordinarily',
-                                                ['class' => 'form-control', 'id' => 'year'],
-                                            ) }}
+                                            {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
+                                            {{                                             Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
                                         </div>
 
                                         <!--四半期区分-->
@@ -55,38 +50,38 @@
                                         <!--OKR-->
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('okr', __('models/okrs.fields.okr')) }}
+                                                {{ Form::label('objective', __('models/objectives.fields.objective')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('okr', null, ['class' => 'form-control', 'id' => 'okr', 'placeholder' => __('models/okrs.fields.okr'), 'rows' => '2']) }}
+                                                {{ Form::textarea('objective', null, ['class' => 'form-control', 'id' => 'objective', 'placeholder' => __('models/objectives.fields.objective'), 'rows' => '2']) }}
                                             </div>
                                         </div>
 
-                                        <!--Objective-->
+                                        <!--KeyResult-->
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('objective1', __('models/objectives.fields.objective') . '1') }}
+                                                {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('objective1', null, ['class' => 'form-control', 'id' => 'objective1', 'placeholder' => __('models/objectives.fields.objective') . '1', 'rows' => '2']) }}
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-2 mb-3">
-                                                {{ Form::label('objective2', __('models/objectives.fields.objective') . '2') }}
-                                            </div>
-                                            <div class="col-md-10">
-                                                {{ Form::textarea('objective2', null, ['class' => 'form-control', 'id' => 'objective2', 'placeholder' => __('models/objectives.fields.objective') . '2', 'rows' => '2']) }}
+                                                {{ Form::textarea('key_result1', null, ['class' => 'form-control', 'id' => 'key_result1', 'placeholder' => __('models/key-results.fields.key_result') . '1', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('objective3', __('models/objectives.fields.objective') . '3') }}
+                                                {{ Form::label('key_result2', __('models/key-results.fields.key_result') . '2') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('objective3', null, ['class' => 'form-control', 'id' => 'objective3', 'placeholder' => __('models/objectives.fields.objective') . '3', 'rows' => '2']) }}
+                                                {{ Form::textarea('key_result2', null, ['class' => 'form-control', 'id' => 'key_result2', 'placeholder' => __('models/key-results.fields.key_result') . '2', 'rows' => '2']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result3', __('models/key-results.fields.key_result') . '3') }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::textarea('key_result3', null, ['class' => 'form-control', 'id' => 'key_result3', 'placeholder' => __('models/key-results.fields.key_result') . '3', 'rows' => '2']) }}
                                             </div>
                                         </div>
                                         @if (count($errors) > 0)
