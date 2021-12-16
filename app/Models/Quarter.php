@@ -83,6 +83,6 @@ class Quarter extends Model
 
     public function objectives(): HasMany
     {
-        return $this->hasMany(Objective::class, 'okr_id');
+        return $this->hasMany(Objective::class, 'objective_id');
     }
 }

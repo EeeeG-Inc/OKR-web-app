@@ -65,7 +65,7 @@ class Objective extends Model
      * @var string[]
      */
     protected $fillable = [
-        'okr',
+        'objective',
         'score',
         'user_id',
         'year',
@@ -79,7 +79,7 @@ class Objective extends Model
      * @var array
      */
     protected $casts = [
-        'okr' => 'string',
+        'objective' => 'string',
         'score' => 'float',
         'user_id' => 'int',
         'year' => 'int',
