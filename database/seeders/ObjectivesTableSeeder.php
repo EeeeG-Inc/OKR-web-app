@@ -16,7 +16,7 @@ class ObjectivesTableSeeder extends Seeder
     {
         $seeds = [
             [
-                'okr'               =>  '歩く',
+                'objective'               =>  '歩く',
                 'score'              =>  0.9,
                 'user_id'            =>  4,
                 'year'               =>  2021,

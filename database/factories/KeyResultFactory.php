@@ -15,9 +15,9 @@ class KeyResultFactory extends Factory
     public function definition()
     {
         return [
-            'objective' => $this->faker->realText(50),
-            'score'     => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
-            'okr_id'    => Okr::factory(),
+            'key_result' => $this->faker->realText(50),
+            'score' => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
+            'objective_id' => Objective::factory(),
         ];
     }
 }

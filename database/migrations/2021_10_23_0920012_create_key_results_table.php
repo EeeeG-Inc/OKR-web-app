@@ -15,20 +15,20 @@ class CreateKeyResultsTable extends Migration
     {
         Schema::create('key_results', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('objective')->comment('成果指標');
+            $table->text('key_result')->comment('成果指標');
             $table->float('score')
                 ->nullable()
                 ->default(0)
                 ->comment('個別スコア');
-            $table->integer('okr_id')
+            $table->integer('objective_id')
                 ->unsigned()
                 ->nullable()
-                ->comment('okrID');
+                ->comment('objectiveID');
             $table->softDeletes()
                 ->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('okr_id')
+            $table->foreign('objective_id')
                 ->references('id')
                 ->on('objectives')
                 ->cascadeOnUpdate();
@@ -44,7 +44,7 @@ class CreateKeyResultsTable extends Migration
     {
         Schema::dropIfExists('key_results');
         Schema::table('key_results', function (Blueprint $table) {
-            $table->dropForeign(['okr_id']);
+            $table->dropForeign(['objective_id']);
         });
     }
 }
