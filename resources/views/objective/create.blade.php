@@ -13,17 +13,17 @@
                                     class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
                                         {{ Form::open(['url' => route('objective.store'), 'files' => true]) }}
-                                        <!--CSRFトークン-->
+                                        {{--CSRFトークン--}}
                                         {{ Form::token() }}
-                                        {{ Form::hidden('user_id', $user) }}
+                                        {{ Form::hidden('user_id', $user->id) }}
 
-                                        <!--年度-->
+                                        {{--年度--}}
                                         <div class="form-group pb-2">
                                             {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
                                             {{                                             Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
                                         </div>
 
-                                        <!--四半期区分-->
+                                        {{--四半期区分--}}
                                         <div class="form-group row">
                                             <legend class="col-form-label col-md-2 mb-3">
                                                 {{ __('models/quarters.fields.quarter') }}</legend>
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
 
-                                        <!--OKR-->
+                                        {{--OKR--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('objective', __('models/objectives.fields.objective')) }}
@@ -57,7 +57,7 @@
                                             </div>
                                         </div>
 
-                                        <!--KeyResult-->
+                                        {{--KeyResult--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
@@ -91,13 +91,13 @@
                                                 @endforeach
                                             </ul>
                                         @endif
-                                        <!-- フラッシュメッセージ -->
+                                        {{--フラッシュメッセージ--}}
                                         @if (session('error'))
                                             <div class="error">
                                                 {{ session('error') }}
                                             </div>
                                         @endif
-                                        <!--内容確認ボタン-->
+                                        {{--内容確認ボタン--}}
                                         <div class="form-group row">
                                             <div class="col-sm-12">
                                                 {{ Form::submit(__('common/action.create'), ['class' => 'btn btn-primary btn-block']) }}
