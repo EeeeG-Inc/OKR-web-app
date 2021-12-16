@@ -66,9 +66,9 @@ class ObjectiveController extends Controller
      */
     public function create()
     {
-        $user = Auth::user()->id;
-        $companyId = Auth::user()->companies->id;
-        $quarters = Quarter::where('company_id', $companyId)->get();
+        $user = Auth::user();
+        $companyId = $user->companies->id;
+        $quarters = Quarter::where('company_id', $companyId)->orderBy('quarter', 'asc')->get();
         // TODO: OKR Facade を作成して登録する。
         $quarterLabels = [
             __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
