@@ -48,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
-class Okr extends Model
+class Objective extends Model
 {
     use HasFactory;
 
@@ -57,7 +57,7 @@ class Okr extends Model
      *
      * @var string
      */
-    protected $table = 'okrs';
+    protected $table = 'objectives';
 
     /**
      * The attributes that are mass assignable.

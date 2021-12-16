@@ -7,7 +7,7 @@ use \App\Models\Company;
 use \App\Models\CompanyGroup;
 use \App\Models\Department;
 use \App\Models\KeyResult;
-use \App\Models\Okr;
+use \App\Models\Objective;
 use \App\Models\Quarter;
 use \App\Models\User;
 use \Carbon\Carbon;
@@ -274,7 +274,7 @@ class GenerateTestDataCommand extends Command
         $okrIds = [];
         $i = 0;
         while ($this->okrCount !== $i) {
-            $okrIds[] = Okr::factory()->create([
+            $okrIds[] = Objective::factory()->create([
                 'okr' => $this->okrs[$i],
                 'user_id' => $userId,
                 'quarter_id' => $quarterId,

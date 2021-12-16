@@ -81,8 +81,8 @@ class Quarter extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function okrs(): HasMany
+    public function objectives(): HasMany
     {
-        return $this->hasMany(Okr::class, 'okr_id');
+        return $this->hasMany(Objective::class, 'okr_id');
     }
 }

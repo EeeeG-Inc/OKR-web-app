@@ -6,7 +6,7 @@ use App\Models\Quarter;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OkrFactory extends Factory
+class ObjectiveFactory extends Factory
 {
     /**
      * Define the model's default state.

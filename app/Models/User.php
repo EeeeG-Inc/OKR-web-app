@@ -153,7 +153,7 @@ class User extends Authenticatable
      */
     public function getHasOkrAttribute(): bool
     {
-        $okr = Okr::where('user_id', $this->id)->first();
+        $okr = Objective::where('user_id', $this->id)->first();
         return is_null($okr) ? false : true;
     }
 }
