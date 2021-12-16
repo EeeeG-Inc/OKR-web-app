@@ -2,7 +2,7 @@
 
 return [
     'objective' => [
-        'index' => 'OKR一覧',
+        'index' => 'MyOKR',
     ],
     'dashboard' => [
         'index' => 'ダッシュボード',
