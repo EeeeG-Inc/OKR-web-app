@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Okr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ObjectiveFactory extends Factory
+class KeyResultFactory extends Factory
 {
     /**
      * Define the model's default state.

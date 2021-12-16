@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Objective
+ * App\Models\KeyResult
  *
  * @property int $id
  * @property string $objective 成果指標
@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $detail 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
  */
-class Objective extends Model
+class KeyResult extends Model
 {
     use HasFactory;
 
@@ -45,7 +45,7 @@ class Objective extends Model
      *
      * @var string
      */
-    protected $table = 'objectives';
+    protected $table = 'key_results';
 
     /**
      * The attributes that are mass assignable.

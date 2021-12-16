@@ -6,7 +6,7 @@ use \App\Enums\Role;
 use \App\Models\Company;
 use \App\Models\CompanyGroup;
 use \App\Models\Department;
-use \App\Models\Objective;
+use \App\Models\KeyResult;
 use \App\Models\Okr;
 use \App\Models\Quarter;
 use \App\Models\User;
@@ -287,7 +287,7 @@ class GenerateTestDataCommand extends Command
         foreach ($okrIds as $okrId) {
             $j = 0;
             while ($j !== $this->objectiveCount) {
-                Objective::factory()->create([
+                KeyResult::factory()->create([
                     'objective' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
                     'okr_id' => $okrId,
                 ]);

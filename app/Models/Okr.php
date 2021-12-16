@@ -99,8 +99,8 @@ class Okr extends Model
         return $this->belongsTo(Quarter::class, 'quarter_id');
     }
 
-    public function objectives(): HasMany
+    public function keyResults(): HasMany
     {
-        return $this->hasMany(Objective::class, 'object_id');
+        return $this->hasMany(KeyResult::class, 'object_id');
     }
 }
