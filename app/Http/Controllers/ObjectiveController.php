@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ObjectiveIndexRequest;
-use App\Models\Objective;
+use App\Models\KeyResult;
 use App\Models\Okr;
 
 class ObjectiveController extends Controller
@@ -18,7 +18,7 @@ class ObjectiveController extends Controller
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         $okrId = $request->validated()['okr_id'];
         $okr = Okr::find($okrId);
-        $objectives = Objective::where('okr_id', $okrId)->get();
+        $objectives = KeyResult::where('okr_id', $okrId)->get();
 
         return view('objective.index', compact('okr', 'objectives'));
     }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ObjectivesTableSeeder extends Seeder
+class KeyResultsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -53,7 +53,7 @@ class ObjectivesTableSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) {
-            DB::table('objectives')->insert($seed);
+            DB::table('key_results')->insert($seed);
         }
     }
 }
