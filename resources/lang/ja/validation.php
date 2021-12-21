@@ -124,10 +124,19 @@ return [
     'unique'               => '指定の:attributeは既に使用されています。',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
+    'user_id'              => '不正なユーザ ID です。',
     'uuid'                 => ':attributeは、有効なUUIDでなければなりません。',
     'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+    ],
+    'attributes' => [
+        'objective' => __('models/objectives.fields.objective'),
+        'key_result1' => __('models/key-results.fields.key_result') . '1',
+        'key_result2' => __('models/key-results.fields.key_result') . '2',
+        'key_result3' => __('models/key-results.fields.key_result') . '3',
+        'year' => __('models/objectives.fields.year'),
+        'quarter' => __('models/quarters.fields.quarter'),
     ],
 ];

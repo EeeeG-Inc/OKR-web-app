@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OkrSearchRequest extends FormRequest
+class KeyResultIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class OkrSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'okr' => 'nullable|string'
+            'objective_id' => 'nullable|integer'
         ];
     }
 }

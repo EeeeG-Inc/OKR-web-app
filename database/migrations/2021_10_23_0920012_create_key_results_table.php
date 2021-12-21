@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObjectivesTable extends Migration
+class CreateKeyResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,24 @@ class CreateObjectivesTable extends Migration
      */
     public function up()
     {
-        Schema::create('objectives', function (Blueprint $table) {
+        Schema::create('key_results', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('objective')->comment('成果指標');
-            $table->float('score')
+            $table->text('key_result')->comment('成果指標');
+            $table->double('score')
                 ->nullable()
+                ->default(0)
                 ->comment('個別スコア');
-            $table->integer('okr_id')
+            $table->integer('objective_id')
                 ->unsigned()
                 ->nullable()
-                ->comment('okrID');
+                ->comment('目標 ID');
             $table->softDeletes()
                 ->comment('削除フラグ');
             $table->timestamps();
 
-            $table->foreign('okr_id')
+            $table->foreign('objective_id')
                 ->references('id')
-                ->on('okrs')
+                ->on('objectives')
                 ->cascadeOnUpdate();
         });
     }
@@ -41,9 +42,9 @@ class CreateObjectivesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objectives');
-        Schema::table('objectives', function (Blueprint $table) {
-            $table->dropForeign(['okr_id']);
+        Schema::dropIfExists('key_results');
+        Schema::table('key_results', function (Blueprint $table) {
+            $table->dropForeign(['objective_id']);
         });
     }
 }

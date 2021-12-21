@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'okr' => [
-        'index' => 'OKR一覧',
+    'objective' => [
+        'index' => '目標管理',
     ],
     'dashboard' => [
         'index' => 'ダッシュボード',

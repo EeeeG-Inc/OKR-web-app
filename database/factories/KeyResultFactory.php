@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Quarter;
-use App\Models\User;
+use App\Models\Objective;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ObjectiveFactory extends Factory
+class KeyResultFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,11 +15,9 @@ class ObjectiveFactory extends Factory
     public function definition()
     {
         return [
-            'objective' => $this->faker->realText(10),
+            'key_result' => $this->faker->realText(50),
             'score' => $this->faker->randomFloat(1, 0, 1), //小数点第1までの0から1のランダムな浮動小数点
-            'user_id' => User::factory(),
-            'year' => $this->faker->year(),
-            'quarter_id' => Quarter::factory(),
+            'objective_id' => Objective::factory(),
         ];
     }
 }
