@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeyResultController;
+use App\Http\Controllers\ObjectiveController;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -26,10 +26,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($objectives as $objective)
+                                            @foreach ($keyResults as $keyResult)
                                                 <tr>
-                                                    <td>{{ $objective->objective }}</td>
-                                                    <td>{{ $objective->score }}</td>
+                                                    <td>{{ $keyResult->key_result }}</td>
+                                                    <td>{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
