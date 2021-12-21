@@ -16,7 +16,7 @@ class CreateObjectivesTable extends Migration
         Schema::create('objectives', function (Blueprint $table) {
             $table->increments('id');
             $table->text('objective')->comment('目標');
-            $table->float('score')
+            $table->double('score')
                 ->nullable()
                 ->default(0)
                 ->comment('総合スコア');

@@ -80,7 +80,7 @@ class Objective extends Model
      */
     protected $casts = [
         'objective' => 'string',
-        'score' => 'float',
+        'score' => 'double',
         'user_id' => 'int',
         'year' => 'int',
         'quarter_id' => 'int',
