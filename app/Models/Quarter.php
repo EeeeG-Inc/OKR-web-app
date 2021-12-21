@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereCompanyId($value)
  * @property int $quarter 四半期区分
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
+ * @property-read int|null $objectives_count
  */
 class Quarter extends Model
 {
