@@ -92,11 +92,7 @@
                                             </ul>
                                         @endif
                                         {{--フラッシュメッセージ--}}
-                                        @if (session('error'))
-                                            <div class="error">
-                                                {{ session('error') }}
-                                            </div>
-                                        @endif
+                                        @include('flash::message')
                                         {{--内容確認ボタン--}}
                                         <div class="form-group row">
                                             <div class="col-sm-12">

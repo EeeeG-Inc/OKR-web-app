@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Laracasts\Flash\Flash;
 
 class ObjectiveController extends Controller
 {
@@ -91,7 +92,7 @@ class ObjectiveController extends Controller
         $input = $request->validated();
 
         if (Auth::user()->id !== (int) $input['user_id']) {
-            $request->session()->flash('message', __('validation.user_id'));
+            Flash::error(__('validation.user_id'));
             return redirect()->route('objective.create');
         }
 
