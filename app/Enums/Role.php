@@ -10,7 +10,7 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class Role extends Enum implements LocalizedEnum
+class Role extends Enum implements LocalizedEnum
 {
     const ADMIN = 1;
     const COMPANY = 2;
