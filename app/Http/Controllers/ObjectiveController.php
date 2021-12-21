@@ -30,15 +30,14 @@ class ObjectiveController extends Controller
     {
         $input = $request->validated();
 
+        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         if (array_key_exists('user_id', $input)) {
-            $userId = $input['user_id'];
-            // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-            $user = User::find($userId);
-            $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
-            return view('objective.index', compact('user', 'objectives'));
+            $user = User::find($input['user_id']);
+        } else {
+            $user = Auth::user();
         }
-        $user = Auth::user();
-        $objectives = Objective::where('user_id', $user->id)->paginate($this->pagenateNum);
+        $userId = $user->id;
+        $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
         return view('objective.index', compact('user', 'objectives'));
     }
 
