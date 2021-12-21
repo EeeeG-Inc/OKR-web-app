@@ -84,13 +84,6 @@
                                                 {{ Form::textarea('key_result3', null, ['class' => 'form-control', 'id' => 'key_result3', 'placeholder' => __('models/key-results.fields.key_result') . '3', 'rows' => '2']) }}
                                             </div>
                                         </div>
-                                        @if (count($errors) > 0)
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
                                         {{--フラッシュメッセージ--}}
                                         @include('flash::message')
                                         {{--内容確認ボタン--}}
