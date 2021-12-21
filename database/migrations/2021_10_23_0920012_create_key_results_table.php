@@ -16,14 +16,14 @@ class CreateKeyResultsTable extends Migration
         Schema::create('key_results', function (Blueprint $table) {
             $table->increments('id');
             $table->text('key_result')->comment('成果指標');
-            $table->float('score')
+            $table->double('score')
                 ->nullable()
                 ->default(0)
                 ->comment('個別スコア');
             $table->integer('objective_id')
                 ->unsigned()
                 ->nullable()
-                ->comment('objectiveID');
+                ->comment('目標 ID');
             $table->softDeletes()
                 ->comment('削除フラグ');
             $table->timestamps();

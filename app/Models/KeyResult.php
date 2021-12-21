@@ -65,7 +65,7 @@ class KeyResult extends Model
      */
     protected $casts = [
         'key_result' => 'string',
-        'score' => 'float',
+        'score' => 'double',
         'objective_id' => 'int',
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
