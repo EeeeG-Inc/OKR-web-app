@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', __('model/objectives.fields.index', ['name' => $user->name]))
+@section('title', __('models/objectives.fields.index', ['name' => $user->name]))
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('model/objectives.fields.index', ['name' => $user->name]) }}</div>
+                <div class="card-header">{{ __('models/objectives.fields.index', ['name' => $user->name]) }}</div>
                 <div class="card-body">
                     <div class="pt-4 bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
