@@ -35,6 +35,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereObjective($value)
  * @property string $detail 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereDetail($value)
+ * @property string $key_result 成果指標
+ * @property int|null $objective_id objectiveID
+ * @property-read \App\Models\Objective|null $objectives
+ * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereKeyResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereObjectiveId($value)
  */
 class KeyResult extends Model
 {
