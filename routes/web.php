@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeyResultController;
 use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,22 +43,15 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+// 会社ユーザ以上
+Route::middleware('auth', 'can:company-higher')->group(function () {
+    Route::resources([
+        'user' => UserController::class,
+    ]);
+});
+
 // // 全ユーザ
 // Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
 //     // ユーザ一覧
 //     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
-// });
-
-// // 管理者以上
-// Route::group(['middleware' => ['auth', 'can:manager-higher']], function () {
-//     // ユーザ登録
-//     Route::get('/account/regist', [AccountController::class, 'regist'])->name('account.regist');
-//     Route::post('/account/regist', [AccountController::class, 'createData'])->name('account.regist');
-
-//     // ユーザ編集
-//     Route::get('/account/edit/{user_id}', [AccountController::class, 'edit'])->name('account.edit');
-//     Route::post('/account/edit/{user_id}', [AccountController::class, 'updateData'])->name('account.edit');
-
-//     // ユーザ削除
-//     Route::post('/account/delete/{user_id}', [AccountController::class, 'deleteData']);
 // });

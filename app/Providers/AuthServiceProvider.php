@@ -33,6 +33,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-only', function ($user) {
             return $user->role === Role::ADMIN;
         });
+        // 会社以上（管理者＆会社）に許可
+        Gate::define('company-higher', function ($user) {
+            return $user->role === Role::ADMIN ||
+                $user->role === Role::COMPANY;
+        });
         // マネージャー以上（管理者＆会社＆部署）に許可
         Gate::define('manager-higher', function ($user) {
             return $user->role === Role::ADMIN ||
