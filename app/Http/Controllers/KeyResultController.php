@@ -16,11 +16,11 @@ class KeyResultController extends Controller
     public function index(KeyResultIndexRequest $request)
     {
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-        $keyResultId = $request->validated()['key_result_id'];
-        $keyResult = Objective::find($keyResultId);
-        $keyResults = KeyResult::where('key_result_id', $keyResultId)->get();
+        $objectiveId = $request->validated()['objective_id'];
+        $objective = Objective::find($objectiveId);
+        $keyResults = KeyResult::where('objective_id', $objectiveId)->get();
 
-        return view('objective.index', compact('keyResult', 'keyResults'));
+        return view('key_result.index', compact('objective', 'keyResults'));
     }
 
     /**
