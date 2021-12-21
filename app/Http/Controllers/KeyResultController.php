@@ -20,7 +20,7 @@ class KeyResultController extends Controller
         $objective = Objective::find($objectiveId);
         $keyResults = KeyResult::where('objective_id', $objectiveId)->get();
 
-        return view('key_result.index', compact('objective', 'keyResults'));
+        return view('keyResult.index', compact('objective', 'keyResults'));
     }
 
     /**
