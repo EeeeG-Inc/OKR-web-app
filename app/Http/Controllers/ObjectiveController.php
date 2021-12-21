@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Laracasts\Flash\Flash;
+use Flash;
 
 class ObjectiveController extends Controller
 {
@@ -121,9 +121,11 @@ class ObjectiveController extends Controller
                 ]);
             }
         } catch (\Exception $e) {
-            return redirect()->route('objective.index')->with('error', $e->getMessage());
+            Flash::error($e->getMessage());
+            return redirect()->route('objective.index');
         }
-        return redirect()->route('objective.index')->with('success', __('common/message.register.objective'));
+        Flash::success(__('common/message.register.objective'));
+        return redirect()->route('objective.index');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Flash;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ObjectiveStoreRequest extends FormRequest
@@ -32,5 +33,15 @@ class ObjectiveStoreRequest extends FormRequest
             'key_result2' => 'nullable|string',
             'key_result3' => 'nullable|string',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $messages = $validator->errors()->getMessages();
+            foreach ($messages as $message) {
+                Flash::error($message[0]);
+            }
+        });
     }
 }
