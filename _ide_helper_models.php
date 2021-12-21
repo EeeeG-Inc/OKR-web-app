@@ -159,7 +159,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name 登録名
- * @property int $objectives_id オブジェクトコード
  * @property int|null $score 総合スコア
  * @property int $users_id ユーザコード
  * @property int $year 年度
@@ -188,9 +187,6 @@ namespace App\Models{
  * @method static \Database\Factories\OkrFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereQuarterId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereUserId($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
- * @property-read int|null $objectives_count
- * @property string $okr 目標
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
@@ -337,4 +333,3 @@ namespace App\Models{
  */
 	class User extends \Eloquent {}
 }
-

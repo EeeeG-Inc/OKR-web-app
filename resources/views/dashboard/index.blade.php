@@ -34,7 +34,7 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/users.fields.name') }}</th>
-                                            <th>{{ __('models/okrs.fields.okr') }}</th>
+                                            <th>{{ __('models/objectives.fields.objective') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,8 +42,8 @@
                                             <tr>
                                                 <td>{{ $user->name }}</td>
                                                 <td>
-                                                    @if ($user->hasOkr)
-                                                        {{ link_to_route('okr.index', __('common/action.detail'), ['user_id' => $user->id]); }}
+                                                    @if ($user->hasObjective)
+                                                        {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id]); }}
                                                     @endif
                                                 </td>
                                             </tr>

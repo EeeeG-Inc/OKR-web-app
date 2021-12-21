@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOkrsTable extends Migration
+class CreateObjectivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateOkrsTable extends Migration
      */
     public function up()
     {
-        Schema::create('okrs', function (Blueprint $table) {
+        Schema::create('objectives', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('okr')->comment('目標');
-            $table->float('score')
+            $table->text('objective')->comment('目標');
+            $table->double('score')
                 ->nullable()
+                ->default(0)
                 ->comment('総合スコア');
             $table->integer('user_id')
                 ->unsigned()
@@ -47,10 +48,10 @@ class CreateOkrsTable extends Migration
      */
     public function down()
     {
-        Schema::table('okrs', function (Blueprint $table) {
+        Schema::table('objectives', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['quarter_id']);
         });
-        Schema::dropIfExists('okrs');
+        Schema::dropIfExists('objectives');
     }
 }

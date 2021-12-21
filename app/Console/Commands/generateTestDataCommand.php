@@ -6,8 +6,8 @@ use \App\Enums\Role;
 use \App\Models\Company;
 use \App\Models\CompanyGroup;
 use \App\Models\Department;
+use \App\Models\KeyResult;
 use \App\Models\Objective;
-use \App\Models\Okr;
 use \App\Models\Quarter;
 use \App\Models\User;
 use \Carbon\Carbon;
@@ -35,8 +35,8 @@ class GenerateTestDataCommand extends Command
     /** @var int */
     private $companyCount;
     private $departmentCount;
-    private $okrCount;
     private $objectiveCount;
+    private $keyResultCount;
 
     /** @var string[] */
     private $departments = [
@@ -46,7 +46,7 @@ class GenerateTestDataCommand extends Command
     ];
 
     /** @var string[] */
-    private $okrs = [
+    private $objectives = [
         '売上○○％向上',
         '○○資格取得',
         'DAU○○○○達成'
@@ -62,8 +62,8 @@ class GenerateTestDataCommand extends Command
         parent::__construct();
         $this->companyCount = 2;
         $this->departmentCount = count($this->departments);
-        $this->okrCount = count($this->okrs);
-        $this->objectiveCount = 3;
+        $this->objectiveCount = count($this->objectives);
+        $this->keyResultCount = 3;
     }
 
     /**
@@ -125,21 +125,21 @@ class GenerateTestDataCommand extends Command
                     $j++;
                 }
 
-                // Okr と Objective 作成
+                // Objective と KeyResult 作成
                 foreach ($userIdsList as $userIds) {
                     foreach ($userIds as $userId) {
                         // 三期分のデータ作成
                         $dt = Carbon::now()->subYear();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createOkrAndObjective($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $dt = Carbon::now();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createOkrAndObjective($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $dt->addYear();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createOkrAndObjective($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $isFirstLoop = false;
                     }
@@ -261,21 +261,21 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * Okr と Objective 作成
+     * Objective と KeyResult の作成
      *
      * @param int $userId     作成する会社の companyId ※外部キー
      * @param int $quarterId  作成する quarter の quarterId ※外部キー
      * @param int $year       Okr 及び Objective に紐付ける西暦
      * @return void           factory を使った INSERT 項目
      */
-    private function createOkrAndObjective(int $userId, int $quarterId, int $year) :void
+    private function createOkrs(int $userId, int $quarterId, int $year) :void
     {
-        // OKR 作成
-        $okrIds = [];
+        // Objective 作成
+        $objectiveIds = [];
         $i = 0;
-        while ($this->okrCount !== $i) {
-            $okrIds[] = Okr::factory()->create([
-                'okr' => $this->okrs[$i],
+        while ($this->objectiveCount !== $i) {
+            $objectiveIds[] = Objective::factory()->create([
+                'objective' => $this->objectives[$i],
                 'user_id' => $userId,
                 'quarter_id' => $quarterId,
                 'year' => $year,
@@ -283,13 +283,13 @@ class GenerateTestDataCommand extends Command
             $i++;
         }
 
-        // Objective 作成
-        foreach ($okrIds as $okrId) {
+        // KeyResult 作成
+        foreach ($objectiveIds as $objectiveId) {
             $j = 0;
-            while ($j !== $this->objectiveCount) {
-                Objective::factory()->create([
-                    'objective' => 'okrs.id ' . $okrId . ' の成果指標' . ($j + 1),
-                    'okr_id' => $okrId,
+            while ($j !== $this->keyResultCount) {
+                KeyResult::factory()->create([
+                    'key_result' => 'objectives.id ' . $objectiveId . ' の成果指標' . ($j + 1),
+                    'objective_id' => $objectiveId,
                 ]);
                 $j++;
             }
