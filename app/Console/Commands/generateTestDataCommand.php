@@ -131,15 +131,15 @@ class GenerateTestDataCommand extends Command
                         // 三期分のデータ作成
                         $dt = Carbon::now()->subYear();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createObjectiveAndKeyResult($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $dt = Carbon::now();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createObjectiveAndKeyResult($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $dt->addYear();
                         foreach ($quarterIds as $quarterId) {
-                            $this->createObjectiveAndKeyResult($userId, $quarterId, $dt->year);
+                            $this->createOkrs($userId, $quarterId, $dt->year);
                         }
                         $isFirstLoop = false;
                     }
@@ -261,14 +261,14 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * Okr と Objective 作成
+     * Objective と KeyResult の作成
      *
      * @param int $userId     作成する会社の companyId ※外部キー
      * @param int $quarterId  作成する quarter の quarterId ※外部キー
      * @param int $year       Okr 及び Objective に紐付ける西暦
      * @return void           factory を使った INSERT 項目
      */
-    private function createObjectiveAndKeyResult(int $userId, int $quarterId, int $year) :void
+    private function createOkrs(int $userId, int $quarterId, int $year) :void
     {
         // Objective 作成
         $objectiveIds = [];
