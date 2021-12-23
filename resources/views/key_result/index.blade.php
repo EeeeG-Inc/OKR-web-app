@@ -1,6 +1,5 @@
 @extends('layouts.app')
-@section('title', __('models/key-results.fields.index', ['name' => $objective->users->name, 'objective' =>
-    $objective->objective]))
+@section('title', __('models/key-results.fields.index', ['name' => $objective->users->name, 'objective' => $objective->objective]))
 
 @section('content')
     <div class="container">
