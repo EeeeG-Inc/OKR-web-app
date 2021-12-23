@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ObjectiveDestroyRequest;
 use App\Http\Requests\ObjectiveIndexRequest;
 use App\Http\Requests\ObjectiveSearchRequest;
 use App\Http\Requests\ObjectiveStoreRequest;
@@ -10,11 +11,8 @@ use App\Models\Objective;
 use App\Models\Quarter;
 use App\Models\User;
 use \Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
+use DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Flash;
 
 class ObjectiveController extends Controller
@@ -124,7 +122,7 @@ class ObjectiveController extends Controller
             Flash::error($e->getMessage());
             return redirect()->route('objective.index');
         }
-        Flash::success(__('common/message.register.objective'));
+        Flash::success(__('common/message.objective.store'));
         return redirect()->route('objective.index');
     }
 
@@ -171,8 +169,26 @@ class ObjectiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy(ObjectiveDestroyRequest $request)
+    {
+        $input = $request->validated();
+        $objectiveId = $input['objective_id'];
+        $objective = Objective::find($objectiveId);
+        $objectiveName = Objective::find($objectiveId)->objective;
+
+        DB::beginTransaction();
+
+        try {
+            KeyResult::where('objective_id', $objectiveId)->delete();
+            $objective->delete();
+        } catch (\Exception $e) {
+            Flash::error(__('common/message.objective.delete_failed', ['objective' => $objectiveName]));
+            DB::rollBack();
+        }
+
+        DB::commit();
+
+        Flash::success(__('common/message.objective.delete_success', ['objective' => $objectiveName]));
+        return redirect()->route('objective.index');
+    }
 }
