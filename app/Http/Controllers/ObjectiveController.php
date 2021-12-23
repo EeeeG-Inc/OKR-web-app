@@ -50,7 +50,7 @@ class ObjectiveController extends Controller
      */
     public function search(ObjectiveSearchRequest $request)
     {
-        $input = $request->validated();
+        // $input = $request->validated();
         $objectives = Objective::paginate($this->pagenateNum);
 
         return view('objective.index', compact('objectives'));
