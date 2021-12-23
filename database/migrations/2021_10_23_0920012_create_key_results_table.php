@@ -15,7 +15,10 @@ class CreateKeyResultsTable extends Migration
     {
         Schema::create('key_results', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('key_result')->comment('成果指標');
+            // 成果指標 2 / 成果指標 3 は null になる可能性がある
+            $table->text('key_result')
+                ->nullable()
+                ->comment('成果指標');
             $table->double('score')
                 ->nullable()
                 ->default(0)
