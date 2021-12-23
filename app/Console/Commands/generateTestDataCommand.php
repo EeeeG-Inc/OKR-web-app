@@ -86,10 +86,18 @@ class GenerateTestDataCommand extends Command
             $i = 0;
             $companyIds = [];
             while ($this->companyCount !== $i) {
-                $companyIds[] = Company::factory()->create([
-                    'company_group_id' => $companyGroup->id,
-                    'is_master' => $this->isFirst($i)
-                ])['id'];
+                if ($i === 0) {
+                    $companyIds[] = Company::factory()->create([
+                        'name' => $companyGroup->name,
+                        'company_group_id' => $companyGroup->id,
+                        'is_master' => $this->isFirst($i)
+                    ])['id'];
+                } else {
+                    $companyIds[] = Company::factory()->create([
+                        'company_group_id' => $companyGroup->id,
+                        'is_master' => $this->isFirst($i)
+                    ])['id'];
+                }
                 $i++;
             }
 
