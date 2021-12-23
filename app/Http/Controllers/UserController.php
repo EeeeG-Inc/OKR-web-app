@@ -29,24 +29,14 @@ class UserController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $companyId = $user->company_id;
-        // TODO:View 実装の際に選択肢は考案
-        $roles = [
-            Role::DEPARTMENT,
-            Role::MANAGER,
-            Role::MEMBER,
-        ];
-        if (Auth::user()->role === 1) {
-            $roles = [
-                Role::COMPANY,
-                Role::DEPARTMENT,
-                Role::MANAGER,
-                Role::MEMBER,
-            ];
+        $departments = Department::where('company_id', $user->company_id)->get();
+        $departmentNames = [];
+        foreach ($departments as $department) {
+            $departmentNames[$department->id] = $department->name;
         }
-        // TODO: DEPARTMENT の文字化けを治す
-        $departments = Department::where('company_id', $companyId)->get('name');
-        return view('user.create', compact('user', 'companyId', 'roles', 'departments'));
+        // 下位 Role の作成が可能
+        $roles = Role::getRolesInWhenCreateUser($user->role);
+        return view('user.create', compact('user', 'roles', 'departmentNames'));
     }
 
     /**
