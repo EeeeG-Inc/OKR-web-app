@@ -19,12 +19,12 @@
                                     {{ Form::token() }}
                                     {{-- OKR --}}
                                     {{ Form::label('objective', __('models/objectives.fields.objective')) }}
-                                    {{ Form::text('objective', null, ['placeholder' => __('models/objectives.fields.objective')]) }}
+                                    {{ Form::text('objective', null) }}
                                     @if ($errors->has('objective'))
                                         <p>{{$errors->first('objective')}}</p>
                                     @endif
                                     {{-- 送信ボタン --}}
-                                    {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 bg-green-400 text-white font-semibold rounded hover:bg-green-500;']) }}
+                                    {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
                                     {{ Form::close() }}
                                     <p class="d-flex justify-content-center">
                                     {{ $objectives->links() }}
@@ -38,17 +38,31 @@
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
                                             <th>{{ __('models/objectives.fields.score') }}</th>
                                             <th>{{ __('models/key-results.fields.key_result') }}</th>
+                                            @can('manager-higher')
+                                                <th>{{ __('common/action.delete') }}</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($objectives as $objective)
                                             <tr>
-                                                <td>{{ $objective->year }}</td>
-                                                <td>{{ $objective->quarters->quarter }}</td>
-                                                <td>{{ $objective->objective }}</td>
-                                                <td>{{ $objective->score }}</td>
-                                                <td>{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id]) }}
-                                                </td>
+                                                <td class="align-middle">{{ $objective->year }}</td>
+                                                <td class="align-middle">{{ $objective->quarters->quarter }}</td>
+                                                <td class="align-middle">{{ $objective->objective }}</td>
+                                                <td class="align-middle">{{ $objective->score }}</td>
+                                                <td class="align-middle">{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id]) }}</td>
+                                                @can('manager-higher')
+                                                    <td class="align-middle">
+                                                        {{ Form::open(['url' => route('objective.search'), 'method' => 'delete']) }}
+                                                        {{ Form::token() }}
+                                                        {{ Form::hidden('objective_id', $objective->id) }}
+                                                        {{ Form::submit(__('common/action.delete'), [
+                                                            'class' => 'btn btn-danger btn-block',
+                                                            'onclick' => "return confirm('" . __('common/message.objective.delete_confirm', ['objective' => $objective->objective])  . "')"
+                                                        ])}}
+                                                        {{ Form::close() }}
+                                                    </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>

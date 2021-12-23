@@ -53,7 +53,7 @@
                                                 {{ Form::label('objective', __('models/objectives.fields.objective')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('objective', null, ['class' => 'form-control', 'id' => 'objective', 'placeholder' => __('models/objectives.fields.objective'), 'rows' => '2']) }}
+                                                {{ Form::textarea('objective', null, ['class' => 'form-control', 'id' => 'objective', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
@@ -63,7 +63,7 @@
                                                 {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('key_result1', null, ['class' => 'form-control', 'id' => 'key_result1', 'placeholder' => __('models/key-results.fields.key_result') . '1', 'rows' => '2']) }}
+                                                {{ Form::textarea('key_result1', null, ['class' => 'form-control', 'id' => 'key_result1', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
@@ -72,7 +72,7 @@
                                                 {{ Form::label('key_result2', __('models/key-results.fields.key_result') . '2') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('key_result2', null, ['class' => 'form-control', 'id' => 'key_result2', 'placeholder' => __('models/key-results.fields.key_result') . '2', 'rows' => '2']) }}
+                                                {{ Form::textarea('key_result2', null, ['class' => 'form-control', 'id' => 'key_result2', 'rows' => '2']) }}
                                             </div>
                                         </div>
 
@@ -81,15 +81,16 @@
                                                 {{ Form::label('key_result3', __('models/key-results.fields.key_result') . '3') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('key_result3', null, ['class' => 'form-control', 'id' => 'key_result3', 'placeholder' => __('models/key-results.fields.key_result') . '3', 'rows' => '2']) }}
+                                                {{ Form::textarea('key_result3', null, ['class' => 'form-control', 'id' => 'key_result3', 'rows' => '2']) }}
                                             </div>
                                         </div>
                                         {{--フラッシュメッセージ--}}
                                         @include('flash::message')
+
                                         {{--内容確認ボタン--}}
                                         <div class="form-group row">
-                                            <div class="col-sm-12">
-                                                {{ Form::submit(__('common/action.create'), ['class' => 'btn btn-primary btn-block']) }}
+                                            <div class="col-sm-12 text-right">
+                                                {{ Form::submit(__('common/action.create'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
                                             </div>
                                         </div>
 

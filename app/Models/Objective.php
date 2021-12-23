@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Objective
@@ -42,6 +43,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Objective extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * Database table.
