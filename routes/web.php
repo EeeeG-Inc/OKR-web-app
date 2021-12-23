@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // 会社ユーザ以上
-Route::middleware('auth', 'can:company-higher')->group(function () {
+Route::middleware('auth', 'can:manager-higher')->group(function () {
     Route::resources([
         'user' => UserController::class,
     ]);
