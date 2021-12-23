@@ -20,7 +20,7 @@
                                         {{--年度--}}
                                         <div class="form-group pb-2">
                                             {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
-                                            {{                                             Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                            {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
                                         </div>
 
                                         {{--四半期区分--}}
