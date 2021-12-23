@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('models/objectives.fields.create') }}</div>
+                    <div class="card-header">{{ '新規ユーザ作成' }}</div>
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -24,42 +24,50 @@
                                                 {{ Form::label('inputName', '氏名') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::text('inputName', null, ['class' => 'form-control', 'id' => 'inputName', 'placeholder' => '氏名']) }}
+                                                {{ Form::text('inputName', null, ['class' => 'form-control', 'id' => 'inputName']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- Role --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('selectRoles', '権限') }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('roles', $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- 部署 --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('selectDepartments', '部署') }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('departments', $departmentNames, null, ['class' => 'form-control', 'id' => 'departments']) }}
                                             </div>
                                         </div>
 
                                         {{-- Email --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputEmail', 'Eメール') }}
+                                                {{ Form::label('email', 'Eメール') }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::email('inputEmail', null, ['class' => 'form-control', 'id' => 'inputEmail', 'placeholder' => 'Eメール']) }}
+                                                {{ Form::email('email', null, ['class' => 'form-control', 'id' => 'email']) }}
                                             </div>
                                         </div>
 
                                         {{-- パスワード --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('inputPassword', 'パスワード') }}
+                                                {{ Form::label('password', 'パスワード') }}
                                             </div>
                                             <div class="col-md-10 mb-3">
-                                                {{ Form::password('inputPassword', ['class' => 'form-control', 'id' => 'inputPassword', 'placeholder' => 'パスワード']) }}
+                                                {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
                                                 <small id="passwordHelpBlock"
                                                     class="form-text text-muted">パスワードは、文字と数字を含めて8～20文字で、空白、特殊文字、絵文字を含むことはできません。</small>
                                             </div>
-                                        </div>
-
-                                        {{-- Role --}}
-                                        <div class="form-group pb-2">
-                                            {{ Form::label('selectRoles', '権限') }}
-                                            {{ Form::select('roles', $roles, 'ordinarily', ['class' => 'form-control', 'id' => 'roles']) }}
-                                        </div>
-
-                                        {{-- 部署 --}}
-                                        <div class="form-group pb-2">
-                                            {{ Form::label('selectDepartments', '部署') }}
-                                            {{ Form::select('departments', $departments, 'ordinarily', ['class' => 'form-control', 'id' => 'departments']) }}
                                         </div>
 
                                         {{-- フラッシュメッセージ --}}
