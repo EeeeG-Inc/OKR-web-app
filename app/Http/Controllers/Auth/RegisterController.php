@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\CompanyGroup;
+use App\Models\Quarter;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,10 +68,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $companyGroup = CompanyGroup::create([
+            'name' => $data['name'] . 'グループ',
+        ]);
+        $company = Company::create([
             'name' => $data['name'],
+            'company_group_id' => $companyGroup->id,
+            'is_master' => true,
+        ]);
+        $user = User::create([
+            'name' => $data['name'],
+            'role' => Role::COMPANY,
+            'company_id' => $company->id,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        return $user;
     }
 }

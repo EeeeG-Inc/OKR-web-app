@@ -58,7 +58,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    {{ link_to_route('register', __('Register'), null, ['class' => 'nav-link']) }}
+                                    {{ link_to_route('register', __('common/action.create_company'), null, ['class' => 'nav-link']) }}
                                 </li>
                             @endif
                         @else

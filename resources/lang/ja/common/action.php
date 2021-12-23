@@ -6,5 +6,6 @@ return [
     'search' => '検索',
     'submit' => '送信',
     'create' => '新規作成',
+    'create_company' => '法人アカウント作成',
     'confirm' => '内容確認',
 ];
