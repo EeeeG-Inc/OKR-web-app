@@ -10,12 +10,12 @@ use App\Models\Objective;
 use App\Models\Quarter;
 use App\Models\User;
 use \Carbon\Carbon;
+use Flash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Flash;
 
 class ObjectiveController extends Controller
 {
