@@ -170,7 +170,7 @@ class ObjectiveController extends Controller
         ];
 
         $year = $objective->year;
-        $years = $years = $this->getYearsForEdit($year);
+        $years = $this->getYearsForEdit($year);
 
         $quarterId = $objective->quarter_id;
         $quarterChecked = [];
