@@ -156,7 +156,7 @@ class GenerateTestDataCommand extends Command
      */
     private function isFirst(int $index) :bool
     {
-        if ($index == 0) {
+        if ($index === 0) {
             return true;
         }
         return false;
