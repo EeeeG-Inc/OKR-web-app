@@ -12,24 +12,20 @@
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                 <div class="form" style="text-align: center">
-                                    {{ Form::open(['url' => route('dashboard.search'), 'files' => true]) }}
+                                    {{ Form::open(['url' => route('dashboard.search')]) }}
                                     {{ Form::token() }}
-
-                                    {{-- ユーザー名 --}}
                                     {{ Form::label('name', __('models/users.fields.name')) }}
                                     {{ Form::text('name', null) }}
                                     @if ($errors->has('name'))
                                         <p>{{ $errors->first('name') }}</p>
                                     @endif
-
-                                    {{-- 送信ボタン --}}
-                                    {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 bg-green-400 text-white font-semibold rounded hover:bg-green-500;']) }}
+                                    {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
                                     {{ Form::close() }}
-
-                                    <p class="d-flex justify-content-center">
-                                    {{ $users->links() }}
-                                    </p>
                                 </div>
+
+                                {{-- ページネーション --}}
+                                <p class="d-flex justify-content-center"> {{ $users->links() }} </p>
+
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -40,10 +36,10 @@
                                     <tbody>
                                         @foreach($users as $user)
                                             <tr>
-                                                <td>{{ $user->name }}</td>
-                                                <td>
+                                                <td class="align-middle">{{ $user->name }}</td>
+                                                <td class="align-middle">
                                                     @if ($user->hasObjective)
-                                                        {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id]); }}
+                                                        {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
                                                     @endif
                                                 </td>
                                             </tr>

@@ -1,6 +1,5 @@
 @extends('layouts.app')
-@section('title', __('models/key-results.fields.index', ['name' => $objective->users->name, 'objective' =>
-    $objective->objective]))
+@section('title', __('common/title.key_result.index', ['name' => $objective->users->name, 'objective' => $objective->objective]))
 
 @section('content')
     <div class="container">
@@ -8,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('models/key-results.fields.index', ['name' => $objective->users->name, 'objective' => $objective->objective]) }}
+                        {{ __('common/title.key_result.index', ['name' => $objective->users->name, 'objective' => $objective->objective]) }}
                     </div>
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
