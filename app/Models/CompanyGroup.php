@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\CompanyGroup
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CompanyGroup extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * Database table.
