@@ -40,9 +40,6 @@
                             <li class="nav-item">
                                 {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
                             </li>
-                            <li class="nav-item">
-                                {{ link_to_route('objective.create', __('models/objectives.fields.create'), null, ['class' => 'nav-link']) }}
-                            </li>
                         @endif
                     </ul>
 
