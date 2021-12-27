@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
@@ -10,6 +9,7 @@ use App\Models\User;
 use Flash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -38,33 +38,52 @@ class UserController extends Controller
             $departmentNames[$department->id] = $department->name;
         }
         // 下位 Role の作成が可能
-        $roles = Role::getRolesInWhenCreateUser($user->role);
-        return view('user.create', compact('user', 'roles', 'departmentNames'));
+        $roles = Role::getRolesInWhenCreateUser($user->role, $user->companies->is_master);
+
+        $companyCreatePermission = false;
+        if (Gate::allows('admin-only') || $user->companies->is_master === true) {
+            $companyCreatePermission = true;
+        }
+        return view('user.create', compact('user', 'roles', 'departmentNames', 'companyCreatePermission'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param UserResultIndexRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserResultIndexRequest $request)
     {
         $input = $request->validated();
         $user = Auth::user();
 
-        //TODO:Role が admin と company の場合、会社指定の項目が必要なため Blade 含め修正中
         try {
-            if ($user->company_id === Role::COMPANY) {
-                Company::create([
+            if ($input['role']  === Role::COMPANY) {
+                $companyId = Company::create([
                     'name' => $input['name'],
                     'is_master' => false,
                     'company_group_id' => $user->company_group_id,
+                ])->id;
+                User::create([
+                    'name' => $input['name'],
+                    'role' => $input['role'],
+                    'company_id' => $companyId,
+                    'email' => $input['email'],
+                    'password' => Hash::make($input['password']),
                 ]);
             } else if ($input['role'] === Role::DEPARTMENT) {
-                Department::create([
+                $departmentId = Department::create([
                     'name' => $input['name'],
                     'company_id' => $user->company_id,
+                ])->id;
+                User::create([
+                    'name' => $input['name'],
+                    'role' => $input['role'],
+                    'company_id' => $user->company_id,
+                    'department_id' => $departmentId,
+                    'email' => $input['email'],
+                    'password' => Hash::make($input['password']),
                 ]);
             }
             User::create([
@@ -79,7 +98,7 @@ class UserController extends Controller
             Flash::error($e->getMessage());
             return redirect()->route('dashboard.index');
         }
-        // TODO: 成功メッセージの多言語対応
+        
         Flash::success(__('common/message.register.objective'));
         return redirect()->route('dashboard.index');
     }
