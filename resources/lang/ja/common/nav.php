@@ -7,4 +7,7 @@ return [
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],
+    'user' => [
+        'create' => '新規ユーザ作成',
+    ],
 ];
