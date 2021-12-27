@@ -69,7 +69,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $companyGroup = CompanyGroup::create([
-            'name' => $data['name'] . 'グループ',
+            'name' => $data['name'],
         ]);
         $company = Company::create([
             'name' => $data['name'],
