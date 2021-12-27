@@ -19,11 +19,11 @@ class Role extends Enum implements LocalizedEnum
     const MANAGER = 4;
     const MEMBER = 5;
 
-    public static function getRolesInWhenCreateUser(int $myRoleVal): array
+    public static function getRolesInWhenCreateUser(int $myRoleVal, $isMaster): array
     {
         $results = [];
         foreach (self::getValues() as $value) {
-            if (($myRoleVal === self::COMPANY) && ($value === self::COMPANY)) {
+            if (($myRoleVal === self::COMPANY) && ($value === self::COMPANY) && ($isMaster !== false)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
             if ($value > $myRoleVal) {
