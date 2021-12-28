@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->integer('company_group_id')
                 ->comment('系列ID')
                 ->unsigned();
-            $table->boolean('is_master')->comment('マスターフラグ');
+            $table->boolean('is_master')->default(false)->comment('マスターフラグ');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 
