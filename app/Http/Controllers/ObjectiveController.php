@@ -77,11 +77,8 @@ class ObjectiveController extends Controller
             __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
             __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)'
         ];
-        $years = [
-            Carbon::now()->format('Y'),
-            Carbon::now()->addYear()->format('Y'),
-            Carbon::now()->addYears(2)->format('Y'),
-        ];
+        $now = Carbon::now()->format('Y');
+        $years = $this->getYearsForEdit($now);
         return view('objective.create', compact('user', 'quarters', 'quarterLabels', 'years'));
     }
 
