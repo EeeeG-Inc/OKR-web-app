@@ -1,16 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
-use App\Http\Requests\UserResultIndexRequest;
-use App\Models\Company;
 use App\Models\Department;
-use App\Models\User;
 use Flash;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Hash;
+
+use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -21,7 +19,6 @@ class UserController extends Controller
      */
     // public function index(Request $request)
     // {
-
     // }
 
     /**
@@ -34,11 +31,17 @@ class UserController extends Controller
         $user = Auth::user();
         $departments = Department::where('company_id', $user->company_id)->get();
         $departmentNames = [];
-        foreach ($departments as $department) {
-            $departmentNames[$department->id] = $department->name;
-        }
-        // 下位 Role の作成が可能
-        $roles = Role::getRolesInWhenCreateUser($user->role, $user->companies->is_master);
+        if ($departments->isEmpty()) {
+            Flash::error('部署データが存在しません。最初に部署ユーザを作成する必要があります。');
+            // 下位 Role の作成が可能
+            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($user->role, $user->companies->is_master);
+        } else {
+            foreach ($departments as $department) {
+                $departmentNames[$department->id] = $department->name;
+            }
+            // 下位 Role の作成が可能
+            $roles = Role::getRolesInWhenCreateUser($user->role, $user->companies->is_master);
+        };
 
         $companyCreatePermission = false;
         if (Gate::allows('admin-only') || $user->companies->is_master === true) {
@@ -47,61 +50,16 @@ class UserController extends Controller
         return view('user.create', compact('user', 'roles', 'departmentNames', 'companyCreatePermission'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param UserResultIndexRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(UserResultIndexRequest $request)
-    {
-        $input = $request->validated();
-        $user = Auth::user();
-
-        try {
-            if ($input['role']  === Role::COMPANY) {
-                $companyId = Company::create([
-                    'name' => $input['name'],
-                    'is_master' => false,
-                    'company_group_id' => $user->company_group_id,
-                ])->id;
-                User::create([
-                    'name' => $input['name'],
-                    'role' => $input['role'],
-                    'company_id' => $companyId,
-                    'email' => $input['email'],
-                    'password' => Hash::make($input['password']),
-                ]);
-            } else if ($input['role'] === Role::DEPARTMENT) {
-                $departmentId = Department::create([
-                    'name' => $input['name'],
-                    'company_id' => $user->company_id,
-                ])->id;
-                User::create([
-                    'name' => $input['name'],
-                    'role' => $input['role'],
-                    'company_id' => $user->company_id,
-                    'department_id' => $departmentId,
-                    'email' => $input['email'],
-                    'password' => Hash::make($input['password']),
-                ]);
-            }
-            User::create([
-                'name' => $input['name'],
-                'role' => $input['role'],
-                'company_id' => $user->company_id,
-                'department_id' => $input['departments']->id,
-                'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-            ]);
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
-            return redirect()->route('dashboard.index');
-        }
-        
-        Flash::success(__('common/message.register.objective'));
-        return redirect()->route('dashboard.index');
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param UserResultIndexRequest $request
+    //  * @return \Illuminate\Http\RedirectResponse
+    //  */
+    // public function store(UserResultIndexRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
