@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\KeyResultController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,15 +47,21 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-// 会社ユーザ以上
+// MANAGER ユーザ以上
 Route::middleware('auth', 'can:manager-higher')->group(function () {
     Route::resources([
         'user' => UserController::class,
     ]);
+    Route::prefix('company')->group(function () {
+        Route::post('store', [CompanyController::class, 'store'])->name('company.store');
+    });
+    Route::prefix('department')->group(function () {
+        Route::post('store', [DepartmentController::class, 'store'])->name('department.store');
+    });
+    Route::prefix('manager')->group(function () {
+        Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
+    });
+    Route::prefix('member')->group(function () {
+        Route::post('store', [MemberController::class, 'store'])->name('member.store');
+    });
 });
-
-// // 全ユーザ
-// Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
-//     // ユーザ一覧
-//     Route::get('/account', [AccountController::class, 'index'])->name('account.index');
-// });
