@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('common/title.user.create') }}</div>
                     <div class="card-body">
@@ -12,10 +12,20 @@
                                 <div
                                     class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
-                                        {{ Form::open(['url' => route('user.store'), 'files' => true]) }}
+                                        {{ Form::open(['id' => 'create_user_form']) }}
                                         {{-- CSRFトークン --}}
                                         {{ Form::token() }}
                                         {{ Form::hidden('user_id', $user->id) }}
+
+                                        {{-- Role(作成アカウント種別) --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('role', __('common/title.role.type')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('role', ['' => '-'] + $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                            </div>
+                                        </div>
 
                                         {{-- 氏名 --}}
                                         <div class="form-group row">
@@ -27,23 +37,13 @@
                                             </div>
                                         </div>
 
-                                        {{-- Role --}}
-                                        <div class="form-group row">
-                                            <div class="col-md-2 mb-3">
-                                                {{ Form::label('role', __('models/users.fields.role')) }}
-                                            </div>
-                                            <div class="col-md-10">
-                                                {{ Form::select('role', $roles, null, ['class' => 'form-control', 'id' => 'role']) }}
-                                            </div>
-                                        </div>
-
                                         {{-- 部署 --}}
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="department_form">
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('departments', __('models/departments.fields.name')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('departments', ['' => '-']+$departmentNames, null, ['class' => 'form-control', 'id' => 'departments']) }}
+                                                {{ Form::select('departments', ['' => '-'] + $departmentNames, null, ['class' => 'form-control', 'id' => 'departments']) }}
                                             </div>
                                         </div>
 
@@ -88,4 +88,40 @@
             </div>
         </div>
     </div>
+    <script>
+        $(function() {
+            const COMPANY = 2;
+            const DEPARTMENT = 3;
+            const MANAGER = 4;
+            const MEMBER = 5;
+            actions = {
+                COMPANY: '{{ route('company.store') }}',
+                DEPARTMENT: '{{ route('department.store') }}',
+                MANAGER: '{{ route('manager.store') }}',
+                MEMBER: '{{ route('member.store') }}',
+            };
+            roleId = 0;
+            $('#roles').change(function() {
+                roleId = Number($('#roles').val());
+                switch (roleId) {
+                    case COMPANY:
+                        $('#create_user_form').attr('action', actions.COMPANY);
+                        $('#department_form').hide()
+                        break;
+                    case DEPARTMENT:
+                        $('#create_user_form').attr('action', actions.DEPARTMENT);
+                        $('#department_form').hide()
+                        break;
+                    case MANAGER:
+                        $('#create_user_form').attr('action', actions.MANAGER);
+                        $('#department_form').show()
+                        break;
+                    case MEMBER:
+                        $('#create_user_form').attr('action', actions.MEMBER);
+                        $('#department_form').show()
+                        break;
+                }
+            });
+        })
+    </script>
 @endsection
