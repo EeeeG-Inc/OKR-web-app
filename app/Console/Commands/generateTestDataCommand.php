@@ -12,9 +12,6 @@ use \App\Models\Quarter;
 use \App\Models\User;
 use \Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use PHPUnit\Framework\Test;
 
 class GenerateTestDataCommand extends Command
 {
@@ -85,6 +82,7 @@ class GenerateTestDataCommand extends Command
             // Company作成
             $i = 0;
             $companyIds = [];
+
             while ($this->companyCount !== $i) {
                 $companyIds[] = Company::factory()->create([
                     'company_group_id' => $companyGroup->id,
@@ -198,9 +196,11 @@ class GenerateTestDataCommand extends Command
             'department_id' => null,
             'role' => Role::COMPANY
         ];
+
         if ($isFirst) {
             $data['email'] = 'company@test.com';
         }
+
         $userIds[] = User::factory()->create($data)['id'];
         return $userIds;
     }
@@ -233,11 +233,13 @@ class GenerateTestDataCommand extends Command
                 'role' => Role::MEMBER
             ]
         ];
+
         if ($isFirst) {
             $data[0]['email'] = 'department@test.com';
             $data[1]['email'] = 'manager@test.com';
             $data[2]['email'] = 'member@test.com';
         }
+
         $userIds = [];
         $userIds[] = User::factory()->create($data[0])['id'];
         $userIds[] = User::factory()->create($data[1])['id'];
@@ -274,12 +276,14 @@ class GenerateTestDataCommand extends Command
         // Objective 作成
         $objectiveIds = [];
         $i = 0;
+
         while ($this->objectiveCount !== $i) {
             $objectiveIds[] = Objective::factory()->create([
                 'objective' => $this->objectives[$i],
                 'user_id' => $userId,
                 'quarter_id' => $quarterId,
                 'year' => $year,
+                'score' => 0,
             ])['id'];
             $i++;
         }
@@ -287,13 +291,20 @@ class GenerateTestDataCommand extends Command
         // KeyResult 作成
         foreach ($objectiveIds as $objectiveId) {
             $j = 0;
+            $totalScore = 0;
+
             while ($j !== $this->keyResultCount) {
-                KeyResult::factory()->create([
+                $keyResult = KeyResult::factory()->create([
                     'key_result' => 'objectives.id ' . $objectiveId . ' の成果指標' . ($j + 1),
                     'objective_id' => $objectiveId,
                 ]);
+                $totalScore += $keyResult->score;
                 $j++;
             }
+
+            Objective::find($objectiveId)->update([
+                'score' => round($totalScore / $this->keyResultCount, 1),
+            ]);
         }
     }
 }
