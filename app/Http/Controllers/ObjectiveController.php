@@ -37,6 +37,7 @@ class ObjectiveController extends Controller
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         if (array_key_exists('user_id', $input)) {
             $user = User::find($input['user_id']);
+            $isLoginUser = ($user->id === Auth::id()) ? true : false;
         } else {
             $user = Auth::user();
             $isLoginUser = true;
@@ -54,8 +55,7 @@ class ObjectiveController extends Controller
             $departmentUser = User::where('department_id', $department->id)->where('name', $department->name)->first();
         }
 
-        $userId = $user->id;
-        $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
+        $objectives = Objective::where('user_id', $user->id)->paginate($this->pagenateNum);
         return view('objective.index', compact('user', 'objectives', 'isLoginUser', 'companyUser', 'departmentUser'));
     }
 
