@@ -44,7 +44,9 @@
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
                                             <th>{{ __('models/objectives.fields.score') }}</th>
                                             <th>{{ __('models/key-results.fields.key_result') }}</th>
-                                            <th>{{ __('common/action.edit') }}</th>
+                                            @if ($isLoginUser)
+                                                <th>{{ __('common/action.edit') }}</th>
+                                            @endif
                                             @can('manager-higher')
                                                 <th>{{ __('common/action.delete') }}</th>
                                             @endcan
@@ -58,7 +60,9 @@
                                                 <td class="align-middle">{{ $objective->objective }}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}</td>
-                                                <td class="align-middle">{{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}</td>
+                                                @if ($isLoginUser)
+                                                    <td class="align-middle">{{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}</td>
+                                                @endif
                                                 @can('manager-higher')
                                                     <td class="align-middle">
                                                         {{ Form::open(['route' => ['objective.destroy', $objective->id], 'method' => 'delete']) }}
