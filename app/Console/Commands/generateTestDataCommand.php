@@ -114,7 +114,7 @@ class GenerateTestDataCommand extends Command
 
                 // User 作成
                 $userIdsList = [];
-                $userIdsList[] = $this->createUserForCompany($companyId, $isFirstLoop);
+                $userIdsList[] = $this->createUserForCompany(Company::find($companyId)->name, $companyId, $isFirstLoop);
                 $j = 0;
                 foreach ($departmentIds as $departmentId) {
                     if ($this->isFirst($j) && $isFirstLoop) {
@@ -184,15 +184,16 @@ class GenerateTestDataCommand extends Command
     /**
      * 1会社に付き1つ作成される CompanyUser の作成
      *
+     * @param string $name       User 作成時の name
      * @param int $companyId     作成する会社の companyId ※外部キー
      * @param bool $isFirst      初回ループの判定
      * @return array             factory を使った INSERT 項目
      */
-    private function createUserForCompany(int $companyId, bool $isFirst = false) :array
+    private function createUserForCompany(string $name, int $companyId, bool $isFirst = false) :array
     {
         $userIds = [];
         $data = [
-            'name' => '株式会社テスト' . $companyId,
+            'name' => $name,
             'company_id' => $companyId,
             'department_id' => null,
             'role' => Role::COMPANY

@@ -36,7 +36,9 @@
                                     <tbody>
                                         @foreach($users as $user)
                                             <tr>
-                                                <td class="align-middle">{{ $user->name }}</td>
+                                                <td class="align-middle">
+                                                    {{ $user->name }}
+                                                </td>
                                                 <td class="align-middle">
                                                     @if ($user->hasObjective)
                                                         {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
