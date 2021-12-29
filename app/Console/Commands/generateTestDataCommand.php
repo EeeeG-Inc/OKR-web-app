@@ -298,7 +298,7 @@ class GenerateTestDataCommand extends Command
                     'key_result' => 'objectives.id ' . $objectiveId . ' の成果指標' . ($j + 1),
                     'objective_id' => $objectiveId,
                 ]);
-                $totalScore += $keyResult->score;
+                $totalScore += $keyResult['score'];
                 $j++;
             }
 
