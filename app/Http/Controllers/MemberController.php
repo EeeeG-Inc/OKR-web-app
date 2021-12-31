@@ -39,7 +39,7 @@ class MemberController extends Controller
             return redirect()->route('dashboard.index');
         }
 
-        Flash::success(__('common/message.register.objective'));
+        Flash::success(__('common/message.member.store'));
         return redirect()->route('dashboard.index');
     }
 }

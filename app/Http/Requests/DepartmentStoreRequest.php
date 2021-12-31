@@ -26,7 +26,7 @@ class DepartmentStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'role' => 'required|integer',
-            'departments' => 'nullable|string',
+            'department_id' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];

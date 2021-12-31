@@ -26,7 +26,7 @@ class CompanyStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'role' => 'required|integer',
-            'departments' => 'required|string',
+            'department_id' => 'nullable|string',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];
