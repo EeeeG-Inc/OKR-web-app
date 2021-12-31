@@ -19,7 +19,7 @@ class Role extends Enum implements LocalizedEnum
     const MANAGER = 4;
     const MEMBER = 5;
 
-    public static function getRolesInWhenCreateUser(int $myRoleVal, bool $isMaster): array
+    public static function getRolesInWhenCreateUser(int $myRoleVal, bool $isMaster = false): array
     {
         $results = [];
         foreach (self::getValues() as $value) {
@@ -32,7 +32,7 @@ class Role extends Enum implements LocalizedEnum
         }
         return $results;
     }
-    public static function getRolesInWhenCreateUserIfNoDepartment(int $myRoleVal, bool $isMaster): array
+    public static function getRolesInWhenCreateUserIfNoDepartment(int $myRoleVal, bool $isMaster = false): array
     {
         $results = [];
         foreach (self::getValues() as $value) {
