@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use \App\Enums\Quarter as Q;
 use \App\Enums\Role;
 use \App\Models\Company;
 use \App\Models\CompanyGroup;
@@ -128,14 +129,19 @@ class GenerateTestDataCommand extends Command
                     foreach ($userIds as $userId) {
                         // 三期分のデータ作成
                         $dt = Carbon::now()->subYear();
+                        $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }
+
                         $dt = Carbon::now();
+                        $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }
+
                         $dt->addYear();
+                        $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }

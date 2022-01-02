@@ -56,7 +56,11 @@ class ObjectiveController extends Controller
             $departmentUser = User::where('department_id', $department->id)->where('name', $department->name)->first();
         }
 
-        $objectives = Objective::where('user_id', $user->id)->orderBy('year', 'desc')->paginate($this->pagenateNum);
+        $objectives = Objective::join('quarters', 'objectives.quarter_id', '=', 'quarters.id')
+            ->where('user_id', $user->id)
+            ->orderBy('year', 'desc')
+            ->orderBy('quarter', 'asc')
+            ->paginate($this->pagenateNum);
         return view('objective.index', compact('user', 'objectives', 'isLoginUser', 'companyUser', 'departmentUser'));
     }
 
