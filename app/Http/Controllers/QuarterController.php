@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Quarter;
 use App\Http\Requests\QuarterStoreRequest;
 use App\Http\Requests\QuarterUpdateRequest;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Flash;
 
@@ -14,7 +15,7 @@ class QuarterController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
@@ -33,7 +34,7 @@ class QuarterController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -45,7 +46,7 @@ class QuarterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  QuarterStoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function store(QuarterStoreRequest $request)
     {
@@ -66,22 +67,22 @@ class QuarterController extends Controller
         return redirect()->route('quarter.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $companyId
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit(int $companyId)
     {
@@ -106,7 +107,7 @@ class QuarterController extends Controller
      *
      * @param  QuarterUpdateRequest  $request
      * @param  int  $companyId
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function update(QuarterUpdateRequest $request, int $companyId)
     {
@@ -127,16 +128,16 @@ class QuarterController extends Controller
         return redirect()->route('quarter.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 
     private function createFrom(): array
     {
