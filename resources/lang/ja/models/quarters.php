@@ -14,5 +14,6 @@ return [
         'third_quarter' => '第3四半期',
         'fourth_quarter' => '第4四半期',
     ],
+    'create' => '第一四半期の開始月を選択してください',
     'full_year' => '通年',
 ];

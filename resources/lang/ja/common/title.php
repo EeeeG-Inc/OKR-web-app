@@ -12,5 +12,9 @@ return [
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',
-    ]
+    ],
+    'quarter' => [
+        'index' => '四半期設定',
+        'create' => '四半期登録',
+    ],
 ];
