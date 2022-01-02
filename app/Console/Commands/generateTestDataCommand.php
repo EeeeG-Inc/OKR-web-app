@@ -12,9 +12,6 @@ use \App\Models\Quarter;
 use \App\Models\User;
 use \Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use PHPUnit\Framework\Test;
 
 class GenerateTestDataCommand extends Command
 {
@@ -85,6 +82,7 @@ class GenerateTestDataCommand extends Command
             // Company作成
             $i = 0;
             $companyIds = [];
+
             while ($this->companyCount !== $i) {
                 $companyIds[] = Company::factory()->create([
                     'company_group_id' => $companyGroup->id,
@@ -114,7 +112,7 @@ class GenerateTestDataCommand extends Command
 
                 // User 作成
                 $userIdsList = [];
-                $userIdsList[] = $this->createUserForCompany($companyId, $isFirstLoop);
+                $userIdsList[] = $this->createUserForCompany(Company::find($companyId)->name, $companyId, $isFirstLoop);
                 $j = 0;
                 foreach ($departmentIds as $departmentId) {
                     if ($this->isFirst($j) && $isFirstLoop) {
@@ -184,22 +182,25 @@ class GenerateTestDataCommand extends Command
     /**
      * 1会社に付き1つ作成される CompanyUser の作成
      *
+     * @param string $name       User 作成時の name
      * @param int $companyId     作成する会社の companyId ※外部キー
      * @param bool $isFirst      初回ループの判定
      * @return array             factory を使った INSERT 項目
      */
-    private function createUserForCompany(int $companyId, bool $isFirst = false) :array
+    private function createUserForCompany(string $name, int $companyId, bool $isFirst = false) :array
     {
         $userIds = [];
         $data = [
-            'name' => '株式会社テスト' . $companyId,
+            'name' => $name,
             'company_id' => $companyId,
             'department_id' => null,
             'role' => Role::COMPANY
         ];
+
         if ($isFirst) {
             $data['email'] = 'company@test.com';
         }
+
         $userIds[] = User::factory()->create($data)['id'];
         return $userIds;
     }
@@ -232,11 +233,13 @@ class GenerateTestDataCommand extends Command
                 'role' => Role::MEMBER
             ]
         ];
+
         if ($isFirst) {
             $data[0]['email'] = 'department@test.com';
             $data[1]['email'] = 'manager@test.com';
             $data[2]['email'] = 'member@test.com';
         }
+
         $userIds = [];
         $userIds[] = User::factory()->create($data[0])['id'];
         $userIds[] = User::factory()->create($data[1])['id'];
@@ -273,12 +276,14 @@ class GenerateTestDataCommand extends Command
         // Objective 作成
         $objectiveIds = [];
         $i = 0;
+
         while ($this->objectiveCount !== $i) {
             $objectiveIds[] = Objective::factory()->create([
                 'objective' => $this->objectives[$i],
                 'user_id' => $userId,
                 'quarter_id' => $quarterId,
                 'year' => $year,
+                'score' => 0,
             ])['id'];
             $i++;
         }
@@ -286,13 +291,20 @@ class GenerateTestDataCommand extends Command
         // KeyResult 作成
         foreach ($objectiveIds as $objectiveId) {
             $j = 0;
+            $totalScore = 0;
+
             while ($j !== $this->keyResultCount) {
-                KeyResult::factory()->create([
+                $keyResult = KeyResult::factory()->create([
                     'key_result' => 'objectives.id ' . $objectiveId . ' の成果指標' . ($j + 1),
                     'objective_id' => $objectiveId,
                 ]);
+                $totalScore += $keyResult['score'];
                 $j++;
             }
+
+            Objective::find($objectiveId)->update([
+                'score' => round($totalScore / $this->keyResultCount, 1),
+            ]);
         }
     }
 }

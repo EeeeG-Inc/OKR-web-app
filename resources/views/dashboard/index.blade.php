@@ -30,13 +30,25 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/users.fields.name') }}</th>
+                                            <th>{{ __('models/users.fields.role') }}</th>
+                                            <th>{{ __('models/departments.fields.name') }}</th>
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($users as $user)
                                             <tr>
-                                                <td class="align-middle">{{ $user->name }}</td>
+                                                <td class="align-middle">
+                                                    {{ $user->name }}
+                                                </td>
+                                                <td class="align-middle">
+                                                    {{ App\Enums\Role::getDescription($user->role) }}
+                                                </td>
+                                                <td class="align-middle">
+                                                    @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
+                                                        {{ $user->departments()->first()->name }}
+                                                    @endif
+                                                </td>
                                                 <td class="align-middle">
                                                     @if ($user->hasObjective)
                                                         {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}

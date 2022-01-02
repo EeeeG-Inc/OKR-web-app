@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\Role;
 use App\Http\Requests\DashboardSearchRequest;
 use App\Models\User;
+use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -18,9 +20,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-        $users = User::where('role', '!=', Role::ADMIN);
-        $users = $users->paginate($this->pagenateNum);
+        $user = Auth::user();
+
+        // グループ会社全員のデータを取得する
+        $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
+        $users = User::where('role', '!=', Role::ADMIN)
+            ->whereIn('company_id', $companyIds)
+            ->paginate($this->pagenateNum);
 
         return view('dashboard.index', compact('users'));
     }

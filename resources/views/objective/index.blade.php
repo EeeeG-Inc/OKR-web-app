@@ -44,7 +44,9 @@
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
                                             <th>{{ __('models/objectives.fields.score') }}</th>
                                             <th>{{ __('models/key-results.fields.key_result') }}</th>
-                                            <th>{{ __('common/action.edit') }}</th>
+                                            @if ($isLoginUser)
+                                                <th>{{ __('common/action.edit') }}</th>
+                                            @endif
                                             @can('manager-higher')
                                                 <th>{{ __('common/action.delete') }}</th>
                                             @endcan
@@ -58,7 +60,9 @@
                                                 <td class="align-middle">{{ $objective->objective }}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}</td>
-                                                <td class="align-middle">{{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}</td>
+                                                @if ($isLoginUser)
+                                                    <td class="align-middle">{{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}</td>
+                                                @endif
                                                 @can('manager-higher')
                                                     <td class="align-middle">
                                                         {{ Form::open(['route' => ['objective.destroy', $objective->id], 'method' => 'delete']) }}
@@ -79,6 +83,46 @@
                     </div>
                 </div>
             </div>
+
+            {{-- 紐付いている会社・部署を表示する --}}
+            @if ($companyUser || $departmentUser)
+                <div class="card mt-4">
+                    <div class="card-header">{{ __('common/title.objective.index_relational', ['name' => $user->name]) }}</div>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('models/users.fields.name') }}</th>
+                                    <th>{{ __('models/objectives.fields.objective') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($companyUser)
+                                    <tr>
+                                        <td class="align-middle">
+                                            {{ $companyUser->name }}
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $companyUser->id], ['class' => 'btn btn-primary']); }}
+                                        </td>
+                                    </tr>
+                                @endif
+                                @if ($departmentUser)
+                                    <tr>
+                                        <td class="align-middle">
+                                            {{ $departmentUser->name }}
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $departmentUser->id], ['class' => 'btn btn-primary']); }}
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Http\Requests\ObjectiveIndexRequest;
 use App\Http\Requests\ObjectiveSearchRequest;
 use App\Http\Requests\ObjectiveStoreRequest;
 use App\Http\Requests\ObjectiveUpdateRequest;
+use App\Models\Department;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
@@ -29,17 +31,32 @@ class ObjectiveController extends Controller
     {
         $input = $request->validated();
         $isLoginUser = false;
+        $companyUser = null;
+        $departmentUser = null;
 
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         if (array_key_exists('user_id', $input)) {
             $user = User::find($input['user_id']);
+            $isLoginUser = ($user->id === Auth::id()) ? true : false;
         } else {
             $user = Auth::user();
             $isLoginUser = true;
         }
-        $userId = $user->id;
-        $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
-        return view('objective.index', compact('user', 'objectives', 'isLoginUser'));
+
+        if ($user->role === Role::DEPARTMENT) {
+            $company = $user->companies()->first();
+            $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+        }
+
+        if (($user->role === Role::MANAGER) || ($user->role === Role::MEMBER)) {
+            $company = $user->companies()->first();
+            $department = $user->departments()->first();
+            $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+            $departmentUser = User::where('department_id', $department->id)->where('name', $department->name)->first();
+        }
+
+        $objectives = Objective::where('user_id', $user->id)->paginate($this->pagenateNum);
+        return view('objective.index', compact('user', 'objectives', 'isLoginUser', 'companyUser', 'departmentUser'));
     }
 
     /**
