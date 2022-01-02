@@ -28,7 +28,7 @@ class ObjectiveStoreRequest extends FormRequest
             'user_id' => 'required|integer',
             'objective' => 'required|string',
             'year' => 'required|integer',
-            'quarter' => 'required|integer',
+            'quarter_id' => 'required|integer',
             'key_result1' => 'required|string',
             'key_result2' => 'nullable|string',
             'key_result3' => 'nullable|string',

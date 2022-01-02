@@ -56,7 +56,9 @@
                                         @foreach ($objectives as $objective)
                                             <tr>
                                                 <td class="align-middle">{{ $objective->year }}</td>
-                                                <td class="align-middle">{{ $objective->quarters->quarter }}</td>
+                                                <td class="align-middle">
+                                                    {{ App\Enums\Quarter::getDescription($objective->quarters->quarter) }}
+                                                </td>
                                                 <td class="align-middle">{{ $objective->objective }}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}</td>
