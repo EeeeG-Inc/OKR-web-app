@@ -2,12 +2,12 @@
 
 return [
     'objective' => [
-        'index' => '目標管理',
+        'index' => '自己目標',
     ],
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],
     'quarter' => [
-        'index' => '四半期設定',
+        'index' => '四半期',
     ],
 ];

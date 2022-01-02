@@ -37,6 +37,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\CompanyFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Query\Builder|Company onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Company withoutTrashed()
  */
 class Company extends Model
 {
