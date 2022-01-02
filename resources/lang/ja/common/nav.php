@@ -7,4 +7,7 @@ return [
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],
+    'quarter' => [
+        'index' => '四半期設定',
+    ],
 ];

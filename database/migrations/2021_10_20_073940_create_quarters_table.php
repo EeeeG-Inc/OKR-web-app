@@ -19,6 +19,7 @@ class CreateQuartersTable extends Migration
             $table->integer('from')->comment('開始月');
             $table->integer('to')->comment('終了月');
             $table->integer('company_id')
+                ->nullable() // 通年だけ null とする
                 ->comment('会社ID')
                 ->unsigned();
             $table->softDeletes()->comment('削除フラグ');
