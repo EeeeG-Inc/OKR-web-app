@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', __('common/title.quarter.create'))
+@section('title', __('common/title.quarter.edit'))
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('common/title.quarter.create') }}</div>
+                    <div class="card-header">{{ __('common/title.quarter.edit') }}</div>
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">

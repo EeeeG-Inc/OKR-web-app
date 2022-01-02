@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('dashboard')->group(function () {
-        // ユーザー検索
+        // ユーザ検索
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
     });
 });

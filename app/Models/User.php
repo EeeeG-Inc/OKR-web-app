@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * App\Models\User
  *
  * @property int $id
- * @property string $name ユーザー名
+ * @property string $name ユーザ名
  * @property int|null $role 権限
  * @property int|null $companies_id 会社コード
  * @property int|null $departments_id 部署コード
@@ -60,6 +60,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
  * @property-read \App\Models\Department|null $departments
  * @property-read bool $has_objective
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  */
 class User extends Authenticatable
 {
@@ -151,7 +154,7 @@ class User extends Authenticatable
      */
 
     /**
-     * Objective を持っているユーザーかどうか
+     * Objective を持っているユーザかどうか
      */
     public function getHasObjectiveAttribute(): bool
     {

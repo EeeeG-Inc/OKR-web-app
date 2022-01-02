@@ -287,7 +287,7 @@ namespace App\Models{
  * App\Models\User
  *
  * @property int $id
- * @property string $name ユーザー名
+ * @property string $name ユーザ名
  * @property int|null $role 権限
  * @property int|null $companies_id 会社コード
  * @property int|null $departments_id 部署コード

@@ -39,6 +39,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
  * @property-read int|null $objectives_count
+ * @method static \Illuminate\Database\Query\Builder|Quarter onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Quarter withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Quarter withoutTrashed()
  */
 class Quarter extends Model
 {
