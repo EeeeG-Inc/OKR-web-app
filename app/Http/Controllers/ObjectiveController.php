@@ -8,7 +8,6 @@ use App\Http\Requests\ObjectiveIndexRequest;
 use App\Http\Requests\ObjectiveSearchRequest;
 use App\Http\Requests\ObjectiveStoreRequest;
 use App\Http\Requests\ObjectiveUpdateRequest;
-use App\Models\Department;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeyResultController;
 use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\QuarterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
         'dashboard' => DashboardController::class,
         'key_result' => KeyResultController::class,
         'objective' => ObjectiveController::class,
+        'quarter' => QuarterController::class,
     ]);
 
     Route::prefix('objective')->group(function () {
