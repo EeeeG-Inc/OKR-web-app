@@ -41,6 +41,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Objective|null $objectives
  * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereKeyResult($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereObjectiveId($value)
+ * @method static \Illuminate\Database\Query\Builder|KeyResult onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|KeyResult withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|KeyResult withoutTrashed()
  */
 class KeyResult extends Model
 {

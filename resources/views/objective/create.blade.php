@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('common/title.objective.create'))
 
 @section('content')
     <div class="container">

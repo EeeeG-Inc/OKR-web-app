@@ -12,8 +12,8 @@ class Quarter extends Enum implements LocalizedEnum
 
     // 四半期区分
     const QUARTER_FULL_YEAR = 0;
-    const QUARTER_ONE = 1;
-    const QUARTER_TWO = 2;
-    const QUARTER_THREE = 3;
-    const QUARTER_FOUR = 4;
+    const FIRST_QUARTER = 1;
+    const SECOND_QUARTER = 2;
+    const THIRD_QUARTER = 3;
+    const FOURTH_QUARTER = 4;
 }
