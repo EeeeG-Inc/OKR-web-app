@@ -13,9 +13,9 @@ return [
     ],
     Quarter::class => [
         Quarter::QUARTER_FULL_YEAR => '通年',
-        Quarter::QUARTER_ONE       => '第１Ｑ',
-        Quarter::QUARTER_TWO       => '第２Ｑ',
-        Quarter::QUARTER_THREE     => '第３Ｑ',
-        Quarter::QUARTER_FOUR      => '第４Ｑ',
+        Quarter::FIRST_QUARTER     => '第１Ｑ',
+        Quarter::SECOND_QUARTER    => '第２Ｑ',
+        Quarter::THIRD_QUARTER     => '第３Ｑ',
+        Quarter::FOURTH_QUARTER    => '第４Ｑ',
     ],
 ];
