@@ -10,10 +10,7 @@
                 <div class="card-body">
                     <div class="pt-4 bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-
-                                {{-- フラッシュメッセージ --}}
                                 @include('flash::message')
 
                                 {{-- 新規作成 --}}
@@ -52,6 +49,7 @@
                                         </tbody>
                                     </table>
                                 @endif
+
                             </div>
                         </div>
                     </div>
