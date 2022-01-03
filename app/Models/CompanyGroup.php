@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Company[] $companies
  * @property-read int|null $companies_count
  * @method static \Database\Factories\CompanyGroupFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Query\Builder|CompanyGroup onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CompanyGroup withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CompanyGroup withoutTrashed()
  */
 class CompanyGroup extends Model
 {

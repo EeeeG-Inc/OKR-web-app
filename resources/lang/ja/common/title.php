@@ -16,5 +16,6 @@ return [
     'quarter' => [
         'index' => '四半期設定',
         'create' => '四半期登録',
+        'edit' => '四半期編集',
     ],
 ];

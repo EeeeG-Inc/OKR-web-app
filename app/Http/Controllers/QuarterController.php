@@ -99,7 +99,7 @@ class QuarterController extends Controller
             ->where('quarter', 4)
             ->first();
         $from = $this->createFrom();
-        return view('quarter.update', compact('companyId', 'firstQuarter', 'secondQuarter', 'thirdQuarter', 'fourthQuarter', 'from'));
+        return view('quarter.edit', compact('companyId', 'firstQuarter', 'secondQuarter', 'thirdQuarter', 'fourthQuarter', 'from'));
     }
 
     /**
