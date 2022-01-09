@@ -2,33 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
 use App\Http\Requests\DashboardSearchRequest;
-use App\Models\Company;
+use App\Http\UseCase\Dashboard\GetIndexData;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    /** @var int */
-    private $pagenateNum = 15;
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(GetIndexData $case)
     {
-        $user = Auth::user();
-
-        // グループ会社全員のデータを取得する
-        $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
-        $users = User::where('role', '!=', Role::ADMIN)
-            ->whereIn('company_id', $companyIds)
-            ->paginate($this->pagenateNum);
-
-        return view('dashboard.index', compact('users'));
+        return view('dashboard.index', $case());
     }
 
     /**
