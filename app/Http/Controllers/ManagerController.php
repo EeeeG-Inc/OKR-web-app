@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
 use App\Http\Requests\ManagerStoreRequest;
-use App\Models\Company;
-use App\Models\Department;
 use App\Models\User;
 use Flash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
@@ -17,7 +13,7 @@ class ManagerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ManagerResultIndexRequest $request
+     * @param ManagerStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ManagerStoreRequest $request)
