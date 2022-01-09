@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
-use App\Models\Department;
-use Flash;
-use Illuminate\Support\Facades\Auth;
+use App\Http\UseCase\User\GetCreateData;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -22,33 +19,12 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param GetCreateData $case
      * @return View
      */
-    public function create()
+    public function create(GetCreateData $case)
     {
-        $user = Auth::user();
-        $departments = Department::where('company_id', $user->company_id)->get();
-        $departmentNames = [];
-        $isMaster = (bool) $user->companies->is_master;
-        $role = $user->role;
-
-        if ($departments->isEmpty()) {
-            Flash::error(__('validation.not_found_department'));
-            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
-        } else {
-            foreach ($departments as $department) {
-                $departmentNames[$department->id] = $department->name;
-            }
-            $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
-        }
-
-        $companyCreatePermission = false;
-
-        if ($role === Role::ADMIN || (($role === Role::COMPANY) && ($isMaster === true))) {
-            $companyCreatePermission = true;
-        }
-
-        return view('user.create', compact('user', 'roles', 'departmentNames', 'companyCreatePermission'));
+        return view('user.create', $case());
     }
 
     // /**

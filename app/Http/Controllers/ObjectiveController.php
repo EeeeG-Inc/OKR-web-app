@@ -22,6 +22,7 @@ class ObjectiveController extends Controller
      * Display a listing of the resource.
      *
      * @param ObjectiveIndexRequest $request
+     * @param GetIndexData $case
      * @return View
      */
     public function index(ObjectiveIndexRequest $request, GetIndexData $case)
@@ -39,7 +40,7 @@ class ObjectiveController extends Controller
     public function search(ObjectiveSearchRequest $request)
     {
         // $input = $request->validated();
-        $objectives = Objective::paginate($this->pagenateNum);
+        $objectives = Objective::paginate(15);
 
         return view('objective.index', compact('objectives'));
     }
@@ -47,6 +48,7 @@ class ObjectiveController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param GetCreateData $case
      * @return View
      */
     public function create(GetCreateData $case)
@@ -58,6 +60,7 @@ class ObjectiveController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ObjectiveStoreRequest $request
+     * @param StoreData $case
      * @return RedirectResponse
      */
     public function store(ObjectiveStoreRequest $request, StoreData $case)
@@ -90,6 +93,7 @@ class ObjectiveController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $objectiveId
+     * @param GetEditData $case
      * @return View
      */
     public function edit(int $objectiveId, GetEditData $case)
@@ -102,6 +106,7 @@ class ObjectiveController extends Controller
      *
      * @param int                    $objectiveId
      * @param ObjectiveUpdateRequest $request
+     * @param UpdateData $case
      * @return RedirectResponse
      */
     public function update(int $objectiveId, ObjectiveUpdateRequest $request, UpdateData $case)
@@ -119,6 +124,7 @@ class ObjectiveController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $objectiveId
+     * @param DestroyData $case
      * @return RedirectResponse
      */
     public function destroy(int $objectiveId, DestroyData $case)

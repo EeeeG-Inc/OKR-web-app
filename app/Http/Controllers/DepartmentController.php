@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\UseCase\Department\StoreData;
 use App\Http\Requests\DepartmentStoreRequest;
+use Illuminate\Http\RedirectResponse;
 
 class DepartmentController extends Controller
 {
@@ -11,7 +12,8 @@ class DepartmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param DepartmentStoreRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreData $case
+     * @return RedirectResponse
      */
     public function store(DepartmentStoreRequest $request, StoreData $case)
     {
