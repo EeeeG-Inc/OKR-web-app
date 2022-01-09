@@ -5,13 +5,17 @@ use App\Enums\Quarter as Q;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
+use App\Services\YMD\YearService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
-    public function __construct()
+    private $yearService;
+
+    public function __construct(YearService $yearService)
     {
+        $this->yearService = $yearService;
     }
 
     public function __invoke(int $objectiveId): array
@@ -37,7 +41,7 @@ class GetEditData
         ];
 
         $year = $objective->year;
-        $years = $this->getYearsForEdit($year);
+        $years = $this->yearService->getYearsForEdit($year);
 
         $quarterId = $objective->quarter_id;
         $quarterChecked = [];
@@ -70,21 +74,6 @@ class GetEditData
             'keyResult3' => $keyResult3,
             'year' => $year,
             'quarterChecked' => $quarterChecked,
-        ];
-    }
-    private function getYearsForEdit(int $year): array
-    {
-        $date1 = new Carbon($year . '-01-01');
-        $date2 = new Carbon($year . '-01-01');
-
-        $prevYear = $date1->subYear()->format('Y');
-        $year = $date2->format('Y');
-        $nextYear = $date2->addYear()->format('Y');
-
-        return [
-            $prevYear => $prevYear,
-            $year => $year,
-            $nextYear => $nextYear,
         ];
     }
 }

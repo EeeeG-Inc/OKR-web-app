@@ -47,8 +47,10 @@ class QuarterController extends Controller
     public function store(QuarterStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $isSuccess = $case($input);
 
+        if (!$case($input)) {
+            return redirect()->route('quarter.create');
+        };
         return redirect()->route('quarter.index');
     }
 
@@ -86,8 +88,10 @@ class QuarterController extends Controller
     public function update(QuarterUpdateRequest $request, int $companyId, UpdateData $case)
     {
         $input = $request->validated();
-        $isSuccess = $case($input, $companyId);
 
+        if (!$case($input, $companyId)) {
+            return redirect()->route('quarter.edit', $companyId);
+        }
         return redirect()->route('quarter.index');
     }
 

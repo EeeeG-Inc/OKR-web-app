@@ -2,13 +2,16 @@
 namespace App\Http\UseCase\Objective;
 
 use App\Models\Quarter;
-use Carbon\Carbon;
+use App\Services\YMD\YearService;
 use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    public function __construct()
+    private $yearService;
+
+    public function __construct(YearService $yearService)
     {
+        $this->yearService = $yearService;
     }
 
     public function __invoke(): array
@@ -24,26 +27,13 @@ class GetCreateData
             __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
             __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)',
         ];
-        $years = $this->getYearsForCreate();
+        $years = $this->yearService->getYearsForCreate();
 
         return [
             'user' => $user,
             'quarters' => $quarters,
             'quarterLabels' => $quarterLabels,
             'years' => $years,
-        ];
-    }
-
-    private function getYearsForCreate(): array
-    {
-        $prevYear = Carbon::now()->subYear()->format('Y');
-        $year = Carbon::now()->format('Y');
-        $nextYear = Carbon::now()->addYear()->format('Y');
-
-        return [
-            $prevYear => $prevYear,
-            $year => $year,
-            $nextYear => $nextYear,
         ];
     }
 }

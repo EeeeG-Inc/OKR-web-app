@@ -41,7 +41,6 @@ class ObjectiveController extends Controller
     {
         // $input = $request->validated();
         $objectives = Objective::paginate(15);
-
         return view('objective.index', compact('objectives'));
     }
 
@@ -70,7 +69,6 @@ class ObjectiveController extends Controller
         if (!$case($input)) {
             return redirect()->route('objective.create');
         }
-
         return redirect()->route('objective.index');
     }
 
@@ -116,7 +114,6 @@ class ObjectiveController extends Controller
         if (!$case($input, $objectiveId)) {
             return redirect()->route('objective.edit', $objectiveId);
         }
-
         return redirect()->route('objective.index');
     }
 
@@ -129,12 +126,9 @@ class ObjectiveController extends Controller
      */
     public function destroy(int $objectiveId, DestroyData $case)
     {
-        $isScuccess = $case($objectiveId);
-
-        if (!$isScuccess) {
+        if (!$case($objectiveId)) {
             return redirect()->route('objective.index');
         }
-
         return redirect()->route('objective.index');
     }
 }
