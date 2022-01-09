@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Actions\Jetstream;
 
 use Illuminate\Support\Facades\Gate;

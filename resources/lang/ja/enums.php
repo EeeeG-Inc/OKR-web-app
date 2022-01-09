@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+use App\Enums\Quarter;
 use App\Enums\Role;
 
 return [
@@ -11,5 +10,12 @@ return [
         Role::DEPARTMENT => '部署',
         Role::MANAGER => 'マネージャー',
         Role::MEMBER => '一般ユーザ',
+    ],
+    Quarter::class => [
+        Quarter::QUARTER_FULL_YEAR => '通年',
+        Quarter::FIRST_QUARTER     => '第１Ｑ',
+        Quarter::SECOND_QUARTER    => '第２Ｑ',
+        Quarter::THIRD_QUARTER     => '第３Ｑ',
+        Quarter::FOURTH_QUARTER    => '第４Ｑ',
     ],
 ];
