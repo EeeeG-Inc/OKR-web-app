@@ -1,50 +1,36 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
 use App\Http\Requests\DashboardSearchRequest;
-use App\Models\Company;
+use App\Http\UseCase\Dashboard\GetIndexData;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    /** @var int */
-    private $pagenateNum = 15;
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @param GetIndexData $case
+     * @return View
      */
-    public function index()
+    public function index(GetIndexData $case)
     {
-        $user = Auth::user();
-
-        // グループ会社全員のデータを取得する
-        $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
-        $users = User::where('role', '!=', Role::ADMIN)
-            ->whereIn('company_id', $companyIds)
-            ->paginate($this->pagenateNum);
-
-        return view('dashboard.index', compact('users'));
+        return view('dashboard.index', $case());
     }
 
     /**
      * Search listing of the resource.
      *
      * @param DashboardSearchRequest $request
-     * @return  \Illuminate\View\View
+     * @return View
      */
     public function search(DashboardSearchRequest $request)
     {
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         // $input = $request->validated();
-        $users = User::paginate($this->pagenateNum);
-
+        $users = User::paginate(15);
         return view('dashboard.index', compact('users'));
     }
 

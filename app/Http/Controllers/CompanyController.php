@@ -1,15 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
-use App\Models\Company;
-use App\Models\User;
-use Flash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\UseCase\Company\StoreData;
+use \Illuminate\Http\RedirectResponse;
 
 class CompanyController extends Controller
 {
@@ -17,32 +12,16 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CompanyStoreRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreData $case
+     * @return RedirectResponse
      */
-    public function store(CompanyStoreRequest $request)
+    public function store(CompanyStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $user = Auth::user();
 
-        try {
-            $companyId = Company::create([
-                'name' => $input['name'],
-                'is_master' => false,
-                'company_group_id' => $user->companies->company_group_id,
-            ])->id;
-            User::create([
-                'name' => $input['name'],
-                'role' => $input['role'],
-                'company_id' => $companyId,
-                'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-            ]);
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
-            return redirect()->route('dashboard.index');
+        if (!$case($input)) {
+            return redirect()->route('user.create');
         }
-
-        Flash::success(__('common/message.company.store'));
         return redirect()->route('dashboard.index');
     }
 }

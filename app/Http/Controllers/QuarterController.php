@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuarterStoreRequest;
 use App\Http\Requests\QuarterUpdateRequest;
-use App\Models\Quarter;
-use Flash;
+use App\Http\UseCase\Quarter\GetEditData;
+use App\Http\UseCase\Quarter\GetIndexData;
+use App\Http\UseCase\Quarter\StoreData;
+use App\Http\UseCase\Quarter\UpdateData;
+use App\Services\YMD\MonthService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class QuarterController extends Controller
@@ -17,30 +17,23 @@ class QuarterController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param GetIndexData $case
      * @return View
      */
-    public function index()
+    public function index(GetIndexData $case)
     {
-        $user = Auth::user();
-        $companyId = $user->company_id;
-        $quarters = Quarter::where('company_id', $companyId)->get();
-        $canCreate = false;
-
-        if ($quarters->isEmpty()) {
-            $canCreate = true;
-        }
-
-        return view('quarter.index', compact('quarters', 'canCreate', 'companyId'));
+        return view('quarter.index', $case());
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param MonthService $service
      * @return View
      */
-    public function create()
+    public function create(MonthService $service)
     {
-        $from = $this->createFrom();
+        $from = $service->createMonthsArray();
         return view('quarter.create', compact('from'));
     }
 
@@ -48,24 +41,16 @@ class QuarterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param QuarterStoreRequest $request
+     * @param StoreData $case
      * @return RedirectResponse
      */
-    public function store(QuarterStoreRequest $request)
+    public function store(QuarterStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $user = Auth::user();
 
-        $i = 1;
-        while ($i < 5) {
-            Quarter::create([
-                'quarter' => $i,
-                'from' => $input[$i . 'q_from'],
-                'to' => $input[$i . 'q_to'],
-                'company_id' => $user->company_id,
-            ]);
-            $i++;
-        }
-        Flash::success(__('common/message.quarter.store'));
+        if (!$case($input)) {
+            return redirect()->route('quarter.create');
+        };
         return redirect()->route('quarter.index');
     }
 
@@ -84,49 +69,29 @@ class QuarterController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $companyId
+     * @param GetEditData $case
      * @return View
      */
-    public function edit(int $companyId)
+    public function edit(int $companyId, GetEditData $case)
     {
-        $firstQuarter = Quarter::where('company_id', $companyId)
-            ->where('quarter', 1)
-            ->first();
-        $secondQuarter = Quarter::where('company_id', $companyId)
-            ->where('quarter', 2)
-            ->first();
-        $thirdQuarter = Quarter::where('company_id', $companyId)
-            ->where('quarter', 3)
-            ->first();
-        $fourthQuarter = Quarter::where('company_id', $companyId)
-            ->where('quarter', 4)
-            ->first();
-        $from = $this->createFrom();
-        return view('quarter.edit', compact('companyId', 'firstQuarter', 'secondQuarter', 'thirdQuarter', 'fourthQuarter', 'from'));
+        return view('quarter.edit', $case($companyId));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param QuarterUpdateRequest $request
-     * @param int                  $companyId
+     * @param int $companyId
+     * @param UpdateData $case
      * @return RedirectResponse
      */
-    public function update(QuarterUpdateRequest $request, int $companyId)
+    public function update(QuarterUpdateRequest $request, int $companyId, UpdateData $case)
     {
         $input = $request->validated();
 
-        $i = 1;
-        while ($i < 5) {
-            Quarter::where('company_id', $companyId)
-                ->where('quarter', $i)
-                ->first()
-                ->update([
-                    'from' => $input[$i . 'q_from'],
-                    'to' => $input[$i . 'q_to'],
-                ]);
-            $i++;
+        if (!$case($input, $companyId)) {
+            return redirect()->route('quarter.edit', $companyId);
         }
-        Flash::success(__('common/message.quarter.update'));
         return redirect()->route('quarter.index');
     }
 
@@ -140,16 +105,4 @@ class QuarterController extends Controller
     // {
     //     //
     // }
-
-    private function createFrom(): array
-    {
-        $from = [];
-        $i = 1;
-        while ($i < 13) {
-            $from[$i] = $i;
-            $i++;
-        }
-
-        return $from;
-    }
 }

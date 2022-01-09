@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
+use App\Http\UseCase\KeyResult\GetIndexData;
 use App\Http\Requests\KeyResultIndexRequest;
-use App\Models\KeyResult;
-use App\Models\Objective;
+use Illuminate\View\View;
 
 class KeyResultController extends Controller
 {
@@ -14,16 +12,13 @@ class KeyResultController extends Controller
      * Display a listing of the resource.
      *
      * @param KeyResultIndexRequest $request
-     * @return \Illuminate\View\View
+     * @param GetIndexData $case
+     * @return View
      */
-    public function index(KeyResultIndexRequest $request)
+    public function index(KeyResultIndexRequest $request, GetIndexData $case)
     {
-        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
-        $objectiveId = $request->validated()['objective_id'];
-        $objective = Objective::find($objectiveId);
-        $keyResults = KeyResult::where('objective_id', $objectiveId)->get();
-
-        return view('key_result.index', compact('objective', 'keyResults'));
+        $input = $request->validated();
+        return view('key_result.index', $case($input));
     }
 
     /*
