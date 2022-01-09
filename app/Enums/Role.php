@@ -13,11 +13,11 @@ use Ramsey\Uuid\Type\Integer;
  */
 class Role extends Enum implements LocalizedEnum
 {
-    const ADMIN = 1;
-    const COMPANY = 2;
-    const DEPARTMENT = 3;
-    const MANAGER = 4;
-    const MEMBER = 5;
+    public const ADMIN = 1;
+    public const COMPANY = 2;
+    public const DEPARTMENT = 3;
+    public const MANAGER = 4;
+    public const MEMBER = 5;
 
     public static function getRolesInWhenCreateUser(int $myRoleVal, bool $isMaster = false): array
     {
