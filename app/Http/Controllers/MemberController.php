@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberStoreRequest;
+use App\Http\UseCase\Member\StoreData;
 use App\Models\User;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -16,26 +17,13 @@ class MemberController extends Controller
      * @param MemberStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(MemberStoreRequest $request)
+    public function store(MemberStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $user = Auth::user();
 
-        try {
-            User::create([
-                'name' => $input['name'],
-                'role' => $input['role'],
-                'company_id' => $user->company_id,
-                'department_id' => $input['department_id'],
-                'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-            ]);
-        } catch (\Exception $exc) {
-            Flash::error($exc->getMessage());
-            return redirect()->route('dashboard.index');
+        if (!$case($input)) {
+            return redirect()->route('user.create');
         }
-
-        Flash::success(__('common/message.member.store'));
         return redirect()->route('dashboard.index');
     }
 }

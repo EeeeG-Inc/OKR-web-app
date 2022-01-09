@@ -63,9 +63,8 @@ class ObjectiveController extends Controller
     public function store(ObjectiveStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $isSuccess = $case($input);
 
-        if (!$isSuccess) {
+        if (!$case($input)) {
             return redirect()->route('objective.create');
         }
 
@@ -108,9 +107,8 @@ class ObjectiveController extends Controller
     public function update(int $objectiveId, ObjectiveUpdateRequest $request, UpdateData $case)
     {
         $input = $request->validated();
-        $isSuccess = $case($input, $objectiveId);
 
-        if (!$isSuccess) {
+        if (!$case($input, $objectiveId)) {
             return redirect()->route('objective.edit', $objectiveId);
         }
 

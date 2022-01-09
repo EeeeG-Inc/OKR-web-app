@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ManagerStoreRequest;
-use App\Models\User;
-use Flash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\UseCase\Manager\StoreData;
 
 class ManagerController extends Controller
 {
@@ -16,26 +13,14 @@ class ManagerController extends Controller
      * @param ManagerStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ManagerStoreRequest $request)
+    public function store(ManagerStoreRequest $request, StoreData $case)
     {
         $input = $request->validated();
-        $user = Auth::user();
 
-        try {
-            User::create([
-                'name' => $input['name'],
-                'role' => $input['role'],
-                'company_id' => $user->company_id,
-                'department_id' => $input['department_id'],
-                'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-            ]);
-        } catch (\Exception $exc) {
-            Flash::error($exc->getMessage());
-            return redirect()->route('dashboard.index');
+        if (!$case($input)) {
+            return redirect()->route('user.create');
         }
 
-        Flash::success(__('common/message.manager.store'));
         return redirect()->route('dashboard.index');
     }
 }

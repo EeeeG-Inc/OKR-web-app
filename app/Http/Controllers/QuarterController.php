@@ -8,11 +8,8 @@ use App\Http\UseCase\Quarter\GetEditData;
 use App\Http\UseCase\Quarter\GetIndexData;
 use App\Http\UseCase\Quarter\StoreData;
 use App\Http\UseCase\Quarter\UpdateData;
-use App\Models\Quarter;
 use App\Services\YMD\MonthService;
-use Flash;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class QuarterController extends Controller
