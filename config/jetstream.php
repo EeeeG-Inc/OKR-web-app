@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Laravel\Jetstream\Features;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Jetstream Stack
@@ -61,5 +62,4 @@ return [
     */
 
     'profile_photo_disk' => 'public',
-
 ];

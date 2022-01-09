@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -9,21 +11,19 @@ class ObjectivesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $seeds = [
             [
-                'objective'               =>  '歩く',
-                'score'              =>  0.9,
-                'user_id'            =>  4,
-                'year'               =>  2021,
-                'quarter_id'         =>  1,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ]
+                'objective' => '歩く',
+                'score' => 0.9,
+                'user_id' => 4,
+                'year' => 2021,
+                'quarter_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         foreach ($seeds as $seed) {

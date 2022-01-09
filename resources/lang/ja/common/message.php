@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'objective' => [
         'store' => 'OKR の登録が完了しました',

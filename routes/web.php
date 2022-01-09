@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
@@ -7,8 +9,8 @@ use App\Http\Controllers\KeyResultController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ObjectiveController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuarterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::resources([
@@ -38,32 +40,32 @@ Route::middleware('auth')->group(function () {
         'quarter' => QuarterController::class,
     ]);
 
-    Route::prefix('objective')->group(function () {
+    Route::prefix('objective')->group(function (): void {
         // OKR 検索
         Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');
     });
 
-    Route::prefix('dashboard')->group(function () {
+    Route::prefix('dashboard')->group(function (): void {
         // ユーザ検索
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
     });
 });
 
 // MANAGER ユーザ以上
-Route::middleware('auth', 'can:manager-higher')->group(function () {
+Route::middleware('auth', 'can:manager-higher')->group(function (): void {
     Route::resources([
         'user' => UserController::class,
     ]);
-    Route::prefix('company')->group(function () {
+    Route::prefix('company')->group(function (): void {
         Route::post('store', [CompanyController::class, 'store'])->name('company.store');
     });
-    Route::prefix('department')->group(function () {
+    Route::prefix('department')->group(function (): void {
         Route::post('store', [DepartmentController::class, 'store'])->name('department.store');
     });
-    Route::prefix('manager')->group(function () {
+    Route::prefix('manager')->group(function (): void {
         Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
     });
-    Route::prefix('member')->group(function () {
+    Route::prefix('member')->group(function (): void {
         Route::post('store', [MemberController::class, 'store'])->name('member.store');
     });
 });

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'fields' => [
         'id' => 'ID',
-        "quarter" => "四半期区分",
-        "from" => "開始月",
-        "to" => "終了月",
-        "company_id" => "会社ID",
+        'quarter' => '四半期区分',
+        'from' => '開始月',
+        'to' => '終了月',
+        'company_id' => '会社ID',
     ],
     'quarter' => [
         'first_quarter' => '第1四半期',

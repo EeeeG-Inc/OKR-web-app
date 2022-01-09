@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'dashboard' => [
         'index' => 'ダッシュボード',
@@ -11,7 +13,7 @@ return [
         'index' => '【:name】目標一覧',
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
-        'edit' => 'OKR 編集'
+        'edit' => 'OKR 編集',
     ],
 
     'user' => [
