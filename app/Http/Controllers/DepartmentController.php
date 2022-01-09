@@ -22,7 +22,6 @@ class DepartmentController extends Controller
         if (!$case($input)) {
             return redirect()->route('user.create');
         }
-
         return redirect()->route('dashboard.index');
     }
 }
