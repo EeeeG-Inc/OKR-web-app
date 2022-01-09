@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('common/title.objective.create'))
 
 @section('content')
     <div class="container">
@@ -27,21 +28,26 @@
                                             <legend class="col-form-label col-md-2 mb-3">
                                                 {{ __('models/quarters.fields.quarter') }}</legend>
                                             <div class="col-md-10">
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('quarter', $quarters[0]->id, true, ['class' => 'custom-control-input', 'id' => 'radioQuarter1']) }}
-                                                    {{ Form::label('raidoQuarter1', $quarterLabels[0], ['class' => 'custom-control-label']) }}
+
+                                                <div class="custom-control custom-radio">
+                                                    {{ Form::radio('quarter_id', App\Enums\Quarter::FULL_YEAR_ID, true, ['id' => 'radioQuarter0']) }}
+                                                    {{ Form::label('raidoQuarter1', $quarterLabels[0]) }}
                                                 </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('quarter', $quarters[1]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter2']) }}
-                                                    {{ Form::label('raidoQuarter2', $quarterLabels[1], ['class' => 'custom-control-label']) }}
+                                                <div class="custom-control custom-radio">
+                                                    {{ Form::radio('quarter_id', $quarters[0]->id, false, ['id' => 'raidoQuarter1']) }}
+                                                    {{ Form::label('raidoQuarter2', $quarterLabels[1]) }}
                                                 </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('quarter', $quarters[2]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter3']) }}
-                                                    {{ Form::label('raidoQuarter3', $quarterLabels[2], ['class' => 'custom-control-label']) }}
+                                                <div class="custom-control custom-radio">
+                                                    {{ Form::radio('quarter_id', $quarters[1]->id, false, ['id' => 'raidoQuarter2']) }}
+                                                    {{ Form::label('raidoQuarter3', $quarterLabels[2]) }}
                                                 </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    {{ Form::radio('quarter', $quarters[3]->id, false, ['class' => 'custom-control-input', 'id' => 'raidoQuarter4']) }}
-                                                    {{ Form::label('raidoQuarter4', $quarterLabels[3], ['class' => 'custom-control-label']) }}
+                                                <div class="custom-control custom-radio">
+                                                    {{ Form::radio('quarter_id', $quarters[2]->id, false, ['id' => 'raidoQuarter3']) }}
+                                                    {{ Form::label('raidoQuarter4', $quarterLabels[3]) }}
+                                                </div>
+                                                <div class="custom-control custom-radio">
+                                                    {{ Form::radio('quarter_id', $quarters[3]->id, false, ['id' => 'radioQuarter4']) }}
+                                                    {{ Form::label('raidoQuarter5', $quarterLabels[4]) }}
                                                 </div>
                                             </div>
                                         </div>

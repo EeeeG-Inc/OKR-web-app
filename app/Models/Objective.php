@@ -39,6 +39,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereYear($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|Objective onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Objective withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Objective withoutTrashed()
  */
 class Objective extends Model
 {

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Flash;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ObjectiveStoreRequest extends FormRequest
+class QuarterStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,14 @@ class ObjectiveStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer',
-            'objective' => 'required|string',
-            'year' => 'required|integer',
-            'quarter_id' => 'required|integer',
-            'key_result1' => 'required|string',
-            'key_result2' => 'nullable|string',
-            'key_result3' => 'nullable|string',
+            '1q_from' => 'required|integer',
+            '1q_to'   => 'required|integer',
+            '2q_from' => 'required|integer',
+            '2q_to'   => 'required|integer',
+            '3q_from' => 'required|integer',
+            '3q_to'   => 'required|integer',
+            '4q_from' => 'required|integer',
+            '4q_to'   => 'required|integer',
         ];
     }
 

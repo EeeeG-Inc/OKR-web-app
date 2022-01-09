@@ -29,6 +29,17 @@
 		- RDS
 		- S3
 
+```sh
+# 初期テーブルデータ作成
+ php artisan migrate:fresh --seed
+```
+
+### テストデータ作成
+
+```sh
+ php artisan command:test-data
+```
+
 ## 下記仕様要望
 - Login
     - ログイン画面

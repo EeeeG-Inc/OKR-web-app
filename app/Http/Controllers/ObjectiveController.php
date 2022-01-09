@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
+use App\Enums\Quarter as Q;
 use App\Http\Requests\ObjectiveIndexRequest;
 use App\Http\Requests\ObjectiveSearchRequest;
 use App\Http\Requests\ObjectiveStoreRequest;
@@ -33,17 +35,36 @@ class ObjectiveController extends Controller
     {
         $input = $request->validated();
         $isLoginUser = false;
+        $companyUser = null;
+        $departmentUser = null;
 
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         if (array_key_exists('user_id', $input)) {
             $user = User::find($input['user_id']);
+            $isLoginUser = ($user->id === Auth::id()) ? true : false;
         } else {
             $user = Auth::user();
             $isLoginUser = true;
         }
-        $userId = $user->id;
-        $objectives = Objective::where('user_id', $userId)->paginate($this->pagenateNum);
-        return view('objective.index', compact('user', 'objectives', 'isLoginUser'));
+
+        if ($user->role === Role::DEPARTMENT) {
+            $company = $user->companies()->first();
+            $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+        }
+
+        if (($user->role === Role::MANAGER) || ($user->role === Role::MEMBER)) {
+            $company = $user->companies()->first();
+            $department = $user->departments()->first();
+            $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+            $departmentUser = User::where('department_id', $department->id)->where('name', $department->name)->first();
+        }
+
+        $objectives = Objective::join('quarters', 'objectives.quarter_id', '=', 'quarters.id')
+            ->where('user_id', $user->id)
+            ->orderBy('year', 'desc')
+            ->orderBy('quarter', 'asc')
+            ->paginate($this->pagenateNum);
+        return view('objective.index', compact('user', 'objectives', 'isLoginUser', 'companyUser', 'departmentUser'));
     }
 
     /**
@@ -72,13 +93,14 @@ class ObjectiveController extends Controller
         $quarters = Quarter::where('company_id', $companyId)->orderBy('quarter', 'asc')->get();
         // TODO: OKR Facade を作成して登録する。
         $quarterLabels = [
-            __('models/quarters.quarter.first_quarter') . '(' . $quarters[0]->from . '月〜' . $quarters[0]->to . '月)',
-            __('models/quarters.quarter.second_quarter') . '(' . $quarters[1]->from . '月〜' . $quarters[1]->to . '月)',
-            __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
-            __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)'
+            __('models/quarters.full_year'),
+            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
+            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
+            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
+            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
         ];
-        $now = Carbon::now()->format('Y');
-        $years = $this->getYearsForEdit($now);
+        $years = $this->getYearsForCreate();
+
         return view('objective.create', compact('user', 'quarters', 'quarterLabels', 'years'));
     }
 
@@ -107,7 +129,7 @@ class ObjectiveController extends Controller
             $objectiveId = Objective::create([
                 'user_id' => $input['user_id'],
                 'year' => $input['year'],
-                'quarter_id' => $input['quarter'],
+                'quarter_id' => $input['quarter_id'],
                 'objective' => $input['objective'],
             ])['id'];
 
@@ -164,10 +186,11 @@ class ObjectiveController extends Controller
 
         // TODO: OKR Facade を作成して登録する。
         $quarterLabels = [
-            __('models/quarters.quarter.first_quarter') . '(' . $quarters[0]->from . '月〜' . $quarters[0]->to . '月)',
-            __('models/quarters.quarter.second_quarter') . '(' . $quarters[1]->from . '月〜' . $quarters[1]->to . '月)',
-            __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
-            __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)'
+            __('models/quarters.full_year'),
+            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
+            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
+            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
+            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
         ];
 
         $year = $objective->year;
@@ -176,12 +199,20 @@ class ObjectiveController extends Controller
         $quarterId = $objective->quarter_id;
         $quarterChecked = [];
 
+        if (Q::FULL_YEAR_ID === $quarterId) {
+            $quarterChecked[0] = true;
+        } else {
+            $quarterChecked[0] = false;
+        }
+
+        $i = 1;
         foreach ($quarters as $quarter) {
             if ($quarter->id === $quarterId) {
-                $quarterChecked[] = true;
+                $quarterChecked[$i] = true;
             } else {
-                $quarterChecked[] = false;
+                $quarterChecked[$i] = false;
             }
+            $i++;
         }
 
         return view('objective.edit', compact('user', 'quarters', 'quarterLabels', 'years', 'objective', 'keyResult1', 'keyResult2', 'keyResult3', 'year', 'quarterChecked'));
@@ -206,18 +237,32 @@ class ObjectiveController extends Controller
 
         try {
             Objective::find($objectiveId)->update([
-                'user_id' => $input['user_id'],
-                'year' => $input['year'],
+                'user_id'    => $input['user_id'],
+                'year'       => $input['year'],
                 'quarter_id' => $input['quarter_id'],
-                'objective' => $input['objective'],
+                'objective'  => $input['objective'],
             ]);
 
             foreach ($keyResults as $id => $keyResult) {
-                KeyResult::find($id)->update([
-                    'user_id' => $input['user_id'],
-                    'objective_id' => $objectiveId,
-                    'key_result' => $keyResult,
-                ]);
+                // 新規作成
+                if (!empty($keyResult) && is_null(KeyResult::find($id))) {
+                    KeyResult::create([
+                        'user_id'      => $input['user_id'],
+                        'objective_id' => $objectiveId,
+                        'key_result'   => $keyResult,
+                    ]);
+                // 更新
+                } else {
+                    if (is_null(KeyResult::find($id))) {
+                        continue;
+                    }
+
+                    KeyResult::find($id)->update([
+                        'user_id'      => $input['user_id'],
+                        'objective_id' => $objectiveId,
+                        'key_result'   => $keyResult,
+                    ]);
+                }
             }
         } catch (\Exception $e) {
             Flash::error($e->getMessage());
@@ -254,17 +299,30 @@ class ObjectiveController extends Controller
         return redirect()->route('objective.index');
     }
 
+    private function getYearsForCreate(): array
+    {
+        $prevYear = Carbon::now()->subYear()->format('Y');
+        $year = Carbon::now()->format('Y');
+        $nextYear = Carbon::now()->addYear()->format('Y');
+
+        return [
+            $prevYear => $prevYear,
+            $year => $year,
+            $nextYear => $nextYear,
+        ];
+    }
+
     private function getYearsForEdit(int $year): array
     {
         $date1 = new Carbon($year . '-01-01');
         $date2 = new Carbon($year . '-01-01');
 
-        $oldYear = $date1->subYear()->format('Y');
+        $prevYear = $date1->subYear()->format('Y');
         $year = $date2->format('Y');
         $nextYear = $date2->addYear()->format('Y');
 
         return [
-            $oldYear => $oldYear,
+            $prevYear => $prevYear,
             $year => $year,
             $nextYear => $nextYear,
         ];

@@ -17,7 +17,7 @@ class CreateKeyResultsTable extends Migration
             $table->increments('id');
             // 成果指標 2 / 成果指標 3 は null になる可能性がある
             $table->text('key_result')
-                ->nullable()
+                ->nullable() // 第2・第3の成果指標は未設定・空文字更新したい場合がある
                 ->comment('成果指標');
             $table->double('score')
                 ->nullable()
