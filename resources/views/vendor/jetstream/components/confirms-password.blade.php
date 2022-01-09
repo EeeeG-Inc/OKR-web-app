@@ -3,7 +3,6 @@
 @php
     $confirmableId = md5($attributes->wire('then'));
 @endphp
-
 <span
     {{ $attributes->wire('then') }}
     x-data
