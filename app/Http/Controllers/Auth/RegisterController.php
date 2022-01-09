@@ -75,13 +75,12 @@ class RegisterController extends Controller
             'company_group_id' => $companyGroup->id,
             'is_master' => true,
         ]);
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'role' => Role::COMPANY,
             'company_id' => $company->id,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        return $user;
     }
 }

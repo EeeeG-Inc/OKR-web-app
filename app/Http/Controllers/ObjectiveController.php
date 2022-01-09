@@ -143,8 +143,8 @@ class ObjectiveController extends Controller
                     'key_result' => $keyResult,
                 ]);
             }
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
             return redirect()->route('objective.index');
         }
         Flash::success(__('common/message.objective.store'));
@@ -266,8 +266,8 @@ class ObjectiveController extends Controller
                     ]);
                 }
             }
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
             return redirect()->route('objective.index');
         }
         Flash::success(__('common/message.objective.update'));
@@ -290,7 +290,7 @@ class ObjectiveController extends Controller
         try {
             KeyResult::where('objective_id', $objectiveId)->delete();
             $objective->delete();
-        } catch (\Exception $e) {
+        } catch (\Exception $exc) {
             Flash::error(__('common/message.objective.delete_failed', ['objective' => $objectiveName]));
             DB::rollBack();
         }
