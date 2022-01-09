@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManagerStoreRequest;
 use App\Http\UseCase\Manager\StoreData;
+use Illuminate\Http\RedirectResponse;
 
 class ManagerController extends Controller
 {
@@ -11,7 +12,8 @@ class ManagerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ManagerStoreRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreData $case
+     * @return RedirectResponse
      */
     public function store(ManagerStoreRequest $request, StoreData $case)
     {

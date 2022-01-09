@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\UseCase\KeyResult\GetIndexData;
 use App\Http\Requests\KeyResultIndexRequest;
-use App\Models\KeyResult;
-use App\Models\Objective;
+use Illuminate\View\View;
 
 class KeyResultController extends Controller
 {
@@ -13,7 +12,8 @@ class KeyResultController extends Controller
      * Display a listing of the resource.
      *
      * @param KeyResultIndexRequest $request
-     * @return \Illuminate\View\View
+     * @param GetIndexData $case
+     * @return View
      */
     public function index(KeyResultIndexRequest $request, GetIndexData $case)
     {

@@ -12,6 +12,7 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CompanyStoreRequest $request
+     * @param StoreData $case
      * @return RedirectResponse
      */
     public function store(CompanyStoreRequest $request, StoreData $case)

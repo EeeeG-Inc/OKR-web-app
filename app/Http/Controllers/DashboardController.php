@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DashboardSearchRequest;
 use App\Http\UseCase\Dashboard\GetIndexData;
 use App\Models\User;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @param GetIndexData $case
+     * @return View
      */
     public function index(GetIndexData $case)
     {
@@ -22,13 +24,13 @@ class DashboardController extends Controller
      * Search listing of the resource.
      *
      * @param DashboardSearchRequest $request
-     * @return  \Illuminate\View\View
+     * @return View
      */
     public function search(DashboardSearchRequest $request)
     {
         // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         // $input = $request->validated();
-        $users = User::paginate($this->pagenateNum);
+        $users = User::paginate(15);
 
         return view('dashboard.index', compact('users'));
     }

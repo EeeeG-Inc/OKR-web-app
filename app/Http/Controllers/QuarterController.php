@@ -17,6 +17,7 @@ class QuarterController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param GetIndexData $case
      * @return View
      */
     public function index(GetIndexData $case)
@@ -27,6 +28,7 @@ class QuarterController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param MonthService $service
      * @return View
      */
     public function create(MonthService $service)
@@ -39,6 +41,7 @@ class QuarterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param QuarterStoreRequest $request
+     * @param StoreData $case
      * @return RedirectResponse
      */
     public function store(QuarterStoreRequest $request, StoreData $case)
@@ -64,6 +67,7 @@ class QuarterController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $companyId
+     * @param GetEditData $case
      * @return View
      */
     public function edit(int $companyId, GetEditData $case)
@@ -75,7 +79,8 @@ class QuarterController extends Controller
      * Update the specified resource in storage.
      *
      * @param QuarterUpdateRequest $request
-     * @param int                  $companyId
+     * @param int $companyId
+     * @param UpdateData $case
      * @return RedirectResponse
      */
     public function update(QuarterUpdateRequest $request, int $companyId, UpdateData $case)
