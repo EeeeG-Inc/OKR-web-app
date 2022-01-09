@@ -71,10 +71,7 @@
             ]
         },
         "hooks": {
-            "pre-commit": [
-                "docker-compose run workspace bash -c \"./vendor/bin/php-cs-fixer fix -v -n\"",
-                "git add ."
-            ]
+            "pre-commit": []
         }
     },
     "config": {
