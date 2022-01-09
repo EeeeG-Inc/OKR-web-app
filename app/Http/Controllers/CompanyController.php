@@ -26,7 +26,7 @@ class CompanyController extends Controller
             $companyId = Company::create([
                 'name' => $input['name'],
                 'is_master' => false,
-                'company_group_id' => $user->company_group_id,
+                'company_group_id' => $user->companies->company_group_id,
             ])->id;
             User::create([
                 'name' => $input['name'],

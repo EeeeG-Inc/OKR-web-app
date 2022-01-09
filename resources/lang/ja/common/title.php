@@ -17,9 +17,6 @@ return [
     'user' => [
         'create' => '新規ユーザ作成',
     ],
-    'role' => [
-        'type' => '作成アカウント種別',
-    ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',
     ],
