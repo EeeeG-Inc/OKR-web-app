@@ -32,8 +32,8 @@ class ManagerController extends Controller
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]);
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
             return redirect()->route('dashboard.index');
         }
 
