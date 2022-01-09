@@ -1,28 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Objective
+ * App\Models\Objective.
  *
  * @property int $id
  * @property string $objective 目標
- * @property float|null $score 総合スコア
+ * @property null|float $score 総合スコア
  * @property int $user_id ユーザID
  * @property int $year 年度
  * @property int $quarter_id 四半期ID
- * @property \Illuminate\Support\Carbon|null $deleted_at 削除フラグ
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\KeyResult[] $keyResults
- * @property-read int|null $key_results_count
+ * @property null|\Illuminate\Support\Carbon $deleted_at 削除フラグ
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Models\KeyResult[]|\Illuminate\Database\Eloquent\Collection $keyResults
+ * @property-read null|int $key_results_count
  * @property-read \App\Models\Quarter $quarters
  * @property-read \App\Models\User $users
  * @method static \Database\Factories\ObjectiveFactory factory(...$parameters)
@@ -46,6 +47,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Objective extends Model
 {
     use HasFactory;
+
     use SoftDeletes;
 
     /**

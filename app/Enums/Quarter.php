@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 use BenSampo\Enum\Contracts\LocalizedEnum;
@@ -12,8 +14,12 @@ class Quarter extends Enum implements LocalizedEnum
 
     // 四半期区分
     public const QUARTER_FULL_YEAR = 0;
+
     public const FIRST_QUARTER = 1;
+
     public const SECOND_QUARTER = 2;
+
     public const THIRD_QUARTER = 3;
+
     public const FOURTH_QUARTER = 4;
 }

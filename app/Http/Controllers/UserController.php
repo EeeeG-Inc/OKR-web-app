@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
@@ -40,7 +42,7 @@ class UserController extends Controller
                 $departmentNames[$department->id] = $department->name;
             }
             $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
-        };
+        }
 
         $companyCreatePermission = false;
 
@@ -62,7 +64,7 @@ class UserController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  int  $id
@@ -73,7 +75,7 @@ class UserController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -84,7 +86,7 @@ class UserController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -96,7 +98,7 @@ class UserController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Remove the specified resource from storage.
      *
      * @param  int  $id

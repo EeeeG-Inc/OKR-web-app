@@ -17,7 +17,6 @@ use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Preset
@@ -109,5 +108,4 @@ return [
 //        'min-style' => 0,
 //        'disable-security-check' => false,
     ],
-
 ];

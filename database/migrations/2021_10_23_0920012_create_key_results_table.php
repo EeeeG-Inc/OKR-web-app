@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,12 +10,10 @@ class CreateKeyResultsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('key_results', function (Blueprint $table) {
+        Schema::create('key_results', function (Blueprint $table): void {
             $table->increments('id');
             // 成果指標 2 / 成果指標 3 は null になる可能性がある
             $table->text('key_result')
@@ -40,13 +40,11 @@ class CreateKeyResultsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('key_results');
-        Schema::table('key_results', function (Blueprint $table) {
+        Schema::table('key_results', function (Blueprint $table): void {
             $table->dropForeign(['objective_id']);
         });
     }

@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
-use App\Enums\Role;
 
 class UserFactory extends Factory
 {
@@ -27,12 +27,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->name(),
-            'email'         => $this->faker->unique()->safeEmail(),
-            'company_id'    => Company::factory(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'company_id' => Company::factory(),
             'department_id' => Department::factory(),
-            'role'          => $this->faker->randomElement(['1','2','3','4','5']),
-            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'role' => $this->faker->randomElement(['1', '2', '3', '4', '5']),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ];
     }
 
@@ -50,7 +50,7 @@ class UserFactory extends Factory
         });
     }
 
-    /**
+    /*
      * Indicate that the user should have a personal team.
      *
      * @return $this

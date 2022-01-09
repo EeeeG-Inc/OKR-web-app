@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Enums\Role;
@@ -10,7 +12,7 @@ class OkrPolicy
 {
     use HandlesAuthorization;
 
-    /* 閲覧 */
+    // 閲覧
     public function view(User $user)
     {
         $user_types = [
@@ -18,12 +20,12 @@ class OkrPolicy
             Role::COMPANY,      // 会社
             Role::DEPARTMENT,   // 部署
             Role::MANAGER,      // マネージャー
-            Role::MEMBER        // 一般
+            Role::MEMBER,        // 一般
         ];
         return in_array($user->role, $user_types);
     }
 
-    /* 追加 */
+    // 追加
     public function create(User $user)
     {
         $user_types = [
@@ -31,12 +33,12 @@ class OkrPolicy
             Role::COMPANY,      // 会社
             Role::DEPARTMENT,   // 部署
             Role::MANAGER,      // マネージャー
-            Role::MEMBER        // 一般
+            Role::MEMBER,        // 一般
         ];
         return in_array($user->role, $user_types);
     }
 
-    /* 変更 */
+    // 変更
     public function update(User $user)
     {
         $user_types = [
@@ -44,12 +46,12 @@ class OkrPolicy
             Role::COMPANY,      // 会社
             Role::DEPARTMENT,   // 部署
             Role::MANAGER,      // マネージャー
-            Role::MEMBER        // 一般
+            Role::MEMBER,        // 一般
         ];
         return in_array($user->role, $user_types);
     }
 
-    /* 削除 */
+    // 削除
     public function delete(User $user)
     {
         $user_types = [

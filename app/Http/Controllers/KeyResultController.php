@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\KeyResultIndexRequest;
@@ -11,6 +13,7 @@ class KeyResultController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param KeyResultIndexRequest $request
      * @return \Illuminate\View\View
      */
     public function index(KeyResultIndexRequest $request)
@@ -23,7 +26,7 @@ class KeyResultController extends Controller
         return view('key_result.index', compact('objective', 'keyResults'));
     }
 
-    /**
+    /*
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -33,7 +36,7 @@ class KeyResultController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,7 +47,7 @@ class KeyResultController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  int  $id
@@ -55,7 +58,7 @@ class KeyResultController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -66,7 +69,7 @@ class KeyResultController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -78,7 +81,7 @@ class KeyResultController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Remove the specified resource from storage.
      *
      * @param  int  $id

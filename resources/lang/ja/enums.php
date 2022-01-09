@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\Role;
 
 return [
     Role::class => [
-        Role::ADMIN      => '管理者',
-        Role::COMPANY    => '会社',
+        Role::ADMIN => '管理者',
+        Role::COMPANY => '会社',
         Role::DEPARTMENT => '部署',
-        Role::MANAGER    => 'マネージャー',
-        Role::MEMBER     => '一般ユーザ',
+        Role::MANAGER => 'マネージャー',
+        Role::MEMBER => '一般ユーザ',
     ],
 ];
