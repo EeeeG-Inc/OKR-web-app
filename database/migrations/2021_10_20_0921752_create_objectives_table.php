@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,12 +10,10 @@ class CreateObjectivesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('objectives', function (Blueprint $table) {
+        Schema::create('objectives', function (Blueprint $table): void {
             $table->increments('id');
             $table->text('objective')->comment('目標');
             $table->double('score')
@@ -43,12 +43,10 @@ class CreateObjectivesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('objectives', function (Blueprint $table) {
+        Schema::table('objectives', function (Blueprint $table): void {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['quarter_id']);
         });

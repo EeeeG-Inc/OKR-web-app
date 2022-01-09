@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Flash;
@@ -26,20 +28,21 @@ class QuarterStoreRequest extends FormRequest
     {
         return [
             '1q_from' => 'required|integer',
-            '1q_to'   => 'required|integer',
+            '1q_to' => 'required|integer',
             '2q_from' => 'required|integer',
-            '2q_to'   => 'required|integer',
+            '2q_to' => 'required|integer',
             '3q_from' => 'required|integer',
-            '3q_to'   => 'required|integer',
+            '3q_to' => 'required|integer',
             '4q_from' => 'required|integer',
-            '4q_to'   => 'required|integer',
+            '4q_to' => 'required|integer',
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator($validator): void
     {
-        $validator->after(function ($validator) {
+        $validator->after(function ($validator): void {
             $messages = $validator->errors()->getMessages();
+
             foreach ($messages as $message) {
                 Flash::error($message[0]);
             }

@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use \App\Enums\Quarter as Q;
-use \App\Enums\Role;
-use \App\Models\Company;
-use \App\Models\CompanyGroup;
-use \App\Models\Department;
-use \App\Models\KeyResult;
-use \App\Models\Objective;
-use \App\Models\Quarter;
-use \App\Models\User;
-use \Carbon\Carbon;
+use App\Enums\Quarter as Q;
+use App\Enums\Role;
+use App\Models\Company;
+use App\Models\CompanyGroup;
+use App\Models\Department;
+use App\Models\KeyResult;
+use App\Models\Objective;
+use App\Models\Quarter;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class GenerateTestDataCommand extends Command
@@ -32,28 +34,29 @@ class GenerateTestDataCommand extends Command
 
     /** @var int */
     private $companyCount;
+
     private $departmentCount;
+
     private $objectiveCount;
+
     private $keyResultCount;
 
     /** @var string[] */
     private $departments = [
         '営業部',
         '総務部',
-        'システム事業部'
+        'システム事業部',
     ];
 
     /** @var string[] */
     private $objectives = [
         '売上○○％向上',
         '○○資格取得',
-        'DAU○○○○達成'
+        'DAU○○○○達成',
     ];
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -66,10 +69,8 @@ class GenerateTestDataCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // CompanyGroup作成
         $companyGroups = CompanyGroup::factory(2)->create();
@@ -85,10 +86,18 @@ class GenerateTestDataCommand extends Command
             $companyIds = [];
 
             while ($this->companyCount !== $i) {
-                $companyIds[] = Company::factory()->create([
-                    'company_group_id' => $companyGroup->id,
-                    'is_master' => $this->isFirst($i)
-                ])['id'];
+                if ($i === 0) {
+                    $companyIds[] = Company::factory()->create([
+                        'name' => $companyGroup->name,
+                        'company_group_id' => $companyGroup->id,
+                        'is_master' => $this->isFirst($i),
+                    ])['id'];
+                } else {
+                    $companyIds[] = Company::factory()->create([
+                        'company_group_id' => $companyGroup->id,
+                        'is_master' => $this->isFirst($i),
+                    ])['id'];
+                }
                 $i++;
             }
 
@@ -106,7 +115,7 @@ class GenerateTestDataCommand extends Command
                 while ($this->departmentCount !== $i) {
                     $departmentIds[] = Department::factory()->create([
                         'name' => $this->departments[$i],
-                        'company_id' => $companyId
+                        'company_id' => $companyId,
                     ])['id'];
                     $i++;
                 }
@@ -115,6 +124,7 @@ class GenerateTestDataCommand extends Command
                 $userIdsList = [];
                 $userIdsList[] = $this->createUserForCompany(Company::find($companyId)->name, $companyId, $isFirstLoop);
                 $j = 0;
+
                 foreach ($departmentIds as $departmentId) {
                     if ($this->isFirst($j) && $isFirstLoop) {
                         $userIdsList[] = $this->createUsersForDepartmentAndManagerAndMember($companyId, $departmentId, true);
@@ -130,18 +140,21 @@ class GenerateTestDataCommand extends Command
                         // 三期分のデータ作成
                         $dt = Carbon::now()->subYear();
                         $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
+
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }
 
                         $dt = Carbon::now();
                         $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
+
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }
 
                         $dt->addYear();
                         $this->createOkrs($userId, Q::FULL_YEAR_ID, $dt->year);
+
                         foreach ($quarterIds as $quarterId) {
                             $this->createOkrs($userId, $quarterId, $dt->year);
                         }
@@ -153,12 +166,12 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * ループ処理で最初の要素であれば true を返却
+     * ループ処理で最初の要素であれば true を返却.
      *
-     * @param int $index        初回ループの反映を実行
+     * @param int $index 初回ループの反映を実行
      * @return bool             初回時に true を返す
      */
-    private function isFirst(int $index) :bool
+    private function isFirst(int $index): bool
     {
         if ($index === 0) {
             return true;
@@ -167,40 +180,40 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * 系列会社毎 quarter の開始月と終了月を返却する
+     * 系列会社毎 quarter の開始月と終了月を返却する.
      *
-     * @param int $companyId     作成する会社の companyId ※外部キー
-     * @param int $quarter       何期の quarter を判別するかの指標(サンプルでは 1-4 の決め打ち)
-     * @param int $from          quarter の開始月(サンプルでは決め打ち)
-     * @param int $to            quarter の終了月(サンプルでは決め打ち)
+     * @param int $companyId 作成する会社の companyId ※外部キー
+     * @param int $quarter   何期の quarter を判別するかの指標(サンプルでは 1-4 の決め打ち)
+     * @param int $from      quarter の開始月(サンプルでは決め打ち)
+     * @param int $to        quarter の終了月(サンプルでは決め打ち)
      * @return int               factory を使った INSERT 項目
      */
-    private function createQuarter(int $companyId, int $quarter, int $from, int $to) :int
+    private function createQuarter(int $companyId, int $quarter, int $from, int $to): int
     {
         return Quarter::factory()->create([
             'quarter' => $quarter,
             'from' => $from,
             'to' => $to,
-            'company_id' => $companyId
+            'company_id' => $companyId,
         ])['id'];
     }
 
     /**
-     * 1会社に付き1つ作成される CompanyUser の作成
+     * 1会社に付き1つ作成される CompanyUser の作成.
      *
-     * @param string $name       User 作成時の name
-     * @param int $companyId     作成する会社の companyId ※外部キー
-     * @param bool $isFirst      初回ループの判定
+     * @param string $name      User 作成時の name
+     * @param int    $companyId 作成する会社の companyId ※外部キー
+     * @param bool   $isFirst   初回ループの判定
      * @return array             factory を使った INSERT 項目
      */
-    private function createUserForCompany(string $name, int $companyId, bool $isFirst = false) :array
+    private function createUserForCompany(string $name, int $companyId, bool $isFirst = false): array
     {
         $userIds = [];
         $data = [
             'name' => $name,
             'company_id' => $companyId,
             'department_id' => null,
-            'role' => Role::COMPANY
+            'role' => Role::COMPANY,
         ];
 
         if ($isFirst) {
@@ -212,32 +225,32 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * 1部署に1つの DepartmentUser 、マネージャー権限を持った ManagerUser 、 一般権限の MemberUser の作成
+     * 1部署に1つの DepartmentUser 、マネージャー権限を持った ManagerUser 、 一般権限の MemberUser の作成.
      *
-     * @param int $companyId     作成する会社の companyId ※外部キー
-     * @param int $departmentId  作成する部署の departmentId ※外部キー
+     * @param int  $companyId    作成する会社の companyId ※外部キー
+     * @param int  $departmentId 作成する部署の departmentId ※外部キー
      * @param bool $isFirst      初回ループの判定
      * @return array             factory を使った INSERT 項目
      */
-    private function createUsersForDepartmentAndManagerAndMember(int $companyId, int $departmentId, bool $isFirst = false) :array
+    private function createUsersForDepartmentAndManagerAndMember(int $companyId, int $departmentId, bool $isFirst = false): array
     {
         $data = [
             [
                 'name' => Department::find($departmentId)->name,
                 'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role' => Role::DEPARTMENT
+                'role' => Role::DEPARTMENT,
             ],
             [
                 'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role' => Role::MANAGER
+                'role' => Role::MANAGER,
             ],
             [
                 'company_id' => $companyId,
                 'department_id' => $departmentId,
-                'role' => Role::MEMBER
-            ]
+                'role' => Role::MEMBER,
+            ],
         ];
 
         if ($isFirst) {
@@ -254,11 +267,9 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * 1アプリにつき1つのフルコントロールを持った Admin ユーザ作成
-     *
-     * @return void
+     * 1アプリにつき1つのフルコントロールを持った Admin ユーザ作成.
      */
-    private function createUserForAdmin() :void
+    private function createUserForAdmin(): void
     {
         User::factory()->create([
             'name' => '管理者',
@@ -270,14 +281,13 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * Objective と KeyResult の作成
+     * Objective と KeyResult の作成.
      *
-     * @param int $userId     作成する会社の companyId ※外部キー
-     * @param int $quarterId  作成する quarter の quarterId ※外部キー
-     * @param int $year       Okr 及び Objective に紐付ける西暦
-     * @return void           factory を使った INSERT 項目
+     * @param int $userId    作成する会社の companyId ※外部キー
+     * @param int $quarterId 作成する quarter の quarterId ※外部キー
+     * @param int $year      Okr 及び Objective に紐付ける西暦
      */
-    private function createOkrs(int $userId, int $quarterId, int $year) :void
+    private function createOkrs(int $userId, int $quarterId, int $year): void
     {
         // Objective 作成
         $objectiveIds = [];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,15 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Company
+ * App\Models\Company.
  *
  * @property int $id
  * @property string $name 会社名
  * @property int $company_group_id 系列コード
  * @property int $is_master マスターフラグ
- * @property string|null $deleted_at 削除フラグ
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property null|string $deleted_at 削除フラグ
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company query()
@@ -30,12 +32,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\CompanyGroup $companyGroups
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $departments
- * @property-read int|null $departments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Quarter[] $quarters
- * @property-read int|null $quarters_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
- * @property-read int|null $users_count
+ * @property-read \App\Models\Department[]|\Illuminate\Database\Eloquent\Collection $departments
+ * @property-read null|int $departments_count
+ * @property-read \App\Models\Quarter[]|\Illuminate\Database\Eloquent\Collection $quarters
+ * @property-read null|int $quarters_count
+ * @property-read \App\Models\User[]|\Illuminate\Database\Eloquent\Collection $users
+ * @property-read null|int $users_count
  * @method static \Database\Factories\CompanyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Query\Builder|Company onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
@@ -44,6 +46,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
     use HasFactory;
+
     use SoftDeletes;
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Company;
@@ -15,9 +17,9 @@ class QuarterFactory extends Factory
     public function definition()
     {
         return [
-            'quarter'    => 1,
-            'from'       => $this->faker->month(),
-            'to'         => $this->faker->month(),
+            'quarter' => 1,
+            'from' => $this->faker->month(),
+            'to' => $this->faker->month(),
             'company_id' => Company::factory(),
         ];
     }

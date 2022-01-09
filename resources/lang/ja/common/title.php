@@ -1,14 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'dashboard' => [
         'index' => 'ダッシュボード',
+    ],
+    'key_result' => [
+        'index' => '【:name】:objectiveの成果指標',
     ],
     'objective' => [
         'index' => '【:name】目標一覧',
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
-        'edit' => 'OKR 編集'
+        'edit' => 'OKR 編集',
+    ],
+
+    'user' => [
+        'create' => '新規ユーザ作成',
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
 use App\Enums\Quarter as Q;
+use App\Enums\Role;
 use App\Http\Requests\ObjectiveIndexRequest;
 use App\Http\Requests\ObjectiveSearchRequest;
 use App\Http\Requests\ObjectiveStoreRequest;
@@ -12,10 +14,11 @@ use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
 use App\Models\User;
-use \Carbon\Carbon;
+use Carbon\Carbon;
 use DB;
-use Illuminate\Support\Facades\Auth;
 use Flash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ObjectiveController extends Controller
 {
@@ -25,6 +28,7 @@ class ObjectiveController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ObjectiveIndexRequest $request
      * @return \Illuminate\View\View
      */
     public function index(ObjectiveIndexRequest $request)
@@ -90,12 +94,13 @@ class ObjectiveController extends Controller
         // TODO: OKR Facade を作成して登録する。
         $quarterLabels = [
             __('models/quarters.full_year'),
-            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
-            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
-            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
-            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
+            __('models/quarters.quarter.first_quarter') . '(' . $quarters[0]->from . '月〜' . $quarters[0]->to . '月)',
+            __('models/quarters.quarter.second_quarter') . '(' . $quarters[1]->from . '月〜' . $quarters[1]->to . '月)',
+            __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
+            __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)',
         ];
         $years = $this->getYearsForCreate();
+
         return view('objective.create', compact('user', 'quarters', 'quarterLabels', 'years'));
     }
 
@@ -138,8 +143,8 @@ class ObjectiveController extends Controller
                     'key_result' => $keyResult,
                 ]);
             }
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
             return redirect()->route('objective.index');
         }
         Flash::success(__('common/message.objective.store'));
@@ -149,7 +154,8 @@ class ObjectiveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     * @param int $objectiveId
      * @return \Illuminate\View\View
      */
     // public function show(int $id)
@@ -163,7 +169,7 @@ class ObjectiveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $objectiveId
+     * @param int $objectiveId
      * @return \Illuminate\View\View
      */
     public function edit(int $objectiveId)
@@ -182,10 +188,10 @@ class ObjectiveController extends Controller
         // TODO: OKR Facade を作成して登録する。
         $quarterLabels = [
             __('models/quarters.full_year'),
-            __('models/quarters.quarter.first_quarter') . '('.$quarters[0]->from .'月〜'. $quarters[0]->to .'月)',
-            __('models/quarters.quarter.second_quarter') . '('.$quarters[1]->from .'月〜'. $quarters[1]->to .'月)',
-            __('models/quarters.quarter.third_quarter') . '('.$quarters[2]->from .'月〜'. $quarters[2]->to .'月)',
-            __('models/quarters.quarter.fourth_quarter') . '('.$quarters[3]->from .'月〜'. $quarters[3]->to .'月)'
+            __('models/quarters.quarter.first_quarter') . '(' . $quarters[0]->from . '月〜' . $quarters[0]->to . '月)',
+            __('models/quarters.quarter.second_quarter') . '(' . $quarters[1]->from . '月〜' . $quarters[1]->to . '月)',
+            __('models/quarters.quarter.third_quarter') . '(' . $quarters[2]->from . '月〜' . $quarters[2]->to . '月)',
+            __('models/quarters.quarter.fourth_quarter') . '(' . $quarters[3]->from . '月〜' . $quarters[3]->to . '月)',
         ];
 
         $year = $objective->year;
@@ -194,13 +200,14 @@ class ObjectiveController extends Controller
         $quarterId = $objective->quarter_id;
         $quarterChecked = [];
 
-        if (Q::FULL_YEAR_ID === $quarterId) {
+        if ($quarterId === Q::FULL_YEAR_ID) {
             $quarterChecked[0] = true;
         } else {
             $quarterChecked[0] = false;
         }
 
         $i = 1;
+
         foreach ($quarters as $quarter) {
             if ($quarter->id === $quarterId) {
                 $quarterChecked[$i] = true;
@@ -216,8 +223,8 @@ class ObjectiveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $objectiveId
-     * @param  ObjectiveUpdateRequest  $request
+     * @param int                    $objectiveId
+     * @param ObjectiveUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(int $objectiveId, ObjectiveUpdateRequest $request)
@@ -232,35 +239,35 @@ class ObjectiveController extends Controller
 
         try {
             Objective::find($objectiveId)->update([
-                'user_id'    => $input['user_id'],
-                'year'       => $input['year'],
+                'user_id' => $input['user_id'],
+                'year' => $input['year'],
                 'quarter_id' => $input['quarter_id'],
-                'objective'  => $input['objective'],
+                'objective' => $input['objective'],
             ]);
 
             foreach ($keyResults as $id => $keyResult) {
                 // 新規作成
-                if (!empty($keyResult) && is_null(KeyResult::find($id))) {
+                if (!empty($keyResult) && KeyResult::find($id) === null) {
                     KeyResult::create([
-                        'user_id'      => $input['user_id'],
+                        'user_id' => $input['user_id'],
                         'objective_id' => $objectiveId,
-                        'key_result'   => $keyResult,
+                        'key_result' => $keyResult,
                     ]);
                 // 更新
                 } else {
-                    if (is_null(KeyResult::find($id))) {
+                    if (KeyResult::find($id) === null) {
                         continue;
                     }
 
                     KeyResult::find($id)->update([
-                        'user_id'      => $input['user_id'],
+                        'user_id' => $input['user_id'],
                         'objective_id' => $objectiveId,
-                        'key_result'   => $keyResult,
+                        'key_result' => $keyResult,
                     ]);
                 }
             }
-        } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
             return redirect()->route('objective.index');
         }
         Flash::success(__('common/message.objective.update'));
@@ -270,7 +277,7 @@ class ObjectiveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $objectiveId
+     * @param int $objectiveId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $objectiveId)
@@ -283,7 +290,7 @@ class ObjectiveController extends Controller
         try {
             KeyResult::where('objective_id', $objectiveId)->delete();
             $objective->delete();
-        } catch (\Exception $e) {
+        } catch (\Exception $exc) {
             Flash::error(__('common/message.objective.delete_failed', ['objective' => $objectiveName]));
             DB::rollBack();
         }

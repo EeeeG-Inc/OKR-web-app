@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,7 +26,7 @@ class KeyResultIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'objective_id' => 'nullable|integer'
+            'objective_id' => 'nullable|integer',
         ];
     }
 }

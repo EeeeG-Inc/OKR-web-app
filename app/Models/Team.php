@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,19 +11,19 @@ use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 
 /**
- * App\Models\Team
+ * App\Models\Team.
  *
  * @property int $id
  * @property int $user_id
  * @property string $name
  * @property bool $personal_team
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @property-read \App\Models\User $owner
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TeamInvitation[] $teamInvitations
- * @property-read int|null $team_invitations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
- * @property-read int|null $users_count
+ * @property-read \App\Models\TeamInvitation[]|\Illuminate\Database\Eloquent\Collection $teamInvitations
+ * @property-read null|int $team_invitations_count
+ * @property-read \App\Models\User[]|\Illuminate\Database\Eloquent\Collection $users
+ * @property-read null|int $users_count
  * @method static \Database\Factories\TeamFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()

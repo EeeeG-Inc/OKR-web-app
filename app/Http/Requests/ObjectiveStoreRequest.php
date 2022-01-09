@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Flash;
@@ -35,10 +37,11 @@ class ObjectiveStoreRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator($validator): void
     {
-        $validator->after(function ($validator) {
+        $validator->after(function ($validator): void {
             $messages = $validator->errors()->getMessages();
+
             foreach ($messages as $message) {
                 Flash::error($message[0]);
             }
