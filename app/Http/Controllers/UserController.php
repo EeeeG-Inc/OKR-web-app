@@ -6,13 +6,14 @@ use App\Enums\Role;
 use App\Models\Department;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     // public function index(Request $request)
     // {
@@ -21,27 +22,29 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
         $user = Auth::user();
         $departments = Department::where('company_id', $user->company_id)->get();
         $departmentNames = [];
+        $isMaster = (bool) $user->companies->is_master;
+        $role = $user->role;
 
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
-            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($user->role, $user->companies->is_master);
+            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
         } else {
             foreach ($departments as $department) {
                 $departmentNames[$department->id] = $department->name;
             }
-            $roles = Role::getRolesInWhenCreateUser($user->role, $user->companies->is_master);
+            $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
         };
 
         $companyCreatePermission = false;
 
-        if ($user->role ==- Role::ADMIN || (($user->role === Role::COMPANY) && ($user->companies->is_master === true))) {
+        if ($role === Role::ADMIN || (($role === Role::COMPANY) && ($isMaster === true))) {
             $companyCreatePermission = true;
         }
 
@@ -63,7 +66,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\View\View
+     * @return View
      */
     // public function show(int $id)
     // {
