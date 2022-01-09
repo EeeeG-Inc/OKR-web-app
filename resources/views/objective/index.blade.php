@@ -57,7 +57,7 @@
                                             <tr>
                                                 <td class="align-middle">{{ $objective->year }}</td>
                                                 <td class="align-middle">
-                                                    {{ App\Enums\Quarter::getDescription($objective->quarters->quarter) }}
+                                                    {{ App\Enums\Quarter::getDescription($objective->quarter) }}
                                                 </td>
                                                 <td class="align-middle">{{ $objective->objective }}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
