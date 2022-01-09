@@ -30,7 +30,7 @@ class ManagerController extends Controller
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $user->company_id,
-                'department_id' => $input['departments']->id,
+                'department_id' => $input['department_id'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]);

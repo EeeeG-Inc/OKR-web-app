@@ -126,6 +126,7 @@ return [
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
     'user_id'              => '不正なユーザ ID です。',
     'uuid'                 => ':attributeは、有効なUUIDでなければなりません。',
+    'not_found_department' => '部署データが存在しません。最初に部署ユーザを作成する必要があります。',
     'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

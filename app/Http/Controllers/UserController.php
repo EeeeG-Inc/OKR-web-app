@@ -6,9 +6,6 @@ use App\Enums\Role;
 use App\Models\Department;
 use Flash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-
-use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -31,22 +28,23 @@ class UserController extends Controller
         $user = Auth::user();
         $departments = Department::where('company_id', $user->company_id)->get();
         $departmentNames = [];
+
         if ($departments->isEmpty()) {
-            Flash::error('部署データが存在しません。最初に部署ユーザを作成する必要があります。');
-            // 下位 Role の作成が可能
+            Flash::error(__('validation.not_found_department'));
             $roles = Role::getRolesInWhenCreateUserIfNoDepartment($user->role, $user->companies->is_master);
         } else {
             foreach ($departments as $department) {
                 $departmentNames[$department->id] = $department->name;
             }
-            // 下位 Role の作成が可能
             $roles = Role::getRolesInWhenCreateUser($user->role, $user->companies->is_master);
         };
 
         $companyCreatePermission = false;
-        if (Gate::allows('admin-only') || $user->companies->is_master === true) {
+
+        if ($user->role ==- Role::ADMIN || (($user->role === Role::COMPANY) && ($user->companies->is_master === true))) {
             $companyCreatePermission = true;
         }
+
         return view('user.create', compact('user', 'roles', 'departmentNames', 'companyCreatePermission'));
     }
 

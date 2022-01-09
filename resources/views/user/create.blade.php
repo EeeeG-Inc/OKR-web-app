@@ -20,16 +20,16 @@
                                         {{-- Role(作成アカウント種別) --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('role', __('common/title.role.type')) }}
+                                                {{ Form::label('role', __('common/label.user.create.role')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('role', ['' => '-'] + $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                                {{ Form::select('role', $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
                                             </div>
                                         </div>
 
                                         {{-- 氏名 --}}
                                         <div class="form-group row">
-                                            <div class="col-md-2 mb-3">
+                                            <div id="name" class="col-md-2 mb-3">
                                                 {{ Form::label('name', __('models/users.fields.name')) }}
                                             </div>
                                             <div class="col-md-10">
@@ -40,10 +40,10 @@
                                         {{-- 部署 --}}
                                         <div class="form-group row" id="department_form">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('departments', __('models/departments.fields.name')) }}
+                                                {{ Form::label('department_id', __('common/label.user.create.department')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('departments', ['' => '-'] + $departmentNames, null, ['class' => 'form-control', 'id' => 'departments']) }}
+                                                {{ Form::select('department_id', $departmentNames, null, ['class' => 'form-control', 'id' => 'departments']) }}
                                             </div>
                                         </div>
 
@@ -101,27 +101,39 @@
                 MEMBER: '{{ route('member.store') }}',
             };
             roleId = 0;
-            $('#roles').change(function() {
-                roleId = Number($('#roles').val());
+
+            var controlFields = function(roleId) {
                 switch (roleId) {
                     case COMPANY:
+                        $('#name').text('{!! __('common/label.user.create.name_company')!!}');
                         $('#create_user_form').attr('action', actions.COMPANY);
-                        $('#department_form').hide()
+                        $('#department_form').hide();
                         break;
                     case DEPARTMENT:
+                        $('#name').text('{!! __('common/label.user.create.name_department')!!}');
                         $('#create_user_form').attr('action', actions.DEPARTMENT);
-                        $('#department_form').hide()
+                        $('#department_form').hide();
                         break;
                     case MANAGER:
+                        $('#name').text('{!! __('common/label.user.create.name_manager')!!}');
                         $('#create_user_form').attr('action', actions.MANAGER);
-                        $('#department_form').show()
+                        $('#department_form').show();
                         break;
                     case MEMBER:
+                        $('#name').text('{!! __('common/label.user.create.name_member')!!}');
                         $('#create_user_form').attr('action', actions.MEMBER);
-                        $('#department_form').show()
+                        $('#department_form').show();
                         break;
                 }
+            }
+
+            $('#roles').change(function() {
+                controlFields(Number($('#roles').val()))
             });
+
+            // 初期化
+            controlFields(Number($('#roles').val()));
+
         })
     </script>
 @endsection
