@@ -29,7 +29,7 @@ class UpdateData
 
             foreach ($keyResults as $id => $keyResult) {
                 // 新規作成
-                if (!empty($keyResult) && KeyResult::find($id) === null) {
+                if (!empty($keyResult) && is_null(KeyResult::find($id))) {
                     KeyResult::create([
                         'user_id' => $input['user_id'],
                         'objective_id' => $objectiveId,
@@ -37,7 +37,7 @@ class UpdateData
                     ]);
                 // 更新
                 } else {
-                    if (KeyResult::find($id) === null) {
+                    if (is_null(KeyResult::find($id))) {
                         continue;
                     }
 
