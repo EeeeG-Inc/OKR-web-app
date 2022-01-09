@@ -30,6 +30,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Company $company
  * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Department whereCompanyId($value)
+ * @method static \Illuminate\Database\Query\Builder|Department onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  */
 class Department extends Model
 {

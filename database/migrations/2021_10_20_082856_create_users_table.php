@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name')->comment('ユーザー名');
+            $table->text('name')->comment('ユーザ名');
             $table->integer('role')
                 ->nullable()
                 ->comment('権限');

@@ -9,13 +9,23 @@ return [
     ],
     'objective' => [
         'index' => '【:name】目標一覧',
+        'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集'
     ],
+
     'user' => [
         'create' => '新規ユーザ作成',
     ],
     'role' => [
         'type' => '作成アカウント種別',
-    ]
+    ],
+    'key_result' => [
+        'index' => '【:name】:objectiveの成果指標',
+    ],
+    'quarter' => [
+        'index' => '四半期設定',
+        'create' => '四半期登録',
+        'edit' => '四半期編集',
+    ],
 ];

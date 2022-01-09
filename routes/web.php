@@ -8,6 +8,7 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuarterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
         'dashboard' => DashboardController::class,
         'key_result' => KeyResultController::class,
         'objective' => ObjectiveController::class,
+        'quarter' => QuarterController::class,
     ]);
 
     Route::prefix('objective')->group(function () {
@@ -42,7 +44,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('dashboard')->group(function () {
-        // ユーザー検索
+        // ユーザ検索
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
     });
 });
