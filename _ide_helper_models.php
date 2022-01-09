@@ -41,7 +41,9 @@ namespace App\Models{
  * @property-read int|null $users_count
  * @method static \Database\Factories\CompanyFactory factory(...$parameters)
  */
-	class Company extends \Eloquent {}
+    class Company extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -66,7 +68,9 @@ namespace App\Models{
  * @property-read int|null $companies_count
  * @method static \Database\Factories\CompanyGroupFactory factory(...$parameters)
  */
-	class CompanyGroup extends \Eloquent {}
+    class CompanyGroup extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -94,7 +98,9 @@ namespace App\Models{
  * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Department whereCompanyId($value)
  */
-	class Department extends \Eloquent {}
+    class Department extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -118,7 +124,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Membership whereUserId($value)
  * @mixin \Eloquent
  */
-	class Membership extends \Eloquent {}
+    class Membership extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -150,7 +158,9 @@ namespace App\Models{
  * @property string $objective 成果指標
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereObjective($value)
  */
-	class Objective extends \Eloquent {}
+    class Objective extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -190,7 +200,9 @@ namespace App\Models{
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Okr whereOkr($value)
  */
-	class Okr extends \Eloquent {}
+    class Okr extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -224,7 +236,9 @@ namespace App\Models{
  * @property int $quarter 四半期区分
  * @method static \Illuminate\Database\Eloquent\Builder|Quarter whereQuarter($value)
  */
-	class Quarter extends \Eloquent {}
+    class Quarter extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -254,7 +268,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereUserId($value)
  * @mixin \Eloquent
  */
-	class Team extends \Eloquent {}
+    class Team extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -279,7 +295,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-	class TeamInvitation extends \Eloquent {}
+    class TeamInvitation extends \Eloquent
+    {
+    }
 }
 
 namespace App\Models{
@@ -331,5 +349,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
  * @property-read \App\Models\Department|null $departments
  */
-	class User extends \Eloquent {}
+    class User extends \Eloquent
+    {
+    }
 }
