@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Quarter;
 use App\Http\Requests\QuarterStoreRequest;
 use App\Http\Requests\QuarterUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Quarter;
 use Flash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class QuarterController extends Controller
 {
@@ -45,7 +47,7 @@ class QuarterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  QuarterStoreRequest  $request
+     * @param QuarterStoreRequest $request
      * @return RedirectResponse
      */
     public function store(QuarterStoreRequest $request)
@@ -58,7 +60,7 @@ class QuarterController extends Controller
             Quarter::create([
                 'quarter' => $i,
                 'from' => $input[$i . 'q_from'],
-                'to'   => $input[$i . 'q_to'],
+                'to' => $input[$i . 'q_to'],
                 'company_id' => $user->company_id,
             ]);
             $i++;
@@ -81,7 +83,7 @@ class QuarterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $companyId
+     * @param int $companyId
      * @return View
      */
     public function edit(int $companyId)
@@ -105,8 +107,8 @@ class QuarterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  QuarterUpdateRequest  $request
-     * @param  int  $companyId
+     * @param QuarterUpdateRequest $request
+     * @param int                  $companyId
      * @return RedirectResponse
      */
     public function update(QuarterUpdateRequest $request, int $companyId)
@@ -120,7 +122,7 @@ class QuarterController extends Controller
                 ->first()
                 ->update([
                     'from' => $input[$i . 'q_from'],
-                    'to'   => $input[$i . 'q_to'],
+                    'to' => $input[$i . 'q_to'],
                 ]);
             $i++;
         }

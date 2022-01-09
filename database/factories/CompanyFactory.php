@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\CompanyGroup;
@@ -15,9 +17,9 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name'              => $this->faker->company(),
-            'company_group_id'  => CompanyGroup::factory(),
-            'is_master'         => $this->faker->boolean(50),
+            'name' => $this->faker->company(),
+            'company_group_id' => CompanyGroup::factory(),
+            'is_master' => $this->faker->boolean(50),
         ];
     }
 }

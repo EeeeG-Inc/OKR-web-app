@@ -1,38 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Objective;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\User
+ * App\Models\User.
  *
  * @property int $id
  * @property string $name ユーザ名
- * @property int|null $role 権限
- * @property int|null $companies_id 会社コード
- * @property int|null $departments_id 部署コード
+ * @property null|int $role 権限
+ * @property null|int $companies_id 会社コード
+ * @property null|int $departments_id 部署コード
  * @property string $email メールアドレス
- * @property \Illuminate\Support\Carbon|null $email_verified_at メールアドレス確認日時
+ * @property null|\Illuminate\Support\Carbon $email_verified_at メールアドレス確認日時
  * @property string $password パスワード
- * @property string|null $two_factor_secret
- * @property string|null $two_factor_recovery_codes
- * @property string|null $deleted_at 削除フラグ
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property null|string $two_factor_secret
+ * @property null|string $two_factor_recovery_codes
+ * @property null|string $deleted_at 削除フラグ
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @property-read string $profile_photo_url
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Notifications\DatabaseNotification[]|\Illuminate\Notifications\DatabaseNotificationCollection $notifications
+ * @property-read null|int $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
- * @property-read int|null $tokens_count
+ * @property-read null|int $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -51,14 +52,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property int|null $company_id 会社ID
- * @property int|null $department_id 部署ID
- * @property-read \App\Models\Company|null $companies
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Okr[] $okrs
- * @property-read int|null $okrs_count
+ * @property null|int $company_id 会社ID
+ * @property null|int $department_id 部署ID
+ * @property-read null|\App\Models\Company $companies
+ * @property-read \App\Models\Okr[]|\Illuminate\Database\Eloquent\Collection $okrs
+ * @property-read null|int $okrs_count
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
- * @property-read \App\Models\Department|null $departments
+ * @property-read null|\App\Models\Department $departments
  * @property-read bool $has_objective
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
@@ -67,10 +68,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use HasApiTokens;
+
     use HasFactory;
+
     use HasProfilePhoto;
+
     use Notifiable;
+
     use SoftDeletes;
+
     use TwoFactorAuthenticatable;
 
     /**
@@ -136,9 +142,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * Relations
+     * Relations.
      */
-
     public function companies(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
@@ -150,15 +155,15 @@ class User extends Authenticatable
     }
 
     /**
-     * Accessors
+     * Accessors.
      */
 
     /**
-     * Objective を持っているユーザかどうか
+     * Objective を持っているユーザかどうか.
      */
     public function getHasObjectiveAttribute(): bool
     {
         $objective = Objective::where('user_id', $this->id)->first();
-        return is_null($objective) ? false : true;
+        return $objective === null ? false : true;
     }
 }

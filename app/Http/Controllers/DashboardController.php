@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
 use App\Http\Requests\DashboardSearchRequest;
-use App\Models\User;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -46,7 +48,7 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('users'));
     }
 
-    /**
+    /*
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -56,7 +58,7 @@ class DashboardController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -67,7 +69,7 @@ class DashboardController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  int  $userId
@@ -78,7 +80,7 @@ class DashboardController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -89,7 +91,7 @@ class DashboardController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -101,7 +103,7 @@ class DashboardController extends Controller
     //     //
     // }
 
-    /**
+    /*
      * Remove the specified resource from storage.
      *
      * @param  int  $id

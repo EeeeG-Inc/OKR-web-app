@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -9,22 +11,20 @@ class CompanyGroupsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $seeds = [
             [
-                'name'               => 'EeeeGグループ',
-                'created_at'         => now(),
-                'updated_at'         => now()
+                'name' => 'EeeeGグループ',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'name'               => '山田グループ',
-                'created_at'         => now(),
-                'updated_at'         => now()
-            ]
+                'name' => '山田グループ',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         foreach ($seeds as $seed) {

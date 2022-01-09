@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Enums\Role;
@@ -22,10 +24,8 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
@@ -33,13 +33,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-only', function ($user) {
             return $user->role === Role::ADMIN;
         });
-
         // 会社以上（管理者＆会社）に許可
         Gate::define('company-higher', function ($user) {
             return $user->role === Role::ADMIN ||
                 $user->role === Role::COMPANY;
         });
-
         // マネージャー以上（管理者＆会社＆部署）に許可
         Gate::define('manager-higher', function ($user) {
             return $user->role === Role::ADMIN ||

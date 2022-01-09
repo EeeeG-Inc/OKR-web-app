@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Company;
@@ -15,8 +17,8 @@ class DepartmentFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => "テスト事業部",
-            'company_id'    => Company::factory(),
+            'name' => 'テスト事業部',
+            'company_id' => Company::factory(),
         ];
     }
 }
