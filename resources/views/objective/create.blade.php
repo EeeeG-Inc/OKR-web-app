@@ -57,7 +57,7 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('objective', __('models/objectives.fields.objective')) }}
                                             </div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 mb-5">
                                                 {{ Form::textarea('objective', null, ['class' => 'form-control', 'id' => 'objective', 'rows' => '2']) }}
                                             </div>
                                         </div>
@@ -67,7 +67,7 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
                                             </div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 mb-5">
                                                 {{ Form::textarea('key_result1', null, ['class' => 'form-control', 'id' => 'key_result1', 'rows' => '2']) }}
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result2', __('models/key-results.fields.key_result') . '2') }}
                                             </div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 mb-5">
                                                 {{ Form::textarea('key_result2', null, ['class' => 'form-control', 'id' => 'key_result2', 'rows' => '2']) }}
                                             </div>
                                         </div>

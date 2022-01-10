@@ -61,7 +61,16 @@
                                             </div>
                                         </div>
 
-                                        {{--KeyResult--}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('objective_remarks', __('models/objectives.fields.remarks')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('objective_remarks', $objective->remarks, ['class' => 'form-control', 'id' => 'objective', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        {{--KeyResult1--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
@@ -74,6 +83,25 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result1_score', __('models/key-results.fields.score')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('key_result1_score', $scores, $keyResult1->score, ['class' => 'form-control  w-25', 'id' => 'key_result1_score']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result1_remarks', __('models/key-results.fields.remarks')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('key_result1_remarks', $keyResult1->remarks, ['class' => 'form-control', 'id' => 'key_result1_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        {{--KeyResult2--}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result2', __('models/key-results.fields.key_result') . '2') }}
                                             </div>
                                             <div class="col-md-10">
@@ -84,6 +112,25 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result2_score', __('models/key-results.fields.score')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('key_result2_score', $scores, $keyResult2->score ?? null, ['class' => 'form-control w-25', 'id' => 'key_result2_score']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result2_remarks', __('models/key-results.fields.remarks')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('key_result2_remarks', $keyResult2->remarks ?? null, ['class' => 'form-control', 'id' => 'key_result2_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        {{--KeyResult3--}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result3', __('models/key-results.fields.key_result') . '3') }}
                                             </div>
                                             <div class="col-md-10">
@@ -92,10 +139,27 @@
                                             </div>
                                         </div>
 
-                                        {{--フラッシュメッセージ--}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result3_score', __('models/key-results.fields.score')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('key_result3_score', $scores, $keyResult3->score ?? null, ['class' => 'form-control w-25', 'id' => 'key_result3_score']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result3_remarks', __('models/key-results.fields.remarks')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::textarea('key_result3_remarks', $keyResult3->remarks ?? null, ['class' => 'form-control', 'id' => 'key_result3_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
                                         @include('flash::message')
 
-                                        {{--内容確認ボタン--}}
+                                        {{--更新ボタン--}}
                                         <div class="form-group row">
                                             <div class="col-sm-12 text-right">
                                                 {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}

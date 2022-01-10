@@ -28,7 +28,6 @@ class DashboardController extends Controller
      */
     public function search(DashboardSearchRequest $request)
     {
-        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         // $input = $request->validated();
         $users = User::paginate(15);
         return view('dashboard.index', compact('users'));

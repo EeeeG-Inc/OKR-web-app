@@ -12,7 +12,6 @@ class MonthService
             $months[$i] = $i;
             $i++;
         }
-
         return $months;
     }
 }

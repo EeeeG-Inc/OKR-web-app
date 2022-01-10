@@ -20,11 +20,14 @@ class CreateKeyResultsTable extends Migration
             $table->double('score')
                 ->nullable()
                 ->default(0)
-                ->comment('個別スコア');
+                ->comment('成果指標スコア');
             $table->integer('objective_id')
                 ->unsigned()
                 ->nullable()
                 ->comment('目標 ID');
+            $table->text('remarks')
+                ->nullable()
+                ->comment('備考');
             $table->softDeletes()
                 ->comment('削除フラグ');
             $table->timestamps();

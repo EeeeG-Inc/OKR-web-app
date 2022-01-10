@@ -27,14 +27,21 @@ class ObjectiveUpdateRequest extends FormRequest
         return [
             'user_id' => 'required|integer',
             'objective' => 'required|string',
+            'objective_remarks' => 'nullable|string',
             'year' => 'required|integer',
             'quarter_id' => 'required|integer',
             'key_result1' => 'required|string',
             'key_result1_id' => 'required|integer',
+            'key_result1_score' => 'nullable|numeric',
+            'key_result1_remarks' => 'nullable|string',
             'key_result2' => 'nullable|string',
             'key_result2_id' => 'nullable|integer',
+            'key_result2_score' => 'nullable|numeric',
+            'key_result2_remarks' => 'nullable|string',
             'key_result3' => 'nullable|string',
             'key_result3_id' => 'nullable|integer',
+            'key_result3_score' => 'nullable|numeric',
+            'key_result3_remarks' => 'nullable|string',
         ];
     }
 
