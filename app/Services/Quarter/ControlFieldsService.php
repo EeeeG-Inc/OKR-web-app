@@ -3,10 +3,12 @@
 namespace App\Services\Quarter;
 
 use App\Enums\Quarter;
+use App\Models\Objective;
+use Illuminate\Database\Eloquent\Collection;
 
-class LabelService
+class ControlFieldsService
 {
-    public function getQuarterLabels($quarters): array
+    public function getQuarterLabels(Collection $quarters): array
     {
         return [
             __('models/quarters.full_year'),
@@ -17,7 +19,7 @@ class LabelService
         ];
     }
 
-    public function getQuarterChecked($objective, $quarters): array
+    public function getQuarterChecked(Objective $objective, Collection $quarters): array
     {
         $quarterChecked = [];
         $quarterId = $objective->quarter_id;

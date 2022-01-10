@@ -2,19 +2,19 @@
 namespace App\Http\UseCase\Objective;
 
 use App\Models\Quarter;
-use App\Services\Quarter\LabelService;
+use App\Services\Quarter\ControlFieldsService;
 use App\Services\YMD\YearService;
 use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    private $labelService;
+    private $controlFieldsService;
     private $yearService;
 
-    public function __construct(YearService $yearService, LabelService $labelService)
+    public function __construct(YearService $yearService, ControlFieldsService $controlFieldsService)
     {
         $this->yearService = $yearService;
-        $this->labelService = $labelService;
+        $this->controlFieldsService = $controlFieldsService;
     }
 
     public function __invoke(): array
@@ -25,7 +25,7 @@ class GetCreateData
         return [
             'user' => $user,
             'quarters' => $quarters,
-            'quarterLabels' => $this->labelService->getQuarterLabels($quarters),
+            'quarterLabels' => $this->controlFieldsService->getQuarterLabels($quarters),
             'years' => $this->yearService->getYearsForCreate(),
         ];
     }
