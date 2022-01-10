@@ -104,6 +104,6 @@ class UpdateService
 
     private function isEmptyOnlyKeyResult(array $keyResult): bool
     {
-        return (empty($keyResult['key_result']) && (!empty($keyResult['score']) || !empty($keyResult['remarks'])));
+        return empty($keyResult['key_result']) && (!empty($keyResult['score']) || !empty($keyResult['remarks']));
     }
 }

@@ -50,7 +50,7 @@ class QuarterController extends Controller
 
         if (!$case($input)) {
             return redirect()->route('quarter.create');
-        };
+        }
         return redirect()->route('quarter.index');
     }
 

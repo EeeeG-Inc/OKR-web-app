@@ -21,7 +21,6 @@ class GetIndexData
         $companyUser = null;
         $departmentUser = null;
 
-        // TODO: 現在ログイン中のユーザに紐づく会社IDの一覧だけを取得するようにする
         if (array_key_exists('user_id', $input)) {
             $user = User::find($input['user_id']);
             $isLoginUser = ($user->id === Auth::id()) ? true : false;
