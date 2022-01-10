@@ -38,7 +38,7 @@ class GetCreateData
 
         return [
             'user' => $user,
-            'roles' => $role,
+            'roles' => $roles,
             'departmentNames' => $departmentNames,
             'companyCreatePermission' => $companyCreatePermission,
         ];

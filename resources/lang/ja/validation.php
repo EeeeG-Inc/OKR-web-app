@@ -127,6 +127,7 @@ return [
     'user_id' => '不正なユーザ ID です。',
     'uuid' => ':attributeは、有効なUUIDでなければなりません。',
     'not_found_department' => '部署データが存在しません。最初に部署ユーザを作成する必要があります。',
+    'is_empty_only_key_result' => '成果指標が空欄の場合、スコアと備考を登録することができません',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
