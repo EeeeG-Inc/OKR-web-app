@@ -8,5 +8,6 @@ return [
         'user_id' => 'ユーザID',
         'year' => '年度',
         'quarter_id' => '四半期ID',
+        'remarks' => '備考',
     ],
 ];
