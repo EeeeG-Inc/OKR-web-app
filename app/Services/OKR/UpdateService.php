@@ -32,9 +32,6 @@ class UpdateService
                 $this->createKeyResult($input, $objectiveId, $keyResult);
                 $this->countScore($keyResult);
             } else {
-                if (is_null($k)) {
-                    continue;
-                }
                 $this->updateKeyResult($k, $input, $objectiveId, $keyResult);
                 $this->countScore($keyResult);
             }
