@@ -4,21 +4,21 @@ namespace App\Http\UseCase\Objective;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
-use App\Services\KeyResult\ScoreService;
+use App\Services\OKR\ScoreService;
 use App\Services\YMD\YearService;
-use App\Services\Quarter\LabelService;
+use App\Services\Quarter\ControlFieldsService;
 use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
     private $yearService;
-    private $labelService;
+    private $controlFieldsService;
     private $scoreService;
 
-    public function __construct(YearService $yearService, LabelService $labelService, ScoreService $scoreService)
+    public function __construct(YearService $yearService, ControlFieldsService $controlFieldsService, ScoreService $scoreService)
     {
         $this->yearService = $yearService;
-        $this->labelService = $labelService;
+        $this->controlFieldsService = $controlFieldsService;
         $this->scoreService = $scoreService;
     }
 
@@ -33,7 +33,7 @@ class GetEditData
         return [
             'user' => $user,
             'quarters' => $quarters,
-            'quarterLabels' => $this->labelService->getQuarterLabels($quarters),
+            'quarterLabels' => $this->controlFieldsService->getQuarterLabels($quarters),
             'year' => $year,
             'years' => $this->yearService->getYearsForEdit($year),
             'scores' => $this->scoreService->getScores(),
@@ -41,7 +41,7 @@ class GetEditData
             'keyResult1' => $keyResluts[0],
             'keyResult2' => $keyResluts[1] ?? null,
             'keyResult3' => $keyResluts[2] ?? null,
-            'quarterChecked' => $this->labelService->getQuarterChecked($objective, $quarters),
+            'quarterChecked' => $this->controlFieldsService->getQuarterChecked($objective, $quarters),
         ];
     }
 }
