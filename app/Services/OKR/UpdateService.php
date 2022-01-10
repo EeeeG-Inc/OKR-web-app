@@ -22,17 +22,17 @@ class UpdateService
         $keyResults = $this->createKeyResultsArray($input);
 
         foreach ($keyResults as $id => $keyResult) {
-            $k = KeyResult::find($id);
+            $obj = KeyResult::find($id);
 
             if ($this->isEmptyOnlyKeyResult($keyResult)) {
                 throw new \Exception(__('validation.is_empty_only_key_result'));
             }
 
-            if (is_null($k)) {
+            if (is_null($obj)) {
                 $this->createKeyResult($input, $objectiveId, $keyResult);
                 $this->countScore($keyResult);
             } else {
-                $this->updateKeyResult($k, $input, $objectiveId, $keyResult);
+                $this->updateKeyResult($obj, $input, $objectiveId, $keyResult);
                 $this->countScore($keyResult);
             }
 
@@ -73,9 +73,9 @@ class UpdateService
         ]);
     }
 
-    private function updateKeyResult(KeyResult $k, array $input, int $objectiveId, array $keyResult): void
+    private function updateKeyResult(KeyResult $obj, array $input, int $objectiveId, array $keyResult): void
     {
-        $k->update([
+        $obj->update([
             'user_id' => $input['user_id'],
             'objective_id' => $objectiveId,
             'key_result' => $keyResult['key_result'],
