@@ -4,6 +4,7 @@ namespace App\Http\UseCase\Objective;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
+use App\Services\KeyResult\ScoreService;
 use App\Services\YMD\YearService;
 use App\Services\Quarter\LabelService;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,13 @@ class GetEditData
 {
     private $yearService;
     private $labelService;
+    private $scoreService;
 
-    public function __construct(YearService $yearService, LabelService $labelService)
+    public function __construct(YearService $yearService, LabelService $labelService, ScoreService $scoreService)
     {
         $this->yearService = $yearService;
         $this->labelService = $labelService;
+        $this->scoreService = $scoreService;
     }
 
     public function __invoke(int $objectiveId): array
@@ -33,6 +36,7 @@ class GetEditData
             'quarterLabels' => $this->labelService->getQuarterLabels($quarters),
             'year' => $year,
             'years' => $this->yearService->getYearsForEdit($year),
+            'scores' => $this->scoreService->getScores(),
             'objective' => $objective,
             'keyResult1' => $keyResluts[0],
             'keyResult2' => $keyResluts[1] ?? null,

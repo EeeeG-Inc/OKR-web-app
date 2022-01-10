@@ -66,6 +66,7 @@ class Objective extends Model
         'user_id',
         'year',
         'quarter_id',
+        'remarks',
         'deleted_at',
     ];
 
@@ -80,6 +81,7 @@ class Objective extends Model
         'user_id' => 'int',
         'year' => 'int',
         'quarter_id' => 'int',
+        'remarks' => 'string',
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
