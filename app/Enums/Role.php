@@ -13,13 +13,9 @@ use BenSampo\Enum\Enum;
 class Role extends Enum implements LocalizedEnum
 {
     public const ADMIN = 1;
-
     public const COMPANY = 2;
-
     public const DEPARTMENT = 3;
-
     public const MANAGER = 4;
-
     public const MEMBER = 5;
 
     public static function getRolesInWhenCreateUser(int $myRoleVal, bool $isMaster = false): array

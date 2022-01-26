@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\UseCase\Objective;
 
+use App\Enums\Priority;
 use App\Models\KeyResult;
 use App\Models\Objective;
 use App\Models\Quarter;
@@ -38,6 +39,8 @@ class GetEditData
             'years' => $this->yearService->getYearsForEdit($year),
             'scores' => $this->scoreService->getScores(),
             'objective' => $objective,
+            'priority' => $objective->priority,
+            'prioritys' => Priority::getFlipLocalizedDescription(),
             'keyResult1' => $keyResluts[0],
             'keyResult2' => $keyResluts[1] ?? null,
             'keyResult3' => $keyResluts[2] ?? null,
