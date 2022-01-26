@@ -57,8 +57,18 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('objective', __('models/objectives.fields.objective')) }}
                                             </div>
-                                            <div class="col-md-10 mb-5">
+                                            <div class="col-md-10">
                                                 {{ Form::textarea('objective', null, ['class' => 'form-control', 'id' => 'objective', 'rows' => '2']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- 優先度 --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('priority', __('models/objectives.fields.priority')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::select('priority', $prioritys, 'ordinarily', ['class' => 'form-control', 'id' => 'priority']) }}
                                             </div>
                                         </div>
 

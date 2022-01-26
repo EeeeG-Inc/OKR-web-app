@@ -31,6 +31,7 @@ class StoreData
                 'year' => $input['year'],
                 'quarter_id' => $input['quarter_id'],
                 'objective' => $input['objective'],
+                'priority' => $input['priority'],
             ])['id'];
 
             foreach ($keyResults as $keyResult) {

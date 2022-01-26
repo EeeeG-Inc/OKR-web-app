@@ -25,6 +25,9 @@ class CreateObjectivesTable extends Migration
             $table->integer('quarter_id')
                 ->unsigned()
                 ->comment('四半期ID');
+            $table->integer('priority')
+                ->nullable()
+                ->comment('優先度');
             $table->text('remarks')
                 ->nullable()
                 ->comment('備考');
