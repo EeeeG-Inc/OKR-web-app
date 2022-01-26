@@ -30,7 +30,7 @@
                                 @include('flash::message')
 
                                 {{-- 新規作成 --}}
-                                @if ($isLoginUser)
+                                @if ($isLoginUser && $quarterExists)
                                     <div class="text-right">
                                         {{ link_to_route('objective.create', __('common/action.create'), null, ['class' => ' text-right my-2 btn btn-primary']) }}
                                     </div>

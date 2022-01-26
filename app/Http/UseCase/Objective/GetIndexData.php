@@ -3,7 +3,9 @@ namespace App\Http\UseCase\Objective;
 
 use App\Models\Objective;
 use App\Models\User;
+use App\Models\Quarter;
 use App\Enums\Role;
+use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
@@ -48,10 +50,17 @@ class GetIndexData
             ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'quarters.quarter')
             ->paginate($this->pagenateNum);
 
+        $quarterExists = Quarter::where('company_id', $user->company_id)->exists();
+
+        if (!$quarterExists) {
+            Flash::error(__('validation.not_found_quarter'));
+        }
+
         return [
             'user' => $user,
             'objectives' => $objectives,
             'isLoginUser' => $isLoginUser,
+            'quarterExists' => $quarterExists,
             'companyUser' => $companyUser,
             'departmentUser' => $departmentUser,
         ];
