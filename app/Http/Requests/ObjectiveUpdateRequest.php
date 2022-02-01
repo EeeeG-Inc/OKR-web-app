@@ -30,6 +30,7 @@ class ObjectiveUpdateRequest extends FormRequest
             'objective_remarks' => 'nullable|string',
             'year' => 'required|integer',
             'quarter_id' => 'required|integer',
+            'priority' => 'nullable|integer',
             'key_result1' => 'required|string',
             'key_result1_id' => 'required|integer',
             'key_result1_score' => 'nullable|numeric',
