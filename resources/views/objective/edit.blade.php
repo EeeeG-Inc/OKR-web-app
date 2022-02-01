@@ -30,23 +30,23 @@
                                             <div class="col-md-10">
                                                 <div class="custom-control custom-radio">
                                                     {{ Form::radio('quarter_id',  App\Enums\Quarter::FULL_YEAR_ID, $quarterChecked[0], ['id' => 'radioQuarter0']) }}
-                                                    {{ Form::label('raidoQuarter1', $quarterLabels[0]) }}
+                                                    {{ Form::label('radioQuarter0', $quarterLabels[0]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[0]->id, $quarterChecked[1], ['id' => 'raidoQuarter1']) }}
-                                                    {{ Form::label('raidoQuarter2', $quarterLabels[1]) }}
+                                                    {{ Form::radio('quarter_id', $quarters[0]->id, $quarterChecked[1], ['id' => 'radioQuarter1']) }}
+                                                    {{ Form::label('radioQuarter1', $quarterLabels[1]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[1]->id, $quarterChecked[2], ['id' => 'raidoQuarter2']) }}
-                                                    {{ Form::label('raidoQuarter3', $quarterLabels[2]) }}
+                                                    {{ Form::radio('quarter_id', $quarters[1]->id, $quarterChecked[2], ['id' => 'radioQuarter2']) }}
+                                                    {{ Form::label('radioQuarter2', $quarterLabels[2]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[2]->id, $quarterChecked[3], ['id' => 'raidoQuarter3']) }}
-                                                    {{ Form::label('raidoQuarter4', $quarterLabels[3]) }}
+                                                    {{ Form::radio('quarter_id', $quarters[2]->id, $quarterChecked[3], ['id' => 'radioQuarter3']) }}
+                                                    {{ Form::label('radioQuarter3', $quarterLabels[3]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[3]->id, $quarterChecked[4], ['id' => 'raidoQuarter4']) }}
-                                                    {{ Form::label('raidoQuarter4', $quarterLabels[4]) }}
+                                                    {{ Form::radio('quarter_id', $quarters[3]->id, $quarterChecked[4], ['id' => 'radioQuarter4']) }}
+                                                    {{ Form::label('radioQuarter4', $quarterLabels[4]) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -61,6 +61,17 @@
                                             </div>
                                         </div>
 
+                                        {{-- 優先度 --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('priority', __('models/objectives.fields.priority')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('priority', $prioritys, $priority, ['class' => 'form-control', 'id' => 'priority']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- 備考 --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('objective_remarks', __('models/objectives.fields.remarks')) }}

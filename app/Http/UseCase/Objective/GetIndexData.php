@@ -47,7 +47,7 @@ class GetIndexData
             ->where('user_id', $user->id)
             ->orderBy('year', 'desc')
             ->orderBy('quarter', 'asc')
-            ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'quarters.quarter')
+            ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'quarters.quarter', 'objectives.priority')
             ->paginate($this->pagenateNum);
 
         $quarterExists = Quarter::where('company_id', $user->company_id)->exists();

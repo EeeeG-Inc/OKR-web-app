@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\UseCase\Objective;
 
+use App\Enums\Priority;
 use App\Models\Quarter;
 use App\Services\Quarter\ControlFieldsService;
 use App\Services\YMD\YearService;
@@ -27,6 +28,7 @@ class GetCreateData
             'quarters' => $quarters,
             'quarterLabels' => $this->controlFieldsService->getQuarterLabels($quarters),
             'years' => $this->yearService->getYearsForCreate(),
+            'prioritys' => Priority::getFlipLocalizedDescription(),
         ];
     }
 }

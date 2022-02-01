@@ -93,6 +93,7 @@ class UpdateService
             'objective' => $input['objective'],
             'score' => round(($this->totalScore / $this->count), 2),
             'remarks' => $input['objective_remarks'],
+            'priority' => $input['priority'],
         ]);
     }
 
