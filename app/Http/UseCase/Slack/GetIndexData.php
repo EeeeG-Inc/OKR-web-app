@@ -1,7 +1,7 @@
 <?php
-namespace App\Http\UseCase\Quarter;
+namespace App\Http\UseCase\Slack;
 
-use App\Models\Quarter;
+use App\Models\Slack;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,17 +15,18 @@ class GetIndexData
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $quarters = Quarter::where('company_id', $companyId)->get();
+        $slack = Slack::where('company_id', $companyId)->first();
         $canCreate = false;
 
-        if ($quarters->isEmpty()) {
+        if (is_null($slack)) {
             $canCreate = true;
-            Flash::error(__('validation.not_found_quarter'));
+            Flash::warning(__('validation.not_found_slack_webhook'));
         }
 
         return [
-            'quarters' => $quarters,
+            'slack' => $slack,
             'canCreate' => $canCreate,
+            'isActive' => $slack->is_active ?? null,
             'companyId' => $companyId,
         ];
     }
