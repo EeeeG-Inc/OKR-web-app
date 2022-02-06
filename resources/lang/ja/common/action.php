@@ -9,6 +9,8 @@ return [
     'edit' => '編集',
     'search' => '検索',
     'submit' => '送信',
+    'stop' => '停止',
+    'restart' => '有効化',
     'create' => '新規作成',
     'create_company' => '法人アカウント作成',
     'confirm' => '内容確認',

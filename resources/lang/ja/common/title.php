@@ -13,7 +13,6 @@ return [
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集',
     ],
-
     'user' => [
         'create' => '新規ユーザ作成',
     ],
@@ -24,5 +23,10 @@ return [
         'index' => '四半期設定',
         'create' => '四半期登録',
         'edit' => '四半期編集',
+    ],
+    'slack' => [
+        'index' => 'Slack 通知設定',
+        'create' => 'Slack Webhook URL 登録',
+        'edit' => 'Slack Webhook URL 編集',
     ],
 ];

@@ -9,13 +9,13 @@
 
 ```sh
 # 初期テーブルデータ作成
- php artisan migrate:fresh --seed
+php artisan migrate:fresh --seed
 ```
 
 ### テストデータ作成
 
 ```sh
- php artisan command:test-data
+php artisan command:test-data
 ```
 
 ### phpinsights
