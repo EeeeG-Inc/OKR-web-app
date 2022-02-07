@@ -36,65 +36,74 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                {{ link_to_route('dashboard.index', __('common/nav.dashboard.index'), null, ['class' => 'nav-link']) }}
-                            </li>
-                            <li class="nav-item">
-                                {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
-                            </li>
-                            <li class="nav-item">
-                                {{ link_to_route('quarter.index', __('common/nav.quarter.index'), null, ['class' => 'nav-link']) }}
-                            </li>
-                        @endif
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
+                    @if(Auth::check())
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    {{ link_to_route('login', __('Login'), null, ['class' => 'nav-link']) }}
+                                    {{ link_to_route('dashboard.index', __('common/nav.dashboard.index'), null, ['class' => 'nav-link']) }}
                                 </li>
-                            @endif
-
-                            @if (Route::has('register'))
                                 <li class="nav-item">
-                                    {{ link_to_route('register', __('common/action.create_company'), null, ['class' => 'nav-link']) }}
+                                    {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
+                                </li>
+                                <li class="nav-item">
+                                    {{ link_to_route('quarter.index', __('common/nav.quarter.index'), null, ['class' => 'nav-link']) }}
                                 </li>
                             @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                        </ul>
+                    @endif
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('user.create') }}">
-                                        {{ __('common/nav.user.create') }}
-                                    </a>
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        {{ link_to_route('login', __('Login'), null, ['class' => 'nav-link']) }}
+                                    </li>
+                                @endif
 
-                                    <a class="dropdown-item" href="{{ route('slack.index') }}">
-                                        {{ __('common/nav.slack.index') }}
-                                    </a>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        {{ link_to_route('register', __('common/action.create_company'), null, ['class' => 'nav-link']) }}
+                                    </li>
+                                @endif
+                            @else
+                                @if(Auth::check())
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
+                                        </a>
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            @can('manager-higher')
+                                                <a class="dropdown-item" href="{{ route('user.create') }}">
+                                                    {{ __('common/nav.user.create') }}
+                                                </a>
+                                            @endcan
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                            @can('company-higher')
+                                                <a class="dropdown-item" href="{{ route('slack.index') }}">
+                                                    {{ __('common/nav.slack.index') }}
+                                                </a>
+                                            @endcan
+
+                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endguest
+                        </ul>
+
                 </div>
             </div>
         </nav>
