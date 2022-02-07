@@ -1,16 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('common/title.user.create') }}</div>
                     <div class="card-body">
-                        <div class="pt-4 bg-gray-100">
+                        <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
+                                    @include('flash::message')
+
                                     <div class="form">
                                         {{ Form::open(['id' => 'create_user_form']) }}
                                         {{-- CSRFトークン --}}
@@ -69,12 +71,10 @@
                                             </div>
                                         </div>
 
-                                        {{-- フラッシュメッセージ --}}
-                                        @include('flash::message')
                                         {{-- 内容確認ボタン --}}
                                         <div class="form-group row">
-                                            <div class="col-sm-12">
-                                                {{ Form::submit(__('common/action.create'), ['class' => 'btn btn-primary btn-block']) }}
+                                            <div class="col-sm-12 text-right">
+                                                {{ Form::submit(__('common/action.create'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
                                             </div>
                                         </div>
 

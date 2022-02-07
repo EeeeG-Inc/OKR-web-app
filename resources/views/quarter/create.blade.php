@@ -2,16 +2,18 @@
 @section('title', __('common/title.quarter.create'))
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('common/title.quarter.create') }}</div>
                     <div class="card-body">
-                        <div class="pt-4 bg-gray-100">
+                        <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
+                                    @include('flash::message')
+
                                     <div class="form">
                                         {{ Form::open(['url' => route('quarter.store')]) }}
                                         {{ Form::token() }}
@@ -29,9 +31,6 @@
                                         {{ Form::hidden('3q_to', 12, ['id' => '3q_to']) }}
                                         {{ Form::hidden('4q_from', 1, ['id' => '4q_from']) }}
                                         {{ Form::hidden('4q_to', 3, ['id' => '4q_to']) }}
-
-                                        {{--フラッシュメッセージ--}}
-                                        @include('flash::message')
 
                                         {{--内容確認ボタン--}}
                                         <div class="form-group row">

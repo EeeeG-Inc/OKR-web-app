@@ -2,33 +2,39 @@
 @section('title', __('common/title.objective.create'))
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('common/title.objective.create') }}</div>
                     <div class="card-body">
-                        <div class="pt-4 bg-gray-100">
+                        <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
+                                    @include('flash::message')
+
                                     <div class="form">
                                         {{ Form::open(['url' => route('objective.store')]) }}
                                         {{ Form::token() }}
                                         {{ Form::hidden('user_id', $user->id) }}
 
                                         {{--年度--}}
-                                        <div class="form-group pb-2">
-                                            {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
-                                            {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                            </div>
                                         </div>
 
                                         {{--四半期区分--}}
                                         <div class="form-group row">
-                                            <legend class="col-form-label col-md-2 mb-3">
-                                                {{ __('models/quarters.fields.quarter') }}</legend>
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('quarter', __('models/quarters.fields.quarter')) }}
+                                            </div>
                                             <div class="col-md-10">
-
                                                 <div class="custom-control custom-radio">
                                                     {{ Form::radio('quarter_id', App\Enums\Quarter::FULL_YEAR_ID, true, ['id' => 'radioQuarter0']) }}
                                                     {{ Form::label('radioQuarter0', $quarterLabels[0]) }}
@@ -99,9 +105,6 @@
                                                 {{ Form::textarea('key_result3', null, ['class' => 'form-control', 'id' => 'key_result3', 'rows' => '2']) }}
                                             </div>
                                         </div>
-
-                                        {{--フラッシュメッセージ--}}
-                                        @include('flash::message')
 
                                         {{--内容確認ボタン--}}
                                         <div class="form-group row">

@@ -2,31 +2,27 @@
 @section('title', __('common/title.objective.index', ['name' => $user->name]))
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('common/title.objective.index', ['name' => $user->name]) }}</div>
                 <div class="card-body">
-                    <div class="pt-4 bg-gray-100">
+                    <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
 
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
 
-                                {{-- 検索 --}}
-                                <div class="form" style="text-align: center">
+                                {{-- 検索: 未実装 --}}
+                                {{-- <div class="form" style="text-align: center">
                                     {{ Form::open(['url' => route('objective.search'), 'files' => true]) }}
                                     {{ Form::token() }}
                                     {{ Form::label('objective', __('models/objectives.fields.objective')) }}
                                     {{ Form::text('objective', null) }}
                                     {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
                                     {{ Form::close() }}
-                                </div>
+                                </div> --}}
 
-                                {{-- ページネーション --}}
-                                <p class="d-flex justify-content-center"> {{ $objectives->links() }} </p>
-
-                                {{-- フラッシュメッセージ --}}
                                 @include('flash::message')
 
                                 {{-- 新規作成 --}}
@@ -82,6 +78,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <p class="d-flex justify-content-center"> {{ $objectives->links() }} </p>
+
                             </div>
                         </div>
                     </div>
