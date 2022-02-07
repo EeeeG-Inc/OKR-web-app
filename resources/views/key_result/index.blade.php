@@ -2,7 +2,7 @@
 @section('title', __('common/title.key_result.index', ['name' => $objective->users->name, 'objective' => $objective->objective]))
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">

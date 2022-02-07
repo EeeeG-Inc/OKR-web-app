@@ -2,7 +2,7 @@
 @section('title', __('common/title.objective.edit'))
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -10,8 +10,10 @@
                     <div class="card-body">
                         <div class="pt-4 bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
+                                    @include('flash::message')
+
                                     <div class="form">
                                         {{ Form::open(['route' => ['objective.update', $objective->id], 'method' => 'put']) }}
                                         {{ Form::token() }}
@@ -167,8 +169,6 @@
                                                 {{ Form::textarea('key_result3_remarks', $keyResult3->remarks ?? null, ['class' => 'form-control', 'id' => 'key_result3_remarks', 'rows' => '1']) }}
                                             </div>
                                         </div>
-
-                                        @include('flash::message')
 
                                         {{--更新ボタン--}}
                                         <div class="form-group row">

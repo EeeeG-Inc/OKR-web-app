@@ -2,7 +2,7 @@
 @section('title', __('common/title.dashboard.index'))
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -11,10 +11,11 @@
                     <div class="pt-4 bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-                                {{--フラッシュメッセージ--}}
+
                                 @include('flash::message')
 
-                                <div class="form" style="text-align: center">
+                                {{-- 検索: 未実装 --}}
+                                {{-- <div class="form" style="text-align: center">
                                     {{ Form::open(['url' => route('dashboard.search')]) }}
                                     {{ Form::token() }}
                                     {{ Form::label('name', __('models/users.fields.name')) }}
@@ -24,10 +25,7 @@
                                     @endif
                                     {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
                                     {{ Form::close() }}
-                                </div>
-
-                                {{-- ページネーション --}}
-                                <p class="d-flex justify-content-center"> {{ $users->links() }} </p>
+                                </div> --}}
 
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -61,6 +59,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <p class="d-flex justify-content-center"> {{ $users->links() }} </p>
+
                             </div>
                         </div>
                     </div>
