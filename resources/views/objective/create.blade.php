@@ -20,17 +20,21 @@
                                         {{ Form::hidden('user_id', $user->id) }}
 
                                         {{--年度--}}
-                                        <div class="form-group pb-2">
-                                            {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
-                                            {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                            </div>
                                         </div>
 
                                         {{--四半期区分--}}
                                         <div class="form-group row">
-                                            <legend class="col-form-label col-md-2 mb-3">
-                                                {{ __('models/quarters.fields.quarter') }}</legend>
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('quarter', __('models/quarters.fields.quarter')) }}
+                                            </div>
                                             <div class="col-md-10">
-
                                                 <div class="custom-control custom-radio">
                                                     {{ Form::radio('quarter_id', App\Enums\Quarter::FULL_YEAR_ID, true, ['id' => 'radioQuarter0']) }}
                                                     {{ Form::label('radioQuarter0', $quarterLabels[0]) }}

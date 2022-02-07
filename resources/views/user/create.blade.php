@@ -73,8 +73,8 @@
 
                                         {{-- 内容確認ボタン --}}
                                         <div class="form-group row">
-                                            <div class="col-sm-12">
-                                                {{ Form::submit(__('common/action.create'), ['class' => 'btn btn-primary btn-block']) }}
+                                            <div class="col-sm-12 text-right">
+                                                {{ Form::submit(__('common/action.create'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
                                             </div>
                                         </div>
 
