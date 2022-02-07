@@ -2,6 +2,7 @@
 namespace App\Http\UseCase\User;
 
 use App\Enums\Role;
+use App\Models\Company;
 use App\Models\Department;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -15,18 +16,27 @@ class GetCreateData
     public function __invoke(): array
     {
         $user = Auth::user();
-        $departments = Department::where('company_id', $user->company_id)->get();
-        $departmentNames = [];
+        $companyId = $user->company_id;
+        $departments = Department::where('company_id', $companyId)->get();
+        $companyNames = [];
         $isMaster = (bool) $user->companies->is_master;
         $role = $user->role;
+        $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
+
+        foreach ($companies as $company) {
+            $companyNames[$company->id] = $company->name;
+        }
+
+        $isMultipleCompany = false;
+
+        if (count($companies) > 1) {
+            $isMultipleCompany = true;
+        }
 
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
             $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
         } else {
-            foreach ($departments as $department) {
-                $departmentNames[$department->id] = $department->name;
-            }
             $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
         }
 
@@ -38,8 +48,10 @@ class GetCreateData
 
         return [
             'user' => $user,
+            'companyId' => $companyId,
             'roles' => $roles,
-            'departmentNames' => $departmentNames,
+            'isMultipleCompany' => $isMultipleCompany,
+            'companyNames' => $companyNames,
             'companyCreatePermission' => $companyCreatePermission,
         ];
     }

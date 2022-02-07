@@ -25,7 +25,7 @@ class StoreData
             User::create([
                 'name' => $input['name'],
                 'role' => $input['role'],
-                'company_id' => $user->company_id,
+                'company_id' => $input['company_id'] ?? $user->company_id,
                 'department_id' => $departmentId,
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),

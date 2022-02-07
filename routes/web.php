@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function (): void {
         Route::get('stop', [SlackController::class, 'stop'])->name('slack.stop');
         Route::get('restart', [SlackController::class, 'restart'])->name('slack.restart');
     });
+
+    Route::prefix('fetch')->group(function (): void {
+        Route::post('departments/{companyId}', [DepartmentController::class, 'fetch'])->name('fetch.departments');
+    });
 });
 
 // MANAGER ユーザ以上
