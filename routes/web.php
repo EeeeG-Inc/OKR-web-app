@@ -8,6 +8,7 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\QuarterController;
+use App\Http\Controllers\SlackController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,15 +38,19 @@ Route::middleware('auth')->group(function (): void {
         'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,
     ]);
+    Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
 
     Route::prefix('objective')->group(function (): void {
-        // OKR 検索
         Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');
     });
 
     Route::prefix('dashboard')->group(function (): void {
-        // ユーザ検索
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+    });
+
+    Route::prefix('slack')->group(function (): void {
+        Route::get('stop', [SlackController::class, 'stop'])->name('slack.stop');
+        Route::get('restart', [SlackController::class, 'restart'])->name('slack.restart');
     });
 });
 
