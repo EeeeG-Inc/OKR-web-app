@@ -33,12 +33,13 @@ class DepartmentController extends Controller
     /**
      * @param Request $request
      * @param int $companyId
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function fetch(Request $request, int $companyId): JsonResponse
     {
         $requestCompanyId = $request->companyId;
 
+        // ログインユーザの関連会社じゃなければエラー
         if (Company::find($companyId)->company_group_id !== Company::find($requestCompanyId)->company_group_id) {
             return response()->json([
                 'message' => __('validation.invalid_company_id'),
