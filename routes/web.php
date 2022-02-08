@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function (): void {
     });
 
     Route::prefix('fetch')->group(function (): void {
-        Route::post('departments/{companyId}', [DepartmentController::class, 'fetch'])->name('fetch.departments');
+        Route::post('departments/{company_id}', [DepartmentController::class, 'fetch'])->name('fetch.departments');
     });
 });
 

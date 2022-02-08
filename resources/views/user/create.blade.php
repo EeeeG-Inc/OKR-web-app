@@ -159,7 +159,7 @@
                 }
 
                 var fetchDepartments = function (companyId) {
-                    postData("{{ route('fetch.departments', $companyId) }}", {companyId: companyId})
+                    postData("{{ route('fetch.departments', $companyId) }}", {company_id: companyId})
                     .then(data => {
                         $('#departments').children().remove();
                         if (data.departments.length === 0) {

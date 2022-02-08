@@ -37,7 +37,7 @@ class DepartmentController extends Controller
      */
     public function fetch(Request $request, int $companyId): JsonResponse
     {
-        $requestCompanyId = $request->companyId;
+        $requestCompanyId = $request->company_id;
 
         // ログインユーザの関連会社じゃなければエラー
         if (Company::find($companyId)->company_group_id !== Company::find($requestCompanyId)->company_group_id) {
