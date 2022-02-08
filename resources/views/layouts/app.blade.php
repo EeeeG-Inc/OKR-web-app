@@ -82,7 +82,7 @@
                                                 </a>
                                             @endcan
 
-                                            @can('manager-and-member')
+                                            @can('member-higher')
                                                 <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}">
                                                     {{ __('common/nav.user.edit') }}
                                                 </a>

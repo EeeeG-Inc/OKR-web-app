@@ -57,6 +57,12 @@ class Role extends Enum implements LocalizedEnum
         $results = [];
 
         switch ($myRole) {
+            case Role::COMPANY:
+                $results[Role::COMPANY] = self::getLocalizedDescription(Role::COMPANY);
+                break;
+            case Role::DEPARTMENT:
+                $results[Role::DEPARTMENT] = self::getLocalizedDescription(Role::DEPARTMENT);
+                break;
             case Role::MEMBER:
             case Role::MANAGER:
                 $results[Role::MEMBER] = self::getLocalizedDescription(Role::MEMBER);

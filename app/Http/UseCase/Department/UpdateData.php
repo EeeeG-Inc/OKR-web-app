@@ -1,6 +1,8 @@
 <?php
-namespace App\Http\UseCase\Manager;
+namespace App\Http\UseCase\Department;
 
+use App\Models\Department;
+use App\Models\User;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +18,14 @@ class UpdateData
         $user = Auth::user();
 
         try {
+            Department::find($user->department_id)->update([
+                'name' => $input['name'],
+            ]);
+
             $data = [
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $input['company_id'] ?? $user->company_id,
-                'department_id' => $input['department_id'],
             ];
 
             if (!is_null($input['email'])) {
@@ -37,7 +42,7 @@ class UpdateData
             return false;
         }
 
-        Flash::success(__('common/message.manager.update'));
+        Flash::success(__('common/message.department.update'));
         return true;
     }
 }
