@@ -3,7 +3,6 @@ namespace App\Http\UseCase\Quarter;
 
 use App\Models\Quarter;
 use Flash;
-use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {

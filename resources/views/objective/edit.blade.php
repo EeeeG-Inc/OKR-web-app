@@ -22,7 +22,7 @@
                                         {{--年度--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('selectYear', __('models/objectives.fields.year')) }}
+                                                {{ Form::label('selectYear', __('models/objectives.fields.year'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('year', $years, $year, ['class' => 'form-control', 'id' => 'year']) }}
@@ -32,7 +32,7 @@
                                         {{--四半期区分--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('quarter', __('models/quarters.fields.quarter')) }}
+                                                {{ Form::label('quarter', __('models/quarters.fields.quarter'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="custom-control custom-radio">
@@ -61,7 +61,7 @@
                                         {{--OKR--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('objective', __('models/objectives.fields.objective')) }}
+                                                {{ Form::label('objective', __('models/objectives.fields.objective'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::textarea('objective', $objective->objective, ['class' => 'form-control', 'id' => 'objective', 'rows' => '2']) }}
@@ -91,7 +91,7 @@
                                         {{--KeyResult1--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1') }}
+                                                {{ Form::label('key_result1', __('models/key-results.fields.key_result') . '1', ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::textarea('key_result1', $keyResult1->key_result, ['class' => 'form-control', 'id' => 'key_result1', 'rows' => '2']) }}

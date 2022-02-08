@@ -15,6 +15,7 @@ return [
     ],
     'user' => [
         'create' => '新規ユーザ作成',
+        'edit' => 'ユーザ編集',
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',

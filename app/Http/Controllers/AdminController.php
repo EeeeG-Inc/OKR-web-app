@@ -8,7 +8,6 @@ use Flash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 
 class AdminController extends Controller
 {
