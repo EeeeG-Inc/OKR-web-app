@@ -83,42 +83,44 @@
         </div>
     </div>
 
-    <script>
-        $(function() {
-            var checkMonth = function(month) {
-                if (month > 12) {
-                    return month - 12
+    @push('scripts')
+        <script>
+            $(function() {
+                var checkMonth = function(month) {
+                    if (month > 12) {
+                        return month - 12
+                    }
+                    return month
                 }
-                return month
-            }
 
-            $('#1q_from').change(function() {
-                from1q = Number($('#1q_from').val());
-                to1q = checkMonth(from1q + 2)
-                from2q = checkMonth(to1q + 1)
-                to2q = checkMonth(from2q + 2)
-                from3q = checkMonth(to2q + 1)
-                to3q = checkMonth(from3q + 2)
-                from4q = checkMonth(to3q + 1)
-                to4q = checkMonth(from4q + 2)
+                $('#1q_from').change(function() {
+                    from1q = Number($('#1q_from').val());
+                    to1q = checkMonth(from1q + 2)
+                    from2q = checkMonth(to1q + 1)
+                    to2q = checkMonth(from2q + 2)
+                    from3q = checkMonth(to2q + 1)
+                    to3q = checkMonth(from3q + 2)
+                    from4q = checkMonth(to3q + 1)
+                    to4q = checkMonth(from4q + 2)
 
-                $('#1q_to').val(to1q)
-                $('#2q_from').val(from2q)
-                $('#2q_to').val(to2q)
-                $('#3q_from').val(from3q)
-                $('#3q_to').val(to3q)
-                $('#4q_from').val(from4q)
-                $('#4q_to').val(to4q)
+                    $('#1q_to').val(to1q)
+                    $('#2q_from').val(from2q)
+                    $('#2q_to').val(to2q)
+                    $('#3q_from').val(from3q)
+                    $('#3q_to').val(to3q)
+                    $('#4q_from').val(from4q)
+                    $('#4q_to').val(to4q)
 
-                $('#preview_1q_from').text(from1q)
-                $('#preview_1q_to').text(to1q)
-                $('#preview_2q_from').text(from2q)
-                $('#preview_2q_to').text(to2q)
-                $('#preview_3q_from').text(from3q)
-                $('#preview_3q_to').text(to3q)
-                $('#preview_4q_from').text(from4q)
-                $('#preview_4q_to').text(to4q)
-            });
-        })
-    </script>
+                    $('#preview_1q_from').text(from1q)
+                    $('#preview_1q_to').text(to1q)
+                    $('#preview_2q_from').text(from2q)
+                    $('#preview_2q_to').text(to2q)
+                    $('#preview_3q_from').text(from3q)
+                    $('#preview_3q_to').text(to3q)
+                    $('#preview_4q_from').text(from4q)
+                    $('#preview_4q_to').text(to4q)
+                });
+            })
+        </script>
+    @endpush
 @endsection
