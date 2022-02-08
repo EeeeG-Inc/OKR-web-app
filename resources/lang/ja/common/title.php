@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'auth' => [
+        'login' => 'ログイン',
+        'register' => '会社アカウント作成',
+        'verify' => 'メールアドレス認証',
+        'confirm' => 'パスワード（確認用）',
+        'email' => 'パスワード再設定',
+        'reset' => 'パスワード再設定',
+    ],
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],

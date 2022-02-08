@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('common/title.auth.register'))
 
 @section('content')
 <div class="container-fluid">
