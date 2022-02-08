@@ -18,15 +18,22 @@ class GetCreateData
         $user = Auth::user();
         $companyId = $user->company_id;
         $departments = Department::where('company_id', $companyId)->get();
-        $companyNames = [];
         $isMaster = (bool) $user->companies->is_master;
         $role = $user->role;
         $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
+        $companyNames = [];
 
-        foreach ($companies as $company) {
-            $companyNames[$company->id] = $company->name;
+        // 関連会社のアカウントも作成可能
+        if ($isMaster) {
+            foreach ($companies as $company) {
+                $companyNames[$company->id] = $company->name;
+            }
+        // 自身の会社アカウントのみ作成可能
+        } else {
+            $companyNames[$companyId] = $user->companies->name;
         }
 
+        // 自身の会社の部署データが存在しない場合、まず部署アカウントのみ作成させる
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
             $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
@@ -34,18 +41,11 @@ class GetCreateData
             $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
         }
 
-        $companyCreatePermission = false;
-
-        if ($role === Role::ADMIN || (($role === Role::COMPANY) && ($isMaster === true))) {
-            $companyCreatePermission = true;
-        }
-
         return [
             'user' => $user,
             'companyId' => $companyId,
             'roles' => $roles,
             'companyNames' => $companyNames,
-            'companyCreatePermission' => $companyCreatePermission,
         ];
     }
 }
