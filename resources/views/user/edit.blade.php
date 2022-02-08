@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', __('common/title.user.create'))
+@section('title', __('common/title.user.edit'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('common/title.user.create') }}</div>
+                    <div class="card-header">{{ __('common/title.user.edit') }}</div>
                     <div class="card-body">
                         <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -15,7 +15,7 @@
                                     @include('flash::message')
 
                                     <div class="form">
-                                        {{ Form::open(['id' => 'create_user_form']) }}
+                                        {{ Form::open(['id' => 'update_user_form', 'method' => 'put']) }}
                                         {{-- CSRFトークン --}}
                                         {{ Form::token() }}
                                         {{ Form::hidden('user_id', $user->id) }}
@@ -23,10 +23,10 @@
                                         {{-- アカウント種別 --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('role', __('common/label.user.create.role'), ['class' => 'required']) }}
+                                                {{ Form::label('role', __('common/label.user.edit.role'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('role', $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                                {{ Form::select('role', $roles, $user->role, ['class' => 'form-control', 'id' => 'roles']) }}
                                             </div>
                                         </div>
 
@@ -36,24 +36,24 @@
                                                 {{ Form::label('name', __('models/users.fields.name'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
+                                                {{ Form::text('name', $user->name, ['class' => 'form-control', 'id' => 'name']) }}
                                             </div>
                                         </div>
 
                                         {{-- 会社 --}}
                                         <div class="form-group row" id="company_form">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('company_id', __('common/label.user.create.name_my_company'), ['class' => 'required']) }}
+                                                {{ Form::label('company_id', __('common/label.user.edit.name_my_company'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('company_id', $companyNames, null, ['class' => 'form-control', 'id' => 'companies']) }}
+                                                {{ Form::select('company_id', $companyNames, $user->company_id, ['class' => 'form-control', 'id' => 'companies']) }}
                                             </div>
                                         </div>
 
                                         {{-- 部署 --}}
                                         <div class="form-group row" id="department_form">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('department_id', __('common/label.user.create.name_department'), ['class' => 'required']) }}
+                                                {{ Form::label('department_id', __('common/label.user.edit.name_department'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('department_id', [], null, ['class' => 'form-control', 'id' => 'departments', 'disabled' => true]) }}
@@ -63,17 +63,17 @@
                                         {{-- Email --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('email', __('models/users.fields.email'), ['class' => 'required']) }}
+                                                {{ Form::label('email', __('models/users.fields.email')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::email('email', null, ['class' => 'form-control', 'id' => 'email']) }}
+                                                {{ Form::email('email', $user->email, ['class' => 'form-control', 'id' => 'email']) }}
                                             </div>
                                         </div>
 
                                         {{-- パスワード --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('password', __('models/users.fields.password'), ['class' => 'required']) }}
+                                                {{ Form::label('password', __('models/users.fields.password')) }}
                                             </div>
                                             <div class="col-md-10 mb-3">
                                                 {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
@@ -86,7 +86,7 @@
                                         {{-- 内容確認ボタン --}}
                                         <div class="form-group row">
                                             <div class="col-sm-12 text-right">
-                                                {{ Form::submit(__('common/action.create'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
+                                                {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
                                             </div>
                                         </div>
 
@@ -109,36 +109,36 @@
                 const MANAGER = 4;
                 const MEMBER = 5;
                 actions = {
-                    COMPANY: '{{ route('company.store') }}',
-                    DEPARTMENT: '{{ route('department.store') }}',
-                    MANAGER: '{{ route('manager.store') }}',
-                    MEMBER: '{{ route('member.store') }}',
+                    COMPANY: '{{ route('company.update') }}',
+                    DEPARTMENT: '{{ route('department.update') }}',
+                    MANAGER: '{{ route('manager.update') }}',
+                    MEMBER: '{{ route('member.update') }}',
                 };
                 roleId = 0;
 
                 var controlFields = function (roleId) {
                     switch (roleId) {
                         case COMPANY:
-                            $('#name').text('{!! __('common/label.user.create.name_company')!!}');
-                            $('#create_user_form').attr('action', actions.COMPANY);
+                            $('#name').text('{!! __('common/label.user.edit.name_company')!!}');
+                            $('#update_user_form').attr('action', actions.COMPANY);
                             $('#company_form').hide();
                             $('#department_form').hide();
                             break;
                         case DEPARTMENT:
-                            $('#name').text('{!! __('common/label.user.create.name_department')!!}');
-                            $('#create_user_form').attr('action', actions.DEPARTMENT);
+                            $('#name').text('{!! __('common/label.user.edit.name_department')!!}');
+                            $('#update_user_form').attr('action', actions.DEPARTMENT);
                             $('#company_form').show();
                             $('#department_form').hide();
                             break;
                         case MANAGER:
-                            $('#name').text('{!! __('common/label.user.create.name_manager')!!}');
-                            $('#create_user_form').attr('action', actions.MANAGER);
+                            $('#name').text('{!! __('common/label.user.edit.name_manager')!!}');
+                            $('#update_user_form').attr('action', actions.MANAGER);
                             $('#company_form').show();
                             $('#department_form').show();
                             break;
                         case MEMBER:
-                            $('#name').text('{!! __('common/label.user.create.name_member')!!}');
-                            $('#create_user_form').attr('action', actions.MEMBER);
+                            $('#name').text('{!! __('common/label.user.edit.name_member')!!}');
+                            $('#update_user_form').attr('action', actions.MEMBER);
                             $('#company_form').show();
                             $('#department_form').show();
                             break;
@@ -202,7 +202,7 @@
                 });
 
                 // 初期化
-                departmentId = {{ old('department_id') }}
+                departmentId = {{ $user->department_id }}
                 controlFields(Number($('#roles').val()));
                 fetchDepartments(Number($('#companies').val()), departmentId)
             })

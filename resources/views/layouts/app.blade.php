@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/common.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -78,6 +79,12 @@
                                             @can('manager-higher')
                                                 <a class="dropdown-item" href="{{ route('user.create') }}">
                                                     {{ __('common/nav.user.create') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('manager-and-member')
+                                                <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}">
+                                                    {{ __('common/nav.user.edit') }}
                                                 </a>
                                             @endcan
 

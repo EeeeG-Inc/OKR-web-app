@@ -18,10 +18,13 @@
                                         {{ Form::open(['url' => route('quarter.store')]) }}
                                         {{ Form::token() }}
 
-                                        <p>{{ __('models/quarters.create') }}</p>
-
                                         <div class="form-group pb-2">
-                                            {{ Form::select('1q_from', $from, 4, ['class' => 'form-control', 'id' => '1q_from']) }}
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('1q_from', __('models/quarters.create'), ['class' => 'required']) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('1q_from', $from, 4, ['class' => 'form-control', 'id' => '1q_from']) }}
+                                            </div>
                                         </div>
 
                                         {{ Form::hidden('1q_to', 6, ['id' => '1q_to']) }}

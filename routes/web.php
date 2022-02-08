@@ -62,23 +62,39 @@ Route::middleware('auth')->group(function (): void {
     Route::prefix('fetch')->group(function (): void {
         Route::post('departments/{company_id}', [DepartmentController::class, 'fetch'])->name('fetch.departments');
     });
-});
 
-// MANAGER ユーザ以上
-Route::middleware('auth', 'can:manager-higher')->group(function (): void {
-    Route::resources([
-        'user' => UserController::class,
-    ]);
+    // 編集は可能
+    Route::prefix('user')->group(function (): void {
+        Route::get('edit/{user_id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('update', [UserController::class, 'update'])->name('user.update');
+    });
+
     Route::prefix('company')->group(function (): void {
-        Route::post('store', [CompanyController::class, 'store'])->name('company.store');
+        Route::put('update', [CompanyController::class, 'update'])->name('company.update');
     });
     Route::prefix('department')->group(function (): void {
-        Route::post('store', [DepartmentController::class, 'store'])->name('department.store');
+        Route::put('update', [DepartmentController::class, 'update'])->name('department.update');
     });
     Route::prefix('manager')->group(function (): void {
-        Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
+        Route::put('update', [ManagerController::class, 'update'])->name('manager.update');
     });
     Route::prefix('member')->group(function (): void {
-        Route::post('store', [MemberController::class, 'store'])->name('member.store');
+        Route::put('update', [MemberController::class, 'update'])->name('member.update');
+    });
+
+    Route::middleware('can:manager-higher')->group(function (): void {
+        Route::resource('user', UserController::class, ['except' => ['edit', 'update']]);
+        Route::prefix('company')->group(function (): void {
+            Route::post('store', [CompanyController::class, 'store'])->name('company.store');
+        });
+        Route::prefix('department')->group(function (): void {
+            Route::post('store', [DepartmentController::class, 'store'])->name('department.store');
+        });
+        Route::prefix('manager')->group(function (): void {
+            Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
+        });
+        Route::prefix('member')->group(function (): void {
+            Route::post('store', [MemberController::class, 'store'])->name('member.store');
+        });
     });
 });

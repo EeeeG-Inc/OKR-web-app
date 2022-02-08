@@ -223,7 +223,7 @@ class GenerateTestDataCommand extends Command
     }
 
     /**
-     * 1部署に1つの DepartmentUser 、マネージャー権限を持った ManagerUser 、 一般権限の MemberUser の作成.
+     * 1部署に1つの DepartmentUser 、マネージャ権限を持った ManagerUser 、 一般権限の MemberUser の作成.
      *
      * @param int  $companyId    作成する会社の companyId ※外部キー
      * @param int  $departmentId 作成する部署の departmentId ※外部キー

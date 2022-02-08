@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role === Role::COMPANY;
         });
 
-        // マネージャー以上を許可
+        // マネージャ以上を許可
         Gate::define('manager-higher', function ($user) {
             return $user->role === Role::COMPANY ||
                 $user->role === Role::DEPARTMENT ||
@@ -52,6 +52,11 @@ class AuthServiceProvider extends ServiceProvider
                 $user->role === Role::DEPARTMENT ||
                 $user->role === Role::MANAGER ||
                 $user->role === Role::MEMBER;
+        });
+
+        // マネージャとメンバーを許可
+        Gate::define('manager-and-member', function ($user) {
+            return $user->role === Role::MANAGER || $user->role === Role::MEMBER;
         });
     }
 }
