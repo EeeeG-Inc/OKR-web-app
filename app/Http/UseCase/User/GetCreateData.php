@@ -27,12 +27,6 @@ class GetCreateData
             $companyNames[$company->id] = $company->name;
         }
 
-        $isMultipleCompany = false;
-
-        if (count($companies) > 1) {
-            $isMultipleCompany = true;
-        }
-
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
             $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
@@ -50,7 +44,6 @@ class GetCreateData
             'user' => $user,
             'companyId' => $companyId,
             'roles' => $roles,
-            'isMultipleCompany' => $isMultipleCompany,
             'companyNames' => $companyNames,
             'companyCreatePermission' => $companyCreatePermission,
         ];
