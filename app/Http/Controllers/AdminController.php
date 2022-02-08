@@ -7,12 +7,14 @@ use App\Models\User;
 use Flash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminController extends Controller
 {
     /**
-     * @return View
+     * @param int $userId
+     * @return RedirectResponse;
      */
     public function proxyLogin(int $userId)
     {
