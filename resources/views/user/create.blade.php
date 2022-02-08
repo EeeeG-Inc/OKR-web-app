@@ -39,17 +39,15 @@
                                             </div>
                                         </div>
 
-                                        @if($isMultipleCompany)
-                                            {{-- 会社 --}}
-                                            <div class="form-group row" id="company_form">
-                                                <div class="col-md-2 mb-3">
-                                                    {{ Form::label('company_id', __('common/label.user.create.name_my_company')) }}
-                                                </div>
-                                                <div class="col-md-10">
-                                                    {{ Form::select('company_id', $companyNames, null, ['class' => 'form-control', 'id' => 'companies']) }}
-                                                </div>
+                                        {{-- 会社 --}}
+                                        <div class="form-group row" id="company_form">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('company_id', __('common/label.user.create.name_my_company')) }}
                                             </div>
-                                        @endif
+                                            <div class="col-md-10">
+                                                {{ Form::select('company_id', $companyNames, null, ['class' => 'form-control', 'id' => 'companies']) }}
+                                            </div>
+                                        </div>
 
                                         {{-- 部署 --}}
                                         <div class="form-group row" id="department_form">
@@ -180,16 +178,17 @@
             $('#roles').change(function() {
                 roleId = Number($('#roles').val())
                 controlFields(roleId)
+                if ((roleId === MANAGER) || (roleId === MEMBER)) {
+                    fetchDepartments(Number($('#companies').val()))
+                }
             });
 
-            @if($isMultipleCompany)
-                $('#company_form').change(function() {
-                    roleId = Number($('#roles').val())
-                    if ((roleId === MANAGER) || (roleId === MEMBER)) {
-                        fetchDepartments(Number($('#companies').val()))
-                    }
-                });
-            @endif
+            $('#company_form').change(function() {
+                roleId = Number($('#roles').val())
+                if ((roleId === MANAGER) || (roleId === MEMBER)) {
+                    fetchDepartments(Number($('#companies').val()))
+                }
+            });
 
             // 初期化
             controlFields(Number($('#roles').val()));
