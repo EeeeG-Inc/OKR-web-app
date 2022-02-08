@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'admin' => [
+        'proxy_login' => '「:name」として代理ログインしました',
+        'invalid_proxy_login' => '不正な代理ログインです',
+    ],
     'objective' => [
         'store' => 'OKR の登録が完了しました',
         'update' => 'OKR の更新が完了しました',
