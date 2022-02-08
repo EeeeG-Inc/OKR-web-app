@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('common/title.user.create') }}</div>
                     <div class="card-body">

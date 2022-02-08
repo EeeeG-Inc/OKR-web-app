@@ -53,10 +53,5 @@ class AuthServiceProvider extends ServiceProvider
                 $user->role === Role::MANAGER ||
                 $user->role === Role::MEMBER;
         });
-
-        // マネージャとメンバーを許可
-        Gate::define('manager-and-member', function ($user) {
-            return $user->role === Role::MANAGER || $user->role === Role::MEMBER;
-        });
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\UseCase\Department\StoreData;
+use App\Http\UseCase\Department\UpdateData;
 use App\Http\Requests\DepartmentStoreRequest;
+use App\Http\Requests\DepartmentUpdateRequest;
 use App\Models\Company;
 use App\Models\Department;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +28,23 @@ class DepartmentController extends Controller
 
         if (!$case($input)) {
             return redirect()->route('user.create');
+        }
+        return redirect()->route('dashboard.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param DepartmentUpdateRequest $request
+     * @param UpdateData $case
+     * @return RedirectResponse
+     */
+    public function update(DepartmentUpdateRequest $request, UpdateData $case): RedirectResponse
+    {
+        $input = $request->validated();
+
+        if (!$case($input)) {
+            return redirect()->route('user.edit', $input['user_id']);
         }
         return redirect()->route('dashboard.index');
     }
