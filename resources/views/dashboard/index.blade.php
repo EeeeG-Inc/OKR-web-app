@@ -34,6 +34,9 @@
                                             <th>{{ __('models/users.fields.role') }}</th>
                                             <th>{{ __('models/departments.fields.name') }}</th>
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
+                                            @can('admin-only')
+                                                <th>{{ __('common/admin.proxy_login') }}</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +58,11 @@
                                                         {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
                                                     @endif
                                                 </td>
+                                                @can('admin-only')
+                                                    <td class="align-middle">
+                                                        {{ link_to_route('admin.proxy_login', __('common/admin.proxy_login'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
+                                                    </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>

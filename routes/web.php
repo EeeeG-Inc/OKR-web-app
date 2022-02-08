@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
@@ -38,7 +39,12 @@ Route::middleware('auth')->group(function (): void {
         'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,
     ]);
+
     Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
+
+    Route::prefix('admin')->group(function (): void {
+        Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');
+    });
 
     Route::prefix('objective')->group(function (): void {
         Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');

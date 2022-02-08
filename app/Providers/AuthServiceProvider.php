@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Enums\Role;
 use App\Models\Team;
+use App\Models\User;
 use App\Policies\TeamPolicy;
+use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Team::class => TeamPolicy::class,
-        'App\Okr' => 'App\Policies\OkrPolicy',
+        User::class => RolePolicy::class,
     ];
 
     /**
@@ -31,23 +33,22 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-only', function ($user) {
             return $user->role === Role::ADMIN;
         });
-        // 会社以上（管理者＆会社）に許可
+
+        // 会社以上を許可
         Gate::define('company-higher', function ($user) {
-            return $user->role === Role::ADMIN ||
-                $user->role === Role::COMPANY;
+            return $user->role === Role::COMPANY;
         });
-        // マネージャー以上（管理者＆会社＆部署）に許可
+
+        // マネージャー以上を許可
         Gate::define('manager-higher', function ($user) {
-            return $user->role === Role::ADMIN ||
-                $user->role === Role::COMPANY ||
+            return $user->role === Role::COMPANY ||
                 $user->role === Role::DEPARTMENT ||
                 $user->role === Role::MANAGER;
         });
 
-        // 全員に許可
+        // メンバー以上を許可
         Gate::define('member-higher', function ($user) {
-            return $user->role === Role::ADMIN ||
-                $user->role === Role::COMPANY ||
+            return $user->role === Role::COMPANY ||
                 $user->role === Role::DEPARTMENT ||
                 $user->role === Role::MANAGER ||
                 $user->role === Role::MEMBER;
