@@ -31,7 +31,6 @@ class ManagerController extends Controller
      * Update the specified resource in storage.
      *
      * @param ManagerUpdateRequest $request
-     * @param int  $companyId
      * @param UpdateData $case
      * @return RedirectResponse
      */

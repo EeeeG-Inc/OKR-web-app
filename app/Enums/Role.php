@@ -23,6 +23,7 @@ class Role extends Enum implements LocalizedEnum
         $results = [];
 
         foreach (self::getValues() as $value) {
+            // 親会社のみが会社アカウント作成可能
             if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
@@ -39,6 +40,7 @@ class Role extends Enum implements LocalizedEnum
         $results = [];
 
         foreach (self::getValues() as $value) {
+            // 親会社のみが会社アカウント作成可能
             if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }

@@ -31,7 +31,6 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param MemberUpdateRequest $request
-     * @param int  $companyId
      * @param UpdateData $case
      * @return RedirectResponse
      */
