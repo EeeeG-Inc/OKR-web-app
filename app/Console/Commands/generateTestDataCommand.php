@@ -43,7 +43,7 @@ class GenerateTestDataCommand extends Command
     private $departments = [
         '営業部',
         '総務部',
-        'システム事業部',
+        'システム開発事業部',
     ];
 
     /** @var string[] */
@@ -270,7 +270,7 @@ class GenerateTestDataCommand extends Command
     private function createUserForAdmin(): void
     {
         User::factory()->create([
-            'name' => '管理者',
+            'name' => 'システム管理者2',
             'company_id' => null,
             'department_id' => null,
             'role' => Role::ADMIN,
