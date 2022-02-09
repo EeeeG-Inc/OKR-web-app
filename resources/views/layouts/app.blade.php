@@ -10,16 +10,13 @@
 
     <title>@yield('title')</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/common.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -43,12 +40,14 @@
                                 <li class="nav-item">
                                     {{ link_to_route('dashboard.index', __('common/nav.dashboard.index'), null, ['class' => 'nav-link']) }}
                                 </li>
-                                <li class="nav-item">
-                                    {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
-                                </li>
-                                <li class="nav-item">
-                                    {{ link_to_route('quarter.index', __('common/nav.quarter.index'), null, ['class' => 'nav-link']) }}
-                                </li>
+                                @can('member-higher')
+                                    <li class="nav-item">
+                                        {{ link_to_route('objective.index', __('common/nav.objective.index'), null, ['class' => 'nav-link']) }}
+                                    </li>
+                                    <li class="nav-item">
+                                        {{ link_to_route('quarter.index', __('common/nav.quarter.index'), null, ['class' => 'nav-link']) }}
+                                    </li>
+                                @endcan
                             @endif
                         </ul>
                     @endif
@@ -83,6 +82,12 @@
                                                 </a>
                                             @endcan
 
+                                            @can('member-higher')
+                                                <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}">
+                                                    {{ __('common/nav.user.edit') }}
+                                                </a>
+                                            @endcan
+
                                             @can('company-higher')
                                                 <a class="dropdown-item" href="{{ route('slack.index') }}">
                                                     {{ __('common/nav.slack.index') }}
@@ -113,5 +118,10 @@
         </main>
     </div>
 </body>
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+@stack('scripts')
 
 </html>

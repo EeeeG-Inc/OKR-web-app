@@ -21,7 +21,7 @@
                                         {{-- Webhook --}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('webhook', __('models/slacks.fields.webhook')) }}
+                                                {{ Form::label('webhook', __('models/slacks.fields.webhook'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::text('webhook', null, ['class' => 'form-control', 'id' => 'webhook']) }}

@@ -16,7 +16,7 @@ return [
         Role::ADMIN      => '管理者',
         Role::COMPANY    => '会社',
         Role::DEPARTMENT => '部署',
-        Role::MANAGER    => 'マネージャー',
+        Role::MANAGER    => 'マネージャ',
         Role::MEMBER     => '一般ユーザ',
     ],
     Quarter::class => [

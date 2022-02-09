@@ -7,7 +7,7 @@ use App\Models\Department;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
-class GetCreateData
+class GetEditData
 {
     public function __construct()
     {
@@ -17,29 +17,22 @@ class GetCreateData
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $departments = Department::where('company_id', $companyId)->get();
         $isMaster = (bool) $user->companies->is_master;
         $role = $user->role;
         $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
         $companyNames = [];
 
-        // 関連会社のアカウントも作成可能
+        // 関連会社のアカウントも編集可能
         if ($isMaster) {
             foreach ($companies as $company) {
                 $companyNames[$company->id] = $company->name;
             }
-        // 自身の会社アカウントのみ作成可能
+        // 自身の会社アカウントのみ編集可能
         } else {
             $companyNames[$companyId] = $user->companies->name;
         }
 
-        // 自身の会社の部署データが存在しない場合、まず部署アカウントのみ作成させる
-        if ($departments->isEmpty()) {
-            Flash::error(__('validation.not_found_department'));
-            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
-        } else {
-            $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
-        }
+        $roles = Role::getRolesInWhenUpdateUser($role);
 
         return [
             'user' => $user,

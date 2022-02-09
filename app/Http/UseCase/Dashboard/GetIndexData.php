@@ -20,6 +20,11 @@ class GetIndexData
     {
         $user = Auth::user();
 
+        if ($user->role === Role::ADMIN) {
+            $users = User::where('role', '!=', Role::ADMIN)->paginate($this->pagenateNum);
+            return ['users' => $users];
+        }
+
         // グループ会社全員のデータを取得する
         $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
         $users = User::where('role', '!=', Role::ADMIN)
