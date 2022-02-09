@@ -15,9 +15,9 @@ class QuartersTableSeeder extends Seeder
         $seeds = [
             // 全ての会社共通の通年レコードを作成
             [
-                'quarter' => 0,
-                'from' => 1,
-                'to' => 12,
+                'quarter'    => 0,
+                'from'       => 1,
+                'to'         => 12,
                 'company_id' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
