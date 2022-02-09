@@ -23,12 +23,12 @@ class GetCreateData
         $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
         $companyNames = [];
 
-        // 関連会社のアカウントも作成可能
+        // 関連会社に紐付いたアカウントも作成可能
         if ($isMaster) {
             foreach ($companies as $company) {
                 $companyNames[$company->id] = $company->name;
             }
-        // 自身の会社アカウントのみ作成可能
+        // 自身の会社に紐付いたアカウントのみ作成可能
         } else {
             $companyNames[$companyId] = $user->companies->name;
         }
@@ -36,9 +36,9 @@ class GetCreateData
         // 自身の会社の部署データが存在しない場合、まず部署アカウントのみ作成させる
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
-            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
+            $roles = Role::getRolesWhenCreateUserIfNoDepartment($role, $isMaster);
         } else {
-            $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
+            $roles = Role::getRolesWhenCreateUser($role, (bool) $isMaster);
         }
 
         return [
