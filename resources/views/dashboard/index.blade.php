@@ -32,6 +32,7 @@
                                         <tr>
                                             <th>{{ __('models/users.fields.name') }}</th>
                                             <th>{{ __('models/users.fields.role') }}</th>
+                                            <th>{{ __('models/companies.fields.name') }}</th>
                                             <th>{{ __('models/departments.fields.name') }}</th>
                                             <th>{{ __('models/objectives.fields.objective') }}</th>
                                             @can('admin-only')
@@ -46,7 +47,21 @@
                                                     {{ $user->name }}
                                                 </td>
                                                 <td class="align-middle">
+                                                    @if ($user->role == App\Enums\Role::COMPANY)
+                                                        <i class="fa-solid fa-building fa-fw fa-lg"></i>
+                                                    @elseif ($user->role == App\Enums\Role::DEPARTMENT)
+                                                        <i class="fa-solid fa-briefcase fa-fw fa-lg"></i>
+                                                    @elseif ($user->role == App\Enums\Role::MANAGER)
+                                                        <i class="fa-solid fa-user-gear fa-fw fa-lg"></i>
+                                                    @elseif ($user->role == App\Enums\Role::MEMBER)
+                                                        <i class="fa-solid fa-user fa-fw fa-lg"></i>
+                                                    @endif
                                                     {{ App\Enums\Role::getDescription($user->role) }}
+                                                </td>
+                                                <td class="align-middle">
+                                                    @if ($user->role !== App\Enums\Role::COMPANY)
+                                                        {{ $user->companies()->first()->name }}
+                                                    @endif
                                                 </td>
                                                 <td class="align-middle">
                                                     @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))

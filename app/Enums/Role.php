@@ -18,41 +18,46 @@ class Role extends Enum implements LocalizedEnum
     public const MANAGER = 4;
     public const MEMBER = 5;
 
-    public static function getRolesInWhenCreateUser(int $myRole, bool $isMaster = false): array
+    public static function getRolesWhenCreateUser(int $myRole, bool $isMaster = false): array
     {
         $results = [];
 
-        foreach (self::getValues() as $value) {
+        foreach (self::getValues() as $role) {
             // 親会社のみが会社アカウント作成可能
-            if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
-                $results[$value] = self::getLocalizedDescription($value);
+            if (($myRole === self::COMPANY) && ($role === self::COMPANY) && ($isMaster === true)) {
+                $results[$role] = self::getLocalizedDescription($role);
             }
 
-            if ($value > $myRole) {
-                $results[$value] = self::getLocalizedDescription($value);
+            // マネージャはマネージャアカウントも作成可能
+            if (($myRole === self::MANAGER) && ($role === self::MANAGER)) {
+                $results[$role] = self::getLocalizedDescription($role);
+            }
+
+            if ($role > $myRole) {
+                $results[$role] = self::getLocalizedDescription($role);
             }
         }
         return $results;
     }
 
-    public static function getRolesInWhenCreateUserIfNoDepartment(int $myRole, bool $isMaster = false): array
+    public static function getRolesWhenCreateUserIfNoDepartment(int $myRole, bool $isMaster = false): array
     {
         $results = [];
 
-        foreach (self::getValues() as $value) {
+        foreach (self::getValues() as $role) {
             // 親会社のみが会社アカウント作成可能
-            if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
-                $results[$value] = self::getLocalizedDescription($value);
+            if (($myRole === self::COMPANY) && ($role === self::COMPANY) && ($isMaster === true)) {
+                $results[$role] = self::getLocalizedDescription($role);
             }
 
-            if (($value > $myRole) && ($value <= self::DEPARTMENT)) {
-                $results[$value] = self::getLocalizedDescription($value);
+            if (($role > $myRole) && ($role <= self::DEPARTMENT)) {
+                $results[$role] = self::getLocalizedDescription($role);
             }
         }
         return $results;
     }
 
-    public static function getRolesInWhenUpdateUser(int $myRole): array
+    public static function getRolesWhenUpdateUser(int $myRole): array
     {
         $results = [];
 
