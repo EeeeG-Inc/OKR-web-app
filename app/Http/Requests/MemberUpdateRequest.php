@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use Flash;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class DepartmentStoreRequest extends FormRequest
+class MemberUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +29,9 @@ class DepartmentStoreRequest extends FormRequest
             'name' => 'required|string',
             'role' => 'required|integer',
             'company_id' => 'nullable|integer',
-            'department_id' => 'nullable|integer',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'department_id' => 'required|integer',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . Auth::user()->id,
+            'password' => 'nullable|string|min:8',
         ];
     }
 

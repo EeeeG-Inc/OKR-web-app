@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'auth' => [
+        'login' => 'ログイン',
+        'register' => '会社アカウント作成',
+        'verify' => 'メールアドレス認証',
+        'confirm' => 'パスワード（確認用）',
+        'email' => 'パスワード再設定',
+        'reset' => 'パスワード再設定',
+    ],
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],
@@ -15,6 +23,7 @@ return [
     ],
     'user' => [
         'create' => '新規ユーザ作成',
+        'edit' => 'ユーザ編集',
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',

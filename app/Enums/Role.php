@@ -18,35 +18,58 @@ class Role extends Enum implements LocalizedEnum
     public const MANAGER = 4;
     public const MEMBER = 5;
 
-    public static function getRolesInWhenCreateUser(int $myRoleVal, bool $isMaster = false): array
+    public static function getRolesInWhenCreateUser(int $myRole, bool $isMaster = false): array
     {
         $results = [];
 
         foreach (self::getValues() as $value) {
-            if (($myRoleVal === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
+            // 親会社のみが会社アカウント作成可能
+            if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
 
-            if ($value > $myRoleVal) {
+            if ($value > $myRole) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
         }
         return $results;
     }
 
-    public static function getRolesInWhenCreateUserIfNoDepartment(int $myRoleVal, bool $isMaster = false): array
+    public static function getRolesInWhenCreateUserIfNoDepartment(int $myRole, bool $isMaster = false): array
     {
         $results = [];
 
         foreach (self::getValues() as $value) {
-            if (($myRoleVal === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
+            // 親会社のみが会社アカウント作成可能
+            if (($myRole === self::COMPANY) && ($value === self::COMPANY) && ($isMaster === true)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
 
-            if (($value > $myRoleVal) && ($value <= self::DEPARTMENT)) {
+            if (($value > $myRole) && ($value <= self::DEPARTMENT)) {
                 $results[$value] = self::getLocalizedDescription($value);
             }
         }
+        return $results;
+    }
+
+    public static function getRolesInWhenUpdateUser(int $myRole): array
+    {
+        $results = [];
+
+        switch ($myRole) {
+            case Role::COMPANY:
+                $results[Role::COMPANY] = self::getLocalizedDescription(Role::COMPANY);
+                break;
+            case Role::DEPARTMENT:
+                $results[Role::DEPARTMENT] = self::getLocalizedDescription(Role::DEPARTMENT);
+                break;
+            case Role::MEMBER:
+            case Role::MANAGER:
+                $results[Role::MEMBER] = self::getLocalizedDescription(Role::MEMBER);
+                $results[Role::MANAGER] = self::getLocalizedDescription(Role::MANAGER);
+                break;
+        }
+
         return $results;
     }
 }

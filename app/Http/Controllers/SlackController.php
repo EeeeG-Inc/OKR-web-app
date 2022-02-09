@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\UseCase\Slack\GetIndexData;
 use App\Http\UseCase\Slack\GetEditData;
 use App\Http\UseCase\Slack\StoreData;

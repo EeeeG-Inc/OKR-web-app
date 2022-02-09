@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Flash;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CompanyStoreRequest extends FormRequest
@@ -30,5 +31,16 @@ class CompanyStoreRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ];
+    }
+
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator): void {
+            $messages = $validator->errors()->getMessages();
+
+            foreach ($messages as $message) {
+                Flash::error($message[0]);
+            }
+        });
     }
 }

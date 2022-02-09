@@ -7,7 +7,7 @@ use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class StoreData
+class UpdateData
 {
     public function __construct()
     {
@@ -18,24 +18,31 @@ class StoreData
         $user = Auth::user();
 
         try {
-            $departmentId = Department::create([
+            Department::find($user->department_id)->update([
                 'name' => $input['name'],
-                'company_id' => $user->company_id,
-            ])->id;
-            User::create([
+            ]);
+
+            $data = [
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $input['company_id'] ?? $user->company_id,
-                'department_id' => $departmentId,
-                'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-            ]);
+            ];
+
+            if (!is_null($input['email'])) {
+                $data['email'] = $input['email'];
+            }
+
+            if (!is_null($input['password'])) {
+                $data['password'] = Hash::make($input['password']);
+            }
+
+            $user->update($data);
         } catch (\Exception $exc) {
             Flash::error($exc->getMessage());
             return false;
         }
 
-        Flash::success(__('common/message.department.store'));
+        Flash::success(__('common/message.department.update'));
         return true;
     }
 }
