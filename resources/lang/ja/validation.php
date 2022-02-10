@@ -131,6 +131,7 @@ return [
     'not_found_quarter' => '四半期の新規作成を行う必要があります',
     'not_found_slack_webhook' => 'Slack の Webhook URL を登録すると、全員の OKR 更新が通知されるようになります',
     'invalid_company_id' => '不正な会社IDです',
+    'password_format' => 'パスワードは 8 文字以上 32 文字以下、小文字・大文字・数字それぞれ 1 文字以上含めるようにしてください',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
@@ -140,6 +141,7 @@ return [
         'name' => __('models/users.fields.name'),
         'email' => __('models/users.fields.email'),
         'password' => __('models/users.fields.password'),
+        'password_confirmation' => __('common/label.user.create.password_confirmation'),
         'department_id' => __('models/departments.fields.name'),
         'objective' => __('models/objectives.fields.objective'),
         'key_result1' => __('models/key-results.fields.key_result') . '1',

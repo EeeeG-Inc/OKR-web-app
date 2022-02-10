@@ -78,8 +78,18 @@
                                             <div class="col-md-10 mb-3">
                                                 {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
                                                 <small id="passwordHelpBlock" class="form-text text-muted">
-                                                    パスワードは、文字と数字を含めて8～20文字で、空白、特殊文字、絵文字を含むことはできません。
+                                                    {{ __('common/message.user.password') }}
                                                 </small>
+                                            </div>
+                                        </div>
+
+                                        {{-- パスワード (確認用) --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('password_confirmation', __('common/label.user.edit.password_confirmation')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-3">
+                                                {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password_confirmation']) }}
                                             </div>
                                         </div>
 

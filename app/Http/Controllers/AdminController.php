@@ -19,7 +19,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $userId
+     * @param Request $request
      * @return View
      */
     public function edit(Request $request): View

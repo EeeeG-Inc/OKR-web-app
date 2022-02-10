@@ -28,7 +28,8 @@ class AdminUpdateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'nullable|string|email|max:255|unique:users,email,' . Auth::user()->id,
-            'password' => 'nullable|string|min:8',
+            'password' => 'nullable|string|min:8|confirmed|passwordFormat',
+            'password_confirmation' => 'nullable|string|min:8',
         ];
     }
 
