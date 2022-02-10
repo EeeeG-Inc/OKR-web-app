@@ -113,8 +113,10 @@
                                     </tbody>
                                 </table>
 
-                                <p class="d-flex justify-content-center"> {{ $users->links() }} </p>
-
+                                <p class="d-flex justify-content-center">
+                                    {{-- 検索用 GET パラメータをページネーションリンクに付与 --}}
+                                    {{ $users->appends(request()->input())->links()}}
+                                </p>
                             </div>
                         </div>
                     </div>

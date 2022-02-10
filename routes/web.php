@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::resources([
-        'dashboard' => DashboardController::class,
         'key_result' => KeyResultController::class,
         'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,
@@ -53,7 +52,9 @@ Route::middleware('auth')->group(function (): void {
     });
 
     Route::prefix('dashboard')->group(function (): void {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+        Route::get('search', [DashboardController::class, 'index'])->name('dashboard.links');
     });
 
     Route::prefix('slack')->group(function (): void {
