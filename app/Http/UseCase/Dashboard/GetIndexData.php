@@ -2,35 +2,38 @@
 namespace App\Http\UseCase\Dashboard;
 
 use App\Models\Company;
-use App\Models\User;
 use App\Enums\Role;
+use App\Services\Dashboard\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
-    /** @var int */
-    private $pagenateNum;
+    /** @var UserService */
+    private $userService;
 
-    public function __construct()
+    public function __construct(UserService $userService)
     {
-        $this->pagenateNum = 15;
+        $this->userService = $userService;
     }
 
-    public function __invoke(): array
+    public function __invoke(array $input = []): array
     {
         $user = Auth::user();
 
         if ($user->role === Role::ADMIN) {
-            $users = User::where('role', '!=', Role::ADMIN)->paginate($this->pagenateNum);
-            return ['users' => $users];
+            $companies = Company::get()->toArray();
+            return [
+                'users' => $this->userService->getUsersForAdmin($input),
+                'companyIdsChecks' => $this->userService->getCompanyIdsChecksforAdmin($input, $companies),
+                'companies' => $companies,
+            ];
         }
 
-        // グループ会社全員のデータを取得する
-        $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
-        $users = User::where('role', '!=', Role::ADMIN)
-            ->whereIn('company_id', $companyIds)
-            ->paginate($this->pagenateNum);
-
-        return ['users' => $users];
+        $companies = Company::where('company_group_id', $user->companies->company_group_id)->get()->toArray();
+        return [
+            'users' => $this->userService->getUsers($user, $input),
+            'companyIdsChecks' => $this->userService->getCompanyIdsChecks($input, $companies),
+            'companies' => $companies,
+        ];
     }
 }
