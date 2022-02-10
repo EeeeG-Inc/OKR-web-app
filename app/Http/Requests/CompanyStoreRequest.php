@@ -29,7 +29,8 @@ class CompanyStoreRequest extends FormRequest
             'role' => 'required|integer',
             'department_id' => 'nullable|integer',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed|passwordFormat',
+            'password_confirmation' => 'required|string|min:8',
         ];
     }
 
