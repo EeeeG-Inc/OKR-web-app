@@ -5,6 +5,46 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            {{-- 検索 --}}
+            <div class="card mb-4">
+                <div class="card-header toggle-mark">
+                    <a data-toggle="collapse" href="#search-item" class="collapsed text-decoration-none">{{ __('common/title.objective.search') }}</a>
+                </div>
+                <div class="collapse" id="search-item">
+                    <div class="card-body">
+                        <div class="bg-gray-100">
+                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    <div class="form">
+                                        {{ Form::open(['url' => route('objective.search')]) }}
+                                        {{ Form::hidden('user_id', $user->id) }}
+
+                                        {{--年度--}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('year', __('models/objectives.fields.year')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- 検索ボタン --}}
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 text-right">
+                                                {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
+                                            </div>
+                                        </div>
+
+                                        {{ Form::close() }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">{{ __('common/title.objective.index', ['name' => $user->name]) }}</div>
                 <div class="card-body">
@@ -12,16 +52,6 @@
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
 
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-
-                                {{-- 検索: 未実装 --}}
-                                {{-- <div class="form" style="text-align: center">
-                                    {{ Form::open(['url' => route('objective.search'), 'files' => true]) }}
-                                    {{ Form::token() }}
-                                    {{ Form::label('objective', __('models/objectives.fields.objective')) }}
-                                    {{ Form::text('objective', null) }}
-                                    {{ Form::submit(__('common/action.search'), ['class'=>'px-2 py-1 rounded btn btn-secondary']) }}
-                                    {{ Form::close() }}
-                                </div> --}}
 
                                 @include('flash::message')
 
@@ -79,7 +109,10 @@
                                     </tbody>
                                 </table>
 
-                                <p class="d-flex justify-content-center"> {{ $objectives->links() }} </p>
+                                <p class="d-flex justify-content-center">
+                                    {{-- 検索用 GET パラメータをページネーションリンクに付与 --}}
+                                    {{ $objectives->appends(request()->input())->links()}}
+                                </p>
 
                             </div>
                         </div>

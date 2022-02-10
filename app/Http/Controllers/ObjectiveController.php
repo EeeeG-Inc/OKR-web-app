@@ -34,14 +34,14 @@ class ObjectiveController extends Controller
     /**
      * Search listing of the resource.
      *
-     * @param ObjectiveSearchRequest $request 検索 Keyword
+     * @param ObjectiveSearchRequest $request
+     * @param GetIndexData $case
      * @return View
      */
-    public function search(ObjectiveSearchRequest $request)
+    public function search(ObjectiveSearchRequest $request, GetIndexData $case)
     {
-        // $input = $request->validated();
-        $objectives = Objective::paginate(15);
-        return view('objective.index', compact('objectives'));
+        $input = $request->validated();
+        return view('objective.index', $case($input));
     }
 
     /**

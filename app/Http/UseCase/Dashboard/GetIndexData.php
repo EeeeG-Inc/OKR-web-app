@@ -3,17 +3,17 @@ namespace App\Http\UseCase\Dashboard;
 
 use App\Models\Company;
 use App\Enums\Role;
-use App\Services\Dashboard\UserService;
+use App\Services\Dashboard\SearchService;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
-    /** @var UserService */
-    private $userService;
+    /** @var SearchService */
+    private $searchService;
 
-    public function __construct(UserService $userService)
+    public function __construct(SearchService $searchService)
     {
-        $this->userService = $userService;
+        $this->searchService = $searchService;
     }
 
     public function __invoke(array $input = []): array
@@ -23,16 +23,16 @@ class GetIndexData
         if ($user->role === Role::ADMIN) {
             $companies = Company::get()->toArray();
             return [
-                'users' => $this->userService->getUsersForAdmin($input),
-                'companyIdsChecks' => $this->userService->getCompanyIdsChecksforAdmin($input, $companies),
+                'users' => $this->searchService->getUsersForAdmin($input),
+                'companyIdsChecks' => $this->searchService->getCompanyIdsChecksforAdmin($input, $companies),
                 'companies' => $companies,
             ];
         }
 
         $companies = Company::where('company_group_id', $user->companies->company_group_id)->get()->toArray();
         return [
-            'users' => $this->userService->getUsers($user, $input),
-            'companyIdsChecks' => $this->userService->getCompanyIdsChecks($input, $companies),
+            'users' => $this->searchService->getUsers($user, $input),
+            'companyIdsChecks' => $this->searchService->getCompanyIdsChecks($input, $companies),
             'companies' => $companies,
         ];
     }

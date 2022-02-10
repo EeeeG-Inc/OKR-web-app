@@ -24,6 +24,7 @@ return [
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集',
+        'search' => '検索条件',
     ],
     'user' => [
         'create' => '新規ユーザ作成',

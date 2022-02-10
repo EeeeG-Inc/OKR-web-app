@@ -7,7 +7,7 @@ use App\Models\User;
 use Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class UserService
+class SearchService
 {
     /** @var int */
     private $pagenateNum;

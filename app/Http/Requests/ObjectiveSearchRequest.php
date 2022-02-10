@@ -24,7 +24,8 @@ class ObjectiveSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'objective' => 'nullable|string',
+            'user_id' => 'nullable|integer',
+            'year' => 'nullable|integer',
         ];
     }
 }

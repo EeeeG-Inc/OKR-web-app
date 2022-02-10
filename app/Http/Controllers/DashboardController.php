@@ -11,12 +11,14 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param DashboardSearchRequest $request
      * @param GetIndexData $case
      * @return View
      */
-    public function index(GetIndexData $case)
+    public function index(DashboardSearchRequest $request, GetIndexData $case)
     {
-        return view('dashboard.index', $case());
+        $input = $request->validated();
+        return view('dashboard.index', $case($input));
     }
 
     /**
