@@ -24,7 +24,8 @@ class DashboardSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable|string',
+            'company_ids' => 'nullable|array',
+            'company_ids.*' => 'int',
         ];
     }
 }

@@ -14,6 +14,7 @@ return [
     ],
     'dashboard' => [
         'index' => 'ダッシュボード',
+        'search' => '検索条件',
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',
