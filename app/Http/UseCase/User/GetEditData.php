@@ -3,8 +3,6 @@ namespace App\Http\UseCase\User;
 
 use App\Enums\Role;
 use App\Models\Company;
-use App\Models\Department;
-use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetEditData
