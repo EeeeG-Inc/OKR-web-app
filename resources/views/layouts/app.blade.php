@@ -83,6 +83,12 @@
                                                 </a>
                                             @endcan
 
+                                            @can('admin-only')
+                                                <a class="dropdown-item" href="{{ route('admin.edit') }}">
+                                                    {{ __('common/nav.admin.edit') }}
+                                                </a>
+                                            @endcan
+
                                             @can('member-higher')
                                                 <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}">
                                                     {{ __('common/nav.user.edit') }}

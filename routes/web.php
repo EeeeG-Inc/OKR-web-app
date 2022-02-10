@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function (): void {
 
     Route::prefix('admin')->group(function (): void {
         Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');
+        Route::get('edit', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('update', [AdminController::class, 'update'])->name('admin.update');
     });
 
     Route::prefix('objective')->group(function (): void {
@@ -66,7 +68,6 @@ Route::middleware('auth')->group(function (): void {
     // 編集は可能
     Route::prefix('user')->group(function (): void {
         Route::get('edit/{user_id}', [UserController::class, 'edit'])->name('user.edit');
-        Route::put('update', [UserController::class, 'update'])->name('user.update');
     });
 
     Route::prefix('company')->group(function (): void {
