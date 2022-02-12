@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\KeyResultController;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::resources([
+        'company_group' => CompanyGroupController::class,
         'key_result' => KeyResultController::class,
         'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,

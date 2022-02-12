@@ -23,4 +23,12 @@ return [
             'password_confirmation' => 'パスワード (確認用)',
         ],
     ],
+    'company_group' => [
+        'index' => [
+            'type' => '種別',
+            'is_master' => '種別変更',
+            'parent' => '親会社',
+            'child' => '子会社',
+        ]
+    ]
 ];
