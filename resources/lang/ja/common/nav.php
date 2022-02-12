@@ -4,6 +4,9 @@ return [
     'admin' => [
         'edit' => 'システム管理者編集',
     ],
+    'company_group' => [
+        'index' => '関連会社一覧',
+    ],
     'dashboard' => [
         'index' => 'ダッシュボード',
     ],

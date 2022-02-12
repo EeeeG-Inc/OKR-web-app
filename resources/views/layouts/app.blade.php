@@ -95,6 +95,12 @@
                                                 </a>
                                             @endcan
 
+                                            @can('member-higher')
+                                                <a class="dropdown-item" href="{{ route('company_group.index') }}">
+                                                    {{ __('common/nav.company_group.index') }}
+                                                </a>
+                                            @endcan
+
                                             @can('company-higher')
                                                 <a class="dropdown-item" href="{{ route('slack.index') }}">
                                                     {{ __('common/nav.slack.index') }}

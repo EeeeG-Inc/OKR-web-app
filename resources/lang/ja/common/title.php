@@ -16,6 +16,9 @@ return [
         'index' => 'ダッシュボード',
         'search' => '検索条件',
     ],
+    'company_group' => [
+        'index' => '関連会社一覧',
+    ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',
     ],
