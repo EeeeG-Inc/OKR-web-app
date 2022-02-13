@@ -37,10 +37,10 @@ Route::middleware('auth')->group(function (): void {
     Route::resources([
         'company_group' => CompanyGroupController::class,
         'key_result' => KeyResultController::class,
-        'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,
     ]);
 
+    Route::resource('objective', ObjectiveController::class, ['except' => ['show']]);
     Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
 
     Route::prefix('admin')->group(function (): void {

@@ -2,29 +2,37 @@
 
 namespace App\Services\CompanyGroup;
 
-use App\Models\Company;
-use App\Models\CompanyGroup;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\CompanyGroupRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Repositories\CompanyGroupRepository;
 use DB;
-use Flash;
 
 class UpdateService
 {
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
 
-    public function __construct()
+    /** @var CompanyGroupRepositoryInterface */
+    private $companyGroupRepo;
+
+    public function __construct(CompanyRepositoryInterface $companyRepo = null, CompanyGroupRepositoryInterface $companyGroupRepo = null)
     {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
+        $this->companyGroupRepo = $companyGroupRepo ?? new CompanyGroupRepository();
     }
 
-    public function update(array $input): void
+    public function exchangeIsMaster(array $input): void
     {
-        $company = Company::find($input['company_id']);
+        $company = $this->companyRepo->find($input['company_id']);
         $oldCompanyGroupId = $company->company_group_id;
-        $companies = Company::where('company_group_id', $oldCompanyGroupId)->get();
+        $companies = $this->companyRepo->getByCompanyGroupId($oldCompanyGroupId);
 
         DB::beginTransaction();
 
         try {
             // 新しい company_groups のレコードを追加
-            $newCompanyGroupId = CompanyGroup::create([
+            $newCompanyGroupId = $this->companyGroupRepo->create([
                 'name' => $company->name,
             ])->id;
 
@@ -44,7 +52,8 @@ class UpdateService
             }
 
             // 古い company_groups のレコードを削除
-            CompanyGroup::find($oldCompanyGroupId)->delete();
+            $companyGroup = $this->companyGroupRepo->find($oldCompanyGroupId);
+            $this->companyGroupRepo->delete($companyGroup);
         } catch (\Exception $exc) {
             DB::rollBack();
         }

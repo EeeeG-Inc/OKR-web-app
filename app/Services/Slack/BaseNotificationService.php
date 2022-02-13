@@ -4,13 +4,23 @@ namespace App\Services\Slack;
 
 use App\Models\User;
 use App\Models\Slack;
+use App\Repositories\Interfaces\SlackRepositoryInterface;
+use App\Repositories\SlackRepository;
 use GuzzleHttp\Client;
 
 abstract class BaseNotificationService
 {
+    /** @var SlackRepositoryInterface */
+    private $slackRepo;
+
+    public function __construct(SlackRepositoryInterface $slackRepo = null)
+    {
+        $this->slackRepo = $slackRepo ?? new SlackRepository();
+    }
+
     public function send(User $user, string $text): bool
     {
-        $slack = Slack::where('company_id', $user->company_id)->first();
+        $slack = $this->slackRepo->findByCompanyId($user->company_id);
 
         if (!$this->canSend($slack)) {
             return false;
@@ -29,7 +39,7 @@ abstract class BaseNotificationService
     private function canSend(?Slack $slack): bool
     {
         /** @var ?string */
-        $webhook = $slack->webhook;
+        $webhook = $slack->webhook ?? null;
 
         if (is_null($webhook)) {
             return false;

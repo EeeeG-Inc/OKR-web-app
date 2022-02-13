@@ -6,8 +6,11 @@ use App\Http\UseCase\Department\StoreData;
 use App\Http\UseCase\Department\UpdateData;
 use App\Http\Requests\DepartmentStoreRequest;
 use App\Http\Requests\DepartmentUpdateRequest;
-use App\Models\Company;
 use App\Models\Department;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Repositories\DepartmentRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,6 +18,18 @@ use Illuminate\Http\RedirectResponse;
 
 class DepartmentController extends Controller
 {
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    /** @var DepartmentRepositoryInterface */
+    private $departmentRepo;
+
+    public function __construct(CompanyRepositoryInterface $companyRepo = null, DepartmentRepositoryInterface $departmentRepo = null)
+    {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
+        $this->departmentRepo = $departmentRepo ?? new DepartmentRepository();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,13 +74,13 @@ class DepartmentController extends Controller
         $requestCompanyId = $request->company_id;
 
         // ログインユーザの関連会社じゃなければエラー
-        if (Company::find($companyId)->company_group_id !== Company::find($requestCompanyId)->company_group_id) {
+        if ($this->companyRepo->find($companyId)->company_group_id !== $this->companyRepo->find($requestCompanyId)->company_group_id) {
             return response()->json([
                 'message' => __('validation.invalid_company_id'),
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $departments = Department::select(['id', 'name'])->where('company_id', '=', $requestCompanyId)->get()->toArray();
+        $departments = $this->departmentRepo->getByCompanyId($requestCompanyId)->only(['id', 'name'])->toArray();
 
         return response()->json([
             'departments' => $departments,

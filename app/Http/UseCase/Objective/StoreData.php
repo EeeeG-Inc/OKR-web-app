@@ -1,19 +1,33 @@
 <?php
 namespace App\Http\UseCase\Objective;
 
-use App\Models\KeyResult;
-use App\Models\Objective;
+use App\Repositories\Interfaces\KeyResultRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\KeyResultRepository;
+use App\Repositories\ObjectiveRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Slack\OkrNotificationService;
 
 class StoreData
 {
+    /** @var OkrNotificationService */
     private $notifier;
 
-    public function __construct(OkrNotificationService $notifier)
-    {
+    /** @var KeyResultRepositoryInterface */
+    private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
+    private $objectiveRepo;
+
+    public function __construct(
+        OkrNotificationService $notifier,
+        KeyResultRepositoryInterface $keyResultRepo = null,
+        ObjectiveRepositoryInterface $objectiveRepo = null
+    ) {
         $this->notifier = $notifier;
+        $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
+        $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
     }
 
     public function __invoke(array $input): bool
@@ -32,7 +46,7 @@ class StoreData
         ];
 
         try {
-            $objective = Objective::create([
+            $objective = $this->objectiveRepo->create([
                 'user_id' => $input['user_id'],
                 'year' => $input['year'],
                 'quarter_id' => $input['quarter_id'],
@@ -44,7 +58,7 @@ class StoreData
                 if (empty($keyResult)) {
                     continue;
                 }
-                KeyResult::create([
+                $this->keyResultRepo->create([
                     'user_id' => $input['user_id'],
                     'objective_id' => $objective->id,
                     'key_result' => $keyResult,

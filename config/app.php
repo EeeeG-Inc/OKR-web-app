@@ -167,6 +167,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\CustomValidationServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,

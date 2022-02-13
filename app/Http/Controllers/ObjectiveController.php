@@ -12,7 +12,6 @@ use App\Http\UseCase\Objective\UpdateData;
 use App\Http\UseCase\Objective\GetEditData;
 use App\Http\UseCase\Objective\GetIndexData;
 use App\Http\UseCase\Objective\GetCreateData;
-use App\Models\Objective;
 use Illuminate\View\View;
 use \Illuminate\Http\RedirectResponse;
 
@@ -71,21 +70,6 @@ class ObjectiveController extends Controller
         }
         return redirect()->route('objective.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @param int $objectiveId
-     * @return View
-     */
-    // public function show(int $id)
-    // {
-    //     $user = User::find($userId);
-    //     $okrs = Okr::where('user_id', $userId)->get();
-
-    //     return view('okr.show', compact('user', 'okrs'));
-    // }
 
     /**
      * Show the form for editing the specified resource.

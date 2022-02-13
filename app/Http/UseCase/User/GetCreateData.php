@@ -2,25 +2,35 @@
 namespace App\Http\UseCase\User;
 
 use App\Enums\Role;
-use App\Models\Company;
-use App\Models\Department;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Repositories\DepartmentRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    public function __construct()
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    /** @var DepartmentRepositoryInterface */
+    private $departmentRepo;
+
+    public function __construct(CompanyRepositoryInterface $companyRepo = null, DepartmentRepositoryInterface $departmentRepo = null)
     {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
+        $this->departmentRepo = $departmentRepo ?? new DepartmentRepository();
     }
 
     public function __invoke(): array
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $departments = Department::where('company_id', $companyId)->get();
+        $departments = $this->departmentRepo->getByCompanyId($companyId);
         $isMaster = (bool) $user->companies->is_master;
         $role = $user->role;
-        $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
+        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id);
         $companyNames = [];
 
         // 関連会社に紐付いたアカウントも作成可能

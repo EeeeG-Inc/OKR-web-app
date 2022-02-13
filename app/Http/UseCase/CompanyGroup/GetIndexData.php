@@ -3,14 +3,18 @@
 namespace App\Http\UseCase\CompanyGroup;
 
 use App\Enums\Role;
-use App\Models\Company;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\CompanyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
 
-    public function __construct()
+    public function __construct(CompanyRepositoryInterface $companyRepo = null)
     {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
     public function __invoke(): array
@@ -20,7 +24,7 @@ class GetIndexData
         }
 
         $companyGroupId = Auth::user()->companies()->first()->company_group_id;
-        $companies = Company::where('company_group_id', $companyGroupId)->get();
+        $companies = $this->companyRepo->getByCompanyGroupId($companyGroupId);
 
         return [
             'companies' => $companies,

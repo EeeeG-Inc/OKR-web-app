@@ -1,21 +1,26 @@
 <?php
 namespace App\Http\UseCase\Quarter;
 
-use App\Models\Quarter;
+use App\Repositories\Interfaces\QuarterRepositoryInterface;
+use App\Repositories\QuarterRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
-    public function __construct()
+    /** @var QuarterRepositoryInterface */
+    private $quarterRepo;
+
+    public function __construct(QuarterRepositoryInterface $quarterRepo = null)
     {
+        $this->quarterRepo = $quarterRepo ?? new QuarterRepository();
     }
 
     public function __invoke(): array
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $quarters = Quarter::where('company_id', $companyId)->get();
+        $quarters = $this->quarterRepo->getByCompanyId($companyId);
         $canCreate = false;
 
         if ($quarters->isEmpty()) {

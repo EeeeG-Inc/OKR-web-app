@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\ObjectiveRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -161,7 +162,7 @@ class User extends Authenticatable
      */
     public function getHasObjectiveAttribute(): bool
     {
-        $objective = Objective::where('user_id', $this->id)->first();
-        return $objective === null ? false : true;
+        $objectiveRepo = new ObjectiveRepository();
+        return $objectiveRepo->getByUserId($this->id)->count() === 0 ? false : true;
     }
 }

@@ -1,16 +1,20 @@
 <?php
 namespace App\Http\UseCase\Company;
 
-use App\Models\Company;
-use App\Models\User;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\CompanyRepository;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {
-    public function __construct()
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    public function __construct(CompanyRepositoryInterface $companyRepo = null)
     {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
     public function __invoke(array $input): bool
@@ -18,7 +22,7 @@ class UpdateData
         $user = Auth::user();
 
         try {
-            Company::find($user->company_id)->update([
+            $this->companyRepo->find($user->company_id)->update([
                 'name' => $input['name'],
             ]);
 
