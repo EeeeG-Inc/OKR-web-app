@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|KeyResult onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|KeyResult withTrashed()
  * @method static \Illuminate\Database\Query\Builder|KeyResult withoutTrashed()
+ * @property string|null $remarks 備考
+ * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereRemarks($value)
  */
 class KeyResult extends Model
 {
