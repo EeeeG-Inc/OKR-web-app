@@ -80,7 +80,7 @@ class DepartmentController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $departments = $this->departmentRepo->getByCompanyId($requestCompanyId)->only(['id', 'name'])->toArray();
+        $departments = $this->departmentRepo->getByCompanyId($requestCompanyId)->toArray();
 
         return response()->json([
             'departments' => $departments,
