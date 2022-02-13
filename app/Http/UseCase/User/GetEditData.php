@@ -2,13 +2,18 @@
 namespace App\Http\UseCase\User;
 
 use App\Enums\Role;
-use App\Models\Company;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\CompanyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
-    public function __construct()
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    public function __construct(CompanyRepositoryInterface $companyRepo = null)
     {
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
     public function __invoke(): array
@@ -16,7 +21,7 @@ class GetEditData
         $user = Auth::user();
         $companyId = $user->company_id;
         $role = $user->role;
-        $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
+        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id);
         $companyNames = [];
 
         foreach ($companies as $company) {

@@ -3,18 +3,31 @@
 namespace App\Services\OKR;
 
 use App\Models\KeyResult;
-use App\Models\Objective;
-use Exception;
+use App\Repositories\Interfaces\KeyResultRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\KeyResultRepository;
+use App\Repositories\ObjectiveRepository;
 
 class UpdateService
 {
+    /** @var int */
     private $count;
+
+    /** @var int */
     private $totalScore;
 
-    public function __construct()
+    /** @var KeyResultRepositoryInterface */
+    private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
+    private $objectiveRepo;
+
+    public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)
     {
         $this->count = 0;
         $this->totalScore = 0;
+        $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
+        $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
     }
 
     public function update(array $input, int $objectiveId): void
@@ -22,7 +35,7 @@ class UpdateService
         $keyResults = $this->createKeyResultsArray($input);
 
         foreach ($keyResults as $id => $keyResult) {
-            $keyResultModel = KeyResult::find($id);
+            $keyResultModel = $this->keyResultRepo->find($id);
 
             if ($this->isEmptyOnlyKeyResult($keyResult)) {
                 throw new \Exception(__('validation.is_empty_only_key_result'));
@@ -64,7 +77,7 @@ class UpdateService
 
     private function createKeyResult(array $input, int $objectiveId, array $keyResult): void
     {
-        KeyResult::create([
+        $this->keyResultRepo->create([
             'user_id' => $input['user_id'],
             'objective_id' => $objectiveId,
             'key_result' => $keyResult['key_result'],
@@ -86,7 +99,7 @@ class UpdateService
 
     private function updateObjective(array $input, int $objectiveId): void
     {
-        Objective::find($objectiveId)->update([
+        $this->objectiveRepo->update($objectiveId, [
             'user_id' => $input['user_id'],
             'year' => $input['year'],
             'quarter_id' => $input['quarter_id'],

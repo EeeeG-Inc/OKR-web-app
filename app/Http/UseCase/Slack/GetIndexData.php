@@ -1,21 +1,26 @@
 <?php
 namespace App\Http\UseCase\Slack;
 
-use App\Models\Slack;
+use App\Repositories\Interfaces\SlackRepositoryInterface;
+use App\Repositories\SlackRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
-    public function __construct()
+    /** @var SlackRepositoryInterface */
+    private $slackRepo;
+
+    public function __construct(SlackRepositoryInterface $slackRepo = null)
     {
+        $this->slackRepo = $slackRepo ?? new SlackRepository();
     }
 
     public function __invoke(): array
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $slack = Slack::where('company_id', $companyId)->first();
+        $slack = $this->slackRepo->findByCompanyId($companyId);
         $canCreate = false;
 
         if (is_null($slack)) {

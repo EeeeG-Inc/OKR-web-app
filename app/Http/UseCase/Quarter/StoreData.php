@@ -1,14 +1,19 @@
 <?php
 namespace App\Http\UseCase\Quarter;
 
-use App\Models\Quarter;
+use App\Repositories\Interfaces\QuarterRepositoryInterface;
+use App\Repositories\QuarterRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class StoreData
 {
-    public function __construct()
+    /** @var QuarterRepositoryInterface */
+    private $quarterRepo;
+
+    public function __construct(QuarterRepositoryInterface $quarterRepo = null)
     {
+        $this->quarterRepo = $quarterRepo ?? new QuarterRepository();
     }
 
     public function __invoke(array $input): bool
@@ -17,7 +22,7 @@ class StoreData
 
         $i = 1;
         while ($i < 5) {
-            Quarter::create([
+            $this->quarterRepo->create([
                 'quarter' => $i,
                 'from' => $input[$i . 'q_from'],
                 'to' => $input[$i . 'q_to'],

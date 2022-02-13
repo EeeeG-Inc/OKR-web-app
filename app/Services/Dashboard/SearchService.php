@@ -4,6 +4,8 @@ namespace App\Services\Dashboard;
 
 use App\Enums\Role;
 use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -12,16 +14,20 @@ class SearchService
     /** @var int */
     private $pagenateNum;
 
-    public function __construct()
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo = null)
     {
         $this->pagenateNum = 15;
+        $this->userRepo = $userRepo ?? new UserRepository();
     }
 
     public function getUsersForAdmin(array $input): LengthAwarePaginator
     {
         if (is_null($input['company_ids'] ?? null)) {
             // すべてのアカウントを取得する
-            return User::where('role', '!=', Role::ADMIN)->paginate($this->pagenateNum);
+            return $this->userRepo->paginate($this->pagenateNum);
         }
         return $this->getRequestedUsers($input);
     }
@@ -30,9 +36,7 @@ class SearchService
     {
         if (is_null($input['company_ids'] ?? null)) {
             // 自身が所属する会社アカウントのみ取得する
-            return User::where('role', '!=', Role::ADMIN)
-                ->where('company_id', $user->company_id)
-                ->paginate($this->pagenateNum);
+            return $this->userRepo->paginateByCompanyId($this->pagenateNum, $user->company_id);
         }
         return $this->getRequestedUsers($input);
     }
@@ -58,7 +62,9 @@ class SearchService
         if (is_null($input['company_ids'] ?? null)) {
             // 自身が所属する会社アカウントのみチェック
             foreach ($companies as $company) {
-                if ($company['id'] === Auth::user()->company_id) {
+                /** @var User */
+                $user = Auth::user();
+                if ($company['id'] === $user->company_id) {
                     $companyIdsChecks[$company['id']] = true;
                 } else {
                     $companyIdsChecks[$company['id']] = false;
@@ -78,9 +84,7 @@ class SearchService
         }
 
         // リクエストされた会社に所属するアカウントを取得する
-        return User::where('role', '!=', Role::ADMIN)
-            ->whereIn('company_id', $companyIds)
-            ->paginate($this->pagenateNum);
+        return $this->userRepo->paginateByCompanyIds($this->pagenateNum, $companyIds);
     }
 
     private function getRequestedCompanyIdsChecks(array $input, array $companies): array

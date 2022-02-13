@@ -2,9 +2,12 @@
 namespace App\Http\UseCase\Objective;
 
 use App\Enums\Priority;
-use App\Models\KeyResult;
-use App\Models\Objective;
-use App\Models\Quarter;
+use App\Repositories\Interfaces\KeyResultRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;;
+use App\Repositories\Interfaces\QuarterRepositoryInterface;
+use App\Repositories\KeyResultRepository;
+use App\Repositories\ObjectiveRepository;
+use App\Repositories\QuarterRepository;
 use App\Services\OKR\ScoreService;
 use App\Services\YMD\YearService;
 use App\Services\Quarter\ControlFieldsService;
@@ -12,23 +15,46 @@ use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
+    /** @var YearService */
     private $yearService;
+
+    /** @var ControlFieldsService */
     private $controlFieldsService;
+
+    /** @var ScoreService */
     private $scoreService;
 
-    public function __construct(YearService $yearService, ControlFieldsService $controlFieldsService, ScoreService $scoreService)
-    {
+    /** @var KeyResultRepositoryInterface */
+    private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
+    private $objectiveRepo;
+
+    /** @var QuarterRepositoryInterface */
+    private $quarterRepo;
+
+    public function __construct(
+        YearService $yearService,
+        ControlFieldsService $controlFieldsService,
+        ScoreService $scoreService,
+        KeyResultRepositoryInterface $keyResultRepo = null,
+        ObjectiveRepositoryInterface $objectiveRepo = null,
+        QuarterRepositoryInterface $quarterRepo = null
+    ) {
         $this->yearService = $yearService;
         $this->controlFieldsService = $controlFieldsService;
         $this->scoreService = $scoreService;
+        $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
+        $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
+        $this->quarterRepo = $quarterRepo ?? new QuarterRepository();
     }
 
     public function __invoke(int $objectiveId): array
     {
         $user = Auth::user();
-        $quarters = Quarter::where('company_id', $user->companies->id)->orderBy('quarter', 'asc')->get();
-        $objective = Objective::find($objectiveId);
-        $keyResluts = KeyResult::where('objective_id', $objectiveId)->get();
+        $quarters = $this->quarterRepo->getByCompanyId($user->companies->id);
+        $objective = $this->objectiveRepo->find($objectiveId);
+        $keyResluts = $this->keyResultRepo->getByObjectiveId($objectiveId);
         $year = $objective->year;
 
         return [

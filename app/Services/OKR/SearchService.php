@@ -6,6 +6,12 @@ use App\Enums\Role;
 use App\Models\User;
 use App\Models\Objective;
 use App\Models\Quarter;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\Interfaces\QuarterRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\ObjectiveRepository;
+use App\Repositories\QuarterRepository;
+use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -15,13 +21,29 @@ class SearchService
     /** @var int */
     private $pagenateNum;
 
-    public function __construct()
-    {
+    /** @var ObjectiveRepositoryInterface */
+    private $objectiveRepo;
+
+    /** @var QuarterRepositoryInterface */
+    private $quarterRepo;
+
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    public function __construct(
+        ObjectiveRepositoryInterface $objectiveRepo = null,
+        QuarterRepositoryInterface $quarterRepo = null,
+        UserRepositoryInterface $userRepo = null
+    ) {
         $this->pagenateNum = 15;
+        $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
+        $this->quarterRepo = $quarterRepo ?? new QuarterRepository();
+        $this->userRepo = $userRepo ?? new UserRepository();
     }
 
     public function getObjectives(array $input, int $userId): LengthAwarePaginator
     {
+        // FIXME: Repository に定義
         $builder = Objective::join('quarters', 'objectives.quarter_id', '=', 'quarters.id')
             ->where('user_id', $userId);
 
@@ -44,15 +66,15 @@ class SearchService
         switch ($user->role) {
             case Role::DEPARTMENT:
                 $company = $user->companies()->first();
-                $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+                $companyUser = $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
                 $departmentUser = null;
                 break;
             case Role::MANAGER:
             case Role::MEMBER:
                 $company = $user->companies()->first();
-                $companyUser = User::where('company_id', $company->id)->where('name', $company->name)->first();
+                $companyUser = $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
                 $department = $user->departments()->first();
-                $departmentUser = User::where('department_id', $department->id)->where('name', $department->name)->first();
+                $departmentUser = $this->userRepo->getDepartmentUserByCompanyIdAndName($department->id, $department->name)->first();
                 break;
         }
 
@@ -65,7 +87,7 @@ class SearchService
     public function getUserInfo(array $input): array
     {
         if (array_key_exists('user_id', $input)) {
-            $user = User::find($input['user_id']);
+            $user = $this->userRepo->find($input['user_id']);
             $isLoginUser = ($user->id === Auth::id()) ? true : false;
         } else {
             $user = Auth::user();
@@ -80,30 +102,24 @@ class SearchService
 
     public function getYears(int $userId): array
     {
-        $hasYears = Objective::where('user_id', $userId)
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->select('year')
-            ->get()
-            ->pluck('year')
-            ->all();
-
+        $hasYears = $this->objectiveRepo->getYearByUserId($userId);
         $years = [];
-        foreach ($hasYears as $y) {
+        foreach ($hasYears->pluck('year')->all() as $y) {
             $years[$y] = $y;
         }
 
         return $years;
     }
 
-    public function getQuarterExists(int $companyId): bool
+    public function isQuarterExists(int $companyId): bool
     {
-        $quarterExists = Quarter::where('company_id', $companyId)->exists();
+        $quarters = $this->quarterRepo->getByCompanyId($companyId);
 
-        if (!$quarterExists) {
+        if ($quarters->count() !== 4) {
             Flash::error(__('validation.not_found_quarter'));
+            return false;
         }
 
-        return $quarterExists;
+        return true;
     }
 }

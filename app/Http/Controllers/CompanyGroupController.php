@@ -14,7 +14,7 @@ class CompanyGroupController extends Controller
      * Display a listing of the resource.
      *
      * @param GetIndexData $case
-     * @return View
+     * @return View|RedirectResponse
      */
     public function index(GetIndexData $case)
     {

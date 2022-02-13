@@ -1,16 +1,26 @@
 <?php
 namespace App\Http\UseCase\Company;
 
-use App\Models\Company;
-use App\Models\User;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;;
+use App\Repositories\CompanyRepository;
+use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class StoreData
 {
-    public function __construct()
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo = null, CompanyRepositoryInterface $companyRepo = null)
     {
+        $this->userRepo = $userRepo ?? new UserRepository();
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
     public function __invoke(array $input): bool
@@ -18,13 +28,13 @@ class StoreData
         $user = Auth::user();
 
         try {
-            $companyId = Company::create([
+            $companyId = $this->companyRepo->create([
                 'name' => $input['name'],
                 'is_master' => false,
                 'company_group_id' => $user->companies->company_group_id,
             ])->id;
 
-            User::create([
+            $this->userRepo->create([
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $companyId,

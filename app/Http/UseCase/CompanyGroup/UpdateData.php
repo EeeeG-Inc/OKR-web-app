@@ -17,7 +17,7 @@ class UpdateData
     public function __invoke(array $input, int $objectiveId): bool
     {
         try {
-            $this->updateService->update($input);
+            $this->updateService->exchangeIsMaster($input);
         } catch (\Exception $exc) {
             Flash::error(__('common/message.company_group.update_failed'));
             return false;

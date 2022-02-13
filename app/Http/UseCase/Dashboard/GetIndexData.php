@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\UseCase\Dashboard;
 
-use App\Models\Company;
 use App\Enums\Role;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\CompanyRepository;
 use App\Services\Dashboard\SearchService;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +12,13 @@ class GetIndexData
     /** @var SearchService */
     private $searchService;
 
-    public function __construct(SearchService $searchService)
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    public function __construct(SearchService $searchService, CompanyRepositoryInterface $companyRepo = null)
     {
         $this->searchService = $searchService;
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
     public function __invoke(array $input = []): array
@@ -21,7 +26,7 @@ class GetIndexData
         $user = Auth::user();
 
         if ($user->role === Role::ADMIN) {
-            $companies = Company::get()->toArray();
+            $companies = $this->companyRepo->get()->toArray();
             return [
                 'users' => $this->searchService->getUsersForAdmin($input),
                 'companyIdsChecks' => $this->searchService->getCompanyIdsChecksforAdmin($input, $companies),
@@ -29,7 +34,8 @@ class GetIndexData
             ];
         }
 
-        $companies = Company::where('company_group_id', $user->companies->company_group_id)->get()->toArray();
+        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id)->toArray();
+
         return [
             'users' => $this->searchService->getUsers($user, $input),
             'companyIdsChecks' => $this->searchService->getCompanyIdsChecks($input, $companies),

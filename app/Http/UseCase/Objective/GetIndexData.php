@@ -23,7 +23,7 @@ class GetIndexData
             'user' => $user,
             'objectives' => $this->searchService->getObjectives($input, $user->id),
             'isLoginUser' => $userInfo['is_login_user'],
-            'quarterExists' => $this->searchService->getQuarterExists($user->company_id),
+            'quarterExists' => $this->searchService->isQuarterExists($user->company_id),
             'companyUser' => $relativeUsers['company_user'],
             'departmentUser' => $relativeUsers['department_user'],
             'years' => $this->searchService->getYears($user->id),

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\Role;
 use App\Http\Requests\AdminUpdateRequest;
 use App\Http\UseCase\Admin\UpdateData;
-use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,13 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo = null)
+    {
+        $this->userRepo = $userRepo ?? new UserRepository();
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -55,7 +63,7 @@ class AdminController extends Controller
             abort(Response::HTTP_NOT_FOUND);
         }
 
-        $user = User::find($userId);
+        $user = $this->userRepo->find($userId);
         Auth::login($user);
         Flash::success(__('common/message.admin.proxy_login', ['name' => $user->name]));
 
