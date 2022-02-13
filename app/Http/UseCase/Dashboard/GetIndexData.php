@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
+    /** @var SearchService */
     private $searchService;
+
+    /** @var CompanyRepositoryInterface */
     private $companyRepo;
 
     public function __construct(SearchService $searchService, CompanyRepositoryInterface $companyRepo = null)

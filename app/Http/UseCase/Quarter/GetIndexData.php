@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
+    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
 
     public function __construct(QuarterRepositoryInterface $quarterRepo = null)

@@ -39,8 +39,13 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    /** @var UserRepositoryInterface */
     private $userRepo;
+
+    /** @var CompanyRepositoryInterface */
     private $companyRepo;
+
+    /** @var CompanyGroupRepositoryInterface */
     private $companyGroupRepo;
 
     /**
