@@ -16,7 +16,6 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    /** @var UserRepositoryInterface */
     private $userRepo;
 
     public function __construct(UserRepositoryInterface $userRepo = null)

@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    /** @var CompanyRepositoryInterface */
     private $companyRepo;
-
-    /** @var DepartmentRepositoryInterface */
     private $departmentRepo;
 
     public function __construct(CompanyRepositoryInterface $companyRepo = null, DepartmentRepositoryInterface $departmentRepo = null)

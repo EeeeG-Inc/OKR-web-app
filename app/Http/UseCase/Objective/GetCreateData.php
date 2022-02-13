@@ -10,13 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    /** @var ControlFieldsService */
     private $controlFieldsService;
-
-    /** @var YearService */
     private $yearService;
-
-    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
 
     public function __construct(

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ChangeIsActive
 {
-    /** @var SlackRepositoryInterface */
     private $slackRepo;
 
     public function __construct(SlackRepositoryInterface $slackRepo = null)
