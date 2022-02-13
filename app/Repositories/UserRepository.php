@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 class UserRepository implements UserRepositoryInterface
 {
     /** @var User */
-    public $user;
+    private $user;
 
     public function __construct(User $user = null)
     {

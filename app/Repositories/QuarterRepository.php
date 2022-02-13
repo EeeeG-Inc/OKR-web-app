@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class QuarterRepository implements QuarterRepositoryInterface
 {
     /** @var Quarter */
-    public $quarter;
+    private $quarter;
 
     public function __construct(Quarter $quarter = null)
     {

@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\CompanyGroupRepositoryInterface;
 use App\Repositories\CompanyRepository;
 use App\Repositories\CompanyGroupRepository;
 use DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class UpdateService
 {
@@ -31,32 +32,30 @@ class UpdateService
         DB::beginTransaction();
 
         try {
-            // 新しい company_groups のレコードを追加
-            $newCompanyGroupId = $this->companyGroupRepo->create([
-                'name' => $company->name,
-            ])->id;
-
-            // is_master と company_group_id を変更
-            foreach ($companies as $company) {
-                if ($company->id === (int) $input['company_id']) {
-                    $company->update([
-                        'is_master' => true,
-                        'company_group_id' => $newCompanyGroupId,
-                    ]);
-                } else {
-                    $company->update([
-                        'is_master' => false,
-                        'company_group_id' => $newCompanyGroupId,
-                    ]);
-                }
-            }
-
-            // 古い company_groups のレコードを削除
+            $newCompanyGroupId = $this->companyGroupRepo->create(['name' => $company->name])->id;
+            $this->updateIsMaster($companies, (int) $input['company_id'], $newCompanyGroupId);
             $companyGroup = $this->companyGroupRepo->find($oldCompanyGroupId);
             $this->companyGroupRepo->delete($companyGroup);
         } catch (\Exception $exc) {
             DB::rollBack();
         }
         DB::commit();
+    }
+
+    private function updateIsMaster(Collection $companies, int $companyId, int $companyGroupId): void
+    {
+        foreach ($companies as $company) {
+            if ($company->id === $companyId) {
+                $company->update([
+                    'is_master' => true,
+                    'company_group_id' => $companyGroupId,
+                ]);
+            } else {
+                $company->update([
+                    'is_master' => false,
+                    'company_group_id' => $companyGroupId,
+                ]);
+            }
+        }
     }
 }

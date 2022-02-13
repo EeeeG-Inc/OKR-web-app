@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class SlackRepository implements SlackRepositoryInterface
 {
     /** @var Slack */
-    public $slack;
+    private $slack;
 
     public function __construct(Slack $slack = null)
     {
