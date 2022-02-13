@@ -8,10 +8,7 @@ use App\Repositories\ObjectiveRepository;
 
 class GetIndexData
 {
-    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
-
-    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
     public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)

@@ -18,10 +18,7 @@ use Illuminate\Http\RedirectResponse;
 
 class DepartmentController extends Controller
 {
-    /** @var CompanyRepositoryInterface */
     private $companyRepo;
-
-    /** @var DepartmentRepositoryInterface */
     private $departmentRepo;
 
     public function __construct(CompanyRepositoryInterface $companyRepo = null, DepartmentRepositoryInterface $departmentRepo = null)

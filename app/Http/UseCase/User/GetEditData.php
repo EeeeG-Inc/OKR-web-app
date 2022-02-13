@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
-    /** @var CompanyRepositoryInterface */
     private $companyRepo;
 
     public function __construct(CompanyRepositoryInterface $companyRepo = null)

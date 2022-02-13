@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {
-    /** @var DepartmentRepositoryInterface */
     private $departmentRepo;
 
     public function __construct(DepartmentRepositoryInterface $departmentRepo = null)

@@ -7,7 +7,6 @@ use Flash;
 
 class UpdateData
 {
-    /** @var SlackRepositoryInterface */
     private $slackRepo;
 
     public function __construct(SlackRepositoryInterface $slackRepo = null)

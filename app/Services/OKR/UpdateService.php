@@ -10,16 +10,9 @@ use App\Repositories\ObjectiveRepository;
 
 class UpdateService
 {
-    /** @var int */
     private $count;
-
-    /** @var int */
     private $totalScore;
-
-    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
-
-    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
     public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)

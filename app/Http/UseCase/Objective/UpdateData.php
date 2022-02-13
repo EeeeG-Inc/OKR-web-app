@@ -10,13 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {
-    /** @var UpdateService */
     private $updateService;
-
-    /** @var OkrNotificationService */
     private $notifier;
-
-    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
     public function __construct(UpdateService $updateService, OkrNotificationService $notifier, ObjectiveRepositoryInterface $objectiveRepo = null)

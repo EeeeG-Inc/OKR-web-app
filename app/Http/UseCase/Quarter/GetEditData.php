@@ -7,10 +7,7 @@ use App\Services\YMD\MonthService;
 
 class GetEditData
 {
-    /** @var MonthService */
     private $monthService;
-
-    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
 
     public function __construct(MonthService $monthService, QuarterRepositoryInterface $quarterRepo = null)

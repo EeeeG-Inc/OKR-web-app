@@ -10,10 +10,7 @@ use DB;
 
 class UpdateService
 {
-    /** @var CompanyRepositoryInterface */
     private $companyRepo;
-
-    /** @var CompanyGroupRepositoryInterface */
     private $companyGroupRepo;
 
     public function __construct(CompanyRepositoryInterface $companyRepo = null, CompanyGroupRepositoryInterface $companyGroupRepo = null)

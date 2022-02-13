@@ -7,7 +7,6 @@ use Flash;
 
 class UpdateData
 {
-    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
 
     public function __construct(QuarterRepositoryInterface $quarterRepo = null)
