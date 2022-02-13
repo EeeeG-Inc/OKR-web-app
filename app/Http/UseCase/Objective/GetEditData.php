@@ -15,11 +15,22 @@ use Illuminate\Support\Facades\Auth;
 
 class GetEditData
 {
+    /** @var YearService */
     private $yearService;
+
+    /** @var ControlFieldsService */
     private $controlFieldsService;
+
+    /** @var ScoreService */
     private $scoreService;
+
+    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
+
+    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
 
     public function __construct(

@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DestroyData
 {
+    /** @var OkrNotificationService */
     private $notifier;
+
+    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
     public function __construct(

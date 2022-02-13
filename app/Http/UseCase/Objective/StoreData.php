@@ -11,8 +11,13 @@ use App\Services\Slack\OkrNotificationService;
 
 class StoreData
 {
+    /** @var OkrNotificationService */
     private $notifier;
+
+    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
     public function __construct(

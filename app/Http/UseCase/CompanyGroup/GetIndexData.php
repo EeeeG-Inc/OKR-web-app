@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
+    /** @var CompanyRepositoryInterface */
     private $companyRepo;
 
     public function __construct(CompanyRepositoryInterface $companyRepo = null)

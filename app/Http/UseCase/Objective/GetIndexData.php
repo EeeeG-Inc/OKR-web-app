@@ -5,6 +5,7 @@ use App\Services\OKR\SearchService;
 
 class GetIndexData
 {
+    /** @var SearchService */
     private $searchService;
 
     public function __construct(SearchService $searchService)

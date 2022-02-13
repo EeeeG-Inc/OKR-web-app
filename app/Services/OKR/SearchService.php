@@ -18,9 +18,16 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SearchService
 {
+    /** @var int */
     private $pagenateNum;
+
+    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
+
+    /** @var QuarterRepositoryInterface */
     private $quarterRepo;
+
+    /** @var UserRepositoryInterface */
     private $userRepo;
 
     public function __construct(

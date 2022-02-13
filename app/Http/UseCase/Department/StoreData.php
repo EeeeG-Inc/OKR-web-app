@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreData
 {
+    /** @var DepartmentRepositoryInterface */
     private $departmentRepo;
+
+    /** @var UserRepositoryInterface */
     private $userRepo;
 
     public function __construct(UserRepositoryInterface $userRepo = null, DepartmentRepositoryInterface $departmentRepo = null)
