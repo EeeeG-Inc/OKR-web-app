@@ -3,7 +3,7 @@ namespace App\Http\UseCase\Objective;
 
 use App\Enums\Priority;
 use App\Repositories\Interfaces\KeyResultRepositoryInterface;
-use App\Repositories\Interfaces\ObjectiveRepositoryInterface;;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
 use App\Repositories\Interfaces\QuarterRepositoryInterface;
 use App\Repositories\KeyResultRepository;
 use App\Repositories\ObjectiveRepository;

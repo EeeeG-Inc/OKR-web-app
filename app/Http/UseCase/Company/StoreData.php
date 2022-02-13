@@ -2,7 +2,7 @@
 namespace App\Http\UseCase\Company;
 
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
 use Flash;

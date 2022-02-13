@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class CompanyRepository implements CompanyRepositoryInterface
 {
     /** @var Company */
-    public $company;
+    private $company;
 
     public function __construct(Company $company = null)
     {

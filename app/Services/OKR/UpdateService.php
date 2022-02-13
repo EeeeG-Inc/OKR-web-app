@@ -111,7 +111,7 @@ class UpdateService
             'year' => $input['year'],
             'quarter_id' => $input['quarter_id'],
             'objective' => $input['objective'],
-            'score' => round(($this->totalScore / $this->count), 2),
+            'score' => round($this->totalScore / $this->count, 2),
             'remarks' => $input['objective_remarks'],
             'priority' => $input['priority'],
         ]);

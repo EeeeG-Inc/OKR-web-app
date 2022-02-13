@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ObjectiveRepository implements ObjectiveRepositoryInterface
 {
     /** @var Objective */
-    public $objective;
+    private $objective;
 
     public function __construct(Objective $objective = null)
     {

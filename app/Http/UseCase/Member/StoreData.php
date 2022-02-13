@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\UseCase\Member;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Support\Facades\Hash;

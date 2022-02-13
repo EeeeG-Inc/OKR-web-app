@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class KeyResultRepository implements KeyResultRepositoryInterface
 {
     /** @var KeyResult */
-    public $keyResult;
+    private $keyResult;
 
     public function __construct(KeyResult $keyResult = null)
     {

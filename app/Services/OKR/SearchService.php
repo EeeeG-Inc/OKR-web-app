@@ -64,16 +64,13 @@ class SearchService
 
         switch ($user->role) {
             case Role::DEPARTMENT:
-                $company = $user->companies()->first();
-                $companyUser = $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
+                $companyUser = $this->findRelativeCompanyUser($user);
                 $departmentUser = null;
                 break;
             case Role::MANAGER:
             case Role::MEMBER:
-                $company = $user->companies()->first();
-                $companyUser = $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
-                $department = $user->departments()->first();
-                $departmentUser = $this->userRepo->getDepartmentUserByCompanyIdAndName($department->id, $department->name)->first();
+                $companyUser = $this->findRelativeCompanyUser($user);
+                $departmentUser = $this->findRelativeDepartmentUser($user);
                 break;
         }
 
@@ -87,7 +84,7 @@ class SearchService
     {
         if (array_key_exists('user_id', $input)) {
             $user = $this->userRepo->find($input['user_id']);
-            $isLoginUser = ($user->id === Auth::id()) ? true : false;
+            $isLoginUser = $user->id === Auth::id() ? true : false;
         } else {
             $user = Auth::user();
             $isLoginUser = true;
@@ -103,8 +100,8 @@ class SearchService
     {
         $hasYears = $this->objectiveRepo->getYearByUserId($userId);
         $years = [];
-        foreach ($hasYears->pluck('year')->all() as $y) {
-            $years[$y] = $y;
+        foreach ($hasYears->pluck('year')->all() as $year) {
+            $years[$year] = $year;
         }
 
         return $years;
@@ -120,5 +117,17 @@ class SearchService
         }
 
         return true;
+    }
+
+    private function findRelativeCompanyUser(User $user): User
+    {
+        $company = $user->companies()->first();
+        return $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
+    }
+
+    private function findRelativeDepartmentUser(User $user): User
+    {
+        $department = $user->departments()->first();
+        return $this->userRepo->getDepartmentUserByCompanyIdAndName($department->id, $department->name)->first();
     }
 }
