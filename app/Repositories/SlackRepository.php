@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SlackRepository implements SlackRepositoryInterface
 {
-    public Slack $slack;
+    /** @var Slack */
+    public $slack;
 
     public function __construct(Slack $slack = null)
     {

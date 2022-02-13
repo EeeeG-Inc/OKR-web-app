@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DepartmentRepository implements DepartmentRepositoryInterface
 {
-    public Department $department;
+    /** @var Department */
+    public $department;
 
     public function __construct(Department $department = null)
     {
