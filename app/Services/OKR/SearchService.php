@@ -5,7 +5,6 @@ namespace App\Services\OKR;
 use App\Enums\Role;
 use App\Models\User;
 use App\Models\Objective;
-use App\Models\Quarter;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
 use App\Repositories\Interfaces\QuarterRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;

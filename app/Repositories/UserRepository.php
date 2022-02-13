@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public User $user;
+    /** @var User */
+    public $user;
 
     public function __construct(User $user = null)
     {

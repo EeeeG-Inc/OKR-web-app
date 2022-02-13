@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class QuarterRepository implements QuarterRepositoryInterface
 {
-    public Quarter $quarter;
+    /** @var Quarter */
+    public $quarter;
 
     public function __construct(Quarter $quarter = null)
     {
