@@ -30,7 +30,8 @@ class CompanyUpdateRequest extends FormRequest
             'role' => 'required|integer',
             'department_id' => 'nullable|integer',
             'email' => 'nullable|string|email|max:255|unique:users,email,' . Auth::user()->id,
-            'password' => 'nullable|string|min:8',
+            'password' => 'nullable|string|min:8|confirmed|passwordFormat',
+            'password_confirmation' => 'nullable|string|min:8',
         ];
     }
 

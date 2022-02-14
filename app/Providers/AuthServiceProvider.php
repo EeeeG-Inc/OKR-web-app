@@ -28,25 +28,37 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+        $this->adminOnly();
+        $this->companyHigher();
+        $this->managerHigher();
+        $this->memberHigher();
+    }
 
-        // 管理者のみ許可
+    private function adminOnly(): void
+    {
         Gate::define('admin-only', function ($user) {
             return $user->role === Role::ADMIN;
         });
+    }
 
-        // 会社以上を許可
+    private function companyHigher(): void
+    {
         Gate::define('company-higher', function ($user) {
             return $user->role === Role::COMPANY;
         });
+    }
 
-        // マネージャ以上を許可
+    private function managerHigher(): void
+    {
         Gate::define('manager-higher', function ($user) {
             return $user->role === Role::COMPANY ||
                 $user->role === Role::DEPARTMENT ||
                 $user->role === Role::MANAGER;
         });
+    }
 
-        // メンバー以上を許可
+    private function memberHigher(): void
+    {
         Gate::define('member-higher', function ($user) {
             return $user->role === Role::COMPANY ||
                 $user->role === Role::DEPARTMENT ||

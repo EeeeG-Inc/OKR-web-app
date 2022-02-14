@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'admin' => [
+        'edit' => 'システム管理者編集',
+    ],
     'auth' => [
         'login' => 'ログイン',
         'register' => '会社アカウント作成',
@@ -11,6 +14,10 @@ return [
     ],
     'dashboard' => [
         'index' => 'ダッシュボード',
+        'search' => '検索条件',
+    ],
+    'company_group' => [
+        'index' => '関連会社一覧',
     ],
     'key_result' => [
         'index' => '【:name】:objectiveの成果指標',
@@ -20,6 +27,7 @@ return [
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集',
+        'search' => '検索条件',
     ],
     'user' => [
         'create' => '新規ユーザ作成',

@@ -1,36 +1,45 @@
 <?php
 namespace App\Http\UseCase\Dashboard;
 
-use App\Models\Company;
-use App\Models\User;
 use App\Enums\Role;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Services\Dashboard\SearchService;
 use Illuminate\Support\Facades\Auth;
 
 class GetIndexData
 {
-    /** @var int */
-    private $pagenateNum;
+    /** @var SearchService */
+    private $searchService;
 
-    public function __construct()
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    public function __construct(SearchService $searchService, CompanyRepositoryInterface $companyRepo = null)
     {
-        $this->pagenateNum = 15;
+        $this->searchService = $searchService;
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
     }
 
-    public function __invoke(): array
+    public function __invoke(array $input = []): array
     {
         $user = Auth::user();
 
         if ($user->role === Role::ADMIN) {
-            $users = User::where('role', '!=', Role::ADMIN)->paginate($this->pagenateNum);
-            return ['users' => $users];
+            $companies = $this->companyRepo->get()->toArray();
+            return [
+                'users' => $this->searchService->getUsersForAdmin($input),
+                'companyIdsChecks' => $this->searchService->getCompanyIdsChecksforAdmin($input, $companies),
+                'companies' => $companies,
+            ];
         }
 
-        // グループ会社全員のデータを取得する
-        $companyIds = Company::where('company_group_id', $user->companies->company_group_id)->pluck('id')->toArray();
-        $users = User::where('role', '!=', Role::ADMIN)
-            ->whereIn('company_id', $companyIds)
-            ->paginate($this->pagenateNum);
+        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id)->toArray();
 
-        return ['users' => $users];
+        return [
+            'users' => $this->searchService->getUsers($user, $input),
+            'companyIdsChecks' => $this->searchService->getCompanyIdsChecks($input, $companies),
+            'companies' => $companies,
+        ];
     }
 }

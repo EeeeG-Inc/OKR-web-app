@@ -12,6 +12,12 @@
 php artisan migrate:fresh --seed
 ```
 
+- システム管理者アカウントが作成されます。パスワード・メールアドレス変更を行ってください
+- 初回メールアドレス
+  - `admin@example.com`
+- 初回パスワード
+  - `password`
+
 ### テストデータ作成
 
 ```sh

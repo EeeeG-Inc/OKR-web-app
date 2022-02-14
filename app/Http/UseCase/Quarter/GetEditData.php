@@ -1,16 +1,22 @@
 <?php
 namespace App\Http\UseCase\Quarter;
 
-use App\Models\Quarter;
+use App\Repositories\Interfaces\QuarterRepositoryInterface;
+use App\Repositories\QuarterRepository;
 use App\Services\YMD\MonthService;
 
 class GetEditData
 {
+    /** @var MonthService */
     private $monthService;
 
-    public function __construct(MonthService $monthService)
+    /** @var QuarterRepositoryInterface */
+    private $quarterRepo;
+
+    public function __construct(MonthService $monthService, QuarterRepositoryInterface $quarterRepo = null)
     {
         $this->monthService = $monthService;
+        $this->quarterRepo = $quarterRepo ?? new QuarterRepository();
     }
 
     public function __invoke(int $companyId): array
@@ -18,9 +24,7 @@ class GetEditData
         $quarters = [];
         $i = 1;
         while ($i < 5) {
-            $quarters[] = Quarter::where('company_id', $companyId)
-            ->where('quarter', $i)
-            ->first();
+            $quarters[] = $this->quarterRepo->findByQuarterAndCompanyId($i, $companyId);
             $i++;
         }
 

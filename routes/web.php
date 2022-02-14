@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\KeyResultController;
@@ -34,16 +35,18 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::resources([
-        'dashboard' => DashboardController::class,
+        'company_group' => CompanyGroupController::class,
         'key_result' => KeyResultController::class,
-        'objective' => ObjectiveController::class,
         'quarter' => QuarterController::class,
     ]);
 
+    Route::resource('objective', ObjectiveController::class, ['except' => ['show']]);
     Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
 
     Route::prefix('admin')->group(function (): void {
         Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');
+        Route::get('edit', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('update', [AdminController::class, 'update'])->name('admin.update');
     });
 
     Route::prefix('objective')->group(function (): void {
@@ -51,7 +54,9 @@ Route::middleware('auth')->group(function (): void {
     });
 
     Route::prefix('dashboard')->group(function (): void {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+        Route::get('search', [DashboardController::class, 'index'])->name('dashboard.links');
     });
 
     Route::prefix('slack')->group(function (): void {
@@ -66,7 +71,6 @@ Route::middleware('auth')->group(function (): void {
     // 編集は可能
     Route::prefix('user')->group(function (): void {
         Route::get('edit/{user_id}', [UserController::class, 'edit'])->name('user.edit');
-        Route::put('update', [UserController::class, 'update'])->name('user.update');
     });
 
     Route::prefix('company')->group(function (): void {

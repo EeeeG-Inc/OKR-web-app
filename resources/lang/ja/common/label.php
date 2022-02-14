@@ -10,6 +10,7 @@ return [
             'name_member' => '一般ユーザ氏名',
             'role' => 'アカウント種別',
             'department' => '部署',
+            'password_confirmation' => 'パスワード (確認用)',
         ],
         'edit' => [
             'name_company' => '会社名',
@@ -19,6 +20,15 @@ return [
             'name_member' => '一般ユーザ氏名',
             'role' => 'アカウント種別',
             'department' => '部署',
+            'password_confirmation' => 'パスワード (確認用)',
         ],
     ],
+    'company_group' => [
+        'index' => [
+            'type' => '種別',
+            'is_master' => '種別変更',
+            'parent' => '親会社',
+            'child' => '子会社',
+        ]
+    ]
 ];

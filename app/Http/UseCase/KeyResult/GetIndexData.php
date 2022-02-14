@@ -1,13 +1,23 @@
 <?php
 namespace App\Http\UseCase\KeyResult;
 
-use App\Models\Objective;
-use App\Models\KeyResult;
+use App\Repositories\Interfaces\KeyResultRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\KeyResultRepository;
+use App\Repositories\ObjectiveRepository;
 
 class GetIndexData
 {
-    public function __construct()
+    /** @var KeyResultRepositoryInterface */
+    private $keyResultRepo;
+
+    /** @var ObjectiveRepositoryInterface */
+    private $objectiveRepo;
+
+    public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)
     {
+        $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
+        $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
     }
 
     public function __invoke(array $input): array
@@ -15,8 +25,8 @@ class GetIndexData
         $objectiveId = $input['objective_id'];
 
         return [
-            'objective' =>  Objective::find($objectiveId),
-            'keyResults' => KeyResult::where('objective_id', $objectiveId)->get(),
+            'objective' =>  $this->objectiveRepo->find($objectiveId),
+            'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
         ];
     }
 }
