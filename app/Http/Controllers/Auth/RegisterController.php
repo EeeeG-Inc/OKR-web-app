@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
-use App\Models\Company;
-use App\Models\CompanyGroup;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\CompanyGroupRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Repositories\CompanyGroupRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -27,6 +31,7 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+
     /**
      * Where to redirect users after registration.
      *
@@ -34,12 +39,27 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    /** @var CompanyGroupRepositoryInterface */
+    private $companyGroupRepo;
+
     /**
      * Create a new controller instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        UserRepositoryInterface $userRepo = null,
+        CompanyRepositoryInterface $companyRepo = null,
+        CompanyGroupRepositoryInterface $companyGroupRepo = null
+    ) {
         $this->middleware('guest');
+        $this->userRepo = $userRepo ?? new UserRepository();
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
+        $this->companyGroupRepo = $companyGroupRepo ?? new CompanyGroupRepository();
     }
 
     /**
@@ -61,19 +81,21 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return User
      */
     protected function create(array $data)
     {
-        $companyGroup = CompanyGroup::create([
+        $companyGroup = $this->companyGroupRepo->create([
             'name' => $data['name'],
         ]);
-        $company = Company::create([
+
+        $company = $this->companyRepo->create([
             'name' => $data['name'],
             'company_group_id' => $companyGroup->id,
             'is_master' => true,
         ]);
-        return User::create([
+
+        return $this->userRepo->create([
             'name' => $data['name'],
             'role' => Role::COMPANY,
             'company_id' => $company->id,

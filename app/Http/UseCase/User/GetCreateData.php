@@ -2,50 +2,56 @@
 namespace App\Http\UseCase\User;
 
 use App\Enums\Role;
-use App\Models\Company;
-use App\Models\Department;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\CompanyRepository;
+use App\Repositories\DepartmentRepository;
+use App\Services\User\CompanyService;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 
 class GetCreateData
 {
-    public function __construct()
-    {
+    /** @var CompanyService */
+    private $companyService;
+
+    /** @var CompanyRepositoryInterface */
+    private $companyRepo;
+
+    /** @var DepartmentRepositoryInterface */
+    private $departmentRepo;
+
+    public function __construct(
+        CompanyService $companyService,
+        CompanyRepositoryInterface $companyRepo = null,
+        DepartmentRepositoryInterface $departmentRepo = null
+    ) {
+        $this->companyService = $companyService;
+        $this->companyRepo = $companyRepo ?? new CompanyRepository();
+        $this->departmentRepo = $departmentRepo ?? new DepartmentRepository();
     }
 
     public function __invoke(): array
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $departments = Department::where('company_id', $companyId)->get();
+        $departments = $this->departmentRepo->getByCompanyId($companyId);
         $isMaster = (bool) $user->companies->is_master;
-        $role = $user->role;
-        $companies = Company::where('company_group_id', '=', $user->companies->company_group_id)->get();
-        $companyNames = [];
-
-        // 関連会社のアカウントも作成可能
-        if ($isMaster) {
-            foreach ($companies as $company) {
-                $companyNames[$company->id] = $company->name;
-            }
-        // 自身の会社アカウントのみ作成可能
-        } else {
-            $companyNames[$companyId] = $user->companies->name;
-        }
+        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id);
 
         // 自身の会社の部署データが存在しない場合、まず部署アカウントのみ作成させる
         if ($departments->isEmpty()) {
             Flash::error(__('validation.not_found_department'));
-            $roles = Role::getRolesInWhenCreateUserIfNoDepartment($role, $isMaster);
+            $roles = Role::getRolesWhenCreateUserIfNoDepartment($user->role, $isMaster);
         } else {
-            $roles = Role::getRolesInWhenCreateUser($role, (bool) $isMaster);
+            $roles = Role::getRolesWhenCreateUser($user->role, (bool) $isMaster);
         }
 
         return [
             'user' => $user,
             'companyId' => $companyId,
             'roles' => $roles,
-            'companyNames' => $companyNames,
+            'companyNames' => $this->companyService->getCompanyNamesByIsMaster($companies, $isMaster, $companyId, $user),
         ];
     }
 }

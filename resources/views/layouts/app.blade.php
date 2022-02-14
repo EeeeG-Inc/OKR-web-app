@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -82,9 +83,21 @@
                                                 </a>
                                             @endcan
 
+                                            @can('admin-only')
+                                                <a class="dropdown-item" href="{{ route('admin.edit') }}">
+                                                    {{ __('common/nav.admin.edit') }}
+                                                </a>
+                                            @endcan
+
                                             @can('member-higher')
                                                 <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}">
                                                     {{ __('common/nav.user.edit') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('member-higher')
+                                                <a class="dropdown-item" href="{{ route('company_group.index') }}">
+                                                    {{ __('common/nav.company_group.index') }}
                                                 </a>
                                             @endcan
 

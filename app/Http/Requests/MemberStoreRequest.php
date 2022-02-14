@@ -30,7 +30,8 @@ class MemberStoreRequest extends FormRequest
             'company_id' => 'nullable|integer',
             'department_id' => 'required|integer',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed|passwordFormat',
+            'password_confirmation' => 'required|string|min:8',
         ];
     }
 

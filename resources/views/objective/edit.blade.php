@@ -22,7 +22,7 @@
                                         {{--年度--}}
                                         <div class="form-group row">
                                             <div class="col-md-2 mb-3">
-                                                {{ Form::label('selectYear', __('models/objectives.fields.year'), ['class' => 'required']) }}
+                                                {{ Form::label('year', __('models/objectives.fields.year'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('year', $years, $year, ['class' => 'form-control', 'id' => 'year']) }}

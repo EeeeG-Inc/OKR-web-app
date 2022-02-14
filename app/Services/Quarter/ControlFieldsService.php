@@ -39,7 +39,6 @@ class ControlFieldsService
             }
             $i++;
         }
-
         return $quarterChecked;
     }
 }

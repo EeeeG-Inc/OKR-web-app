@@ -13,6 +13,7 @@ return [
     'restart' => '有効化',
     'create' => '新規作成',
     'create_company' => '会社アカウント作成',
+    'is_master' => '親会社に変更する',
     'confirm' => '内容確認',
     'update' => '更新',
 ];

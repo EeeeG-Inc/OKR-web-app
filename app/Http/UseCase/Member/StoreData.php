@@ -1,15 +1,20 @@
 <?php
 namespace App\Http\UseCase\Member;
 
-use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class StoreData
 {
-    public function __construct()
+    /** @var UserRepositoryInterface */
+    private $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo = null)
     {
+        $this->userRepo = $userRepo ?? new UserRepository();
     }
 
     public function __invoke(array $input): bool
@@ -17,7 +22,7 @@ class StoreData
         $user = Auth::user();
 
         try {
-            User::create([
+            $this->userRepo->create([
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $input['company_id'] ?? $user->company_id,

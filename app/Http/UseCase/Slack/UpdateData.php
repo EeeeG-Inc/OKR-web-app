@@ -1,18 +1,24 @@
 <?php
 namespace App\Http\UseCase\Slack;
 
-use App\Models\Slack;
+use App\Repositories\Interfaces\SlackRepositoryInterface;
+use App\Repositories\SlackRepository;
 use Flash;
 
 class UpdateData
 {
-    public function __construct()
+    /** @var SlackRepositoryInterface */
+    private $slackRepo;
+
+    public function __construct(SlackRepositoryInterface $slackRepo = null)
     {
+        $this->slackRepo = $slackRepo ?? new SlackRepository();
     }
 
     public function __invoke(array $input, int $companyId): bool
     {
-        Slack::where('company_id', $companyId)->first()->update([
+        $slack = $this->slackRepo->findByCompanyId($companyId);
+        $this->slackRepo->update($slack->id, [
             'webhook' => $input['webhook'],
         ]);
 

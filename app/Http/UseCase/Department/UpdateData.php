@@ -1,16 +1,20 @@
 <?php
 namespace App\Http\UseCase\Department;
 
-use App\Models\Department;
-use App\Models\User;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\DepartmentRepository;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {
-    public function __construct()
+    /** @var DepartmentRepositoryInterface */
+    private $departmentRepo;
+
+    public function __construct(DepartmentRepositoryInterface $departmentRepo = null)
     {
+        $this->departmentRepo = $departmentRepo ?? new DepartmentRepository();
     }
 
     public function __invoke(array $input): bool
@@ -18,7 +22,8 @@ class UpdateData
         $user = Auth::user();
 
         try {
-            Department::find($user->department_id)->update([
+            $department = $this->departmentRepo->find($user->department_id);
+            $this->departmentRepo->update($department->id, [
                 'name' => $input['name'],
             ]);
 
