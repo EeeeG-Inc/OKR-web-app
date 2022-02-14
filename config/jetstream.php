@@ -3,7 +3,6 @@
 use Laravel\Jetstream\Features;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Jetstream Stack
@@ -15,7 +14,7 @@ return [
     |
     */
 
-    'stack' => 'inertia',
+    'stack' => 'livewire',
 
     /*
      |--------------------------------------------------------------------------
@@ -61,5 +60,4 @@ return [
     */
 
     'profile_photo_disk' => 'public',
-
 ];

@@ -1,8 +1,18 @@
 <?php
 
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyGroupController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\KeyResultController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\QuarterController;
+use App\Http\Controllers\SlackController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,29 +25,80 @@ use Inertia\Inertia;
 |
 */
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
-
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
-// 全ユーザ
-Route::group(['middleware' => ['auth', 'can:member-higher']], function () {
-    // ユーザ一覧
-    Route::get('/account', 'AccountController@index')->name('account.index');
+Route::get('/', function () {
+    return redirect()->route('login');
 });
 
-// 管理者以上
-Route::group(['middleware' => ['auth', 'can:manager-higher']], function () {
-    // ユーザ登録
-    Route::get('/account/regist', 'AccountController@regist')->name('account.regist');
-    Route::post('/account/regist', 'AccountController@createData')->name('account.regist');
+Route::middleware('auth')->group(function (): void {
+    Route::get('/', [DashboardController::class, 'index']);
 
-    // ユーザ編集
-    Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
-    Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
+    Route::resources([
+        'company_group' => CompanyGroupController::class,
+        'key_result' => KeyResultController::class,
+        'quarter' => QuarterController::class,
+    ]);
 
-    // ユーザ削除
-    Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
+    Route::resource('objective', ObjectiveController::class, ['except' => ['show']]);
+    Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
+
+    Route::prefix('admin')->group(function (): void {
+        Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');
+        Route::get('edit', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('update', [AdminController::class, 'update'])->name('admin.update');
+    });
+
+    Route::prefix('objective')->group(function (): void {
+        Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');
+    });
+
+    Route::prefix('dashboard')->group(function (): void {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');
+        Route::get('search', [DashboardController::class, 'index'])->name('dashboard.links');
+    });
+
+    Route::prefix('slack')->group(function (): void {
+        Route::get('stop', [SlackController::class, 'stop'])->name('slack.stop');
+        Route::get('restart', [SlackController::class, 'restart'])->name('slack.restart');
+    });
+
+    Route::prefix('fetch')->group(function (): void {
+        Route::post('departments/{company_id}', [DepartmentController::class, 'fetch'])->name('fetch.departments');
+    });
+
+    // 編集は可能
+    Route::prefix('user')->group(function (): void {
+        Route::get('edit/{user_id}', [UserController::class, 'edit'])->name('user.edit');
+    });
+
+    Route::prefix('company')->group(function (): void {
+        Route::put('update', [CompanyController::class, 'update'])->name('company.update');
+    });
+    Route::prefix('department')->group(function (): void {
+        Route::put('update', [DepartmentController::class, 'update'])->name('department.update');
+    });
+    Route::prefix('manager')->group(function (): void {
+        Route::put('update', [ManagerController::class, 'update'])->name('manager.update');
+    });
+    Route::prefix('member')->group(function (): void {
+        Route::put('update', [MemberController::class, 'update'])->name('member.update');
+    });
+
+    Route::middleware('can:manager-higher')->group(function (): void {
+        Route::resource('user', UserController::class, ['except' => ['edit', 'update']]);
+        Route::prefix('company')->group(function (): void {
+            Route::post('store', [CompanyController::class, 'store'])->name('company.store');
+        });
+        Route::prefix('department')->group(function (): void {
+            Route::post('store', [DepartmentController::class, 'store'])->name('department.store');
+        });
+        Route::prefix('manager')->group(function (): void {
+            Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
+        });
+        Route::prefix('member')->group(function (): void {
+            Route::post('store', [MemberController::class, 'store'])->name('member.store');
+        });
+    });
 });

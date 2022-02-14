@@ -74,4 +74,23 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      - run: php artisan insights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
+      - run: php artisan insights --no-interaction --min-quality=75 --min-complexity=75 --min-architecture=75 --min-style=75
+  deploy:
+    machine:
+      image: circleci/classic:edge
+    steps:
+      - checkout
+      - add_ssh_keys
+      - run: ssh root@172.105.194.66 'cd /var/www/OKR-manage-app/ && git checkout main && git pull && composer install && php artisan config:clear &&  php artisan config:cache && php artisan migrate'
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main

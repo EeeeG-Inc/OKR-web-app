@@ -8,20 +8,12 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // 各テーブルへのデータの流し込みを呼び出す
         $this->call([
-            CompanyGroupsTableSeeder::class,
-            CompaniesTableSeeder::class,
-            QuartersTableSeeder::class,
-            DepartmentsTableSeeder::class,
             UsersTableSeeder::class,
-            OkrsTableSeeder::class,
-            ObjectivesTableSeeder::class,
+            QuartersTableSeeder::class,
         ]);
     }
 }
