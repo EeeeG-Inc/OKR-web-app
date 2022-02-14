@@ -8,12 +8,10 @@ class CreateTeamsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id')->index();
             $table->string('name');
@@ -24,10 +22,8 @@ class CreateTeamsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('teams');
     }

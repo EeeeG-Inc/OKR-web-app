@@ -8,14 +8,12 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table): void {
             $table->increments('id');
-            $table->text('name')->comment('ユーザー名');
+            $table->text('name')->comment('ユーザ名');
             $table->integer('role')
                 ->nullable()
                 ->comment('権限');
@@ -50,12 +48,10 @@ class CreateUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->dropForeign(['company_id']);
             $table->dropForeign(['department_id']);
         });

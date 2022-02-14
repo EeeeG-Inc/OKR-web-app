@@ -11,12 +11,11 @@ class UpdateTeamName implements UpdatesTeamNames
     /**
      * Validate and update the given team's name.
      *
-     * @param  mixed  $user
-     * @param  mixed  $team
-     * @param  array  $input
-     * @return void
+     * @param mixed $user
+     * @param mixed $team
+     * @param array $input
      */
-    public function update($user, $team, array $input)
+    public function update($user, $team, array $input): void
     {
         Gate::forUser($user)->authorize('update', $team);
 

@@ -11,7 +11,6 @@ $maxWidth = [
     '2xl' => 'sm:max-w-2xl',
 ][$maxWidth ?? '2xl'];
 @endphp
-
 <div
     x-data="{
         show: @entangle($attributes->wire('model')).defer,

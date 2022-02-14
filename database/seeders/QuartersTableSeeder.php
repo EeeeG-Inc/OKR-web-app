@@ -9,68 +9,19 @@ class QuartersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $seeds = [
+            // 全ての会社共通の通年レコードを作成
             [
-                'from'               =>  5,
-                'to'                 =>  6,
-                'company_id'         =>  1,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
+                'quarter'    => 0,
+                'from'       => 1,
+                'to'         => 12,
+                'company_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            [
-                'from'               =>  7,
-                'to'                 =>  9,
-                'company_id'         =>  1,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  10,
-                'to'                 =>  12,
-                'company_id'         =>  1,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  1,
-                'to'                 =>  3,
-                'company_id'         =>  1,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  4,
-                'to'                 =>  6,
-                'company_id'         =>  2,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  7,
-                'to'                 =>  9,
-                'company_id'         =>  2,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  10,
-                'to'                 =>  12,
-                'company_id'         =>  2,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ],
-            [
-                'from'               =>  1,
-                'to'                 =>  3,
-                'company_id'         =>  2,
-                'created_at'         =>  now(),
-                'updated_at'         =>  now()
-            ]
         ];
 
         foreach ($seeds as $seed) {
