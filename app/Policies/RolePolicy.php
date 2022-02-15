@@ -10,52 +10,67 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-    // 閲覧
+    // index
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
+    // show
     public function view(User $user)
     {
-        $userTypes = [
+        $whiteList = [
             Role::ADMIN,
             Role::COMPANY,
             Role::DEPARTMENT,
             Role::MANAGER,
             Role::MEMBER,
         ];
-        return in_array($user->role, $userTypes);
+        return in_array($user->role, $whiteList);
     }
 
-    // 追加
+    // create / store
     public function create(User $user)
     {
-        $userTypes = [
-            Role::ADMIN,
+        $whiteList = [
             Role::COMPANY,
             Role::DEPARTMENT,
             Role::MANAGER,
             Role::MEMBER,
         ];
-        return in_array($user->role, $userTypes);
+        return in_array($user->role, $whiteList);
     }
 
-    // 変更
+    // edit / update
     public function update(User $user)
     {
-        $userTypes = [
-            Role::ADMIN,
+        $whiteList = [
             Role::COMPANY,
             Role::DEPARTMENT,
             Role::MANAGER,
             Role::MEMBER,
         ];
-        return in_array($user->role, $userTypes);
+        return in_array($user->role, $whiteList);
     }
 
-    // 削除
+    // destroy
     public function delete(User $user)
     {
-        $userTypes = [
-            Role::ADMIN,
+        $whiteList = [
             Role::COMPANY,
+            Role::DEPARTMENT,
+            Role::MANAGER,
         ];
-        return in_array($user->role, $userTypes);
+        return in_array($user->role, $whiteList);
+    }
+
+
+    // show
+    public function adminOnly(User $user)
+    {
+        $whiteList = [
+            Role::ADMIN,
+        ];
+        return in_array($user->role, $whiteList);
     }
 }

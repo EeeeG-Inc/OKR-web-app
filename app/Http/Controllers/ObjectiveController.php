@@ -12,8 +12,9 @@ use App\Http\UseCase\Objective\UpdateData;
 use App\Http\UseCase\Objective\GetEditData;
 use App\Http\UseCase\Objective\GetIndexData;
 use App\Http\UseCase\Objective\GetCreateData;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use \Illuminate\Http\RedirectResponse;
 
 class ObjectiveController extends Controller
 {
@@ -110,6 +111,8 @@ class ObjectiveController extends Controller
      */
     public function destroy(int $objectiveId, DestroyData $case)
     {
+        $this->authorize('delete', Auth::user());
+
         if (!$case($objectiveId)) {
             return redirect()->route('objective.index');
         }
