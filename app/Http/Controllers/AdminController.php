@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
 use App\Http\Requests\AdminUpdateRequest;
 use App\Http\UseCase\Admin\UpdateData;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 use Flash;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,9 +57,7 @@ class AdminController extends Controller
      */
     public function proxyLogin(int $userId)
     {
-        if (Auth::user()->role !== Role::ADMIN) {
-            abort(Response::HTTP_NOT_FOUND);
-        }
+        $this->authorize('adminOnly', Auth::user());
 
         $user = $this->userRepo->find($userId);
         Auth::login($user);
