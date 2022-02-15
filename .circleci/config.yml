@@ -81,7 +81,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-      - run: ssh root@172.105.194.66 'cd /var/www/OKR-manage-app/ && git checkout main && git pull && composer install && php artisan config:clear &&  php artisan config:cache && php artisan migrate'
+      - run: ssh root@172.105.194.66 'cd /var/www/OKR-manage-app/ && git checkout main && git pull && composer install --no-scripts --no-interaction && php artisan config:clear &&  php artisan config:cache && php artisan migrate'
 
 workflows:
   version: 2
