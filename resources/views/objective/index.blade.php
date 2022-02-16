@@ -90,7 +90,7 @@
                                                     {!! App\Enums\Priority::getFontAwesome($objective->priority) !!}
                                                     {{ App\Enums\Priority::getDescription($objective->priority) }}
                                                 </td>
-                                                <td class="align-middle">{{ $objective->objective }}</td>
+                                                <td class="align-middle">{!! nl2br($objective->objective) !!}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">{{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}</td>
                                                 @if ($isLoginUser)

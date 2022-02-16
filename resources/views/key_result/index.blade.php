@@ -14,8 +14,33 @@
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div
                                     class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-                                    <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->users->id]) }}
-                                    </p>
+                                    <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->users->id]) }}</p>
+
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ __('models/objectives.fields.year') }}</th>
+                                                <th>{{ __('models/quarters.fields.quarter') }}</th>
+                                                <th>{{ __('models/objectives.fields.priority') }}</th>
+                                                <th>{{ __('models/objectives.fields.objective') }}</th>
+                                                <th>{{ __('models/objectives.fields.score') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="align-middle">{{ $objective->year }}</td>
+                                                    <td class="align-middle">
+                                                        {{ App\Enums\Quarter::getDescription($objective->quarter) }}
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        {!! App\Enums\Priority::getFontAwesome($objective->priority) !!}
+                                                        {{ App\Enums\Priority::getDescription($objective->priority) }}
+                                                    </td>
+                                                    <td class="align-middle">{!! nl2br($objective->objective) !!}</td>
+                                                    <td class="align-middle">{{ $objective->score }}</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
 
                                     <table class="table table-striped table-hover">
                                         <thead>
@@ -27,8 +52,8 @@
                                         <tbody>
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
-                                                    <td>{{ $keyResult->key_result }}</td>
-                                                    <td>{{ $keyResult->score }}</td>
+                                                    <td class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
+                                                    <td class="align-middle">{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
