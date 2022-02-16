@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('common/title.key_result.index', ['name' => $objective->users->name, 'objective' => $objective->objective]))
+@section('title', __('common/title.key_result.index'))
 
 @section('content')
     <div class="container-fluid">
@@ -7,16 +7,16 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('common/title.key_result.index', ['name' => $objective->users->name, 'objective' => $objective->objective]) }}
+                        {{ __('common/title.key_result.index') }}
                     </div>
                     <div class="card-body">
                         <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-                                    <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->users->id]) }}</p>
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
 
-                                    <table class="table table-striped table-hover">
+                                    <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->users->id], ['class' => 'text-decoration-none']) }}</p>
+
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>{{ __('models/objectives.fields.year') }}</th>
