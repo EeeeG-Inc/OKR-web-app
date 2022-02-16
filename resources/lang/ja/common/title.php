@@ -20,10 +20,10 @@ return [
         'index' => '関連会社一覧',
     ],
     'key_result' => [
-        'index' => '【:name】:objectiveの成果指標',
+        'index' => '成果指標',
     ],
     'objective' => [
-        'index' => '【:name】目標一覧',
+        'index' => '目標一覧',
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集',
@@ -32,9 +32,11 @@ return [
     'user' => [
         'create' => '新規ユーザ作成',
         'edit' => 'ユーザ編集',
+        'delete' => 'ユーザ削除',
+        'search' => '検索条件',
     ],
     'key_result' => [
-        'index' => '【:name】:objectiveの成果指標',
+        'index' => '成果指標',
     ],
     'quarter' => [
         'index' => '四半期設定',

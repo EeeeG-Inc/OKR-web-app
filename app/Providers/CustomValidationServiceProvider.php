@@ -13,9 +13,8 @@ class CustomValidationServiceProvider extends ServiceProvider
      * @var array
      */
     protected static $pattern = [
-        // 小文字大文字数字が 1 文字以上
-        // 8 文字以上 32 文字以下
-        'passwordFormat' => '/\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[!-~]{8,32}\z/',
+        // 半角英数字・記号をそれぞれ 1 種類以上含む 8 文字以上 32 文字以下の正規表現
+        'passwordFormat' => '/\A(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]{8,32}+\z/i',
     ];
 
     /**

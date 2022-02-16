@@ -29,7 +29,9 @@ abstract class BaseNotificationService
         $client = new Client();
         $client->request('POST', $slack->webhook, [
             'json' => [
-                "text" => $text,
+                'username' => 'OKR Bot',
+                'icon_emoji' => ':robot_face:',
+                'text' => $text,
             ]
         ]);
 
