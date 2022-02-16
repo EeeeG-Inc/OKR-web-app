@@ -7,6 +7,7 @@ use App\Http\UseCase\Dashboard\GetIndexData;
 use App\Http\UseCase\User\GetCreateData;
 use App\Http\UseCase\User\GetEditData;
 use App\Http\UseCase\User\DestroyData;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -68,7 +69,7 @@ class UserController extends Controller
      * @param DestroyData $case
      * @return RedirectResponse
      */
-    public function destroy(int $userId, DestroyData $case)
+    public function destroy(int $userId, DestroyData $case): RedirectResponse
     {
         $this->authorize('delete', Auth::user());
 

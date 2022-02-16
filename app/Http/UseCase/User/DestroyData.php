@@ -18,10 +18,11 @@ class DestroyData
 
     public function __invoke(int $userId): bool
     {
+        $user = $this->userRepo->find($userId);
+
         DB::beginTransaction();
 
         try {
-            $user = $this->userRepo->find($userId);
             $this->userRepo->delete($user);
         } catch (\Exception $exc) {
             Flash::error(__('common/message.user.delete_failed', ['name' => $user->name]));
