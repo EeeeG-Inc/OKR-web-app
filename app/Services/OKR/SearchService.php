@@ -53,6 +53,7 @@ class SearchService
         return $builder
             ->orderBy('year', 'desc')
             ->orderBy('quarter', 'asc')
+            ->orderBy('priority', 'asc')
             ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'quarters.quarter', 'objectives.priority')
             ->paginate($this->pagenateNum);
     }
