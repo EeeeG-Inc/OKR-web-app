@@ -19,3 +19,8 @@
 .toggle-mark a.collapsed::after {
     content: "\f054";
 }
+
+.card-header-warning {
+    color: #fff;
+    background-color: #D0201B;
+}

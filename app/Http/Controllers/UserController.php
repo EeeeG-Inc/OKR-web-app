@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DashboardSearchRequest;
+use App\Http\UseCase\Dashboard\GetIndexData;
 use App\Http\UseCase\User\GetCreateData;
 use App\Http\UseCase\User\GetEditData;
 use App\Http\UseCase\User\DestroyData;
@@ -10,6 +12,32 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param DashboardSearchRequest $request
+     * @param GetIndexData $case
+     * @return View
+     */
+    public function index(DashboardSearchRequest $request, GetIndexData $case)
+    {
+        $input = $request->validated();
+        return view('user.index', $case($input));
+    }
+
+    /**
+     * Search listing of the resource.
+     *
+     * @param DashboardSearchRequest $request
+     * @param GetIndexData $case
+     * @return View
+     */
+    public function search(DashboardSearchRequest $request, GetIndexData $case)
+    {
+        $input = $request->validated();
+        return view('user.index', $case($input));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,8 +73,8 @@ class UserController extends Controller
         $this->authorize('delete', Auth::user());
 
         if (!$case($userId)) {
-            return redirect()->route('objective.index');
+            return redirect()->route('user.index');
         }
-        return redirect()->route('objective.index');
+        return redirect()->route('user.index');
     }
 }

@@ -135,7 +135,6 @@
                                                 @can('member-higher')
                                                     <td class="align-middle">
                                                         {{ Form::open(['route' => ['objective.destroy', $objective->id], 'method' => 'delete']) }}
-                                                        {{ Form::token() }}
                                                         {{ Form::submit(__('common/action.delete'), [
                                                             'class' => 'btn btn-danger',
                                                             'onclick' => "return confirm('" . __('common/message.objective.delete_confirm', ['objective' => $objective->objective])  . "')"
