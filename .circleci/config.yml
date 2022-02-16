@@ -81,9 +81,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-      - run: ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd /var/www/OKR-manage-app/'
-      - run: ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd /var/www/OKR-manage-app/ && git checkout main && git pull'
-      - run: ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd /var/www/OKR-manage-app/ && git checkout main && git pull && composer install --no-scripts --no-interaction'
+      - run: scp ~/.ssh/id_rsa.pub ${USER_NAME}@${HOST_NAME}:~/.ssh/authorized_keys
       - run: ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd /var/www/OKR-manage-app/ && git checkout main && git pull && composer install --no-scripts --no-interaction && php artisan config:clear &&  php artisan config:cache && php artisan migrate'
 
 workflows:
