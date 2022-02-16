@@ -77,8 +77,16 @@
                                                     {{ $user->name }}
                                                 </td>
                                                 <td class="align-middle">
-                                                    {!! App\Enums\Role::getFontAwesome($user->role) !!}
-                                                    {{ App\Enums\Role::getDescription($user->role) }}
+                                                    {!! App\Enums\Role::getFontAwesome($user->role, $user->companies) !!}
+                                                    @if ($user->role === App\Enums\Role::COMPANY)
+                                                        @if ($user->companies->is_master)
+                                                            {{ __('common/label.company_group.index.parent') }}
+                                                        @else
+                                                            {{ __('common/label.company_group.index.child') }}
+                                                        @endif
+                                                    @else
+                                                        {{ App\Enums\Role::getDescription($user->role) }}
+                                                    @endif
                                                 </td>
                                                 <td class="align-middle">
                                                     @if ($user->role !== App\Enums\Role::COMPANY)
