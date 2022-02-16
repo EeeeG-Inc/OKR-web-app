@@ -30,11 +30,10 @@
                                                     {{ $company->name }}
                                                 </td>
                                                 <td class="align-middle">
+                                                    {!! App\Enums\Role::getCompanyFontAwesome($company) !!}
                                                     @if ($company->is_master)
-                                                    <i class="fa-solid fa-buildings fa-city fa-lg"></i>
                                                         {{ __('common/label.company_group.index.parent') }}
                                                     @else
-                                                    <i class="fa-solid fa-building fa-fw fa-lg"></i>
                                                         {{ __('common/label.company_group.index.child') }}
                                                     @endif
 
