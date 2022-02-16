@@ -54,7 +54,7 @@ class SearchService
             ->orderBy('year', 'desc')
             ->orderBy('quarter', 'asc')
             ->orderBy('priority', 'asc')
-            ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'quarters.quarter', 'objectives.priority')
+            ->select('objectives.id', 'objectives.year', 'objectives.objective', 'objectives.score', 'objectives.quarter_id', 'objectives.priority')
             ->paginate($this->pagenateNum);
     }
 
