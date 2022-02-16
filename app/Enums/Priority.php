@@ -30,4 +30,27 @@ class Priority extends Enum implements LocalizedEnum
 
         return $results;
     }
+
+    public static function getFontAwesome($priority): string
+    {
+        $result = '';
+        switch ($priority) {
+            case self::P0:
+                $result = '<i class="fa-solid fa-battery-full fa-fw fa-lg"></i>';
+                break;
+            case self::P1:
+                $result = '<i class="fa-solid fa-battery-three-quarters fa-fw fa-lg"></i>';
+                break;
+            case self::P2:
+                $result = '<i class="fa-solid fa-battery-half fa-fw fa-lg"></i>';
+                break;
+            case self::P3:
+                $result = '<i class="fa-solid fa-battery-quarter fa-fw fa-lg"></i>';
+                break;
+            case self::P4:
+                $result = '<i class="fa-solid fa-battery-empty fa-fw fa-lg"></i>';
+                break;
+        }
+        return $result;
+    }
 }
