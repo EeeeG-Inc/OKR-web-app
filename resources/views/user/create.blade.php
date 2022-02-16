@@ -12,6 +12,8 @@
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
 
+                                    <p>{{ link_to_route('dashboard.index', __('common/action.back'), null, ['class' => 'text-decoration-none']) }}</p>
+
                                     @include('flash::message')
 
                                     <div class="form">
@@ -27,6 +29,9 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('role', $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                                    {{ __('common/message.user.role') }}
+                                                </small>
                                             </div>
                                         </div>
 

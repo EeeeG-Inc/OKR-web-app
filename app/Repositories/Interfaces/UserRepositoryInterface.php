@@ -14,6 +14,8 @@ interface UserRepositoryInterface
 
     public function update(int $id, array $input): bool;
 
+    public function delete(User $target): bool;
+
     public function getCompanyUserByCompanyIdAndName(int $companyId, string $name): Collection;
 
     public function getDepartmentUserByCompanyIdAndName(int $departmentId, string $name): Collection;

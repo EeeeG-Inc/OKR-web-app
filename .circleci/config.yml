@@ -74,7 +74,7 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      - run: php artisan insights --no-interaction --min-quality=75 --min-complexity=75 --min-architecture=75 --min-style=75
+      - run: php artisan insights --no-interaction --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
   deploy:
     machine:
       image: circleci/classic:edge
