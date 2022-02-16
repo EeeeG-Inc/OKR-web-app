@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('common/title.objective.index', ['name' => $user->name]))
+@section('title', __('common/title.objective.index'))
 
 @section('content')
 <div class="container-fluid">
@@ -46,7 +46,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('common/title.objective.index', ['name' => $user->name]) }}</div>
+                <div class="card-header">{{ __('common/title.objective.index') }}</div>
                 <div class="card-body">
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -62,6 +62,42 @@
                                     </div>
                                 @endif
 
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('models/users.fields.name') }}</th>
+                                            <th>{{ __('models/users.fields.role') }}</th>
+                                            @if (App\Enums\Role::COMPANY !== $user->role)
+                                                <th>{{ __('models/companies.fields.name') }}</th>
+                                            @endif
+                                            @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
+                                                <th>{{ __('models/departments.fields.name') }}</th>
+                                            @endif
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle">
+                                                {{ $user->name }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {!! App\Enums\Role::getFontAwesome($user->role) !!}
+                                                {{ App\Enums\Role::getDescription($user->role) }}
+                                            </td>
+                                            @if (App\Enums\Role::COMPANY !== $user->role)
+                                                <td class="align-middle">
+                                                    {{ $user->companies()->first()->name }}
+                                                </td>
+                                            @endif
+                                            @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
+                                                <td class="align-middle">
+                                                    {{ $user->departments()->first()->name }}
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -74,7 +110,7 @@
                                             @if ($isLoginUser)
                                                 <th>{{ __('common/action.edit') }}</th>
                                             @endif
-                                            @can('manager-higher')
+                                            @can('member-higher')
                                                 <th>{{ __('common/action.delete') }}</th>
                                             @endcan
                                         </tr>
@@ -96,7 +132,7 @@
                                                 @if ($isLoginUser)
                                                     <td class="align-middle">{{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}</td>
                                                 @endif
-                                                @can('manager-higher')
+                                                @can('member-higher')
                                                     <td class="align-middle">
                                                         {{ Form::open(['route' => ['objective.destroy', $objective->id], 'method' => 'delete']) }}
                                                         {{ Form::token() }}

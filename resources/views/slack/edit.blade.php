@@ -10,8 +10,12 @@
                     <div class="card-body">
                         <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div
-                                    class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
+                                    <p>{{ link_to_route('dashboard.index', __('common/action.back'), null, ['class' => 'text-decoration-none']) }}</p>
+
+                                    @include('flash::message')
+
                                     <div class="form">
                                         {{ Form::open(['route' => ['slack.update', $companyId], 'method' => 'put']) }}
                                         {{ Form::token() }}

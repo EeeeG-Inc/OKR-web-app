@@ -77,15 +77,7 @@
                                                     {{ $user->name }}
                                                 </td>
                                                 <td class="align-middle">
-                                                    @if ($user->role == App\Enums\Role::COMPANY)
-                                                        <i class="fa-solid fa-building fa-fw fa-lg"></i>
-                                                    @elseif ($user->role == App\Enums\Role::DEPARTMENT)
-                                                        <i class="fa-solid fa-briefcase fa-fw fa-lg"></i>
-                                                    @elseif ($user->role == App\Enums\Role::MANAGER)
-                                                        <i class="fa-solid fa-user-gear fa-fw fa-lg"></i>
-                                                    @elseif ($user->role == App\Enums\Role::MEMBER)
-                                                        <i class="fa-solid fa-user fa-fw fa-lg"></i>
-                                                    @endif
+                                                    {!! App\Enums\Role::getFontAwesome($user->role) !!}
                                                     {{ App\Enums\Role::getDescription($user->role) }}
                                                 </td>
                                                 <td class="align-middle">

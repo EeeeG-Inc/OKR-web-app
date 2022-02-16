@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\UseCase\User\GetCreateData;
 use App\Http\UseCase\User\GetEditData;
+use App\Http\UseCase\User\DestroyData;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -29,5 +31,22 @@ class UserController extends Controller
     public function edit(int $userId, GetEditData $case): View
     {
         return view('user.edit', $case());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $userId
+     * @param DestroyData $case
+     * @return RedirectResponse
+     */
+    public function destroy(int $userId, DestroyData $case)
+    {
+        $this->authorize('delete', Auth::user());
+
+        if (!$case($userId)) {
+            return redirect()->route('objective.index');
+        }
+        return redirect()->route('objective.index');
     }
 }
