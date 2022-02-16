@@ -11,9 +11,8 @@ class DestroyData
     /** @var UserRepositoryInterface */
     private $userRepo;
 
-    public function __construct(
-        UserRepositoryInterface $userRepo = null,
-    ) {
+    public function __construct(UserRepositoryInterface $userRepo = null)
+    {
         $this->userRepo = $userRepo ?? new UserRepository();
     }
 

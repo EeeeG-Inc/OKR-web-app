@@ -32,6 +32,8 @@ return [
     'user' => [
         'create' => '新規ユーザ作成',
         'edit' => 'ユーザ編集',
+        'delete' => 'ユーザ削除',
+        'search' => '検索条件',
     ],
     'key_result' => [
         'index' => '成果指標',

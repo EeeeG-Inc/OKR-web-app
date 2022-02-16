@@ -95,6 +95,12 @@
                                                 </a>
                                             @endcan
 
+                                            @can('manager-higher')
+                                                <a class="dropdown-item" href="{{ route('user.index', Auth::user()->id) }}">
+                                                    {{ __('common/nav.user.delete') }}
+                                                </a>
+                                            @endcan
+
                                             @can('member-higher')
                                                 <a class="dropdown-item" href="{{ route('company_group.index') }}">
                                                     {{ __('common/nav.company_group.index') }}

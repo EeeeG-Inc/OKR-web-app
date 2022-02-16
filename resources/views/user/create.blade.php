@@ -29,6 +29,9 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('role', $roles, null, ['class' => 'form-control', 'id' => 'roles']) }}
+                                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                                    {{ __('common/message.user.role') }}
+                                                </small>
                                             </div>
                                         </div>
 
