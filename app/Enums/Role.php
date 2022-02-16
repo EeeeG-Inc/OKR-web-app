@@ -77,4 +77,24 @@ class Role extends Enum implements LocalizedEnum
 
         return $results;
     }
+
+    public static function getFontAwesome($role): string
+    {
+        $result = '';
+        switch ($role) {
+            case self::COMPANY:
+                $result = '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
+                break;
+            case self::DEPARTMENT:
+                $result = '<i class="fa-solid fa-briefcase fa-fw fa-lg"></i>';
+                break;
+            case self::MANAGER:
+                $result = '<i class="fa-solid fa-user-gear fa-fw fa-lg"></i>';
+                break;
+            case self::MEMBER:
+                $result = '<i class="fa-solid fa-user fa-fw fa-lg"></i>';
+                break;
+        }
+        return $result;
+    }
 }

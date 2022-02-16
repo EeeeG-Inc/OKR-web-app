@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\QuarterRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -106,5 +107,19 @@ class Objective extends Model
     public function keyResults(): HasMany
     {
         return $this->hasMany(KeyResult::class, 'object_id');
+    }
+
+    /**
+     * Accessors.
+     */
+
+    /**
+     * Objective に紐づく Quarter を取得
+     */
+    public function getQuarterAttribute(): ?int
+    {
+        $quarterRepo = new QuarterRepository();
+        $quarter = $quarterRepo->find($this->quarter_id);
+        return $quarter->quarter ?? null;
     }
 }

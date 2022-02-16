@@ -23,9 +23,8 @@ class GetIndexData
     public function __invoke(array $input): array
     {
         $objectiveId = $input['objective_id'];
-
         return [
-            'objective' =>  $this->objectiveRepo->find($objectiveId),
+            'objective' => $this->objectiveRepo->find($objectiveId),
             'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
         ];
     }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('common/title.dashboard.index'))
+@section('title', __('common/title.user.delete'))
 
 @section('content')
 <div class="container-fluid">
@@ -8,7 +8,7 @@
             {{-- 検索 --}}
             <div class="card mb-4">
                 <div class="card-header toggle-mark">
-                    <a data-toggle="collapse" href="#search-item" class="collapsed text-decoration-none">{{ __('common/title.dashboard.search') }}</a>
+                    <a data-toggle="collapse" href="#search-item" class="collapsed text-decoration-none">{{ __('common/title.user.search') }}</a>
                 </div>
                 <div class="collapse" id="search-item">
                     <div class="card-body">
@@ -16,7 +16,7 @@
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
-                                        {{ Form::open(['url' => route('dashboard.search')]) }}
+                                        {{ Form::open(['url' => route('user.search')]) }}
 
                                         {{-- 会社名 --}}
                                         <div class="form-group row">
@@ -49,7 +49,7 @@
 
             {{-- 検索結果 --}}
             <div class="card">
-                <div class="card-header">{{ __('common/title.dashboard.index') }}</div>
+                <div class="card-header card-header-warning">{{ __('common/title.user.delete') }}</div>
                 <div class="card-body">
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -64,9 +64,8 @@
                                             <th>{{ __('models/users.fields.role') }}</th>
                                             <th>{{ __('models/companies.fields.name') }}</th>
                                             <th>{{ __('models/departments.fields.name') }}</th>
-                                            <th>{{ __('models/objectives.fields.objective') }}</th>
-                                            @can('admin-only')
-                                                <th>{{ __('common/admin.proxy_login') }}</th>
+                                            @can('member-higher')
+                                                <th>{{ __('common/action.delete') }}</th>
                                             @endcan
                                         </tr>
                                     </thead>
@@ -91,15 +90,15 @@
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
-                                                    @if ($user->hasObjective)
-                                                        {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
+                                                    @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
+                                                        {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'delete']) }}
+                                                        {{ Form::submit(__('common/action.delete'), [
+                                                            'class' => 'btn btn-danger',
+                                                            'onclick' => "return confirm('" . __('common/message.user.delete_confirm', ['name' => $user->name])  . "')"
+                                                        ])}}
+                                                        {{ Form::close() }}
                                                     @endif
                                                 </td>
-                                                @can('admin-only')
-                                                    <td class="align-middle">
-                                                        {{ link_to_route('admin.proxy_login', __('common/admin.proxy_login'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
-                                                    </td>
-                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>

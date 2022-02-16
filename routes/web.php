@@ -88,6 +88,11 @@ Route::middleware('auth')->group(function (): void {
 
     Route::middleware('can:manager-higher')->group(function (): void {
         Route::resource('user', UserController::class, ['except' => ['edit', 'update']]);
+        Route::prefix('user')->group(function (): void {
+            Route::post('search', [UserController::class, 'search'])->name('user.search');
+            Route::get('search', [UserController::class, 'index'])->name('user.links');
+        });
+
         Route::prefix('company')->group(function (): void {
             Route::post('store', [CompanyController::class, 'store'])->name('company.store');
         });
