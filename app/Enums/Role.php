@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Models\Company;
 use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
@@ -78,12 +79,16 @@ class Role extends Enum implements LocalizedEnum
         return $results;
     }
 
-    public static function getFontAwesome($role): string
+    public static function getFontAwesome(int $role, Company $company = null): string
     {
         $result = '';
         switch ($role) {
             case self::COMPANY:
-                $result = '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
+                if (is_null($company)) {
+                    $result = '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
+                } else {
+                    $result = self::getCompanyFontAwesome($company);
+                }
                 break;
             case self::DEPARTMENT:
                 $result = '<i class="fa-solid fa-briefcase fa-fw fa-lg"></i>';
@@ -95,6 +100,12 @@ class Role extends Enum implements LocalizedEnum
                 $result = '<i class="fa-solid fa-user fa-fw fa-lg"></i>';
                 break;
         }
+        return $result;
+    }
+
+    public static function getCompanyFontAwesome(Company $company = null): string
+    {
+        $result = $company->is_master ? '<i class="fa-solid fa-buildings fa-city fa-lg"></i>' : '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
         return $result;
     }
 }
