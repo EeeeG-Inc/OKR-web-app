@@ -103,9 +103,11 @@ class Role extends Enum implements LocalizedEnum
         return $result;
     }
 
-    public static function getCompanyFontAwesome(Company $company = null): string
+    public static function getCompanyFontAwesome(Company $company): string
     {
-        $result = $company->is_master ? '<i class="fa-solid fa-buildings fa-city fa-lg"></i>' : '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
-        return $result;
+        if ($company->is_master) {
+            return '<i class="fa-solid fa-buildings fa-city fa-lg"></i>';
+        }
+        return '<i class="fa-solid fa-building fa-fw fa-lg"></i>';
     }
 }
