@@ -23,11 +23,13 @@ return [
         'index' => '成果指標',
     ],
     'objective' => [
+        'archived_list' => 'アーカイブ一覧',
         'index' => '目標一覧',
         'index_relational' => ':nameに関連するユーザ',
         'create' => 'OKR 登録',
         'edit' => 'OKR 編集',
         'search' => '検索条件',
+        'archive_search' => 'アーカイブ検索条件',
     ],
     'user' => [
         'create' => '新規ユーザ作成',

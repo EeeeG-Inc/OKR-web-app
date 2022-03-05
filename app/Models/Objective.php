@@ -74,6 +74,7 @@ class Objective extends Model
         'priority',
         'remarks',
         'deleted_at',
+        'is_archived',
     ];
 
     /**
@@ -92,6 +93,7 @@ class Objective extends Model
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'is_archived' => 'boolean',
     ];
 
     public function users(): BelongsTo

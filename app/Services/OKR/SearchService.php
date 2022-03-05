@@ -40,11 +40,12 @@ class SearchService
         $this->userRepo = $userRepo ?? new UserRepository();
     }
 
-    public function getObjectives(array $input, int $userId): LengthAwarePaginator
+    public function getObjectives(array $input, int $userId, bool $isArchived): LengthAwarePaginator
     {
         // FIXME: Repository に定義
         $builder = Objective::join('quarters', 'objectives.quarter_id', '=', 'quarters.id')
-            ->where('user_id', $userId);
+            ->where('user_id', $userId)
+            ->where('is_archived', $isArchived);
 
         if (!is_null($input['year'] ?? null)) {
             $builder->where('year', $input['year']);
