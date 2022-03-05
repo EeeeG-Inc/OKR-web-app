@@ -54,7 +54,7 @@
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
                                                     <td class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
-                                                    <td class="align-middle">{{ $keyResult->remarks }}</td>
+                                                    <td class="align-middle">{!! nl2br($keyResult->remarks) !!}</td>
                                                     <td class="align-middle">{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach
