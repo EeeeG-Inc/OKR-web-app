@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('common/title.objective.index'))
+@section('title', __('common/title.objective.archived_list'))
 
 @section('content')
 <div class="container-fluid">
@@ -8,7 +8,7 @@
             {{-- 検索 --}}
             <div class="card mb-4">
                 <div class="card-header toggle-mark">
-                    <a data-toggle="collapse" href="#search-item" class="collapsed text-decoration-none">{{ __('common/title.objective.search') }}</a>
+                    <a data-toggle="collapse" href="#search-item" class="collapsed text-decoration-none">{{ __('common/title.objective.archive_search') }}</a>
                 </div>
                 <div class="collapse" id="search-item">
                     <div class="card-body">
@@ -16,7 +16,7 @@
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     <div class="form">
-                                        {{ Form::open(['url' => route('objective.search')]) }}
+                                        {{ Form::open(['url' => route('objective.archive_search')]) }}
                                         {{ Form::hidden('user_id', $user->id) }}
 
                                         {{--年度--}}
@@ -46,7 +46,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('common/title.objective.index') }}</div>
+                <div class="card-header">{{ __('common/title.objective.archived_list') }}</div>
                 <div class="card-body">
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -56,12 +56,8 @@
                                 @include('flash::message')
 
                                 <div class="text-right">
-                                    {{-- 新規作成 --}}
-                                    @if ($isLoginUser && $quarterExists)
-                                        {{ link_to_route('objective.create', __('common/action.create'), null, ['class' => ' text-right my-2 btn btn-primary']) }}
-                                    @endif
-                                    {{-- アーカイブ一覧 --}}
-                                    {{ link_to_route('objective.archived_list', __('common/action.archived_list'), ['user_id' => $user->id], ['class' => ' text-right my-2 btn btn-secondary']) }}
+                                    {{-- 目標一覧 --}}
+                                    {{ link_to_route('objective.index', __('common/title.objective.index'), ['user_id' => $user->id], ['class' => 'text-right my-2 btn btn-primary']); }}
                                 </div>
 
                                 <table class="table">
@@ -136,14 +132,20 @@
                                                     {{-- 詳細 --}}
                                                     {{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}
                                                     @if ($isLoginUser)
-                                                        {{-- 編集  --}}
-                                                        {{ link_to_route('objective.edit', __('common/action.edit'), $objective->id, ['class' => 'btn btn-primary']) }}
-
-                                                        {{-- アーカイブ --}}
-                                                        {{ Form::open(['route' => ['objective.archive', $objective->id], 'method' => 'put', 'class' => 'd-inline-block']) }}
-                                                        {{ Form::submit(__('common/action.archive'), ['class' => 'btn btn-secondary'])}}
+                                                        {{-- アーカイブ解除 --}}
+                                                        {{ Form::open(['route' => ['objective.unarchive', $objective->id], 'method' => 'put', 'class' => 'd-inline-block']) }}
+                                                        {{ Form::submit(__('common/action.unarchive'), ['class' => 'btn btn-secondary'])}}
                                                         {{ Form::close() }}
                                                     @endif
+                                                    @can('member-higher')
+                                                        {{-- 削除 --}}
+                                                        {{ Form::open(['route' => ['objective.destroy', $objective->id], 'method' => 'delete', 'class' => 'd-inline-block']) }}
+                                                        {{ Form::submit(__('common/action.delete'), [
+                                                            'class' => 'btn btn-danger',
+                                                            'onclick' => "return confirm('" . __('common/message.objective.delete_confirm', ['objective' => $objective->objective])  . "')"
+                                                        ])}}
+                                                        {{ Form::close() }}
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

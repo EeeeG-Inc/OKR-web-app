@@ -6,7 +6,6 @@ use App\Http\UseCase\Department\StoreData;
 use App\Http\UseCase\Department\UpdateData;
 use App\Http\Requests\DepartmentStoreRequest;
 use App\Http\Requests\DepartmentUpdateRequest;
-use App\Models\Department;
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\CompanyRepository;
