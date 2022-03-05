@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function (): void {
 
     Route::prefix('objective')->group(function (): void {
         Route::post('search', [ObjectiveController::class, 'search'])->name('objective.search');
+        Route::put('archive/{objective_id}', [ObjectiveController::class, 'archive'])->name('objective.archive');
+        Route::get('archive/list', [ObjectiveController::class, 'archivedList'])->name('objective.archived_list');
+        Route::post('archive/search', [ObjectiveController::class, 'archiveSearch'])->name('objective.archive_search');
+        Route::put('unarchive/{objective_id}', [ObjectiveController::class, 'unarchive'])->name('objective.unarchive');
     });
 
     Route::prefix('dashboard')->group(function (): void {

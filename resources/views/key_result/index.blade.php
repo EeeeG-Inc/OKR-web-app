@@ -46,6 +46,7 @@
                                         <thead>
                                             <tr>
                                                 <th>{{ __('models/key-results.fields.key_result') }}</th>
+                                                <th>{{ __('models/key-results.fields.remarks') }}</th>
                                                 <th>{{ __('models/key-results.fields.score') }}</th>
                                             </tr>
                                         </thead>
@@ -53,6 +54,7 @@
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
                                                     <td class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
+                                                    <td class="align-middle">{{ $keyResult->remarks }}</td>
                                                     <td class="align-middle">{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach
