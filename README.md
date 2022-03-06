@@ -10,6 +10,9 @@
 ```sh
 # 初期テーブルデータ作成
 php artisan migrate:fresh --seed
+
+# プロフィール画像にアクセスするためのシンボリックリンク作成
+php artisan storage:link
 ```
 
 - システム管理者アカウントが作成されます。パスワード・メールアドレス変更を行ってください

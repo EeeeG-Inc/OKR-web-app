@@ -29,6 +29,7 @@ class CompanyUpdateRequest extends FormRequest
             'name' => 'required|string',
             'role' => 'required|integer',
             'department_id' => 'nullable|integer',
+            'profile_image'=>'nullable|image|mimes:jpeg,png,jpg',
             'email' => 'nullable|string|email|max:255|unique:users,email,' . Auth::user()->id,
             'password' => 'nullable|string|min:8|confirmed|passwordFormat',
             'password_confirmation' => 'nullable|string|min:8',

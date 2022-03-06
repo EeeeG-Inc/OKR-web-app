@@ -17,7 +17,8 @@
                                     @include('flash::message')
 
                                     <div class="form">
-                                        {{ Form::open(['id' => 'update_user_form', 'method' => 'put']) }}
+                                        {{-- 画像アップロードでは 'enctype'=>'multipart/form-data' を指定 --}}
+                                        {{ Form::open(['id' => 'update_user_form', 'method' => 'put', 'enctype'=>'multipart/form-data']) }}
                                         {{-- CSRFトークン --}}
                                         {{ Form::token() }}
                                         {{ Form::hidden('user_id', $user->id) }}
@@ -59,6 +60,18 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::select('department_id', [], null, ['class' => 'form-control', 'id' => 'departments', 'disabled' => true]) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- プロフィール画像 --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('profile_image', __('models/users.fields.profile_image')) }}
+                                            </div>
+
+                                            <div class="col-md-10">
+                                                <img src="{{ $user->profile_image_path }}" id="profile_image_preview">
+                                                {{ Form::file('profile_image') }}
                                             </div>
                                         </div>
 
@@ -198,6 +211,14 @@
                     });
                 }
 
+                var previewImage = function (obj) {
+                    var fileReader = new FileReader()
+                    fileReader.onload = (function() {
+                        document.getElementById('profile_image_preview').src = fileReader.result
+                    });
+                    fileReader.readAsDataURL(obj.files[0])
+                }
+
                 $('#roles').change(function() {
                     roleId = Number($('#roles').val())
                     controlFields(roleId)
@@ -211,6 +232,10 @@
                     if ((roleId === MANAGER) || (roleId === MEMBER)) {
                         fetchDepartments(Number($('#companies').val()))
                     }
+                });
+
+                $('#profile_image').change(function() {
+                    previewImage(this)
                 });
 
                 // 初期化

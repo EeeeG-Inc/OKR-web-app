@@ -46,6 +46,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $remarks 備考
  * @method static \Illuminate\Database\Eloquent\Builder|Objective wherePriority($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereRemarks($value)
+ * @property bool $is_archived アーカイブフラグ
+ * @property-read int|null $quarter
+ * @method static \Illuminate\Database\Eloquent\Builder|Objective whereIsArchived($value)
  */
 class Objective extends Model
 {
