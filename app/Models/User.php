@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Repositories\ObjectiveRepository;
+use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,6 +64,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @property string $profile_image
+ * @property-read string $profile_image_path
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfileImage($value)
  */
 class User extends Authenticatable
 {
@@ -98,6 +102,7 @@ class User extends Authenticatable
         'email',
         'password',
         'email_verified_at',
+        'profile_image',
     ];
 
     /**
@@ -129,6 +134,7 @@ class User extends Authenticatable
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'profile_image' => 'string',
     ];
 
     /**
@@ -164,5 +170,13 @@ class User extends Authenticatable
     {
         $objectiveRepo = new ObjectiveRepository();
         return $objectiveRepo->getByUserId($this->id)->count() === 0 ? false : true;
+    }
+
+    /**
+     * プロフィール画像のパスを取得
+     */
+    public function getProfileImagePathAttribute(): string
+    {
+        return asset(Config::get('profile.public_image_path') . $this->profile_image);
     }
 }
