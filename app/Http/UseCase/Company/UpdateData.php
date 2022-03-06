@@ -5,15 +5,14 @@ use App\Repositories\Interfaces\CompanyRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
-use App\Services\User\ProfileImageService;
+use App\Services\User\UpdateService;
 use Flash;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateData
 {
-    /** @var ProfileImageService */
-    private $profileImageService;
+    /** @var UpdateService */
+    private $updateService;
 
     /** @var CompanyRepositoryInterface */
     private $companyRepo;
@@ -23,11 +22,11 @@ class UpdateData
     private $userRepo;
 
     public function __construct(
-        ProfileImageService $profileImageService,
+        UpdateService $updateService,
         CompanyRepositoryInterface $companyRepo = null,
         UserRepositoryInterface $userRepo = null
     ) {
-        $this->profileImageService = $profileImageService;
+        $this->updateService = $updateService;
         $this->companyRepo = $companyRepo ?? new CompanyRepository();
         $this->userRepo = $userRepo ?? new UserRepository();
     }
@@ -37,12 +36,6 @@ class UpdateData
         $user = Auth::user();
 
         try {
-            $profileImage = null;
-
-            if (!is_null($input['profile_image'])) {
-                $profileImage = $this->profileImageService->saveProfileImage($input['profile_image'], $user->id);
-            }
-
             $this->companyRepo->find($user->company_id)->update([
                 'name' => $input['name'],
             ]);
@@ -50,17 +43,9 @@ class UpdateData
             $data = [
                 'name' => $input['name'],
                 'role' => $input['role'],
-                'profile_image' => $profileImage ?? 'default.png',
             ];
 
-            if (!is_null($input['email'])) {
-                $data['email'] = $input['email'];
-            }
-
-            if (!is_null($input['password'])) {
-                $data['password'] = Hash::make($input['password']);
-            }
-
+            $data = $this->updateService->appendNullableAttribute($input, $data, $user);
             $this->userRepo->update($user->id, $data);
         } catch (\Exception $exc) {
             Flash::error($exc->getMessage());

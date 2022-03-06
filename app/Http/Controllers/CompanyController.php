@@ -7,6 +7,7 @@ use App\Http\Requests\CompanyUpdateRequest;
 use App\Http\UseCase\Company\StoreData;
 use App\Http\UseCase\Company\UpdateData;
 use \Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -39,7 +40,7 @@ class CompanyController extends Controller
         $input = $request->validated();
 
         if (!$case($input)) {
-            return redirect()->route('user.edit', $input['user_id']);
+            return redirect()->route('user.edit', Auth::id());
         }
         return redirect()->route('dashboard.index');
     }

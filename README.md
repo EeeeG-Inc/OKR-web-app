@@ -4,10 +4,16 @@
     - 7.3
 - Laravel
     - 8.75.0
+- https://github.com/EeeeG-Inc/OKR-server
+  - 上記リポジトリを clone すると、下記を利用いただけます
+    - Linode に Ubuntu 21.10 を構築する Terraform
+    - Ubuntu 21.10 で Laracel OKR App を実行させるための Ansible
 
 ## 環境構築
 
 ```sh
+chmod 777 /storage/app/public/profiles
+
 # 初期テーブルデータ作成
 php artisan migrate:fresh --seed
 

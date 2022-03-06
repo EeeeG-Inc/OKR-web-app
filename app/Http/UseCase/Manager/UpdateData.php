@@ -3,7 +3,7 @@ namespace App\Http\UseCase\Manager;
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
-use App\Services\User\ProfileImageService;
+use App\Services\User\UpdateService;
 use Flash;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +13,12 @@ class UpdateData
     /** @var UserRepositoryInterface */
     private $userRepo;
 
-    /** @var ProfileImageService */
-    private $profileImageService;
+    /** @var UpdateService */
+    private $updateService;
 
-    public function __construct(ProfileImageService $profileImageService, UserRepositoryInterface $userRepo = null)
+    public function __construct(UpdateService $updateService, UserRepositoryInterface $userRepo = null)
     {
-        $this->profileImageService = $profileImageService;
+        $this->updateService = $updateService;
         $this->userRepo = $userRepo ?? new UserRepository();
     }
 
@@ -27,28 +27,14 @@ class UpdateData
         $user = Auth::user();
 
         try {
-            $profileImage = null;
-
-            if (!is_null($input['profile_image'])) {
-                $profileImage = $this->profileImageService->saveProfileImage($input['profile_image'], $user->id);
-            }
-
             $data = [
                 'name' => $input['name'],
                 'role' => $input['role'],
                 'company_id' => $input['company_id'] ?? $user->company_id,
                 'department_id' => $input['department_id'],
-                'profile_image' => $profileImage ?? 'default.png',
             ];
 
-            if (!is_null($input['email'])) {
-                $data['email'] = $input['email'];
-            }
-
-            if (!is_null($input['password'])) {
-                $data['password'] = Hash::make($input['password']);
-            }
-
+            $data = $this->updateService->appendNullableAttribute($input, $data, $user);
             $this->userRepo->update($user->id, $data);
         } catch (\Exception $exc) {
             Flash::error($exc->getMessage());
