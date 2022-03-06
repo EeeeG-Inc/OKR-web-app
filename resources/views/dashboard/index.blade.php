@@ -71,6 +71,7 @@
                                         @foreach($users as $user)
                                             <tr>
                                                 <td class="align-middle">
+                                                    <img class="border border-secondary rounded-circle mx-2" src="{{ $user->profile_image_path }}" alt="プロフィール画像">
                                                     {{ $user->name }}
                                                 </td>
                                                 <td class="align-middle">

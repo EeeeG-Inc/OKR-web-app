@@ -10,5 +10,6 @@ return [
         'email' => 'メールアドレス',
         'email_verified_at' => 'メールアドレス確認日時',
         'password' => 'パスワード',
+        'profile_image' => 'プロフィール画像',
     ],
 ];
