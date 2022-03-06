@@ -7,6 +7,7 @@ use App\Http\Requests\ManagerUpdateRequest;
 use App\Http\UseCase\Manager\StoreData;
 use App\Http\UseCase\Manager\UpdateData;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
 {
@@ -39,7 +40,7 @@ class ManagerController extends Controller
         $input = $request->validated();
 
         if (!$case($input)) {
-            return redirect()->route('user.edit', $input['user_id']);
+            return redirect()->route('user.edit', Auth::id());
         }
         return redirect()->route('dashboard.index');
     }

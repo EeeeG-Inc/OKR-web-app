@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -58,7 +59,7 @@ class DepartmentController extends Controller
         $input = $request->validated();
 
         if (!$case($input)) {
-            return redirect()->route('user.edit', $input['user_id']);
+            return redirect()->route('user.edit', Auth::id());
         }
         return redirect()->route('dashboard.index');
     }
