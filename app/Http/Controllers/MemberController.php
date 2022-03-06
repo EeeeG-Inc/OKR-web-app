@@ -7,6 +7,7 @@ use App\Http\Requests\MemberUpdateRequest;
 use App\Http\UseCase\Member\StoreData;
 use App\Http\UseCase\Member\UpdateData;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -39,7 +40,7 @@ class MemberController extends Controller
         $input = $request->validated();
 
         if (!$case($input)) {
-            return redirect()->route('user.edit', $input['user_id']);
+            return redirect()->route('user.edit', Auth::id());
         }
         return redirect()->route('dashboard.index');
     }
