@@ -149,5 +149,6 @@ return [
         'key_result3' => __('models/key-results.fields.key_result') . '3',
         'year' => __('models/objectives.fields.year'),
         'quarter' => __('models/quarters.fields.quarter'),
+        'profile_image' => __('models/users.fields.profile_image'),
     ],
 ];
