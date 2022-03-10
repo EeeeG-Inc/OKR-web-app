@@ -57,7 +57,7 @@
 
                                 @include('flash::message')
 
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/users.fields.name') }}</th>

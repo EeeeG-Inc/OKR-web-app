@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/quarters.fields.quarter') }}</th>

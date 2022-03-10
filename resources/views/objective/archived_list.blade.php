@@ -105,7 +105,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/objectives.fields.year') }}</th>
@@ -169,7 +169,7 @@
                 <div class="card mt-4">
                     <div class="card-header">{{ __('common/title.objective.index_relational', ['name' => $user->name]) }}</div>
                     <div class="card-body">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>{{ __('models/users.fields.name') }}</th>
