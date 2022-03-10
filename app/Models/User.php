@@ -6,6 +6,7 @@ use App\Repositories\ObjectiveRepository;
 use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -149,14 +150,19 @@ class User extends Authenticatable
     /**
      * Relations.
      */
-    public function companies(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function departments(): BelongsTo
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function objectives(): HasMany
+    {
+        return $this->hasMany(Objective::class, 'user_id');
     }
 
     /**

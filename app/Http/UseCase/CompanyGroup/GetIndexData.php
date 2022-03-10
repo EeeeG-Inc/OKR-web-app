@@ -19,11 +19,13 @@ class GetIndexData
 
     public function __invoke(): array
     {
-        if (Auth::user()->role === Role::ADMIN) {
+        $user = Auth::user();
+
+        if ($user->role === Role::ADMIN) {
             return [];
         }
 
-        $companyGroupId = Auth::user()->companies()->first()->company_group_id;
+        $companyGroupId = $user->company->company_group_id;
         $companies = $this->companyRepo->getByCompanyGroupId($companyGroupId);
 
         return [

@@ -34,6 +34,12 @@ return [
         'delete_failed' => '「:objective」および「該当する成果指標」の削除に失敗しました',
         'delete_success' => '「:objective」および「該当する成果指標」の削除に成功しました',
     ],
+    'key_result' => [
+        'comment' => 'コメントしました',
+        'delete_comment_confirm' => 'コメントを削除してもよろしいでしょうか？',
+        'delete_comment_failed' => 'コメントの削除に失敗しました',
+        'delete_comment_success' => 'コメントの削除に成功しました',
+    ],
     'user' => [
         'role' => '会社・部署のアカウントは作成後に削除できないので注意してください',
         'password' => '半角英数字と記号をそれぞれ 1 種類以上含めた 8 文字以上 32 文字以下のパスワードを設定してください',

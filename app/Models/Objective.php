@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Objective withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Objective withoutTrashed()
  * @property int|null $priority 優先度
- * @property string|null $remarks 備考
+ * @property string|null $remarks 所感
  * @method static \Illuminate\Database\Eloquent\Builder|Objective wherePriority($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereRemarks($value)
  * @property bool $is_archived アーカイブフラグ
@@ -99,19 +99,20 @@ class Objective extends Model
         'is_archived' => 'boolean',
     ];
 
-    public function users(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function quarters(): BelongsTo
+    // objective->quarter と名前が干渉してしまったため quarterRelation とする
+    public function quarterRelation(): BelongsTo
     {
         return $this->belongsTo(Quarter::class, 'quarter_id');
     }
 
     public function keyResults(): HasMany
     {
-        return $this->hasMany(KeyResult::class, 'object_id');
+        return $this->hasMany(KeyResult::class, 'objective_id');
     }
 
     /**
