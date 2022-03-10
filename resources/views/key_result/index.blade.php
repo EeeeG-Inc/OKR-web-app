@@ -69,7 +69,7 @@
                                         </tbody>
                                     </table>
 
-                                    <table class="table table-striped table-hover">
+                                    <table class="table table-striped">
                                         <thead>
                                             <tr>
                                                 <th>{{ __('models/key-results.fields.key_result') }}</th>
@@ -104,7 +104,7 @@
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                                     @if(count($comments) > 0)
                                         @foreach($comments as $comment)
-                                            <table class="table table-hover table-borderless">
+                                            <table class="table table-borderless">
                                                 <tr>
                                                     <td width="20%" class="align-middle">
                                                         <img class="border border-secondary rounded-circle mx-2" src="{{ $comment->user->profile_image_path }}" alt="プロフィール画像">
