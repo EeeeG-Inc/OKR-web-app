@@ -27,7 +27,7 @@ class CreateKeyResultsTable extends Migration
                 ->comment('目標 ID');
             $table->text('remarks')
                 ->nullable()
-                ->comment('備考');
+                ->comment('所感');
             $table->softDeletes()
                 ->comment('削除フラグ');
             $table->timestamps();

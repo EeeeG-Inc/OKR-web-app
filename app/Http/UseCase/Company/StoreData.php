@@ -31,7 +31,7 @@ class StoreData
             $companyId = $this->companyRepo->create([
                 'name' => $input['name'],
                 'is_master' => false,
-                'company_group_id' => $user->companies->company_group_id,
+                'company_group_id' => $user->company->company_group_id,
             ])->id;
 
             $this->userRepo->create([

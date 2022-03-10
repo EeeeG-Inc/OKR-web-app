@@ -68,6 +68,6 @@ class CompanyGroup extends Model
 
     public function companies(): HasMany
     {
-        return $this->hasMany(Company::class, 'company_id');
+        return $this->hasMany(Company::class, 'company_group_id');
     }
 }

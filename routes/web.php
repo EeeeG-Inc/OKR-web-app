@@ -57,6 +57,11 @@ Route::middleware('auth')->group(function (): void {
         Route::put('unarchive/{objective_id}', [ObjectiveController::class, 'unarchive'])->name('objective.unarchive');
     });
 
+    Route::prefix('key_result')->group(function (): void {
+        Route::post('comment', [KeyResultController::class, 'comment'])->name('key_result.comment');
+        Route::delete('delete_comment/{objectiveId}/{commentId}', [KeyResultController::class, 'destroyComment'])->name('key_result.destroy_comment');
+    });
+
     Route::prefix('dashboard')->group(function (): void {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::post('search', [DashboardController::class, 'search'])->name('dashboard.search');

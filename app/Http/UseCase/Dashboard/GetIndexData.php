@@ -34,7 +34,7 @@ class GetIndexData
             ];
         }
 
-        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id)->toArray();
+        $companies = $this->companyRepo->getByCompanyGroupId($user->company->company_group_id)->toArray();
 
         return [
             'users' => $this->searchService->getUsers($user, $input),

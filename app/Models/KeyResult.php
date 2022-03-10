@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|KeyResult onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|KeyResult withTrashed()
  * @method static \Illuminate\Database\Query\Builder|KeyResult withoutTrashed()
- * @property string|null $remarks 備考
+ * @property string|null $remarks 所感
  * @method static \Illuminate\Database\Eloquent\Builder|KeyResult whereRemarks($value)
  */
 class KeyResult extends Model
@@ -87,7 +87,7 @@ class KeyResult extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function objectives(): BelongsTo
+    public function objective(): BelongsTo
     {
         return $this->belongsTo(Objective::class, 'objective_id');
     }
