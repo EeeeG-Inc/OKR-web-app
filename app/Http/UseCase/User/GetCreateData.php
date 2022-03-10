@@ -36,8 +36,8 @@ class GetCreateData
         $user = Auth::user();
         $companyId = $user->company_id;
         $departments = $this->departmentRepo->getByCompanyId($companyId);
-        $isMaster = (bool) $user->companies->is_master;
-        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id);
+        $isMaster = (bool) $user->company->is_master;
+        $companies = $this->companyRepo->getByCompanyGroupId($user->company->company_group_id);
 
         // 自身の会社の部署データが存在しない場合、まず部署アカウントのみ作成させる
         if ($departments->isEmpty()) {

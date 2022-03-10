@@ -80,23 +80,23 @@ class Company extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function companyGroups(): BelongsTo
+    public function companyGroup(): BelongsTo
     {
         return $this->belongsTo(CompanyGroup::class, 'company_group_id');
     }
 
     public function departments(): HasMany
     {
-        return $this->hasMany(Department::class, 'department_id');
+        return $this->hasMany(Department::class, 'company_id');
     }
 
     public function quarters(): HasMany
     {
-        return $this->hasMany(Quarter::class, 'quarter_id');
+        return $this->hasMany(Quarter::class, 'company_id');
     }
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->hasMany(User::class, 'company_id');
     }
 }
