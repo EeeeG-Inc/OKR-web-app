@@ -21,6 +21,7 @@ return [
     ],
     'key_result' => [
         'index' => '成果指標',
+        'comment' => 'コメント欄',
     ],
     'objective' => [
         'archived_list' => 'アーカイブ一覧',
@@ -36,9 +37,6 @@ return [
         'edit' => 'ユーザ編集',
         'delete' => 'ユーザ削除',
         'search' => '検索条件',
-    ],
-    'key_result' => [
-        'index' => '成果指標',
     ],
     'quarter' => [
         'index' => '四半期設定',

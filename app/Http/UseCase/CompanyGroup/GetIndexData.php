@@ -23,7 +23,7 @@ class GetIndexData
             return [];
         }
 
-        $companyGroupId = Auth::user()->companies()->first()->company_group_id;
+        $companyGroupId = Auth::user()->company()->first()->company_group_id;
         $companies = $this->companyRepo->getByCompanyGroupId($companyGroupId);
 
         return [

@@ -81,12 +81,12 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     @if ($user->role !== App\Enums\Role::COMPANY)
-                                                        {{ $user->companies()->first()->name }}
+                                                        {{ $user->company()->first()->name }}
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
                                                     @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
-                                                        {{ $user->departments()->first()->name }}
+                                                        {{ $user->department()->first()->name }}
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">

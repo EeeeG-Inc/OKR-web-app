@@ -73,7 +73,7 @@ class Slack extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function companies(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
     }

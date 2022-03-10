@@ -24,3 +24,8 @@
     color: #fff;
     background-color: #D0201B;
 }
+
+.score {
+    font-size: 34px;
+    font-weight: bold;
+}

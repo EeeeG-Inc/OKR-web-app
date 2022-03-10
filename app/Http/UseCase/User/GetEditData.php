@@ -25,7 +25,7 @@ class GetEditData
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $companies = $this->companyRepo->getByCompanyGroupId($user->companies->company_group_id);
+        $companies = $this->companyRepo->getByCompanyGroupId($user->company->company_group_id);
 
         return [
             'user' => $user,

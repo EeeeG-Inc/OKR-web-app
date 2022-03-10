@@ -21,7 +21,7 @@ class CompanyService
                     break;
                 // 会社・部署アカウントは所属する会社を変更できない
                 default:
-                    $companyNames[$companyId] = $user->companies->name;
+                    $companyNames[$companyId] = $user->company->name;
             }
         }
         return $companyNames;
@@ -38,7 +38,7 @@ class CompanyService
             }
         // 自身の会社に紐付いたアカウントのみ作成可能
         } else {
-            $companyNames[$companyId] = $user->companies->name;
+            $companyNames[$companyId] = $user->company->name;
         }
 
         return $companyNames;
