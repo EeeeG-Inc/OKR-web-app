@@ -52,7 +52,7 @@ class GetEditData
     public function __invoke(int $objectiveId): array
     {
         $user = Auth::user();
-        $quarters = $this->quarterRepo->getByCompanyId($user->companies->id);
+        $quarters = $this->quarterRepo->getByCompanyId($user->company->id);
         $objective = $this->objectiveRepo->find($objectiveId);
         $keyResluts = $this->keyResultRepo->getByObjectiveId($objectiveId);
         $year = $objective->year;

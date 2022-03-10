@@ -18,7 +18,7 @@ abstract class BaseNotificationService
         $this->slackRepo = $slackRepo ?? new SlackRepository();
     }
 
-    public function send(User $user, string $text): bool
+    public function send(User $user, string $text, array $option = []): bool
     {
         $slack = $this->slackRepo->findByCompanyId($user->company_id);
 
@@ -29,8 +29,8 @@ abstract class BaseNotificationService
         $client = new Client();
         $client->request('POST', $slack->webhook, [
             'json' => [
-                'username' => 'OKR Bot',
-                'icon_emoji' => ':robot_face:',
+                'username' => $option['username'] ?? 'OKR Bot',
+                'icon_emoji' => $option['icon_emoji'] ?? ':robot_face:',
                 'text' => $text,
             ]
         ]);

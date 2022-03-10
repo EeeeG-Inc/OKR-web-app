@@ -75,9 +75,9 @@
                                                     {{ $user->name }}
                                                 </td>
                                                 <td class="align-middle">
-                                                    {!! App\Enums\Role::getFontAwesome($user->role, $user->companies) !!}
+                                                    {!! App\Enums\Role::getFontAwesome($user->role, $user->company) !!}
                                                     @if ($user->role === App\Enums\Role::COMPANY)
-                                                        @if ($user->companies->is_master)
+                                                        @if ($user->company->is_master)
                                                             {{ __('common/label.company_group.index.parent') }}
                                                         @else
                                                             {{ __('common/label.company_group.index.child') }}
@@ -88,12 +88,12 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     @if ($user->role !== App\Enums\Role::COMPANY)
-                                                        {{ $user->companies()->first()->name }}
+                                                        {{ $user->company()->first()->name }}
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
                                                     @if (($user->role === App\Enums\Role::MANAGER) || ($user->role === App\Enums\Role::MEMBER))
-                                                        {{ $user->departments()->first()->name }}
+                                                        {{ $user->department()->first()->name }}
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">

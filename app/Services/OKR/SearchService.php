@@ -123,13 +123,13 @@ class SearchService
 
     private function findRelativeCompanyUser(User $user): User
     {
-        $company = $user->companies()->first();
+        $company = $user->company()->first();
         return $this->userRepo->getCompanyUserByCompanyIdAndName($company->id, $company->name)->first();
     }
 
     private function findRelativeDepartmentUser(User $user): User
     {
-        $department = $user->departments()->first();
+        $department = $user->department()->first();
         return $this->userRepo->getDepartmentUserByCompanyIdAndName($department->id, $department->name)->first();
     }
 }
