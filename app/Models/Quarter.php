@@ -84,13 +84,13 @@ class Quarter extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function companies(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function objectives(): HasMany
     {
-        return $this->hasMany(Objective::class, 'objective_id');
+        return $this->hasMany(Objective::class, 'quarter_id');
     }
 }

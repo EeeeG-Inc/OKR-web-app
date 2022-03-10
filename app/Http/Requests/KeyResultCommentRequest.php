@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class KeyResultIndexRequest extends FormRequest
+class KeyResultCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,7 @@ class KeyResultIndexRequest extends FormRequest
     public function rules()
     {
         return [
+            'comment' => 'required|string',
             'objective_id' => 'required|integer',
         ];
     }

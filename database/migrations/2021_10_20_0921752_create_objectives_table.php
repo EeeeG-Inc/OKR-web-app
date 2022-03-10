@@ -30,7 +30,7 @@ class CreateObjectivesTable extends Migration
                 ->comment('優先度');
             $table->text('remarks')
                 ->nullable()
-                ->comment('備考');
+                ->comment('所感');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 

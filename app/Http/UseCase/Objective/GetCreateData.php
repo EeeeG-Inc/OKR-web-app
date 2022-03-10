@@ -32,7 +32,7 @@ class GetCreateData
     public function __invoke(): array
     {
         $user = Auth::user();
-        $quarters = $this->quarterRepo->getByCompanyId($user->companies->id);
+        $quarters = $this->quarterRepo->getByCompanyId($user->company->id);
 
         return [
             'user' => $user,
