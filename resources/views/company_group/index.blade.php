@@ -15,7 +15,7 @@
 
                                 @include('flash::message')
 
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>{{ __('models/companies.fields.name') }}</th>
