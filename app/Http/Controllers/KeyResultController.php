@@ -41,8 +41,6 @@ class KeyResultController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param int $commentId
      * @param int $objectiveId
      * @param DestroyComment $case
