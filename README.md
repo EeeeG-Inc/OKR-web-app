@@ -1,4 +1,4 @@
-# Laracel OKR App
+# Laravel OKR Web App
 
 [Google](https://rework.withgoogle.com/jp/guides/set-goals-with-okrs/steps/grade-OKRs/) が提供しているスコアカードを Web アプリにしました
 
