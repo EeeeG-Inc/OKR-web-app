@@ -1,4 +1,8 @@
-# Laracel OKR App
+# Laravel OKR Web App
+
+[Google](https://rework.withgoogle.com/jp/guides/set-goals-with-okrs/steps/grade-OKRs/) が提供しているスコアカードを Web アプリにしました
+
+## Getting Started
 
 - PHP
     - 7.3
@@ -8,8 +12,6 @@
   - 上記リポジトリを clone すると、下記を利用いただけます
     - Linode に Ubuntu 21.10 を構築する Terraform
     - Ubuntu 21.10 で Laracel OKR App を実行させるための Ansible
-
-## 環境構築
 
 ```sh
 chmod 777 /storage/app/public/profiles
@@ -27,7 +29,7 @@ php artisan storage:link
 - 初回パスワード
   - `password`
 
-## 開発用
+## 開発
 
 ### テストデータ作成
 
