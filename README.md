@@ -1,6 +1,6 @@
 # Laravel OKR Web App
 
-[Google](https://rework.withgoogle.com/jp/guides/set-goals-with-okrs/steps/grade-OKRs/) が提供しているスコアカードを Web アプリにしました
+[Google が提供しているスコアカード](https://rework.withgoogle.com/jp/guides/set-goals-with-okrs/steps/grade-OKRs/)を Web アプリにしました
 
 ## Getting Started
 
@@ -9,9 +9,9 @@
 - Laravel
     - 8.75.0
 - https://github.com/EeeeG-Inc/OKR-server
-  - 上記リポジトリを clone すると、下記を利用いただけます
+  - 上記リポジトリを clone すると、下記をご利用いただけます
     - Linode に Ubuntu 21.10 を構築する Terraform
-    - Ubuntu 21.10 で Laracel OKR App を実行させるための Ansible
+    - Ubuntu 21.10 で Laracel OKR App の実行環境を構築する Ansible
 
 ```sh
 chmod 777 /storage/app/public/profiles
@@ -46,14 +46,8 @@ php artisan insights
 
 ### larastan
 
-`phpstan.neon` に静的解析の設定を記述する
-
 ```sh
 # 実行
 ./vendor/bin/phpstan analyse
 ./vendor/bin/phpstan analyse --memory-limit=2G
 ```
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
