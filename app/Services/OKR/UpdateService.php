@@ -11,7 +11,7 @@ use App\Repositories\ObjectiveRepository;
 class UpdateService
 {
     /**
-     * @var array
+     * @var array|null
      * Objective の更新内容を保持
     */
     public $result;
