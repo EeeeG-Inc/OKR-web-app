@@ -10,12 +10,6 @@ use App\Repositories\ObjectiveRepository;
 
 class UpdateService
 {
-    /**
-     * @var array|null
-     * Objective の更新内容を保持
-    */
-    public $result;
-
     /** @var int */
     private $count;
 
@@ -113,7 +107,7 @@ class UpdateService
 
     private function updateObjective(array $input, int $objectiveId): void
     {
-        $this->result = [
+        $this->objectiveRepo->update($objectiveId, [
             'user_id' => $input['user_id'],
             'year' => $input['year'],
             'quarter_id' => $input['quarter_id'],
@@ -121,12 +115,14 @@ class UpdateService
             'score' => round($this->totalScore / $this->count, 2),
             'remarks' => $input['objective_remarks'],
             'priority' => $input['priority'],
-        ];
-        $this->objectiveRepo->update($objectiveId, $this->result);
+        ]);
     }
 
     private function countScore(array $reqKeyResult): void
     {
+        if (empty($reqKeyResult['key_result']) && empty($reqKeyResult['score'])) {
+            return;
+        }
         $this->count++;
         $this->totalScore += $reqKeyResult['score'] ?? 0;
     }
