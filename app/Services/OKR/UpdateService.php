@@ -24,7 +24,6 @@ class UpdateService
 
     public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)
     {
-        $this->result = null;
         $this->count = 0;
         $this->totalScore = 0;
         $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();

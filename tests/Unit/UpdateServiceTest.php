@@ -15,25 +15,26 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 class UpdateServiceTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
-    // /** @var KeyResultRepositoryInterface */
+
+    /** @var KeyResultRepositoryInterface */
     private $keyResultRepo;
 
-    // /** @var ObjectiveRepositoryInterface */
+    /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
-    // /** @var UpdateService */
+    /** @var UpdateService */
     private $updateService;
 
-    // /** @var KeyResult */
+    /** @var KeyResult */
     private $keyResult1;
 
-    // /** @var KeyResult */
+    /** @var KeyResult */
     private $keyResult2;
 
-    // /** @var KeyResult */
+    /** @var KeyResult */
     private $keyResult3;
 
-    // /** @var Objective */
+    /** @var Objective */
     private $objective;
 
     public function setUp(): void
