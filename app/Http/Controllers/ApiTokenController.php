@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\UseCase\ApiToken\GetIndexData;
 use App\Http\UseCase\ApiToken\StoreData;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ApiTokenController extends Controller
@@ -23,8 +24,8 @@ class ApiTokenController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreData  $case
+     * @return RedirectResponse
      */
     public function store(StoreData $case)
     {
