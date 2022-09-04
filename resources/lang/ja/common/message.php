@@ -5,6 +5,9 @@ return [
         'proxy_login' => '「:name」として代理ログインしました',
         'update' => 'システム管理者の更新が完了しました',
     ],
+    'api_token' => [
+        'store' => 'API Token を作成しました',
+    ],
     'company' => [
         'store' => '会社アカウントの登録が完了しました',
         'update' => '会社アカウントの更新が完了しました',

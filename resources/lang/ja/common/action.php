@@ -5,6 +5,7 @@ return [
     'archive' => 'アーカイブ',
     'archived_list' => 'アーカイブ一覧',
     'back' => '戻る',
+    'change' => '変更',
     'comment' => 'コメント',
     'confirm' => '内容確認',
     'create' => '新規作成',

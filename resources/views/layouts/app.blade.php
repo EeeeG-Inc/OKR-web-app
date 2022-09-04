@@ -113,8 +113,14 @@
                                                 </a>
                                             @endcan
 
+                                            @can('member-higher')
+                                                <a class="dropdown-item" href="{{ route('api_token.index') }}">
+                                                    {{ __('common/nav.api_token.index') }}
+                                                </a>
+                                            @endcan
+
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                                document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                             </a>
 

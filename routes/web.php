@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApiTokenController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyGroupController;
 use App\Http\Controllers\DashboardController;
@@ -42,11 +43,16 @@ Route::middleware('auth')->group(function (): void {
 
     Route::resource('objective', ObjectiveController::class, ['except' => ['show']]);
     Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
+    Route::resource('api_token', ApiTokenController::class, ['except' => ['store', 'show', 'destroy']]);
 
     Route::prefix('admin')->group(function (): void {
         Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');
         Route::get('edit', [AdminController::class, 'edit'])->name('admin.edit');
         Route::put('update', [AdminController::class, 'update'])->name('admin.update');
+    });
+
+    Route::prefix('api_token')->group(function (): void {
+        Route::get('store', [ApiTokenController::class, 'store'])->name('api_token.store');
     });
 
     Route::prefix('objective')->group(function (): void {
