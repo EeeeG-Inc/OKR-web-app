@@ -14,7 +14,7 @@
     - Ubuntu 21.10 で Laracel OKR App の実行環境を構築する Ansible
 
 ```sh
-chmod 777 /storage/app/public/profiles
+chmod 777 storage/app/public/profiles
 
 # 初期テーブルデータ作成
 php artisan migrate:fresh --seed
