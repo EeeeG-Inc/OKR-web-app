@@ -18,6 +18,7 @@ class CreateApiTokensTable extends Migration
             $table->integer('personal_access_token_id')->comment('パーソナルアクセストークンID');
             $table->integer('user_id')->unsigned()->comment('ユーザID');
             $table->integer('company_id')->unsigned()->unique()->comment('会社ID');
+            $table->text('plain_text_token')->comment('API Token');
             $table->softDeletes()->comment('削除フラグ');
             $table->timestamps();
 

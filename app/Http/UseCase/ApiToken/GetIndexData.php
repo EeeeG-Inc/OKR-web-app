@@ -25,7 +25,7 @@ class GetIndexData
 
         if (!is_null($apiToken)) {
             $isNoToken = false;
-            $token = $apiToken->personalAccessToken->token;
+            $token = $apiToken->plain_text_token;
         }
 
         return [

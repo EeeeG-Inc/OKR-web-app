@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Company onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Company withoutTrashed()
+ * @property-read \App\Models\CompanyGroup $companyGroup
  */
 class Company extends Model
 {

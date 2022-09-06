@@ -51,3 +51,20 @@ php artisan insights
 ./vendor/bin/phpstan analyse
 ./vendor/bin/phpstan analyse --memory-limit=2G
 ```
+
+### swagger
+
+```sh
+# swagger.yaml 更新
+vendor/bin/openapi app -o storage/swagger.yaml
+```
+
+- Postman などに `storage/swagger.yaml` をインポートすると、API を投げる雛形が生成されます
+- API を投げるときのヘッダー情報
+  - Content-Type
+    - `application/json`
+  - Accept
+    - `application/json`
+  - Authorization
+    - `Bearer {{API token}}`
+    - API token は会社アカウントでログインすると、メニューから生成できます

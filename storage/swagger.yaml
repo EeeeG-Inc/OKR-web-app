@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: 'OKR API'
+  version: '1.0'
+paths:
+  /api/okr/mine/get:
+    post:
+      tags:
+        - 'OKR 取得処理'
+      description: '自身の OKR を取得する'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                year:
+                  description: 西暦
+                  type: integer
+                  example: '2022'
+                quarter_id:
+                  description: 四半期ID
+                  type: integer
+                  example: '1'
+              type: object
+      responses:
+        '200':
+          description: 'OKR 取得成功'
+          content:
+            application/json:
+              schema:
+                properties:
+                  objectives: { description: OKR, type: object }
+                type: object
+  /api/okr/ours/get:
+    post:
+      tags:
+        - '会社全体 OKR 取得処理'
+      description: 'ユーザに紐づく会社の全員の OKR を取得する'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                year:
+                  description: 西暦
+                  type: integer
+                  example: '2022'
+                quarter_id:
+                  description: 四半期ID
+                  type: integer
+                  example: '1'
+              type: object
+      responses:
+        '200':
+          description: 'OKR 取得成功'
+          content:
+            application/json:
+              schema:
+                properties:
+                  objectives: { description: OKR, type: object }
+                type: object
+  /api/quarter/get:
+    post:
+      tags:
+        - 四半期取得処理
+      description: 自身の会社に紐づく四半期情報を取得する
+      responses:
+        '200':
+          description: 四半期一覧取得成功
+          content:
+            application/json:
+              schema:
+                properties:
+                  quarters: { description: 四半期, type: object }
+                type: object

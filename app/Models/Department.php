@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Department onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  */
 class Department extends Model
 {
