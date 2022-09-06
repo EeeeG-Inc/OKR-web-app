@@ -79,7 +79,7 @@ jobs:
       - run: php artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
   deploy:
     machine:
-      image: circleci/classic:edge
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - add_ssh_keys:

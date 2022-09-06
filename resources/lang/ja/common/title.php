@@ -4,6 +4,9 @@ return [
     'admin' => [
         'edit' => 'システム管理者編集',
     ],
+    'api_token' => [
+        'index' => 'API Token 作成'
+    ],
     'auth' => [
         'login' => 'ログイン',
         'register' => '会社アカウント作成',
