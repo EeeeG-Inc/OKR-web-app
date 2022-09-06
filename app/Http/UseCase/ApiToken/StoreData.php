@@ -19,12 +19,13 @@ class StoreData
     public function __invoke(): bool
     {
         $user = Auth::user();
-        $personalAccessToken = $user->createToken('api-token-user_id-' . $user->id)->accessToken;
+        $personalAccessToken = $user->createToken('api-token-user_id-' . $user->id);
         $apiToken = $this->apiTokenRepo->findByCompanyId($user->company_id);
         $input = [
-            'personal_access_token_id' => $personalAccessToken->id,
+            'personal_access_token_id' => $personalAccessToken->accessToken->id,
             'user_id' => $user->id,
             'company_id' => $user->company_id,
+            'plain_text_token' => $personalAccessToken->plainTextToken,
         ];
 
         if (is_null($apiToken)) {

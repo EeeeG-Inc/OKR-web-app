@@ -41,6 +41,13 @@ class UserRepository implements UserRepositoryInterface
         return $target->delete();
     }
 
+    public function getByCompanyId(int $companyId): Collection
+    {
+        return $this->user->where([
+            ['company_id', '=', $companyId],
+        ])->get();
+    }
+
     public function getCompanyUserByCompanyIdAndName(int $companyId, string $name): Collection
     {
         return $this->user->where([
