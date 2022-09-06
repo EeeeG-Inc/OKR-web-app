@@ -43,6 +43,14 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
         return Objective::where('user_id', $userId)->get();
     }
 
+    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId): Collection
+    {
+        return Objective::where('user_id', $userId)
+            ->where('year', $year)
+            ->where('quarter_id', $quarterId)
+            ->get();
+    }
+
     public function getYearByUserId(int $userId): Collection
     {
         return $this->objective->where('user_id', $userId)

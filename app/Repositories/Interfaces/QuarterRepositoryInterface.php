@@ -9,6 +9,8 @@ interface QuarterRepositoryInterface
 {
     public function find(int $id): ?Quarter;
 
+    public function findQuarterFullYear(): Quarter;
+
     public function create(array $input): Quarter;
 
     public function update(int $id, array $input): bool;

@@ -21,6 +21,12 @@ class QuarterRepository implements QuarterRepositoryInterface
         return $this->quarter->findOrFail($id);
     }
 
+    public function findQuarterFullYear(): Quarter
+    {
+        // 通年は id = 1
+        return $this->quarter->find(1);
+    }
+
     public function create(array $input): Quarter
     {
         return $this->quarter->create($input);

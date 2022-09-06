@@ -68,6 +68,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $profile_image
  * @property-read string $profile_image_path
  * @method static \Illuminate\Database\Eloquent\Builder|User whereProfileImage($value)
+ * @property string|null $remember_token
+ * @property-read \App\Models\Company|null $company
+ * @property-read \App\Models\Department|null $department
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Objective[] $objectives
+ * @property-read int|null $objectives_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  */
 class User extends Authenticatable
 {

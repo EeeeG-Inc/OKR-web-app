@@ -19,6 +19,9 @@ return [
     'slack' => [
         'index' => 'Slack 通知設定',
     ],
+    'api_token' => [
+        'index' => 'API Token 管理',
+    ],
     'user' => [
         'create' => '新規ユーザ作成',
         'edit' => 'ユーザ編集',

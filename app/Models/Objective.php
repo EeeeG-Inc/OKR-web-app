@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool $is_archived アーカイブフラグ
  * @property-read int|null $quarter
  * @method static \Illuminate\Database\Eloquent\Builder|Objective whereIsArchived($value)
+ * @property-read \App\Models\Quarter $quarterRelation
+ * @property-read \App\Models\User $user
  */
 class Objective extends Model
 {

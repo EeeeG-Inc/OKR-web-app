@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Slack withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Slack withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\Company $company
  */
 class Slack extends Model
 {

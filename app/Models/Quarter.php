@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Quarter onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Quarter withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Quarter withoutTrashed()
+ * @property-read \App\Models\Company|null $company
  */
 class Quarter extends Model
 {
