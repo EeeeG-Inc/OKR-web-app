@@ -35,6 +35,12 @@ use Illuminate\View\View;
  *                      type="integer",
  *                      example="1"
  *                  ),
+ *                  @OA\Property(
+ *                      property="is_archived",
+ *                      description="アーカイブフラグ",
+ *                      type="integer",
+ *                      example="0"
+ *                  ),
  *              )
  *          )
  *      ),
@@ -72,6 +78,12 @@ use Illuminate\View\View;
  *                      description="四半期ID",
  *                      type="integer",
  *                      example="1"
+ *                  ),
+ *                  @OA\Property(
+ *                      property="is_archived",
+ *                      description="アーカイブフラグ",
+ *                      type="integer",
+ *                      example="0"
  *                  ),
  *              )
  *          )
@@ -120,6 +132,7 @@ class OkrController extends Controller
     {
         $input = $request->validated();
         $result = $case($input);
+        \Log::debug($input);
 
         return new JsonResponse([
             'objectives' => $result['objectives'],
