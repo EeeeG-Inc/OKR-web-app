@@ -22,6 +22,10 @@ paths:
                   description: 四半期ID
                   type: integer
                   example: '1'
+                is_archived:
+                  description: アーカイブフラグ
+                  type: integer
+                  example: '0'
               type: object
       responses:
         '200':
@@ -51,6 +55,10 @@ paths:
                   description: 四半期ID
                   type: integer
                   example: '1'
+                is_archived:
+                  description: アーカイブフラグ
+                  type: integer
+                  example: '0'
               type: object
       responses:
         '200':
