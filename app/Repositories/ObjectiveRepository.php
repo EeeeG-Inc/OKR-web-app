@@ -46,6 +46,7 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
     public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, ?bool $isArchived = false): Collection
     {
         $where = [
+            ['user_id', '=', $userId],
             ['year', '=', $year],
             ['quarter_id', '=', $quarterId],
         ];
