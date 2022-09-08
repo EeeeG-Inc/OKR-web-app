@@ -132,7 +132,6 @@ class OkrController extends Controller
     {
         $input = $request->validated();
         $result = $case($input);
-        \Log::debug($input);
 
         return new JsonResponse([
             'objectives' => $result['objectives'],
