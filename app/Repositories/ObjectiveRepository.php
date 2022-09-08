@@ -43,12 +43,20 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
         return Objective::where('user_id', $userId)->get();
     }
 
-    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId): Collection
+    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, ?bool $isArchived = false): Collection
     {
-        return Objective::where('user_id', $userId)
-            ->where('year', $year)
-            ->where('quarter_id', $quarterId)
-            ->get();
+        $where = [
+            ['year', '=', $year],
+            ['quarter_id', '=', $quarterId],
+        ];
+
+        // アーカイブされた OKR、されていない OKR を混同する
+        if (is_null($isArchived)) {
+            return Objective::where($where)->get();
+        }
+
+        $where[] = ['is_archived', '=', $isArchived];
+        return Objective::where($where)->get();
     }
 
     public function getYearByUserId(int $userId): Collection

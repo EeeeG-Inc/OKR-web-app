@@ -27,14 +27,25 @@ class GetDataService
 
     public function getObjectivesOfMine(int $userId, array $input): Collection
     {
-        $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
-            $userId,
-            (int) $input['year'],
-            (int) $input['quarter_id']
-        );
+        if (is_null($input['is_archived'])) {
+            $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
+                $userId,
+                (int) $input['year'],
+                (int) $input['quarter_id'],
+                null
+            );
+        } else {
+            $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
+                $userId,
+                (int) $input['year'],
+                (int) $input['quarter_id'],
+                (bool) $input['is_archived']
+            );
+        }
 
         foreach ($objectives as $key => $objective) {
             $objectives[$key]['key_results'] = $objective->keyResults;
+            $objectives[$key]['quarter'] = $objective->quarter;
             $objectives[$key]['comments'] = $this->commentRepo->getByObjectiveId($objective->id);
         }
 
