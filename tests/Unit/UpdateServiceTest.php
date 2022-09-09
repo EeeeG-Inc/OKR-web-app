@@ -64,6 +64,7 @@ class UpdateServiceTest extends TestCase
         $this->objective->allows('getAttribute')->with('id')->andReturn(1);
         $this->objective->allows('getAttribute')->with('objective')->andReturn('テスト目標');
         $this->objective->allows('getAttribute')->with('remarks')->andReturn('テスト備考');
+        $this->objective->allows('getAttribute')->with('impression')->andReturn('所感');
         $this->objective->allows('getAttribute')->with('priority')->andReturn(1);
         $this->objective->allows('getAttribute')->with('quarter_id')->andReturn(1);
         $this->objective->allows('getAttribute')->with('user_id')->andReturn(1);
@@ -85,18 +86,21 @@ class UpdateServiceTest extends TestCase
             'key_result' => '成果指標1',
             'score' => 0.5,
             'remarks' => 'テスト1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => null,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $keyResult3 = [
             'id' => null,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -104,19 +108,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -128,6 +136,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -144,6 +153,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => $keyResult1['score'],
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);
@@ -167,19 +177,22 @@ class UpdateServiceTest extends TestCase
             'id' => $this->keyResult1->id,
             'key_result' => '成果指標1',
             'score' => 0.5,
-            'remarks' => 'テスト1',
+            'remarks' => '備考1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => $this->keyResult2->id,
             'key_result' => '成果指標2',
             'score' => '0.5',
-            'remarks' => 'テスト2',
+            'remarks' => '備考2',
+            'impression' => '所感2',
         ];
         $keyResult3 = [
             'id' => null,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -187,19 +200,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -211,6 +228,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -226,6 +244,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult2['key_result'],
                 'score' => $keyResult2['score'],
                 'remarks' => $keyResult2['remarks'],
+                'impression' => $keyResult2['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -242,6 +261,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => ($keyResult1['score'] + $keyResult2['score']) / 2,
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);
@@ -264,19 +284,22 @@ class UpdateServiceTest extends TestCase
             'id' => $this->keyResult1->id,
             'key_result' => '成果指標1',
             'score' => '0.5',
-            'remarks' => 'テスト1',
+            'remarks' => '備考1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => $this->keyResult2->id,
             'key_result' => '成果指標2',
             'score' => '0.5',
-            'remarks' => 'テスト2',
+            'remarks' => '備考2',
+            'impression' => '所感2',
         ];
         $keyResult3 = [
             'id' => $this->keyResult3->id,
             'key_result' => '成果指標3',
             'score' => '0.5',
-            'remarks' => 'テスト3',
+            'remarks' => '所感3',
+            'impression' => '所感3',
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -284,19 +307,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -308,6 +335,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -323,6 +351,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult2['key_result'],
                 'score' => $keyResult2['score'],
                 'remarks' => $keyResult2['remarks'],
+                'impression' => $keyResult2['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -338,6 +367,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult3['key_result'],
                 'score' => $keyResult3['score'],
                 'remarks' => $keyResult3['remarks'],
+                'impression' => $keyResult3['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -354,6 +384,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => ($keyResult1['score'] + $keyResult2['score'] + $keyResult3['score']) / 3,
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);
@@ -376,19 +407,22 @@ class UpdateServiceTest extends TestCase
             'id' => $this->keyResult1->id,
             'key_result' => '成果指標1',
             'score' => 1.0,
-            'remarks' => 'テスト1',
+            'remarks' => '備考1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => $this->keyResult2->id,
             'key_result' => '成果指標2',
             'score' => 1.0,
-            'remarks' => 'テスト2',
+            'remarks' => '備考2',
+            'impression' => '所感2',
         ];
         $keyResult3 = [
             'id' => $this->keyResult3->id,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -396,19 +430,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -420,6 +458,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -435,6 +474,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult2['key_result'],
                 'score' => $keyResult2['score'],
                 'remarks' => $keyResult2['remarks'],
+                'impression' => $keyResult2['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -451,6 +491,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => ($keyResult1['score'] + $keyResult2['score']) / 2,
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);
@@ -463,6 +504,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult3['key_result'],
                 'score' => $keyResult3['score'],
                 'remarks' => $keyResult3['remarks'],
+                'impression' => $keyResult3['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -488,19 +530,22 @@ class UpdateServiceTest extends TestCase
             'id' => $this->keyResult1->id,
             'key_result' => '成果指標1',
             'score' => 1.0,
-            'remarks' => 'テスト1',
+            'remarks' => '備考1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => $this->keyResult2->id,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $keyResult3 = [
             'id' => $this->keyResult3->id,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -508,19 +553,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -532,6 +581,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -547,6 +597,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult2['key_result'],
                 'score' => $keyResult2['score'],
                 'remarks' => $keyResult2['remarks'],
+                'impression' => $keyResult2['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -563,6 +614,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => $keyResult1['score'],
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);
@@ -575,6 +627,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult3['key_result'],
                 'score' => $keyResult3['score'],
                 'remarks' => $keyResult3['remarks'],
+                'impression' => $keyResult3['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -600,19 +653,22 @@ class UpdateServiceTest extends TestCase
             'id' => $this->keyResult1->id,
             'key_result' => '成果指標1',
             'score' => 1.0,
-            'remarks' => 'テスト1',
+            'remarks' => '備考1',
+            'impression' => '所感1',
         ];
         $keyResult2 = [
             'id' => $this->keyResult2->id,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $keyResult3 = [
             'id' => null,
             'key_result' => null,
             'score' => '0',
             'remarks' => null,
+            'impression' => null,
         ];
         $input = [
             'user_id' => $this->objective->user_id,
@@ -620,19 +676,23 @@ class UpdateServiceTest extends TestCase
             'quarter_id' => $this->objective->quarter_id,
             'objective' => $this->objective->objective,
             'objective_remarks' => $this->objective->remarks,
+            'objective_impression' => $this->objective->impression,
             'priority' => $this->objective->priority,
             'key_result1_id' => $keyResult1['id'],
             'key_result1' => $keyResult1['key_result'],
             'key_result1_score' => $keyResult1['score'],
             'key_result1_remarks' => $keyResult1['remarks'],
+            'key_result1_impression' => $keyResult1['impression'],
             'key_result2_id' => $keyResult2['id'],
             'key_result2' => $keyResult2['key_result'],
             'key_result2_score' => $keyResult2['score'],
             'key_result2_remarks' => $keyResult2['remarks'],
+            'key_result2_impression' => $keyResult2['impression'],
             'key_result3_id' => $keyResult3['id'],
             'key_result3' => $keyResult3['key_result'],
             'key_result3_score' => $keyResult3['score'],
             'key_result3_remarks' => $keyResult3['remarks'],
+            'key_result3_impression' => $keyResult3['impression'],
         ];
 
         // mock set
@@ -644,6 +704,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult1['key_result'],
                 'score' => $keyResult1['score'],
                 'remarks' => $keyResult1['remarks'],
+                'impression' => $keyResult1['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -659,6 +720,7 @@ class UpdateServiceTest extends TestCase
                 'key_result' => $keyResult2['key_result'],
                 'score' => $keyResult2['score'],
                 'remarks' => $keyResult2['remarks'],
+                'impression' => $keyResult2['impression'],
             ])
             ->andReturn(true);
         $this->keyResultRepo->shouldReceive('find')
@@ -675,6 +737,7 @@ class UpdateServiceTest extends TestCase
                 'objective' => $this->objective->objective,
                 'score' => $keyResult1['score'],
                 'remarks' => $this->objective->remarks,
+                'impression' => $this->objective->impression,
                 'priority' => $this->objective->priority,
             ])
             ->andReturn(true);

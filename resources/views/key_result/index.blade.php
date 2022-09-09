@@ -52,6 +52,7 @@
                                             <tr>
                                                 <th>{{ __('models/objectives.fields.score') }}</th>
                                                 <th>{{ __('models/objectives.fields.remarks') }}</th>
+                                                <th>{{ __('models/objectives.fields.impression') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,6 +66,7 @@
                                                 @endif
 
                                                 <td width="90%" class="align-middle">{!! nl2br($objective->remarks) !!}</td>
+                                                <td width="90%" class="align-middle">{!! nl2br($objective->impression) !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -74,14 +76,16 @@
                                             <tr>
                                                 <th>{{ __('models/key-results.fields.key_result') }}</th>
                                                 <th>{{ __('models/key-results.fields.remarks') }}</th>
+                                                <th>{{ __('models/key-results.fields.impression') }}</th>
                                                 <th>{{ __('models/key-results.fields.score') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
-                                                    <td width="45%" class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
-                                                    <td width="45%" class="align-middle">{!! nl2br($keyResult->remarks) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->remarks) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->impression) !!}</td>
                                                     <td width="10%" class="align-middle">{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach

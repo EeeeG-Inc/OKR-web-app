@@ -59,16 +59,19 @@ class UpdateService
                 'key_result' => $input['key_result1'],
                 'score' => $input['key_result1_score'],
                 'remarks' => $input['key_result1_remarks'],
+                'impression' => $input['key_result1_impression'],
             ],
             $input['key_result2_id'] ?? -1 => [
                 'key_result' => $input['key_result2'],
                 'score' => $input['key_result2_score'],
                 'remarks' => $input['key_result2_remarks'],
+                'impression' => $input['key_result2_impression'],
             ],
             $input['key_result3_id'] ?? -2 => [
                 'key_result' => $input['key_result3'],
                 'score' => $input['key_result3_score'],
                 'remarks' => $input['key_result3_remarks'],
+                'impression' => $input['key_result3_impression'],
             ],
         ];
     }
@@ -86,6 +89,7 @@ class UpdateService
             'key_result' => $reqKeyResult['key_result'],
             'score' => $reqKeyResult['score'] ?? null,
             'remarks' => $reqKeyResult['remarks'] ?? null,
+            'impression' => $reqKeyResult['impression'] ?? null,
         ]);
 
         $this->countScore($reqKeyResult);
@@ -99,6 +103,7 @@ class UpdateService
             'key_result' => $reqKeyResult['key_result'],
             'score' => $reqKeyResult['score'] ?? null,
             'remarks' => $reqKeyResult['remarks'] ?? null,
+            'impression' => $reqKeyResult['impression'] ?? null,
         ]);
 
         $this->countScore($reqKeyResult);
@@ -113,6 +118,7 @@ class UpdateService
             'objective' => $input['objective'],
             'score' => round($this->totalScore / $this->count, 2),
             'remarks' => $input['objective_remarks'],
+            'impression' => $input['objective_impression'],
             'priority' => $input['priority'],
         ]);
     }
@@ -128,7 +134,9 @@ class UpdateService
 
     private function isEmptyOnlyKeyResult(array $reqKeyResult): bool
     {
-        return empty($reqKeyResult['key_result']) && (!empty($reqKeyResult['score']) || !empty($reqKeyResult['remarks']));
+        return empty($reqKeyResult['key_result']) && (
+            !empty($reqKeyResult['score']) || !empty($reqKeyResult['remarks']) || !empty($reqKeyResult['impression'])
+        );
     }
 
     private function getKeyResult(int $id): ?KeyResult

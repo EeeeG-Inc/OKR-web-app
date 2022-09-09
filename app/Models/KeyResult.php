@@ -70,6 +70,7 @@ class KeyResult extends Model
         'score',
         'objective_id',
         'remarks',
+        'impression',
     ];
 
     /**
@@ -82,6 +83,7 @@ class KeyResult extends Model
         'score' => 'double',
         'objective_id' => 'int',
         'remarks' => 'string',
+        'impression' => 'string',
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',

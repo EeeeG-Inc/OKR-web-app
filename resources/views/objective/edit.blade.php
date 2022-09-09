@@ -85,8 +85,18 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('objective_remarks', __('models/objectives.fields.remarks')) }}
                                             </div>
-                                            <div class="col-md-10 mb-5">
+                                            <div class="col-md-10">
                                                 {{ Form::textarea('objective_remarks', $objective->remarks, ['class' => 'form-control', 'id' => 'objective', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        {{-- 所感 --}}
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('objective_impression', __('models/objectives.fields.impression')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('objective_impression', $objective->impression, ['class' => 'form-control', 'id' => 'objective', 'rows' => '1']) }}
                                             </div>
                                         </div>
 
@@ -114,8 +124,17 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result1_remarks', __('models/key-results.fields.remarks')) }}
                                             </div>
-                                            <div class="col-md-10 mb-5">
+                                            <div class="col-md-10">
                                                 {{ Form::textarea('key_result1_remarks', $keyResult1->remarks, ['class' => 'form-control', 'id' => 'key_result1_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result1_impression', __('models/key-results.fields.impression')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('key_result1_impression', $keyResult1->impression, ['class' => 'form-control', 'id' => 'key_result1_impression', 'rows' => '1']) }}
                                             </div>
                                         </div>
 
@@ -143,8 +162,17 @@
                                             <div class="col-md-2 mb-3">
                                                 {{ Form::label('key_result2_remarks', __('models/key-results.fields.remarks')) }}
                                             </div>
-                                            <div class="col-md-10 mb-5">
+                                            <div class="col-md-10">
                                                 {{ Form::textarea('key_result2_remarks', $keyResult2->remarks ?? null, ['class' => 'form-control', 'id' => 'key_result2_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result2_impression', __('models/key-results.fields.impression')) }}
+                                            </div>
+                                            <div class="col-md-10 mb-5">
+                                                {{ Form::textarea('key_result2_impression', $keyResult2->impression ?? null, ['class' => 'form-control', 'id' => 'key_result2_impression', 'rows' => '1']) }}
                                             </div>
                                         </div>
 
@@ -174,6 +202,15 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{ Form::textarea('key_result3_remarks', $keyResult3->remarks ?? null, ['class' => 'form-control', 'id' => 'key_result3_remarks', 'rows' => '1']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-2 mb-3">
+                                                {{ Form::label('key_result3_impression', __('models/key-results.fields.impression')) }}
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ Form::textarea('key_result3_impression', $keyResult3->impression ?? null, ['class' => 'form-control', 'id' => 'key_result3_impression', 'rows' => '1']) }}
                                             </div>
                                         </div>
 

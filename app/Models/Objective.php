@@ -78,6 +78,7 @@ class Objective extends Model
         'quarter_id',
         'priority',
         'remarks',
+        'impression',
         'deleted_at',
         'is_archived',
     ];
@@ -95,6 +96,7 @@ class Objective extends Model
         'quarter_id' => 'int',
         'priority' => 'int',
         'remarks' => 'string',
+        'impression' => 'string',
         'deleted_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
