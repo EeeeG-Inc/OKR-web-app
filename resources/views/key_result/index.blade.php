@@ -65,8 +65,8 @@
                                                     <td width="10%" class="align-middle bg-success text-white text-center score">{{ $objective->score }}</td>
                                                 @endif
 
-                                                <td width="90%" class="align-middle">{!! nl2br($objective->remarks) !!}</td>
-                                                <td width="90%" class="align-middle">{!! nl2br($objective->impression) !!}</td>
+                                                <td width="45%" class="align-middle">{!! nl2br($objective->remarks) !!}</td>
+                                                <td width="45%" class="align-middle">{!! nl2br($objective->impression) !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
