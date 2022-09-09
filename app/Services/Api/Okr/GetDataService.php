@@ -27,21 +27,14 @@ class GetDataService
 
     public function getObjectivesOfMine(int $userId, array $input): Collection
     {
-        if (is_null($input['is_archived'])) {
-            $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
-                $userId,
-                (int) $input['year'],
-                (int) $input['quarter_id'],
-                null
-            );
-        } else {
-            $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
-                $userId,
-                (int) $input['year'],
-                (int) $input['quarter_id'],
-                (bool) $input['is_archived']
-            );
-        }
+        $isArchived = is_null($input['is_archived']) ? null : (bool) $input['is_archived'];
+
+        $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId(
+            $userId,
+            (int) $input['year'],
+            (int) $input['quarter_id'],
+            $isArchived
+        );
 
         foreach ($objectives as $key => $objective) {
             $objectives[$key]['key_results'] = $objective->keyResults;

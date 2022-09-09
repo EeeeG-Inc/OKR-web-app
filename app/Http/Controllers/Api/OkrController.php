@@ -80,6 +80,12 @@ use Illuminate\View\View;
  *                      example="1"
  *                  ),
  *                  @OA\Property(
+ *                      property="user_id",
+ *                      description="ユーザID",
+ *                      type="integer",
+ *                      example="1"
+ *                  ),
+ *                  @OA\Property(
  *                      property="is_archived",
  *                      description="アーカイブフラグ",
  *                      type="integer",

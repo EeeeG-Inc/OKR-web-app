@@ -26,7 +26,16 @@ class GetOurData
     public function __invoke(array $input): array
     {
         $users = $this->userRepo->getByCompanyId(Auth::user()->company_id);
+        $userId = is_null($input['user_id']) ? null : (int) $input['user_id'];
         $objectives = [];
+
+        if (!is_null($userId)) {
+            $user = $this->userRepo->find($userId);
+            $objectives[$user->name] = $this->GetDataService->getObjectivesOfMine($user->id, $input);
+            return [
+                'objectives' => $objectives,
+            ];
+        }
 
         foreach ($users as $user) {
             $objectives[$user->name] = $this->GetDataService->getObjectivesOfMine($user->id, $input);

@@ -26,6 +26,7 @@ class OkrGetOursRequest extends FormRequest
         return [
             'year' => 'required|integer',
             'quarter_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
             'is_archived' => 'nullable|integer',
         ];
     }
