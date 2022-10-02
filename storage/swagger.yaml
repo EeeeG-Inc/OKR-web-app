@@ -26,6 +26,10 @@ paths:
                   description: アーカイブフラグ
                   type: integer
                   example: '0'
+                is_include_full_year:
+                  description: '通年 OKR 同時取得フラグ'
+                  type: integer
+                  example: '0'
               type: object
       responses:
         '200':
@@ -61,6 +65,10 @@ paths:
                   example: '1'
                 is_archived:
                   description: アーカイブフラグ
+                  type: integer
+                  example: '0'
+                is_include_full_year:
+                  description: '通年 OKR 同時取得フラグ'
                   type: integer
                   example: '0'
               type: object
