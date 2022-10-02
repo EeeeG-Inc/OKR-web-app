@@ -41,6 +41,12 @@ use Illuminate\View\View;
  *                      type="integer",
  *                      example="0"
  *                  ),
+ *                  @OA\Property(
+ *                      property="is_include_full_year",
+ *                      description="通年 OKR 同時取得フラグ",
+ *                      type="integer",
+ *                      example="0"
+ *                  ),
  *              )
  *          )
  *      ),
@@ -88,6 +94,12 @@ use Illuminate\View\View;
  *                  @OA\Property(
  *                      property="is_archived",
  *                      description="アーカイブフラグ",
+ *                      type="integer",
+ *                      example="0"
+ *                  ),
+ *                  @OA\Property(
+ *                      property="is_include_full_year",
+ *                      description="通年 OKR 同時取得フラグ",
  *                      type="integer",
  *                      example="0"
  *                  ),

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\Quarter;
 use App\Models\Objective;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -43,21 +44,22 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
         return Objective::where('user_id', $userId)->get();
     }
 
-    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, ?bool $isArchived = false): Collection
+    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, bool $isArchived = false, bool $isIncludeFullYear = false): Collection
     {
         $where = [
             ['user_id', '=', $userId],
             ['year', '=', $year],
-            ['quarter_id', '=', $quarterId],
+            ['is_archived', '=', $isArchived]
         ];
 
-        // アーカイブされた OKR、されていない OKR を混同する
-        if (is_null($isArchived)) {
-            return Objective::where($where)->get();
+        $whereIn = [$quarterId];
+
+        // 通年を含めるかどうか
+        if (($quarterId !== Quarter::FULL_YEAR_ID) && $isIncludeFullYear) {
+            $whereIn[] = Quarter::FULL_YEAR_ID;
         }
 
-        $where[] = ['is_archived', '=', $isArchived];
-        return Objective::where($where)->get();
+        return Objective::where($where)->whereIn('quarter_id', $whereIn)->get();
     }
 
     public function getYearByUserId(int $userId): Collection

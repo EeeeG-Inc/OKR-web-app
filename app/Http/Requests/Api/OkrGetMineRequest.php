@@ -27,6 +27,7 @@ class OkrGetMineRequest extends FormRequest
             'year' => 'required|integer',
             'quarter_id' => 'required|integer',
             'is_archived' => 'nullable|integer',
+            'is_include_full_year' => 'nullable|integer',
         ];
     }
 }

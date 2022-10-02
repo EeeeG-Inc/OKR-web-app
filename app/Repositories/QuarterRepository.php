@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\Quarter as Q;
 use App\Models\Quarter;
 use App\Repositories\Interfaces\QuarterRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,8 +24,7 @@ class QuarterRepository implements QuarterRepositoryInterface
 
     public function findQuarterFullYear(): Quarter
     {
-        // 通年は id = 1
-        return $this->quarter->find(1);
+        return $this->quarter->find(Q::FULL_YEAR_ID);
     }
 
     public function create(array $input): Quarter
