@@ -6,8 +6,10 @@ use PHPUnit\Framework\TestCase;
 use App\Services\OKR\UpdateService;
 use App\Models\KeyResult;
 use App\Models\Objective;
+use App\Models\ObjectiveScoreHistory;
 use App\Repositories\Interfaces\KeyResultRepositoryInterface;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveScoreHistoryRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -21,6 +23,9 @@ class UpdateServiceTest extends TestCase
 
     /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
+
+    /** @var ObjectiveScoreHistoryRepositoryInterface */
+    private $objectiveScoreHistoryRepo;
 
     /** @var UpdateService */
     private $updateService;
@@ -37,6 +42,9 @@ class UpdateServiceTest extends TestCase
     /** @var Objective */
     private $objective;
 
+    /** @var ObjectiveScoreHistory */
+    private $objectiveScoreHistory;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -45,12 +53,15 @@ class UpdateServiceTest extends TestCase
         $this->keyResultRepo = m::mock(KeyResultRepositoryInterface::class);
         /** @var ObjectiveRepositoryInterface  */
         $this->objectiveRepo = m::mock(ObjectiveRepositoryInterface::class);
+        /** @var ObjectiveScoreHistoryRepositoryInterface  */
+        $this->objectiveScoreHistoryRepo = m::mock(ObjectiveScoreHistoryRepositoryInterface::class);
 
         // model の mock
         $this->keyResult1 = m::mock(KeyResult::class);
         $this->keyResult2 = m::mock(KeyResult::class);
         $this->keyResult3 = m::mock(KeyResult::class);
         $this->objective = m::mock(Objective::class);
+        $this->objectiveScoreHistory = m::mock(ObjectiveScoreHistory::class);
 
         $this->keyResult1->allows('getAttribute')->with('id')->andReturn(1);
         $this->keyResult1->allows('offsetExists')->andReturn(true);
@@ -69,6 +80,7 @@ class UpdateServiceTest extends TestCase
         $this->objective->allows('getAttribute')->with('quarter_id')->andReturn(1);
         $this->objective->allows('getAttribute')->with('user_id')->andReturn(1);
         $this->objective->allows('getAttribute')->with('year')->andReturn(2022);
+        $this->objective->allows('getAttribute')->with('score')->andReturn(1);
     }
     public function tearDown(): void
     {
@@ -158,10 +170,23 @@ class UpdateServiceTest extends TestCase
             ])
             ->andReturn(true);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => $keyResult1['score'],
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
 
         $result = $this->updateService->update($input, $this->objective->id);
@@ -266,10 +291,23 @@ class UpdateServiceTest extends TestCase
             ])
             ->andReturn(true);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => ($keyResult1['score'] + $keyResult2['score']) / 2,
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
         $result = $this->updateService->update($input, $this->objective->id);
         $this->assertSame($result, null);
@@ -389,10 +427,23 @@ class UpdateServiceTest extends TestCase
             ])
             ->andReturn(true);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => ($keyResult1['score'] + $keyResult2['score'] + $keyResult3['score']) / 3,
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
         $result = $this->updateService->update($input, $this->objective->id);
         $this->assertSame($result, null);
@@ -512,10 +563,23 @@ class UpdateServiceTest extends TestCase
             ->with($this->keyResult3->id)
             ->andReturn($this->keyResult3);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => ($keyResult1['score'] + $keyResult2['score']) / 2,
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
         $result = $this->updateService->update($input, $this->objective->id);
         $this->assertSame($result, null);
@@ -635,10 +699,23 @@ class UpdateServiceTest extends TestCase
             ->with($this->keyResult3->id)
             ->andReturn($this->keyResult3);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => $keyResult1['score'],
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
         $result = $this->updateService->update($input, $this->objective->id);
         $this->assertSame($result, null);
@@ -742,10 +819,23 @@ class UpdateServiceTest extends TestCase
             ])
             ->andReturn(true);
 
+        $this->objectiveScoreHistoryRepo->shouldReceive('isTodayScoreExists')
+            ->once()
+            ->andReturn(false);
+
+        $this->objectiveScoreHistoryRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'objective_id' => $this->objective->id,
+                'score' => $keyResult1['score'],
+            ])
+            ->andReturn($this->objectiveScoreHistory);
+
         // Target
         $this->updateService = new UpdateService(
             $this->keyResultRepo,
-            $this->objectiveRepo
+            $this->objectiveRepo,
+            $this->objectiveScoreHistoryRepo
         );
         $result = $this->updateService->update($input, $this->objective->id);
         $this->assertSame($result, null);
