@@ -69,6 +69,7 @@ class UserRepository implements UserRepositoryInterface
     public function paginate(int $pagenateNum): LengthAwarePaginator
     {
         return $this->getBuilderNotWhereRoleAdmin()
+            ->orderBy('role')
             ->paginate($pagenateNum);
     }
 
@@ -76,6 +77,7 @@ class UserRepository implements UserRepositoryInterface
     {
         return $this->getBuilderNotWhereRoleAdmin()
             ->where('company_id', $companyId)
+            ->orderBy('role')
             ->paginate($pagenateNum);
     }
 
@@ -83,6 +85,7 @@ class UserRepository implements UserRepositoryInterface
     {
         return $this->getBuilderNotWhereRoleAdmin()
             ->whereIn('company_id', $companyIds)
+            ->orderBy('role')
             ->paginate($pagenateNum);
     }
 

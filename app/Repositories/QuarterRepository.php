@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\CarbonImmutable;
 use App\Enums\Quarter as Q;
 use App\Models\Quarter;
 use App\Repositories\Interfaces\QuarterRepositoryInterface;
@@ -50,5 +51,44 @@ class QuarterRepository implements QuarterRepositoryInterface
             ['company_id', '=', $companyId],
             ['quarter', '=', $quarter],
         ])->first();
+    }
+
+    /**
+     * 本日が何年度の何期目なのか返却する
+     *
+     * @param integer $companyId
+     * @return array
+     */
+    public function getYearAndQuarterAtToday(int $companyId): array
+    {
+        $today = CarbonImmutable::today();
+        $quarterId = 0;
+        $thisYear = $today->year;
+
+        foreach ($this->getByCompanyId($companyId) as $quarter) {
+            // 1Q 開始が何月に設定されているかによって、年度を取得
+            if ($quarter->quarter === 1) {
+                switch ($quarter->from) {
+                    case 1:
+                        break;
+                    default:
+                        if ($today->month < $quarter->from) {
+                            $thisYear = $today->year - 1;
+                        }
+                        break;
+                }
+            }
+
+            // 本日が何期目か取得
+            if (($quarter->from <= $today->month) && ($today->month <= $quarter->to)) {
+                $quarterId = $quarter->id;
+                break;
+            }
+        }
+
+        return [
+            'year' => $thisYear,
+            'quarter_id' => $quarterId,
+        ];
     }
 }

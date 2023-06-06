@@ -13,7 +13,7 @@ interface ObjectiveRepositoryInterface
 
     public function getByUserId(int $userId): Collection;
 
-    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, bool $isArchived, bool $isIncludeFullYear): Collection;
+    public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, bool $isArchived = false, bool $isIncludeFullYear = false): Collection;
 
     public function update(int $id, array $input): bool;
 

@@ -18,4 +18,6 @@ interface QuarterRepositoryInterface
     public function getByCompanyId(int $companyId): Collection;
 
     public function findByQuarterAndCompanyId(int $quarter, int $companyId): ?Quarter;
+
+    public function getYearAndQuarterAtToday(int $companyId): array;
 }

@@ -10,6 +10,6 @@ return [
         'quarter_id' => '四半期ID',
         'priority' => '優先度',
         'remarks' => '備考',
-        'impression' => '所感',
+        'impression' => '終えた所感',
     ],
 ];

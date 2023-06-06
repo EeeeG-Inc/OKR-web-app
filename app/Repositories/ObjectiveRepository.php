@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Enums\Quarter;
 use App\Models\Objective;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 
 class ObjectiveRepository implements ObjectiveRepositoryInterface
@@ -41,7 +42,7 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
 
     public function getByUserId(int $userId): Collection
     {
-        return Objective::where('user_id', $userId)->get();
+        return $this->objective->where('user_id', $userId)->get();
     }
 
     public function getByUserIdAndYearAndQuarterId(int $userId, int $year, int $quarterId, bool $isArchived = false, bool $isIncludeFullYear = false): Collection

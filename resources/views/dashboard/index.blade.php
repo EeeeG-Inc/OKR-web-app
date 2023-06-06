@@ -5,6 +5,86 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (!is_null($chart))
+                {{-- チャート --}}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('common/title.dashboard.chart') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-gray-100">
+                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    {{-- vue.js render --}}
+                                    <div id="app">{!! $chart->container() !!}</div>
+                                    {{-- vue.js cdn --}}
+                                    <script src="https://unpkg.com/vue"></script>
+                                    {{-- vue.js script --}}
+                                    <script>
+                                        var app = {
+                                            el: '#app',
+                                        };
+                                    </script>
+                                    {{-- chart.js cdn --}}
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    {{-- laravel chart script --}}
+                                    {!! $chart->script() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (!is_null($objectives))
+                {{-- 今期 OKR --}}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('common/title.dashboard.okr') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-gray-100">
+                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ __('models/objectives.fields.year') }}</th>
+                                                <th>{{ __('models/quarters.fields.quarter') }}</th>
+                                                <th>{{ __('models/objectives.fields.priority') }}</th>
+                                                <th>{{ __('models/objectives.fields.objective') }}</th>
+                                                <th>{{ __('models/objectives.fields.score') }}</th>
+                                                <th>{{ __('common/action.action') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($objectives as $objective)
+                                                <tr>
+                                                    <td class="align-middle">{{ $objective->year }}</td>
+                                                    <td class="align-middle">
+                                                        {{ App\Enums\Quarter::getDescription($objective->quarter) }}
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        {!! App\Enums\Priority::getFontAwesome($objective->priority) !!}
+                                                        {{ App\Enums\Priority::getDescription($objective->priority) }}
+                                                    </td>
+                                                    <td class="align-middle">{!! nl2br($objective->objective) !!}</td>
+                                                    <td class="align-middle">{{ $objective->score }}</td>
+                                                    <td class="align-middle">
+                                                        {{-- 詳細 --}}
+                                                        {{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             {{-- 検索 --}}
             <div class="card mb-4">
                 <div class="card-header toggle-mark">
@@ -49,7 +129,9 @@
 
             {{-- 検索結果 --}}
             <div class="card">
-                <div class="card-header">{{ __('common/title.dashboard.index') }}</div>
+                <div class="card-header">
+                    {{ __('common/title.dashboard.members') }}
+                </div>
                 <div class="card-body">
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -118,6 +200,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

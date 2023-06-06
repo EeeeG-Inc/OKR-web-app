@@ -46,7 +46,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('common/title.objective.archived_list') }}</div>
+                <div class="card-header card-header-archive">{{ __('common/title.objective.archived_list') }}</div>
                 <div class="card-body">
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
@@ -131,7 +131,7 @@
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">
                                                     {{-- 詳細 --}}
-                                                    {{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id], ['class' => 'btn btn-primary']) }}
+                                                    {{ link_to_route('key_result.index', __('common/action.detail'), ['objective_id' => $objective->id, 'is_archive' => true], ['class' => 'btn btn-primary']) }}
                                                     @if ($isLoginUser)
                                                         {{-- アーカイブ解除 --}}
                                                         {{ Form::open(['route' => ['objective.unarchive', $objective->id], 'method' => 'put', 'class' => 'd-inline-block']) }}
@@ -163,45 +163,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- 紐付いている会社・部署を表示する --}}
-            @if ($companyUser || $departmentUser)
-                <div class="card mt-4">
-                    <div class="card-header">{{ __('common/title.objective.index_relational', ['name' => $user->name]) }}</div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('models/users.fields.name') }}</th>
-                                    <th>{{ __('models/objectives.fields.objective') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($companyUser)
-                                    <tr>
-                                        <td class="align-middle">
-                                            {{ $companyUser->name }}
-                                        </td>
-                                        <td class="align-middle">
-                                            {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $companyUser->id], ['class' => 'btn btn-primary']); }}
-                                        </td>
-                                    </tr>
-                                @endif
-                                @if ($departmentUser)
-                                    <tr>
-                                        <td class="align-middle">
-                                            {{ $departmentUser->name }}
-                                        </td>
-                                        <td class="align-middle">
-                                            {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $departmentUser->id], ['class' => 'btn btn-primary']); }}
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
 
         </div>
     </div>

@@ -25,6 +25,7 @@ class KeyResultIndexRequest extends FormRequest
     {
         return [
             'objective_id' => 'required|integer',
+            'is_archive' => 'nullable|boolean',
         ];
     }
 }

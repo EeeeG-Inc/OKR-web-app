@@ -7,6 +7,6 @@ return [
         'score' => 'スコア',
         'objective_id' => 'OKR ID',
         'remarks' => '備考',
-        'impression' => '所感',
+        'impression' => '終えた所感',
     ],
 ];

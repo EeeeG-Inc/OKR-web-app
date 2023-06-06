@@ -7,15 +7,23 @@
             <div class="col-md-8">
 
                 <div class="card mb-4">
-                    <div class="card-header">
-                        {{ __('common/title.key_result.index') }}
-                    </div>
+                    @if ($isArchive)
+                        <div class="card-header card-header-archive">{{ __('common/title.key_result.archive') }}</div>
+                    @else
+                        <div class="card-header">{{ __('common/title.key_result.index') }}</div>
+                    @endif
+
                     <div class="card-body">
                         <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
 
-                                    <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->user->id], ['class' => 'text-decoration-none']) }}</p>
+                                    @if ($isArchive)
+                                        <p>{{ link_to_route('objective.archived_list', __('common/action.back'), ['user_id' => $objective->user->id], ['class' => 'text-decoration-none']) }}</p>
+                                    @else
+                                        <p>{{ link_to_route('objective.index', __('common/action.back'), ['user_id' => $objective->user->id], ['class' => 'text-decoration-none']) }}</p>
+                                    @endif
+
                                     @include('flash::message')
 
                                     <table class="table">

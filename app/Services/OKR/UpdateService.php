@@ -3,10 +3,13 @@
 namespace App\Services\OKR;
 
 use App\Models\KeyResult;
+use App\Models\ObjectiveScoreHistory;
 use App\Repositories\Interfaces\KeyResultRepositoryInterface;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
+use App\Repositories\Interfaces\ObjectiveScoreHistoryRepositoryInterface;
 use App\Repositories\KeyResultRepository;
 use App\Repositories\ObjectiveRepository;
+use App\Repositories\ObjectiveScoreHistoryRepository;
 
 class UpdateService
 {
@@ -22,12 +25,19 @@ class UpdateService
     /** @var ObjectiveRepositoryInterface */
     private $objectiveRepo;
 
-    public function __construct(KeyResultRepositoryInterface $keyResultRepo = null, ObjectiveRepositoryInterface $objectiveRepo = null)
-    {
+    /** @var ObjectiveScoreHistoryRepositoryInterface */
+    private $objectiveScoreHistoryRepo;
+
+    public function __construct(
+        KeyResultRepositoryInterface $keyResultRepo = null,
+        ObjectiveRepositoryInterface $objectiveRepo = null,
+        ObjectiveScoreHistoryRepositoryInterface $objectiveScoreHistoryRepo = null
+    ) {
         $this->count = 0;
         $this->totalScore = 0;
         $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
         $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
+        $this->objectiveScoreHistoryRepo = $objectiveScoreHistoryRepo ?? new ObjectiveScoreHistoryRepository();
     }
 
     public function update(array $input, int $objectiveId): void
@@ -111,16 +121,31 @@ class UpdateService
 
     private function updateObjective(array $input, int $objectiveId): void
     {
+        $score = round($this->totalScore / $this->count, 2);
+
         $this->objectiveRepo->update($objectiveId, [
             'user_id' => $input['user_id'],
             'year' => $input['year'],
             'quarter_id' => $input['quarter_id'],
             'objective' => $input['objective'],
-            'score' => round($this->totalScore / $this->count, 2),
+            'score' => $score,
             'remarks' => $input['objective_remarks'],
             'impression' => $input['objective_impression'],
             'priority' => $input['priority'],
         ]);
+
+        if ($this->objectiveScoreHistoryRepo->isTodayScoreExists($objectiveId)) {
+            $history = $this->objectiveScoreHistoryRepo->findByObjectiveId($objectiveId);
+            $this->objectiveScoreHistoryRepo->update($history->id, [
+                'score' => $score,
+            ]);
+        } else {
+            // 本日スコア履歴がまだなければ作成
+            $this->objectiveScoreHistoryRepo->create([
+                'objective_id' => $objectiveId,
+                'score' => $score,
+            ]);
+        }
     }
 
     private function countScore(array $reqKeyResult): void
@@ -134,8 +159,7 @@ class UpdateService
 
     private function isEmptyOnlyKeyResult(array $reqKeyResult): bool
     {
-        return empty($reqKeyResult['key_result']) && (
-            !empty($reqKeyResult['score']) || !empty($reqKeyResult['remarks']) || !empty($reqKeyResult['impression'])
+        return empty($reqKeyResult['key_result']) && (!empty($reqKeyResult['score']) || !empty($reqKeyResult['remarks']) || !empty($reqKeyResult['impression'])
         );
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\UseCase\KeyResult;
 
 use App\Repositories\Interfaces\CommentRepositoryInterface;
@@ -32,11 +33,14 @@ class GetIndexData
     public function __invoke(array $input): array
     {
         $objectiveId = $input['objective_id'];
+        $isArchive = $input['is_archive'] ?? null;
+        $isArchive = is_null($isArchive) ? false : (bool) $isArchive;
 
         return [
             'comments' => $this->commentRepo->getByObjectiveId($objectiveId),
             'objective' => $this->objectiveRepo->find($objectiveId),
             'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
+            'isArchive' => $isArchive,
         ];
     }
 }

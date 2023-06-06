@@ -69,3 +69,22 @@ vendor/bin/openapi app -o storage/swagger.yaml
   - Authorization
     - `Bearer {{API token}}`
     - API token は会社アカウントでログインすると、メニューから生成できます
+
+### ide-helper
+
+```sh
+php artisan ide-helper:generate
+php artisan ide-helper:model
+php artisan ide-helper:models --dir="App/Models"
+```
+
+### Laravel Charts
+
+- https://charts.erik.cat/getting_started.html
+
+```sh
+php artisan make:chart {Name} {Library?}
+
+# example
+php artisan make:chart LatestOkrActivity Chartjs
+```

@@ -25,6 +25,11 @@
     background-color: #D0201B;
 }
 
+.card-header-archive {
+    color: #fff;
+    background-color: #000099;
+}
+
 .score {
     font-size: 34px;
     font-weight: bold;
