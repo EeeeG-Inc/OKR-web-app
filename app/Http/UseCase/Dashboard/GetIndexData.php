@@ -79,13 +79,19 @@ class GetIndexData
         ];
     }
 
+    /**
+     * チャートオブジェクト返却
+     *
+     * @param User $user
+     * @param array $quarterData
+     * @param Collection $objectives
+     */
     private function createChart(User $user, array $quarterData, Collection $objectives)
     {
         if ($objectives->isEmpty()) {
             return null;
         }
 
-        /** @var ConsoleTVs\Charts\Classes\Chartjs\Chart  */
         $chart = new LatestOkrActivity;
 
         [
@@ -162,9 +168,9 @@ class GetIndexData
      * セットする用のスコアを修正する
      *
      * @param array $tmpAllScores
-     * @return void
+     * @return array
      */
-    private function fixTmpScores(array $tmpAllScores)
+    private function fixTmpScores(array $tmpAllScores): array
     {
         $prev = null;
 
@@ -228,9 +234,9 @@ class GetIndexData
      * チャートに渡すデータセットを取得する
      *
      * @param array $allScores
-     * @return void
+     * @return array
      */
-    private function getDataSet(array $allScores)
+    private function getDataSet(array $allScores): array
     {
         $datasets = [];
 
