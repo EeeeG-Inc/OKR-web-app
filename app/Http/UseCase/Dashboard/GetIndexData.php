@@ -92,12 +92,16 @@ class GetIndexData
             return null;
         }
 
-        $chart = new LatestOkrActivity;
-
         [
             'datasets' => $datasets,
             'dates' => $dates,
         ] = $this->getChartData($objectives);
+
+        if (empty($datasets) || empty($dates)) {
+            return null;
+        }
+
+        $chart = new LatestOkrActivity;
 
         foreach ($datasets as $objective => $dataset) {
             // チャートにデータを設定
