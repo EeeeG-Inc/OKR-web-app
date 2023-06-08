@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\UseCase\Objective;
 
 use App\Enums\Priority;
@@ -33,6 +34,10 @@ class GetCreateData
     {
         $user = Auth::user();
         $quarters = $this->quarterRepo->getByCompanyId($user->company->id);
+        [
+            'year' => $thisYear,
+            'quarter_id' => $thisQuarterId,
+        ] = $this->quarterRepo->getYearAndQuarterAtToday($user->company->id);
 
         return [
             'user' => $user,
@@ -40,6 +45,8 @@ class GetCreateData
             'quarterLabels' => $this->controlFieldsService->getQuarterLabels($quarters),
             'years' => $this->yearService->getYearsForCreate(),
             'prioritys' => Priority::getFlipLocalizedDescription(),
+            'thisYear' => $thisYear,
+            'thisQuarterId' => $thisQuarterId,
         ];
     }
 }

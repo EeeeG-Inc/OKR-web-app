@@ -27,7 +27,7 @@
                                                 {{ Form::label('year', __('models/objectives.fields.year'), ['class' => 'required']) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::select('year', $years, 'ordinarily', ['class' => 'form-control', 'id' => 'year']) }}
+                                                {{ Form::select('year', $years, $thisYear, ['class' => 'form-control', 'id' => 'year']) }}
                                             </div>
                                         </div>
 
@@ -38,23 +38,23 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', App\Enums\Quarter::FULL_YEAR_ID, true, ['id' => 'radioQuarter0']) }}
+                                                    {{ Form::radio('quarter_id', App\Enums\Quarter::FULL_YEAR_ID, false, ['id' => 'radioQuarter0']) }}
                                                     {{ Form::label('radioQuarter0', $quarterLabels[0]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[0]->id, false, ['id' => 'radioQuarter1']) }}
+                                                    {{ Form::radio('quarter_id', $quarters[0]->id, ($quarters[0]->id === $thisQuarterId), ['id' => 'radioQuarter1']) }}
                                                     {{ Form::label('radioQuarter1', $quarterLabels[1]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[1]->id, false, ['id' => 'radioQuarter2']) }}
+                                                    {{ Form::radio('quarter_id', $quarters[1]->id, ($quarters[1]->id === $thisQuarterId), ['id' => 'radioQuarter2']) }}
                                                     {{ Form::label('radioQuarter2', $quarterLabels[2]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[2]->id, false, ['id' => 'radioQuarter3']) }}
+                                                    {{ Form::radio('quarter_id', $quarters[2]->id, ($quarters[2]->id === $thisQuarterId), ['id' => 'radioQuarter3']) }}
                                                     {{ Form::label('radioQuarter3', $quarterLabels[3]) }}
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    {{ Form::radio('quarter_id', $quarters[3]->id, false, ['id' => 'radioQuarter4']) }}
+                                                    {{ Form::radio('quarter_id', $quarters[3]->id, ($quarters[3]->id === $thisQuarterId), ['id' => 'radioQuarter4']) }}
                                                     {{ Form::label('radioQuarter4', $quarterLabels[4]) }}
                                                 </div>
                                             </div>
