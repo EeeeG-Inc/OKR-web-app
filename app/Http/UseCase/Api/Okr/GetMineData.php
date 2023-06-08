@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\UseCase\Api\Okr;
 
 use App\Services\Api\Okr\GetDataService;
@@ -18,7 +19,7 @@ class GetMineData
     public function __invoke(array $input): array
     {
         $user = Auth::user();
-        $objectives = $this->GetDataService->getObjectivesOfMine($user->id, $input);
+        $objectives = $this->GetDataService->getObjectives($user->id, $input);
 
         return [
             'objectives' => $objectives,

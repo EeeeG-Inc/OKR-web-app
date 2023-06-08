@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\UseCase\Api\Okr;
 
 use App\Services\Api\Okr\GetDataService;
@@ -31,14 +32,14 @@ class GetOurData
 
         if (!is_null($userId)) {
             $user = $this->userRepo->find($userId);
-            $objectives[$user->name] = $this->GetDataService->getObjectivesOfMine($user->id, $input);
+            $objectives[$user->name] = $this->GetDataService->getObjectives($user->id, $input);
             return [
                 'objectives' => $objectives,
             ];
         }
 
         foreach ($users as $user) {
-            $objectives[$user->name] = $this->GetDataService->getObjectivesOfMine($user->id, $input);
+            $objectives[$user->name] = $this->GetDataService->getObjectives($user->id, $input);
         }
 
         return [
