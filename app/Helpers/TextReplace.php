@@ -1,15 +1,19 @@
 <?php
 
-namespace App\Helper;
+namespace App\Helpers;
 
 /**
  * URLが含まれていた場合、リンク化する
- * @param  string $value
- * @return string
+ * @param string|null $value
+ * @return string|null
  */
 class TextReplace {
-    public static function urlReplace(?string $value): string
+    public static function urlReplace(?string $value): ?string
     {
+        if(empty($value)){
+            return null;
+        }
+
         $texts = explode(PHP_EOL, $value);
         $pattern = '/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+/';
         $replacedTexts = [];

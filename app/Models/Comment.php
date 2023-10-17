@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use app\Helper\TextReplace;
+use App\Helpers\TextReplace;
 
 /**
  * App\Models\Comment
@@ -86,9 +86,9 @@ class Comment extends Model
     /**
      * CommentにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedCommentAttribute(): string
+    public function getLinkedCommentAttribute(): ?string
     {
         return TextReplace::urlReplace($this->comment);
     }

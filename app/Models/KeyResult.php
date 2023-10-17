@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use app\Helper\TextReplace;
+use App\Helpers\TextReplace;
 /**
  * App\Models\KeyResult.
  *
@@ -97,9 +97,9 @@ class KeyResult extends Model
     /**
      * remarksにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedRemarksAttribute(): string
+    public function getLinkedRemarksAttribute(): ?string
     {
         return TextReplace::urlReplace($this->remarks);
     }
@@ -107,9 +107,9 @@ class KeyResult extends Model
     /**
      * impressionにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedImpressionAttribute(): string
+    public function getLinkedImpressionAttribute(): ?string
     {
         return TextReplace::urlReplace($this->impression);
     }

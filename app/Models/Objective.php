@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use app\Helper\TextReplace;
+use App\Helpers\TextReplace;
 /**
  * App\Models\Objective.
  *
@@ -136,9 +136,9 @@ class Objective extends Model
     /**
      * objectiveにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedObjectiveAttribute(): string
+    public function getLinkedObjectiveAttribute(): ?string
     {
         return TextReplace::urlReplace($this->objective);
     }
@@ -146,9 +146,9 @@ class Objective extends Model
     /**
      * remarksにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedRemarksAttribute(): string
+    public function getLinkedRemarksAttribute(): ?string
     {
         return TextReplace::urlReplace($this->remarks);
     }
@@ -156,9 +156,9 @@ class Objective extends Model
     /**
      * impressionにURLが含まれていた場合、リンク化する。
      *
-     * @return string
+     * @return string|null
      */
-    public function getLinkedImpressionAttribute(): string
+    public function getLinkedImpressionAttribute(): ?string
     {
         return TextReplace::urlReplace($this->impression);
     }
