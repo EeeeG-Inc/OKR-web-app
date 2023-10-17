@@ -96,6 +96,7 @@ class Comment extends Model
         foreach ($texts as $value) {
             $replace = preg_replace_callback($pattern, function ($matches) {
                 if (isset($matches[1])) {
+                    return $matches[0];
                 }
                 return '<a href="' . $matches[0] . '" target="_blank" rel="noopener">' . $matches[0] . '</a>';
             }, $value);
