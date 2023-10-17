@@ -95,6 +95,17 @@ class KeyResult extends Model
     }
 
     /**
+     * key_resultにURLが含まれていた場合、リンク化する。
+     *
+     * @return string|null
+     */
+    public function getLinkedKeyresultAttribute(): ?string
+    {
+        return TextReplace::urlReplace($this->key_result);
+    }
+
+
+    /**
      * remarksにURLが含まれていた場合、リンク化する。
      *
      * @return string|null

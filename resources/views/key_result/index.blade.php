@@ -91,7 +91,7 @@
                                         <tbody>
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
-                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->linked_keyResult) !!}</td>
                                                     <td width="30%" class="align-middle">{!! nl2br($keyResult->linked_remarks) !!}</td>
                                                     <td width="30%" class="align-middle">{!! nl2br($keyResult->linked_impression) !!}</td>
                                                     <td width="10%" class="align-middle">{{ $keyResult->score }}</td>
