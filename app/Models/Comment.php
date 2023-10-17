@@ -86,12 +86,12 @@ class Comment extends Model
      * CommentにURLが含まれていた場合、リンク化する。
      *
      * @param [type] $value
-     * @return void
+     * @return
      */
-    public function getCommentAttribute($value)
+    public function getLinkedCommentAttribute(): string
     {
         //PHP_EOLは,改行コードをあらわす.改行があれば分割する
-        $texts = explode(PHP_EOL, $value);
+        $texts = explode(PHP_EOL, $this->comment);
         //正規表現パターン
         $pattern = '/^https?:\/\/[^\s 　\\\|`^"\'(){}<>\[\]]*$/';
         //空の配列を用意

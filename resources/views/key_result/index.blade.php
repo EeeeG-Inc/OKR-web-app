@@ -122,7 +122,7 @@
                                                         <img class="border border-secondary rounded-circle mx-2" src="{{ $comment->user->profile_image_path }}" alt="プロフィール画像">
                                                         {{ $comment->user->name }}
                                                     </td>
-                                                    <td width="70%" class="align-middle">{!! nl2br($comment->comment) !!}</td>
+                                                    <td width="70%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
                                                     <td width="10%" class="align-middle">
                                                         @if($comment->user_id === Auth::id())
