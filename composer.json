@@ -41,9 +41,6 @@
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
-        "files": [
-            "app/Helpers/TextReplace.php"
-        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
