@@ -85,8 +85,7 @@ class Comment extends Model
     /**
      * CommentにURLが含まれていた場合、リンク化する。
      *
-     * @param [type] $value
-     * @return
+     * @return string
      */
     public function getLinkedCommentAttribute(): string
     {
