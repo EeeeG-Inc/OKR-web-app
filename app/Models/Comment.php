@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\TextReplace;
 
 /**
  * App\Models\Comment
@@ -80,6 +81,16 @@ class Comment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * CommentにURLが含まれていた場合、リンク化する。
+     *
+     * @return string|null
+     */
+    public function getLinkedCommentAttribute(): ?string
+    {
+        return TextReplace::urlReplace($this->comment);
     }
 }
 

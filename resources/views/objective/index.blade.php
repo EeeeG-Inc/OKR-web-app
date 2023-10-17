@@ -131,7 +131,7 @@
                                                     {!! App\Enums\Priority::getFontAwesome($objective->priority) !!}
                                                     {{ App\Enums\Priority::getDescription($objective->priority) }}
                                                 </td>
-                                                <td class="align-middle">{!! nl2br($objective->objective) !!}</td>
+                                                <td class="align-middle">{!! nl2br($objective->linked_objective) !!}</td>
                                                 <td class="align-middle">{{ $objective->score }}</td>
                                                 <td class="align-middle">
                                                     {{-- 詳細 --}}
