@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Helpers\TextReplace;
 /**
  * App\Models\Objective.
  *
@@ -131,5 +131,35 @@ class Objective extends Model
         $quarterRepo = new QuarterRepository();
         $quarter = $quarterRepo->find($this->quarter_id);
         return $quarter->quarter ?? null;
+    }
+
+    /**
+     * objectiveにURLが含まれていた場合、リンク化する。
+     *
+     * @return string|null
+     */
+    public function getLinkedObjectiveAttribute(): ?string
+    {
+        return TextReplace::urlReplace($this->objective);
+    }
+
+    /**
+     * remarksにURLが含まれていた場合、リンク化する。
+     *
+     * @return string|null
+     */
+    public function getLinkedRemarksAttribute(): ?string
+    {
+        return TextReplace::urlReplace($this->remarks);
+    }
+
+    /**
+     * impressionにURLが含まれていた場合、リンク化する。
+     *
+     * @return string|null
+     */
+    public function getLinkedImpressionAttribute(): ?string
+    {
+        return TextReplace::urlReplace($this->impression);
     }
 }
