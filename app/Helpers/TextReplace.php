@@ -10,8 +10,8 @@ namespace App\Helpers;
 class TextReplace {
     public static function urlReplace(?string $value): ?string
     {
-        if(empty($value)){
-            return null;
+        if(is_null($value)){
+            return $value;
         }
 
         $texts = explode(PHP_EOL, $value);
