@@ -42,7 +42,7 @@
                                                         <img class="border border-secondary rounded-circle mx-2" src="{{ $objective->user->profile_image_path }}" alt="プロフィール画像">
                                                         {{ $objective->user->name }}
                                                     </td>
-                                                    <td width="50%" class="align-middle">{!! nl2br($objective->objective) !!}</td>
+                                                    <td width="50%" class="align-middle">{!! nl2br($objective->linked_objective) !!}</td>
                                                     <td width="10%" class="align-middle">{{ $objective->year }}</td>
                                                     <td width="10%" class="align-middle">
                                                         {{ App\Enums\Quarter::getDescription($objective->quarter) }}
@@ -73,8 +73,8 @@
                                                     <td width="10%" class="align-middle bg-success text-white text-center score">{{ $objective->score }}</td>
                                                 @endif
 
-                                                <td width="45%" class="align-middle">{!! nl2br($objective->remarks) !!}</td>
-                                                <td width="45%" class="align-middle">{!! nl2br($objective->impression) !!}</td>
+                                                <td width="45%" class="align-middle">{!! nl2br($objective->linked_remarks) !!}</td>
+                                                <td width="45%" class="align-middle">{!! nl2br($objective->linked_impression) !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -92,8 +92,8 @@
                                             @foreach ($keyResults as $keyResult)
                                                 <tr>
                                                     <td width="30%" class="align-middle">{!! nl2br($keyResult->key_result) !!}</td>
-                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->remarks) !!}</td>
-                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->impression) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->linked_remarks) !!}</td>
+                                                    <td width="30%" class="align-middle">{!! nl2br($keyResult->linked_impression) !!}</td>
                                                     <td width="10%" class="align-middle">{{ $keyResult->score }}</td>
                                                 </tr>
                                             @endforeach

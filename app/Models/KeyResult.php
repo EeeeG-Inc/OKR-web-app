@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use app\Helper\TextReplace;
 /**
  * App\Models\KeyResult.
  *
@@ -92,5 +92,25 @@ class KeyResult extends Model
     public function objective(): BelongsTo
     {
         return $this->belongsTo(Objective::class, 'objective_id');
+    }
+
+    /**
+     * remarksにURLが含まれていた場合、リンク化する。
+     *
+     * @return string
+     */
+    public function getLinkedRemarksAttribute(): string
+    {
+        return TextReplace::urlReplace($this->remarks);
+    }
+
+    /**
+     * impressionにURLが含まれていた場合、リンク化する。
+     *
+     * @return string
+     */
+    public function getLinkedImpressionAttribute(): string
+    {
+        return TextReplace::urlReplace($this->impression);
     }
 }

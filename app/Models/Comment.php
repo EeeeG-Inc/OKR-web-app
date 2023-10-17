@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use app\Helper\TextReplace;
 
 /**
  * App\Models\Comment
@@ -89,21 +90,7 @@ class Comment extends Model
      */
     public function getLinkedCommentAttribute(): string
     {
-        $texts = explode(PHP_EOL, $this->comment);
-        $pattern = '/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+/';
-        $replacedTexts = [];
-
-        foreach ($texts as $value) {
-            $replace = preg_replace_callback($pattern, function ($matches) {
-                if (isset($matches[1])) {
-                    return $matches[0];
-                }
-                return '<a href="' . $matches[0] . '" target="_blank" rel="noopener">' . $matches[0] . '</a>';
-            }, $value);
-            $replacedTexts[] = $replace;
-        }
-        return implode(PHP_EOL, $replacedTexts);
-
+        return TextReplace::urlReplace($this->comment);
     }
 }
 
