@@ -33,7 +33,7 @@ class CreateCommentLikeUsersTable extends Migration
                 ->references('id')
                 ->on('users');
 
-            $table->unique(['comment_id','user_id'],'comment_id_user_id_unique');
+            $table->unique(['comment_id','user_id']);
         });
     }
 
@@ -47,7 +47,7 @@ class CreateCommentLikeUsersTable extends Migration
         Schema::table('comment_like_users', function (Blueprint $table): void {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['comment_id']);
-            $table->dropUnique('comment_id_user_id_unique');
+            $table->dropUnique(['comment_id','user_id']);
         });
         Schema::dropIfExists('comment_like_users');
     }
