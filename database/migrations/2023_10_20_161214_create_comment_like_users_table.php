@@ -27,12 +27,13 @@ class CreateCommentLikeUsersTable extends Migration
             $table->timestamps();
 
             $table->foreign('comment_id')
-            ->references('id')
-            ->on('comments');
+                ->references('id')
+                ->on('comments');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
+            $table->unique(['comment_id','user_id'],'comment_id_user_id_unique');
         });
     }
 
@@ -46,6 +47,7 @@ class CreateCommentLikeUsersTable extends Migration
         Schema::table('comment_like_users', function (Blueprint $table): void {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['comment_id']);
+            $table->dropUnique('comment_id_user_id_unique');
         });
         Schema::dropIfExists('comment_like_users');
     }
