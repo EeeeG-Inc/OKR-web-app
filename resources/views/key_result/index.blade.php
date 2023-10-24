@@ -124,7 +124,17 @@
                                                     </td>
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
-                                                        良0
+                                                        @if (!$CommentLikeUser->isLikedBy($comment,Auth::id()))
+                                                        <span class="likes">
+                                                            <i class="fas fa-music like-toggle" data-review-id="{{ $comment->id }}"></i>
+                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
+                                                        </span>
+                                                      @else
+                                                        <span class="likes">
+                                                            <i class="fas fa-music heart like-toggle liked" data-review-id="{{ $comment->id }}"></i>
+                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
+                                                        </span>
+                                                      @endif
                                                     </td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
                                                     <td width="5%" class="align-middle">
@@ -173,4 +183,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(function () {
+
+            let like = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
+            let likeReviewId; //変数を宣言（なんでここで？）
+
+            like.on('click', function () { //onはイベントハンドラー
+                let $this = $(this); //this=イベントの発火した要素＝iタグを代入
+                likeReviewId = $this.data('review-id'); //iタグに仕込んだdata-review-idの値を取得
+                //ajax処理スタート
+                $.ajax({
+                    headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
+                        'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                    },  //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
+                    url: 'like', //通信先アドレスで、このURLをあとでルートで設定します
+                    method: 'POST', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
+                    data: { //サーバーに送信するデータ
+                        'review_id': likeReviewId //いいねされた投稿のidを送る
+                    },
+                })
+                //通信成功した時の処理
+                .done(function (data) {
+                    alert('成功や');
+                    //$this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
+                    //$this.next('.like-counter').html(data.review_likes_count);
+                })
+                //通信失敗した時の処理
+                .fail(function () {
+                    alert('失敗してるで');
+                    console.log('fail');
+                });
+            });
+        });
+    </script>
 @endsection

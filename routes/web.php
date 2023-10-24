@@ -121,4 +121,6 @@ Route::middleware('auth')->group(function (): void {
             Route::post('store', [MemberController::class, 'store'])->name('member.store');
         });
     });
+
+    Route::post('/like', 'LikeController@like')->name('like');
 });
