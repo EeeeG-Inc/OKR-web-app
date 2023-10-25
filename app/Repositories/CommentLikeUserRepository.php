@@ -11,9 +11,9 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     /** @var CommentLikeUser */
     private $CommentLikeUser;
 
-    public function __construct(CommentLikeUser $keyResult = null)
+    public function __construct(CommentLikeUser $commentLikeUser = null)
     {
-        $this->CommentLikeUser = $CommentLikeUser ?? new CommentLikeUser;
+        $this->CommentLikeUser = $commentLikeUser ?? new CommentLikeUser;
     }
 
     public function find(int $id): ?CommentLikeUser

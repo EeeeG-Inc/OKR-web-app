@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
     public function like(Request $request)
     {
-        return
+        return;
         // $user_id = Auth::user()->id; //1.ログインユーザーのid取得
         // $review_id = $request->review_id; //2.投稿idの取得
         // $already_liked = Like::where('user_id', $user_id)->where('review_id', $review_id)->first(); //3.

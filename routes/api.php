@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\OkrController;
 use App\Http\Controllers\Api\QuarterController;
+use App\Http\Controllers\Api\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/okr/ours/get', [OkrController::class, 'getOurs'])->name('okr.ours.get');
     Route::post('/quarter/get', [QuarterController::class, 'get'])->name('quarter.get');
 });
+Route::post('api/like', [LikeController::class, 'like'])->name('api/like');
+
