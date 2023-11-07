@@ -53,12 +53,12 @@
                                                                                         </th>
                                                                                         <th style="font-size: 0.7rem; width: 33%">
                                                                                             <p class="mb-0" data-toggle="tooltip" data-placement="top" title="{{ $objective->keyResults->count() >= 2 ? $objective->keyResults[1]->key_result : '' }}">
-                                                                                                {{ $objective->keyResults->count() >= 2 ? $objective->keyResults[1]->short_key_result : '' }}
+                                                                                                {{ ($objective->keyResults->count() >= 2 && !empty($objective->keyResults[1]->key_result)) ? $objective->keyResults[1]->short_key_result : '' }}
                                                                                             </p>
                                                                                         </th>
                                                                                         <th style="font-size: 0.7rem; width: 33%">
                                                                                             <p class="mb-0" data-toggle="tooltip" data-placement="top" title="{{ $objective->keyResults->count() >= 3 ? $objective->keyResults[2]->key_result : '' }}">
-                                                                                                {{ $objective->keyResults->count() >= 3 ? $objective->keyResults[2]->short_key_result : '' }}
+                                                                                                {{ ($objective->keyResults->count() >= 3 && !empty($objective->keyResults[2]->key_result)) ? $objective->keyResults[2]->short_key_result : '' }}
                                                                                             </p>
                                                                                         </th>
                                                                                     </tr>
@@ -74,7 +74,7 @@
                                                                                             ) }}
                                                                                         </td>
                                                                                         <td class="align-middle">
-                                                                                            @if ($objective->keyResults->count() >= 2)
+                                                                                            @if ($objective->keyResults->count() >= 2 && !empty($objective->keyResults[1]->key_result))
                                                                                                 {{ Form::select(
                                                                                                     'key_result2_score[' . $objective->id . '][' . $objective->keyResults[1]->id . ']',
                                                                                                     $scores,
@@ -84,7 +84,7 @@
                                                                                             @endif
                                                                                         </td>
                                                                                         <td class="align-middle">
-                                                                                            @if ($objective->keyResults->count() >= 3)
+                                                                                            @if ($objective->keyResults->count() >= 3 && !empty($objective->keyResults[2]->key_result))
                                                                                                 {{ Form::select(
                                                                                                     'key_result3_score[' . $objective->id . '][' . $objective->keyResults[2]->id . ']',
                                                                                                     $scores,
