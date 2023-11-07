@@ -30,7 +30,7 @@
                                                     {{ Form::radio(
                                                         'can_edit_other_okr',
                                                         false,
-                                                        empty(old('can_edit_other_okr', $user->can_edit_other_okr)),
+                                                        (bool) $user->can_edit_other_okr->value === false,
                                                         ['id' => 'disable']
                                                     ) }}
                                                     {{ Form::label('disable', 'なし') }}
@@ -39,7 +39,7 @@
                                                     {{ Form::radio(
                                                         'can_edit_other_okr',
                                                         true,
-                                                        !empty(old('can_edit_other_okr', $user->can_edit_other_okr)),
+                                                        (bool) $user->can_edit_other_okr->value === true,
                                                         ['id' => 'enable']
                                                     ) }}
                                                     {{ Form::label('enable', 'あり') }}
