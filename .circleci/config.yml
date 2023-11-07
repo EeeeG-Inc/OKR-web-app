@@ -76,7 +76,7 @@ jobs:
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
       # FIXME: セキュリティチェックにひっかると exit status 1 になるため、一旦 disable にしている
-      - run: php artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
+      - run: php artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70 --memory-limit=2G
   deploy:
     machine:
       image: ubuntu-2004:202201-02
