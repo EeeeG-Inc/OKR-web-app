@@ -75,7 +75,7 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      - run: php -d --memory-limit=256M artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
+      - run: php -d --memory-limit=2000M artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
 
   deploy:
     machine:
