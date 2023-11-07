@@ -150,5 +150,6 @@ return [
         'year' => __('models/objectives.fields.year'),
         'quarter' => __('models/quarters.fields.quarter'),
         'profile_image' => __('models/users.fields.profile_image'),
+        'can_edit_other_okr' => '他人の OKR 編集権限',
     ],
 ];

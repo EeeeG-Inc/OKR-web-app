@@ -20,4 +20,5 @@ return [
     'stop' => '停止',
     'unarchive' => 'アーカイブ解除',
     'update' => '更新',
+    'edit_other_scores' => 'スコア一括更新',
 ];

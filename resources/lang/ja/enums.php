@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\CanEdit;
+use App\Enums\CanEditOtherOkr;
 use App\Enums\Priority;
 use App\Enums\Quarter;
 use App\Enums\Role;
@@ -25,5 +27,13 @@ return [
         Quarter::SECOND_QUARTER    => '第２Ｑ',
         Quarter::THIRD_QUARTER     => '第３Ｑ',
         Quarter::FOURTH_QUARTER    => '第４Ｑ',
+    ],
+    CanEditOtherOkr::class => [
+        CanEditOtherOkr::CAN_NOT_EDIT_OTHER_OKR => 'なし',
+        CanEditOtherOkr::CAN_EDIT_OTHER_OKR => 'あり',
+    ],
+    CanEdit::class => [
+        CanEdit::CAN_NOT_EDIT => '編集できない',
+        CanEdit::CAN_EDIT => '編集できる',
     ],
 ];

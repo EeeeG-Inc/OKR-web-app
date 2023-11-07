@@ -150,7 +150,7 @@
                                                 {{ Form::label('comment', __('models/comments.fields.comment')) }}
                                             </div>
                                             <div class="col-md-10">
-                                                {{ Form::textarea('comment', null, ['class' => 'form-control', 'id' => 'objective', 'rows' => '2']) }}
+                                                {{ Form::textarea('comment', null, ['class' => 'form-control', 'id' => 'objective', 'rows' => '10']) }}
                                             </div>
                                         </div>
 

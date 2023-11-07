@@ -66,6 +66,16 @@ class UserRepository implements UserRepositoryInterface
         ])->get();
     }
 
+    public function getWhereNotInUserIds(array $userIds, int $companyId): Collection
+    {
+        return $this->user
+            ->whereNotIn('id', $userIds)
+            ->where([
+                ['company_id', '=', $companyId],
+            ])
+            ->get();
+    }
+
     public function paginate(int $pagenateNum): LengthAwarePaginator
     {
         return $this->getBuilderNotWhereRoleAdmin()

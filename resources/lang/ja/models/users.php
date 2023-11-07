@@ -11,5 +11,6 @@ return [
         'email_verified_at' => 'メールアドレス確認日時',
         'password' => 'パスワード',
         'profile_image' => 'プロフィール画像',
+        'can_edit_other_okr' => '他人の OKR 編集権限',
     ],
 ];

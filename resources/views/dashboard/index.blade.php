@@ -5,37 +5,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if (!is_null($chart))
-                {{-- チャート --}}
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {{ __('common/title.dashboard.chart') }}
-                    </div>
-                    <div class="card-body">
-                        <div class="bg-gray-100">
-                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-                                    {{-- vue.js render --}}
-                                    <div id="app">{!! $chart->container() !!}</div>
-                                    {{-- vue.js cdn --}}
-                                    <script src="https://unpkg.com/vue"></script>
-                                    {{-- vue.js script --}}
-                                    <script>
-                                        var app = {
-                                            el: '#app',
-                                        };
-                                    </script>
-                                    {{-- chart.js cdn --}}
-                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                    {{-- laravel chart script --}}
-                                    {!! $chart->script() !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
             @if (!is_null($objectives))
                 {{-- 今期 OKR --}}
                 <div class="card mb-4">
@@ -46,6 +15,7 @@
                         <div class="bg-gray-100">
                             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    @include('flash::message')
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -78,6 +48,55 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if ($loginUser->can_edit_other_okr)
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('common/title.dashboard.powers') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-gray-100">
+                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+                                {{-- スコア一括更新 --}}
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    {{ link_to_route('other_scores.edit', __('common/action.edit_other_scores'), $loginUser->id, ['class' => 'btn btn-primary']) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (!is_null($chart))
+                {{-- チャート --}}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('common/title.dashboard.chart') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-gray-100">
+                            <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+                                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+                                    {{-- vue.js render --}}
+                                    <div id="app">{!! $chart->container() !!}</div>
+                                    {{-- vue.js cdn --}}
+                                    <script src="https://unpkg.com/vue"></script>
+                                    {{-- vue.js script --}}
+                                    <script>
+                                        var app = {
+                                            el: '#app',
+                                        };
+                                    </script>
+                                    {{-- chart.js cdn --}}
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    {{-- laravel chart script --}}
+                                    {!! $chart->script() !!}
                                 </div>
                             </div>
                         </div>
@@ -136,9 +155,6 @@
                     <div class="bg-gray-100">
                         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
                             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
-
-                                @include('flash::message')
-
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -180,7 +196,7 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     @if ($user->hasObjective)
-                                                        {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
+                                                    {{ link_to_route('objective.index', __('common/action.detail'), ['user_id' => $user->id], ['class' => 'btn btn-primary']); }}
                                                     @endif
                                                     @can('admin-only')
                                                         {{ link_to_route('admin.proxy_login', __('common/admin.proxy_login'), ['user_id' => $user->id], ['class' => 'btn btn-success']); }}

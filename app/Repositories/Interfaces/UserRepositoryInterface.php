@@ -22,6 +22,8 @@ interface UserRepositoryInterface
 
     public function getDepartmentUserByCompanyIdAndName(int $departmentId, string $name): Collection;
 
+    public function getWhereNotInUserIds(array $userIds, int $companyId): Collection;
+
     public function paginate(int $pagenateNum): LengthAwarePaginator;
 
     public function paginateByCompanyId(int $pagenateNum, int $companyId): LengthAwarePaginator;
