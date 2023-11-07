@@ -132,8 +132,8 @@ class KeyResult extends Model
      */
     public function getShortKeyResultAttribute(): string
     {
-        if (mb_strlen($this->key_result) > 45) {
-            return mb_substr($this->key_result, 0, 44) . '…';
+        if (mb_strlen($this->key_result) > 35) {
+            return mb_substr($this->key_result, 0, 34) . '…';
         }
         return $this->key_result;
     }
