@@ -110,7 +110,11 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
-                                                {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12 text-right">
+                                                        {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
