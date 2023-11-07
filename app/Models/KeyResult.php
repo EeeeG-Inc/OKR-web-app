@@ -128,7 +128,7 @@ class KeyResult extends Model
     /**
      * 短い成果指標を取得する
      *
-     * @return boolean
+     * @return string
      */
     public function getShortKeyResultAttribute(): string
     {

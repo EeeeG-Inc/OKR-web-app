@@ -38,7 +38,7 @@ class OtherOkrController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param QuarterUpdateRequest $request
+     * @param OtherOkrUpdateRequest $request
      * @param int $userId
      * @param UpdateData $case
      * @return RedirectResponse

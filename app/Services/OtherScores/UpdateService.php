@@ -82,25 +82,6 @@ class UpdateService
         ];
     }
 
-    private function createKeyResult(array $input, int $objectiveId, array $reqKeyResult): void
-    {
-        // 成果指標は必須
-        if (is_null($reqKeyResult['key_result'])) {
-            return;
-        }
-
-        $this->keyResultRepo->create([
-            'user_id' => $input['user_id'],
-            'objective_id' => $objectiveId,
-            'key_result' => $reqKeyResult['key_result'],
-            'score' => $reqKeyResult['score'] ?? null,
-            'remarks' => $reqKeyResult['remarks'] ?? null,
-            'impression' => $reqKeyResult['impression'] ?? null,
-        ]);
-
-        $this->countScore($reqKeyResult);
-    }
-
     private function updateKeyResult(int $keyResultId, array $reqKeyResult): void
     {
         $this->keyResultRepo->update($keyResultId, [

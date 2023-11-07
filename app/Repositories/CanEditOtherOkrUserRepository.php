@@ -48,7 +48,7 @@ class CanEditOtherOkrUserRepository implements CanEditOtherOkrUserRepositoryInte
         $targetUserIds = $this->canEditOtherOkrUser->where([
             ['user_id', '=', $userId],
             ['can_edit', '=', $canEdit],
-        ])->get()->pluck('target_user_id')->toArray();
+        ])->pluck('target_user_id')->toArray();
 
         if (!in_array($userId, $targetUserIds)) {
             // ログインユーザ自身も追加

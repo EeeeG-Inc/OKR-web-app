@@ -26,7 +26,7 @@ class OtherScoresController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param QuarterUpdateRequest $request
+     * @param OtherScoresUpdateRequest $request
      * @param int $userId
      * @param UpdateData $case
      * @return RedirectResponse
