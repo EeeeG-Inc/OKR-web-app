@@ -23,10 +23,10 @@ return [
     ],
     Quarter::class => [
         Quarter::QUARTER_FULL_YEAR => '通年',
-        Quarter::FIRST_QUARTER     => '第１Ｑ',
-        Quarter::SECOND_QUARTER    => '第２Ｑ',
-        Quarter::THIRD_QUARTER     => '第３Ｑ',
-        Quarter::FOURTH_QUARTER    => '第４Ｑ',
+        Quarter::FIRST_QUARTER     => '第1Ｑ',
+        Quarter::SECOND_QUARTER    => '第2Ｑ',
+        Quarter::THIRD_QUARTER     => '第3Ｑ',
+        Quarter::FOURTH_QUARTER    => '第4Ｑ',
     ],
     CanEditOtherOkr::class => [
         CanEditOtherOkr::CAN_NOT_EDIT_OTHER_OKR => 'なし',

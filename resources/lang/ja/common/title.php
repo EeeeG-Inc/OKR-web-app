@@ -68,5 +68,6 @@ return [
     ],
     'other_scores' => [
         'edit' => 'スコア一括編集',
+        'search' => 'OKR 条件',
     ],
 ];

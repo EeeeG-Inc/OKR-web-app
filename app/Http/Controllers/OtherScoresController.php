@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\OtherScoresEditRequest;
 use App\Http\Requests\OtherScoresUpdateRequest;
 use App\Http\UseCase\OtherScores\GetEditData;
 use App\Http\UseCase\OtherScores\UpdateData;
@@ -15,12 +16,20 @@ class OtherScoresController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $userId
+     * @param OtherScoresEditRequest $request
      * @param GetEditData $case
      * @return View
      */
-    public function edit(int $userId, GetEditData $case)
+    public function edit(int $userId, OtherScoresEditRequest $request, GetEditData $case)
     {
-        return view('other_scores.edit', $case($userId));
+        $input = $request->validated();
+        return view(
+            'other_scores.edit',
+            $case($userId, [
+                'year' => $input['year'] ?? null,
+                'quarter_id' => $input['quarter_id'] ?? null,
+            ])
+        );
     }
 
     /**

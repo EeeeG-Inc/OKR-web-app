@@ -7,6 +7,7 @@ use App\Models\Objective;
 use App\Repositories\Interfaces\ObjectiveRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class ObjectiveRepository implements ObjectiveRepositoryInterface
 {
@@ -71,4 +72,25 @@ class ObjectiveRepository implements ObjectiveRepositoryInterface
             ->select('year')
             ->get();
     }
+
+    public function getYearByCompanyId(int $companyId): SupportCollection
+    {
+        return $this->objective
+            ->leftJoin('users', 'users.id', '=', 'objectives.user_id')
+            ->where('users.company_id', $companyId)
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+    }
+
+    public function getQuarterIdsByCompanyId(int $companyId): SupportCollection
+    {
+        return $this->objective
+            ->leftJoin('users', 'users.id', '=', 'objectives.user_id')
+            ->where('users.company_id', $companyId)
+            ->distinct()
+            ->orderBy('quarter_id')
+            ->pluck('quarter_id');
+    }
+
 }
