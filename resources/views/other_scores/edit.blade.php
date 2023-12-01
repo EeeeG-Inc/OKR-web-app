@@ -161,9 +161,15 @@
                                                     </div>
                                                 @endforeach
                                                 <div class="form-group row">
-                                                    <div class="col-sm-12 text-right">
-                                                        {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
-                                                    </div>
+                                                    @if(empty($datum))
+                                                        <div class="col-sm-12">
+                                                            <p>編集可能な OKR が存在しません</p>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-sm-12 text-right">
+                                                            {{ Form::submit(__('common/action.update'), ['class' => 'align-self-center px-2 py-1 rounded btn btn-primary']) }}
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
