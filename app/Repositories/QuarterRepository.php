@@ -79,10 +79,26 @@ class QuarterRepository implements QuarterRepositoryInterface
                 }
             }
 
-            // 本日が何期目か取得
-            if (($quarter->from <= $today->month) && ($today->month <= $quarter->to)) {
-                $quarterId = $quarter->id;
-                break;
+            if ($quarter->from < $quarter->to) {
+                // 本日が何期目か取得
+                if (($quarter->from <= $today->month) && ($today->month <= $quarter->to)) {
+                    $quarterId = $quarter->id;
+                    break;
+                }
+            }
+
+            // 年をまたいでいる場合
+            if ($quarter->from > $quarter->to) {
+                // 本日が何期目か取得
+                if (($quarter->from <= $today->month) && ($today->month <= ($quarter->to + 12))) {
+                    $quarterId = $quarter->id;
+                    break;
+                }
+
+                if (($quarter->from <= ($today->month + 12)) && ($today->month <= $quarter->to)) {
+                    $quarterId = $quarter->id;
+                    break;
+                }
             }
         }
 

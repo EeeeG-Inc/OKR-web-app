@@ -23,6 +23,7 @@ class OtherScoresController extends Controller
     public function edit(int $userId, OtherScoresEditRequest $request, GetEditData $case)
     {
         $input = $request->validated();
+
         return view(
             'other_scores.edit',
             $case($userId, [
