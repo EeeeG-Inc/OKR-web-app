@@ -126,12 +126,12 @@
                                                     <td width="5%" class="align-middle">
                                                         @if (!$CommentLikeUser->isLikedBy($comment,Auth::id()))
                                                         <span class="likes">
-                                                            <i class="fas fa-music like-toggle" data-review-id="{{ $comment->id }}"></i>
+                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove=false id="like"></i>
                                                             <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
                                                         </span>
                                                       @else
                                                         <span class="likes">
-                                                            <i class="fas fa-music heart like-toggle liked" data-review-id="{{ $comment->id }}"></i>
+                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove=ture id="like"></i>
                                                             <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
                                                         </span>
                                                       @endif
@@ -187,28 +187,49 @@
     <script>
         $(function () {
 
-            let like = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
-            let likeReviewId; //変数を宣言（なんでここで？）
+            let likeOperation = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
+            let likeCommentId;
+            let detail;
+            let route;
+            let count;
+            let likeRemoveChange;
 
-            like.on('click', function () { //onはイベントハンドラー
+            likeOperation.on('click', function () { //onはイベントハンドラー
                 let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-                likeReviewId = $this.data('review-id'); //iタグに仕込んだdata-review-idの値を取得
+                likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
+                userId = "{{Auth::user()->id}}";//ユーザーIdを取得
+
+                 //いいねの追加か取り消し化を判別
+                var likeId = document.getElementById("like");
+                var likeRemove = likeId.getAttribute("data-like-remove");
+                if(likeRemove == 'true'){
+                    route = '{{ route('remove') }}';
+                    count = -1;
+                    likeRemoveChange = false;
+                }else{
+                    route= '{{ route('like') }}';
+                    count = 1;
+                    likeRemoveChange = true;
+                }
+
                 //ajax処理スタート
                 var jqXHR = $.ajax({
                     headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
                         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
                     },  //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
-                    url: '{{ route('api/like') }}', //通信先アドレスで、このURLをあとでルートで設定します
+                    url: route, //通信先アドレスで、このURLをあとでルートで設定します
                     method: 'POST', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
                     data: { //サーバーに送信するデータ
-                        'review_id': likeReviewId //いいねされた投稿のidを送る
+                        'comment_id': likeCommentId,//いいねされた投稿のid
+                        'user_id' : userId
                     },
                 })
                 //通信成功した時の処理
                 .done(function (data) {
-                    alert('成功や');
-                    //$this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
-                    //$this.next('.like-counter').html(data.review_likes_count);
+                    $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
+                    var likeCounter = Number($('.like-counter').text());
+                    $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
+                    likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
                 })
                 //通信失敗した時の処理
                 .fail(function () {
