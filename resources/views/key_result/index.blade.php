@@ -126,12 +126,12 @@
                                                     <td width="5%" class="align-middle">
                                                         @if (!$CommentLikeUser->isLikedBy($comment,Auth::id()))
                                                         <span class="likes">
-                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove=false id="like"></i>
+                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
                                                             <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
                                                         </span>
                                                       @else
                                                         <span class="likes">
-                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove=ture id="like"></i>
+                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
                                                             <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
                                                         </span>
                                                       @endif
@@ -193,20 +193,23 @@
             let route;
             let count;
             let likeRemoveChange;
+            // var likeRemove;
+            // var likeId;
 
             likeOperation.on('click', function () { //onはイベントハンドラー
                 let $this = $(this); //this=イベントの発火した要素＝iタグを代入
                 likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
                 userId = "{{Auth::user()->id}}";//ユーザーIdを取得
 
-                 //いいねの追加か取り消し化を判別
+                //いいねの追加か取り消し化を判別
                 var likeId = document.getElementById("like");
-                var likeRemove = likeId.getAttribute("data-like-remove");
-                if(likeRemove == 'true'){
+                if (Boolean(likeId.getAttribute("data-like-remove"))){
+                    alert('消すに来てる');
                     route = '{{ route('remove') }}';
                     count = -1;
-                    likeRemoveChange = false;
+                    likeRemoveChange = "";
                 }else{
+                    alert('増やすにきてる');
                     route= '{{ route('like') }}';
                     count = 1;
                     likeRemoveChange = true;

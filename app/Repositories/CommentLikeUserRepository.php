@@ -48,4 +48,13 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         return count(CommentLikeUser::where('comment_id', $comment->id)->where('is_like', TRUE )->get());
     }
 
+    //ログインユーザーのいいねがすでにある場合、モデルを返すメソッド。
+    public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser {
+        $like = CommentLikeUser::
+            where('comment_id', $comment_id)
+            ->where('user_id', $user_id)
+            ->where('is_like', true)
+            ->get();
+        return $like->isNotEmpty() ? $like->first() : null;
+    }
 }

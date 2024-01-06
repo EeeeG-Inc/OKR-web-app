@@ -18,4 +18,7 @@ interface CommentLikeUserRepositoryInterface
     public function isLikedBy($comment,int $id): bool;
 
     public function likeCount($comment): int;
+
+    public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser;
+
 }
