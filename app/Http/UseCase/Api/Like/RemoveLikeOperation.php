@@ -20,9 +20,14 @@ class RemoveLikeOperation
 
     public function __invoke(array $input)
     {
+        $user_id = $input['user_id']; //操作者id
+        $comment_id = $input['comment_id']; //コメントid
 
-        //comment_like_usersテーブルの対象レコードのis_likeをfalseに
+        //対象コメントのモデルを取得
+        $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($comment_id,$user_id);
 
+        //いいねの削除
+        $this->CommentLikeUserRepo->likeCansel($alreadyLike);
 
         return;
     }

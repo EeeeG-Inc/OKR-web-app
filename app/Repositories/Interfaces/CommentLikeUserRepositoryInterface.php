@@ -11,7 +11,7 @@ interface CommentLikeUserRepositoryInterface
 
     public function create(array $input): CommentLikeUser;
 
-    public function update(int $id, array $input): bool;
+    public function update(CommentLikeUser $target): bool;
 
     public function delete(CommentLikeUser $target): bool;
 
@@ -20,5 +20,7 @@ interface CommentLikeUserRepositoryInterface
     public function likeCount($comment): int;
 
     public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser;
+
+    public function likeCansel(CommentLikeUser $target): bool;
 
 }

@@ -26,11 +26,11 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         return $this->CommentLikeUser->create($input);
     }
 
-    public function update(int $id, array $input): bool
+    public function update(CommentLikeUser $target): bool
     {
-        $model = $this->CommentLikeUser->findOrFail($id);
-        $model->fill($input);
-        return $model->save();
+        return $target->update([
+            'is_like' => true
+        ]);
     }
 
     public function delete(CommentLikeUser $target): bool
@@ -48,13 +48,20 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         return count(CommentLikeUser::where('comment_id', $comment->id)->where('is_like', TRUE )->get());
     }
 
-    //ログインユーザーのいいねがすでにある場合、モデルを返すメソッド。
+    //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
     public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser {
         $like = CommentLikeUser::
             where('comment_id', $comment_id)
             ->where('user_id', $user_id)
-            ->where('is_like', true)
             ->get();
         return $like->isNotEmpty() ? $like->first() : null;
+    }
+
+    //いいねを取り消すメソッド。
+    public function likeCansel(CommentLikeUser $target): bool
+    {
+        return $target->update([
+            'is_like' => false
+        ]);
     }
 }

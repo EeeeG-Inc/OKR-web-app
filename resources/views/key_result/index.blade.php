@@ -201,15 +201,15 @@
                 likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
                 userId = "{{Auth::user()->id}}";//ユーザーIdを取得
 
-                //いいねの追加か取り消し化を判別
+                //いいねの追加か取り消しかを判別
                 var likeId = document.getElementById("like");
                 if (Boolean(likeId.getAttribute("data-like-remove"))){
-                    alert('消すに来てる');
+                    console.log('いいねキャンセル');
                     route = '{{ route('remove') }}';
                     count = -1;
                     likeRemoveChange = "";
                 }else{
-                    alert('増やすにきてる');
+                    console.log('いいね');
                     route= '{{ route('like') }}';
                     count = 1;
                     likeRemoveChange = true;
@@ -229,6 +229,7 @@
                 })
                 //通信成功した時の処理
                 .done(function (data) {
+                    console.log('DB更新成功');
                     $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
                     var likeCounter = Number($('.like-counter').text());
                     $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
@@ -236,8 +237,8 @@
                 })
                 //通信失敗した時の処理
                 .fail(function () {
+                    console.log('DB更新失敗');
                     alert('失敗してるで');
-
                 });
             });
         });
