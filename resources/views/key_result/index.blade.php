@@ -124,15 +124,15 @@
                                                     </td>
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
-                                                        @if (!$CommentLikeUser->isLikedBy($comment,Auth::id()))
+                                                        @if (!$CommentLikeUser->isLikedBy($comment->id,Auth::id()))
                                                         <span class="likes">
                                                             <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
-                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
+                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
                                                         </span>
                                                       @else
                                                         <span class="likes">
                                                             <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
-                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment)}}</span>
+                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
                                                         </span>
                                                       @endif
                                                     </td>
@@ -186,22 +186,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
-
             let likeOperation = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
-            let likeCommentId;
-            let detail;
-            let route;
-            let count;
-            let likeRemoveChange;
-            // var likeRemove;
-            // var likeId;
-
             likeOperation.on('click', function () { //onはイベントハンドラー
                 let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-                likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
+                let likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
                 userId = "{{Auth::user()->id}}";//ユーザーIdを取得
 
                 //いいねの追加か取り消しかを判別
+                let route;
+                let count;
+                let likeRemoveChange;
                 var likeId = document.getElementById("like");
                 if (Boolean(likeId.getAttribute("data-like-remove"))){
                     console.log('いいねキャンセル');
@@ -238,7 +232,6 @@
                 //通信失敗した時の処理
                 .fail(function () {
                     console.log('DB更新失敗');
-                    alert('失敗してるで');
                 });
             });
         });

@@ -9,21 +9,21 @@ use Illuminate\Database\Eloquent\Collection;
 class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
 {
     /** @var CommentLikeUser */
-    private $CommentLikeUser;
+    private $commentLikeUser;
 
     public function __construct(CommentLikeUser $commentLikeUser = null)
     {
-        $this->CommentLikeUser = $commentLikeUser ?? new CommentLikeUser;
+        $this->commentLikeUser = $commentLikeUser ?? new CommentLikeUser;
     }
 
     public function find(int $id): ?CommentLikeUser
     {
-        return $this->CommentLikeUser->findOrFail($id);
+        return $this->commentLikeUser->findOrFail($id);
     }
 
     public function create(array $input): CommentLikeUser
     {
-        return $this->CommentLikeUser->create($input);
+        return $this->commentLikeUser->create($input);
     }
 
     public function update(CommentLikeUser $target): bool
@@ -39,19 +39,21 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     }
 
     //ログインユーザーがイイねをしているいかを判定するメソッド。
-    public function isLikedBy($comment,int $id): bool {
-        return CommentLikeUser::where('comment_id', $comment->id)->where('is_like', TRUE )->where('user_id', $id )->first() !==null;
+    public function isLikedBy(int $comment_id, int $id): bool
+    {
+        return CommentLikeUser::where('comment_id', $comment_id)->where('is_like', true)->where('user_id', $id)->first() !==null;
     }
 
     //コメントのいいねの数をカウントするメソッド。
-    public function likeCount($comment): int {
-        return count(CommentLikeUser::where('comment_id', $comment->id)->where('is_like', TRUE )->get());
+    public function likeCount(int $comment_id): int
+    {
+        return CommentLikeUser::where('comment_id', $comment_id)->where('is_like', true)->get()->count();
     }
 
     //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
-    public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser {
-        $like = CommentLikeUser::
-            where('comment_id', $comment_id)
+    public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser
+    {
+        $like = CommentLikeUser::where('comment_id', $comment_id)
             ->where('user_id', $user_id)
             ->get();
         return $like->isNotEmpty() ? $like->first() : null;

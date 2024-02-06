@@ -9,7 +9,7 @@ class CommentLikeUser extends Model
 {
     use HasFactory;
 
-        /**
+    /**
      * Database table.
      *
      * @var string

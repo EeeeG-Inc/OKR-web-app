@@ -15,11 +15,11 @@ interface CommentLikeUserRepositoryInterface
 
     public function delete(CommentLikeUser $target): bool;
 
-    public function isLikedBy($comment,int $id): bool;
+    public function isLikedBy(int $comment_id, int $id): bool;
 
-    public function likeCount($comment): int;
+    public function likeCount(int $comment_id): int;
 
-    public function alreadyLike(int $comment_id,int $user_id): ?CommentLikeUser;
+    public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser;
 
     public function likeCansel(CommentLikeUser $target): bool;
 
