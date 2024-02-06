@@ -41,21 +41,32 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     //ログインユーザーがイイねをしているいかを判定するメソッド。
     public function isLikedBy(int $comment_id, int $id): bool
     {
-        return CommentLikeUser::where('comment_id', $comment_id)->where('is_like', true)->where('user_id', $id)->first() !==null;
+        return $this->commentLikeUser::where([
+            ['comment_id', $comment_id],
+            ['is_like', true],
+            ['user_id', $id]
+        ])
+        ->exists();
     }
 
     //コメントのいいねの数をカウントするメソッド。
     public function likeCount(int $comment_id): int
     {
-        return CommentLikeUser::where('comment_id', $comment_id)->where('is_like', true)->get()->count();
+        return $this->commentLikeUser::where([
+            ['comment_id', $comment_id],
+            ['is_like', true]
+        ])
+        ->count();
     }
 
     //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
     public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser
     {
-        $like = CommentLikeUser::where('comment_id', $comment_id)
-            ->where('user_id', $user_id)
-            ->get();
+        $like = $this->commentLikeUser::where([
+            ['comment_id', $comment_id],
+            ['user_id', $user_id]
+        ])
+        ->get();
         return $like->isNotEmpty() ? $like->first() : null;
     }
 

@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
-    public function like(LikeRequest $request , LikeOperation $case)
+    public function like(LikeRequest $request, LikeOperation $case)
     {
         $input = $request->validated();
         $case($input);
         return;
     }
 
-    public function remove(LikeRequest $request , RemoveLikeOperation $case)
+    public function remove(LikeRequest $request, RemoveLikeOperation $case)
     {
         $input = $request->validated();
         $case($input);

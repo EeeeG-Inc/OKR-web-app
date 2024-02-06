@@ -125,16 +125,16 @@
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
                                                         @if (!$CommentLikeUser->isLikedBy($comment->id,Auth::id()))
-                                                        <span class="likes">
-                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
-                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
-                                                        </span>
-                                                      @else
-                                                        <span class="likes">
-                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
-                                                            <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
-                                                        </span>
-                                                      @endif
+                                                            <span class="likes">
+                                                                <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
+                                                                <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
+                                                            </span>
+                                                        @else
+                                                            <span class="likes">
+                                                                <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
+                                                                <span class="like-counter">{{$CommentLikeUser->likeCount($comment->id)}}</span>
+                                                            </span>
+                                                        @endif
                                                     </td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
                                                     <td width="5%" class="align-middle">
