@@ -62,12 +62,11 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
     public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser
     {
-        $like = $this->commentLikeUser::where([
+        return $this->commentLikeUser::where([
             ['comment_id', $comment_id],
             ['user_id', $user_id]
         ])
-        ->get();
-        return $like->isNotEmpty() ? $like->first() : null;
+        ->first();
     }
 
     //いいねを取り消すメソッド。
