@@ -10,6 +10,30 @@ use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
+    /**
+     *  @OA\Post(
+     *      path="/api/like",
+     *      tags={"いいね追加"},
+     *      description="コメントにいいねを追加する",
+     *      @OA\Response(
+     *          response="200",
+     *          description="いいね追加成功",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="comment_id",
+     *                  description="コメントID",
+     *                  type="int"
+     *              ),
+     *              @OA\Property(
+     *                  property="user_id",
+     *                  description="ユーザーID",
+     *                  type="int"
+     *              ),
+     *          ),
+     *      ),
+     *  )
+     */
     public function like(LikeRequest $request, LikeOperation $case)
     {
         $input = $request->validated();
@@ -17,6 +41,30 @@ class LikeController extends Controller
         return;
     }
 
+    /**
+     *  @OA\Post(
+     *      path="/api/remove",
+     *      tags={"いいね取り消し"},
+     *      description="コメントのいいねを取り消す",
+     *      @OA\Response(
+     *          response="200",
+     *          description="いいね取り消し成功",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="comment_id",
+     *                  description="コメントID",
+     *                  type="int"
+     *              ),
+     *              @OA\Property(
+     *                  property="user_id",
+     *                  description="ユーザーID",
+     *                  type="int"
+     *              ),
+     *          ),
+     *      ),
+     *  )
+     */
     public function remove(LikeRequest $request, RemoveLikeOperation $case)
     {
         $input = $request->validated();

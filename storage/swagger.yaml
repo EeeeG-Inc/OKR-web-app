@@ -3,6 +3,38 @@ info:
   title: 'OKR API'
   version: '1.0'
 paths:
+  /api/like:
+    post:
+      tags:
+        - いいね追加
+      description: コメントにいいねを追加する
+      operationId: 8e1e9b2f8d273f462544126cfacae4a2
+      responses:
+        '200':
+          description: いいね追加成功
+          content:
+            application/json:
+              schema:
+                properties:
+                  comment_id: { description: コメントID, type: integer }
+                  user_id: { description: ユーザーID, type: integer }
+                type: object
+  /api/remove:
+    post:
+      tags:
+        - いいね取り消し
+      description: コメントのいいねを取り消す
+      operationId: a3f4141b3629bcdba34c2ac1743a9022
+      responses:
+        '200':
+          description: いいね取り消し成功
+          content:
+            application/json:
+              schema:
+                properties:
+                  comment_id: { description: コメントID, type: integer }
+                  user_id: { description: ユーザーID, type: integer }
+                type: object
   /api/okr/mine/get:
     post:
       tags:

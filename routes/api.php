@@ -28,6 +28,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 Route::post('/like', [LikeController::class, 'like'])->name('like');
-Route::post('/remove/like', [LikeController::class, 'remove'])->name('remove');
-
-
+Route::post('/remove', [LikeController::class, 'remove'])->name('remove');
