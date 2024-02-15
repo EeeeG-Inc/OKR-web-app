@@ -7,6 +7,8 @@ use App\Http\Requests\Api\LikeRequest;
 use App\Http\UseCase\Api\Like\LikeOperation;
 use App\Http\UseCase\Api\Like\RemoveLikeOperation;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class LikeController extends Controller
 {
@@ -37,8 +39,11 @@ class LikeController extends Controller
     public function like(LikeRequest $request, LikeOperation $case)
     {
         $input = $request->validated();
-        $case($input);
-        return;
+        $result = $case($input);
+
+        return new JsonResponse([
+            'result' => $result,
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -68,7 +73,10 @@ class LikeController extends Controller
     public function remove(LikeRequest $request, RemoveLikeOperation $case)
     {
         $input = $request->validated();
-        $case($input);
-        return;
+        $result = $case($input);
+
+        return new JsonResponse([
+            'result' => $result,
+        ], Response::HTTP_OK);
     }
 }

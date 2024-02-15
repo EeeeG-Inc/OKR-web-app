@@ -5,6 +5,7 @@ namespace App\Http\UseCase\Api\Like;
 use App\Repositories\Interfaces\CommentLikeUserRepositoryInterface;
 use App\Repositories\CommentLikeUserRepository;
 use PhpParser\Node\Stmt\Return_;
+use Flash;
 
 class RemoveLikeOperation
 {
@@ -22,13 +23,16 @@ class RemoveLikeOperation
     {
         $user_id = $input['user_id']; //操作者id
         $comment_id = $input['comment_id']; //コメントid
+        try {
+            //対象コメントのモデルを取得
+            $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($comment_id, $user_id);
 
-        //対象コメントのモデルを取得
-        $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($comment_id,$user_id);
-
-        //いいねの削除
-        $this->CommentLikeUserRepo->likeCansel($alreadyLike);
-
-        return;
+            //いいねの削除
+            $this->CommentLikeUserRepo->likeCansel($alreadyLike);
+        } catch (\Exception $exc) {
+            Flash::error($exc->getMessage());
+            return false;
+        }
+        return true;
     }
 }
