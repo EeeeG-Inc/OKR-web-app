@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommentLikeUser extends Model
 {
@@ -41,13 +41,14 @@ class CommentLikeUser extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function users(): HasMany
+    public function user(): belongsTo
     {
-        return $this->hasMany(User::class, 'id');
+
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function comments(): HasMany
+    public function comment(): belongsTo
     {
-        return $this->hasMany(Comment::class, 'id');
+        return $this->belongsTo(Comment::class, 'comment_id');
     }
 }
