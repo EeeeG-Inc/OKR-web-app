@@ -21,18 +21,15 @@ class RemoveLikeOperation
 
     public function __invoke(array $input)
     {
-        $user_id = $input['user_id']; //操作者id
-        $comment_id = $input['comment_id']; //コメントid
-        try {
-            //対象コメントのモデルを取得
-            $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($comment_id, $user_id);
+        $userId = $input['user_id'];
+        $commentId = $input['comment_id'];
 
-            //いいねの削除
-            $this->CommentLikeUserRepo->likeCansel($alreadyLike);
-        } catch (\Exception $exc) {
-            Flash::error($exc->getMessage());
-            return false;
-        }
+        //対象コメントのモデルを取得
+        $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($commentId, $userId);
+
+        //いいねの削除
+        $this->CommentLikeUserRepo->likeCansel($alreadyLike);
+
         return true;
     }
 }

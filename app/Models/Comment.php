@@ -83,6 +83,11 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function commentLikeUsers(): HasMany
+    {
+        return $this->hasMany(CommentLikeUser::class, 'comment_id');
+    }
+
     /**
      * CommentにURLが含まれていた場合、リンク化する。
      *
@@ -93,4 +98,3 @@ class Comment extends Model
         return TextReplace::urlReplace($this->comment);
     }
 }
-

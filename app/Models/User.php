@@ -171,6 +171,11 @@ class User extends Authenticatable
         return $this->hasMany(Objective::class, 'user_id');
     }
 
+    public function commentLikeUsers(): HasMany
+    {
+        return $this->hasMany(CommentLikeUser::class, 'user_id');
+    }
+
     /**
      * Accessors.
      */
