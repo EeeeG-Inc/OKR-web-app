@@ -19,7 +19,7 @@ class RemoveLikeOperation
         $this->CommentLikeUserRepo = $CommentLikeUserRepo ?? new CommentLikeUserRepository();
     }
 
-    public function __invoke(array $input)
+    public function __invoke(array $input):bool
     {
         $userId = $input['user_id'];
         $commentId = $input['comment_id'];

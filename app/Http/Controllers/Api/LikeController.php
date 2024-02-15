@@ -36,7 +36,7 @@ class LikeController extends Controller
      *      ),
      *  )
      */
-    public function like(LikeRequest $request, LikeOperation $case)
+    public function like(LikeRequest $request, LikeOperation $case):JsonResponse
     {
         $input = $request->validated();
         $result = $case($input);
@@ -70,7 +70,7 @@ class LikeController extends Controller
      *      ),
      *  )
      */
-    public function remove(LikeRequest $request, RemoveLikeOperation $case)
+    public function remove(LikeRequest $request, RemoveLikeOperation $case):JsonResponse
     {
         $input = $request->validated();
         $result = $case($input);
