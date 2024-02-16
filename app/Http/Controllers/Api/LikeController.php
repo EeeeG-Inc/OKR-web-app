@@ -13,29 +13,43 @@ use Illuminate\Http\Response;
 class LikeController extends Controller
 {
     /**
-     *  @OA\Post(
-     *      path="/api/like",
-     *      tags={"いいね追加"},
-     *      description="コメントにいいねを追加する",
-     *      @OA\Response(
-     *          response="200",
-     *          description="いいね追加成功",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="comment_id",
-     *                  description="コメントID",
-     *                  type="int"
-     *              ),
-     *              @OA\Property(
-     *                  property="user_id",
-     *                  description="ユーザーID",
-     *                  type="int"
-     *              ),
-     *          ),
-     *      ),
-     *  )
-     */
+    * @OA\Post(
+    *      path="/api/like",
+    *      tags={"いいね追加"},
+    *      description="コメントにいいねを追加する",
+    *      @OA\RequestBody(
+    *          required=true,
+    *          @OA\MediaType(
+    *              mediaType="application/json",
+    *              @OA\Schema(
+    *                  type="object",
+    *                   @OA\Property(
+    *                       property="comment_id",
+    *                       description="コメントID",
+    *                       type="integer"
+    *                   ),
+    *                   @OA\Property(
+    *                       property="user_id",
+    *                       description="ユーザーID",
+    *                       type="integer"
+    *                   ),
+    *              )
+    *          )
+    *      ),
+    *      @OA\Response(
+    *          response="200",
+    *          description="いいね追加のDB更新",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(
+    *                  property="result",
+    *                  description="結果",
+    *                  type="boolean"
+    *              ),
+    *          ),
+    *      ),
+    * )
+    */
     public function like(LikeRequest $request, LikeOperation $case):JsonResponse
     {
         $input = $request->validated();
@@ -47,29 +61,43 @@ class LikeController extends Controller
     }
 
     /**
-     *  @OA\Post(
-     *      path="/api/remove",
-     *      tags={"いいね取り消し"},
-     *      description="コメントのいいねを取り消す",
-     *      @OA\Response(
-     *          response="200",
-     *          description="いいね取り消し成功",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="comment_id",
-     *                  description="コメントID",
-     *                  type="int"
-     *              ),
-     *              @OA\Property(
-     *                  property="user_id",
-     *                  description="ユーザーID",
-     *                  type="int"
-     *              ),
-     *          ),
-     *      ),
-     *  )
-     */
+    * @OA\Post(
+    *      path="/api/remove",
+    *      tags={"いいね取り消し"},
+    *      description="コメントのいいねを取り消す",
+    *      @OA\RequestBody(
+    *          required=true,
+    *          @OA\MediaType(
+    *              mediaType="application/json",
+    *              @OA\Schema(
+    *                  type="object",
+    *                   @OA\Property(
+    *                       property="comment_id",
+    *                       description="コメントID",
+    *                       type="integer"
+    *                   ),
+    *                   @OA\Property(
+    *                       property="user_id",
+    *                       description="ユーザーID",
+    *                       type="integer"
+    *                   ),
+    *              )
+    *          )
+    *      ),
+    *      @OA\Response(
+    *          response="200",
+    *          description="いいね取り消しDB更新",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(
+    *                  property="result",
+    *                  description="結果",
+    *                  type="boolean"
+    *              ),
+    *          ),
+    *      ),
+    * )
+    */
     public function remove(LikeRequest $request, RemoveLikeOperation $case):JsonResponse
     {
         $input = $request->validated();
