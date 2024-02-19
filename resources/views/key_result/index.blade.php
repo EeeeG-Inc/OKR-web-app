@@ -186,17 +186,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
-            let likeOperation = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
-            likeOperation.on('click', function () { //onはイベントハンドラー
-                let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-                let likeCommentId = $this.data('comment-id'); //iタグに仕込んだdata-comment-idの値を取得
-                userId = "{{Auth::user()->id}}";//ユーザーIdを取得
+            let likeOperation = $('.like-toggle');
+            likeOperation.on('click', function () {
+                let $this = $(this);
+                let likeCommentId = $this.data('comment-id');
+                let userId = "{{Auth::user()->id}}";
 
                 //いいねの追加か取り消しかを判別
                 let route;
                 let count;
                 let likeRemoveChange;
-                var likeId = document.getElementById("like");
+                let likeId = document.getElementById("like");
                 if (Boolean(likeId.getAttribute("data-like-remove"))){
                     console.log('いいねキャンセル');
                     route = '{{ route('remove') }}';
@@ -209,7 +209,6 @@
                     likeRemoveChange = true;
                 }
 
-                //ajax処理スタート
                 var jqXHR = $.ajax({
                     headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
                         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
@@ -221,7 +220,6 @@
                         'user_id' : userId
                     },
                 })
-                //通信成功した時の処理
                 .done(function (data) {
                     console.log('DB更新成功');
                     $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
@@ -229,7 +227,6 @@
                     $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
                     likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
                 })
-                //通信失敗した時の処理
                 .fail(function () {
                     console.log('DB更新失敗');
                 });
