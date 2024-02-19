@@ -62,7 +62,7 @@ class LikeController extends Controller
 
     /**
     * @OA\Post(
-    *      path="/api/remove",
+    *      path="/api/like_remove",
     *      tags={"いいね取り消し"},
     *      description="コメントのいいねを取り消す",
     *      @OA\RequestBody(

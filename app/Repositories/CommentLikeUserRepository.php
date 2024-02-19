@@ -39,10 +39,10 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     }
 
     //ログインユーザーがイイねをしているいかを判定するメソッド。
-    public function isLikedBy(int $comment_id, int $id): bool
+    public function isLikedBy(int $commentId, int $id): bool
     {
         return $this->commentLikeUser::where([
-            ['comment_id', $comment_id],
+            ['comment_id', $commentId],
             ['is_like', true],
             ['user_id', $id]
         ])
@@ -50,21 +50,21 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     }
 
     //コメントのいいねの数をカウントするメソッド。
-    public function likeCount(int $comment_id): int
+    public function likeCount(int $commentId): int
     {
         return $this->commentLikeUser::where([
-            ['comment_id', $comment_id],
+            ['comment_id', $commentId],
             ['is_like', true]
         ])
         ->count();
     }
 
     //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
-    public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser
+    public function alreadyLike(int $commentId, int $userId): ?CommentLikeUser
     {
         return $this->commentLikeUser::where([
-            ['comment_id', $comment_id],
-            ['user_id', $user_id]
+            ['comment_id', $commentId],
+            ['user_id', $userId]
         ])
         ->first();
     }

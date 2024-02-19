@@ -23,7 +23,7 @@ class GetIndexData
     private $objectiveRepo;
 
     /** @var CommentLikeUserRepositoryInterface */
-    private $CommentLikeUserRepo;
+    private $commentLikeUserRepo;
 
     public function __construct(
         CommentRepositoryInterface $commentRepo = null,
@@ -34,7 +34,7 @@ class GetIndexData
         $this->commentRepo = $commentRepo ?? new CommentRepository();
         $this->keyResultRepo = $keyResultRepo ?? new KeyResultRepository();
         $this->objectiveRepo = $objectiveRepo ?? new ObjectiveRepository();
-        $this->CommentLikeUserRepo = $CommentLikeUserRepo ?? new CommentLikeUserRepository();
+        $this->commentLikeUserRepo = $CommentLikeUserRepo ?? new CommentLikeUserRepository();
     }
 
     public function __invoke(array $input): array
@@ -45,7 +45,7 @@ class GetIndexData
 
         return [
             'comments' => $this->commentRepo->getByObjectiveId($objectiveId),
-            'CommentLikeUser' => $this->CommentLikeUserRepo,
+            'commentLikeUser' => $this->commentLikeUserRepo,
             'objective' => $this->objectiveRepo->find($objectiveId),
             'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
             'isArchive' => $isArchive,

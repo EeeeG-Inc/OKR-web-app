@@ -31,12 +31,12 @@ paths:
                 properties:
                   result: { description: 結果, type: boolean }
                 type: object
-  /api/remove:
+  /api/like_remove:
     post:
       tags:
         - いいね取り消し
       description: コメントのいいねを取り消す
-      operationId: a3f4141b3629bcdba34c2ac1743a9022
+      operationId: 635a9eb0f75af7bfa21708a02e384b76
       requestBody:
         required: true
         content:
