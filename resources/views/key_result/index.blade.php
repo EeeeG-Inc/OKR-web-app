@@ -183,7 +183,9 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @push('jquery')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @endpush
     <script>
         $(function () {
             let likeOperation = $('.like-toggle');
@@ -191,7 +193,6 @@
                 let $this = $(this);
                 let likeCommentId = $this.data('comment-id');
                 let userId = "{{Auth::user()->id}}";
-
                 //いいねの追加か取り消しかを判別
                 let route;
                 let count;
@@ -208,7 +209,6 @@
                     count = 1;
                     likeRemoveChange = true;
                 }
-
                 var jqXHR = $.ajax({
                     headers: {
                         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
