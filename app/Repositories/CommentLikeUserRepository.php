@@ -38,7 +38,13 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         return $target->delete();
     }
 
-    //ログインユーザーがイイねをしているいかを判定するメソッド。
+    /**
+     * ログインユーザーがイイねをしているいかを判定するメソッド。
+     *
+     * @param integer $commentId
+     * @param integer $id
+     * @return bool
+     */
     public function isLikedBy(int $commentId, int $id): bool
     {
         return $this->commentLikeUser::where([
@@ -48,8 +54,12 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         ])
         ->exists();
     }
-
-    //コメントのいいねの数をカウントするメソッド。
+    /**
+     * コメントのいいねの数をカウントするメソッド。
+     *
+     * @param integer $commentId
+     * @return int
+     */
     public function likeCount(int $commentId): int
     {
         return $this->commentLikeUser::where([
@@ -59,7 +69,13 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         ->count();
     }
 
-    //ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
+    /**
+     * ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
+     *
+     * @param integer $commentId
+     * @param integer $userId
+     * @return CommentLikeUser
+     */
     public function alreadyLike(int $commentId, int $userId): ?CommentLikeUser
     {
         return $this->commentLikeUser::where([
@@ -69,7 +85,12 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         ->first();
     }
 
-    //いいねを取り消すメソッド。
+    /**
+     * いいねを取り消すメソッド。
+     *
+     * @param CommentLikeUser $target
+     * @return bool
+     */
     public function likeCansel(CommentLikeUser $target): bool
     {
         return $target->update([

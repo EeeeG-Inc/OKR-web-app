@@ -210,19 +210,19 @@
                 }
 
                 var jqXHR = $.ajax({
-                    headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
+                    headers: {
                         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                    },  //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
-                    url: route, //通信先アドレスで、このURLをあとでルートで設定します
-                    method: 'POST', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
-                    data: { //サーバーに送信するデータ
-                        'comment_id': likeCommentId,//いいねされた投稿のid
+                    },
+                    url: route,
+                    method: 'POST',
+                    data: {
+                        'comment_id': likeCommentId,
                         'user_id' : userId
                     },
                 })
                 .done(function (data) {
                     console.log('DB更新成功');
-                    $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
+                    $this.toggleClass('liked');
                     var likeCounter = Number($('.like-counter').text());
                     $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
                     likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
