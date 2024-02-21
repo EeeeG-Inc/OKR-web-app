@@ -19,7 +19,7 @@
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet">
 
-    @stack('scripts')
+    @stack('scripts-head')
 </head>
 
 <body>

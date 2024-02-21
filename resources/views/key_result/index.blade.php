@@ -183,55 +183,56 @@
             </div>
         </div>
     </div>
-    @push('scripts')
+    @push('scripts-head')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endpush
-    <script>
-        $(function () {
-            let likeOperation = $('.like-toggle');
-            likeOperation.on('click', function () {
-                let $this = $(this);
-                let likeCommentId = $this.data('comment-id');
-                let userId = "{{Auth::user()->id}}";
-                //いいねの追加か取り消しかを判別
-                let route;
-                let count;
-                let likeRemoveChange;
-                let likeId = document.getElementById("like");
-                if (Boolean(likeId.getAttribute("data-like-remove"))){
-                    console.log('いいねキャンセル');
-                    route = '{{ route('remove') }}';
-                    count = -1;
-                    likeRemoveChange = "";
-                }else{
-                    console.log('いいね');
-                    route= '{{ route('like') }}';
-                    count = 1;
-                    likeRemoveChange = true;
-                }
-                var jqXHR = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: route,
-                    method: 'POST',
-                    data: {
-                        'comment_id': likeCommentId,
-                        'user_id' : userId
-                    },
-                })
-                .done(function (data) {
-                    console.log('DB更新成功');
-                    $this.toggleClass('liked');
-                    var likeCounter = Number($('.like-counter').text());
-                    $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
-                    likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
-                })
-                .fail(function () {
-                    console.log('DB更新失敗');
+    @push('scripts')
+        <script>
+            $(function () {
+                let likeOperation = $('.like-toggle');
+                likeOperation.on('click', function () {
+                    let $this = $(this);
+                    let likeCommentId = $this.data('comment-id');
+                    let userId = "{{Auth::user()->id}}";
+                    //いいねの追加か取り消しかを判別
+                    let route;
+                    let count;
+                    let likeRemoveChange;
+                    let likeId = document.getElementById("like");
+                    if (Boolean(likeId.getAttribute("data-like-remove"))){
+                        console.log('いいねキャンセル');
+                        route = '{{ route('remove') }}';
+                        count = -1;
+                        likeRemoveChange = "";
+                    }else{
+                        console.log('いいね');
+                        route= '{{ route('like') }}';
+                        count = 1;
+                        likeRemoveChange = true;
+                    }
+                    var jqXHR = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: route,
+                        method: 'POST',
+                        data: {
+                            'comment_id': likeCommentId,
+                            'user_id' : userId
+                        },
+                    })
+                    .done(function (data) {
+                        console.log('DB更新成功');
+                        $this.toggleClass('liked');
+                        var likeCounter = Number($('.like-counter').text());
+                        $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
+                        likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
+                    })
+                    .fail(function () {
+                        console.log('DB更新失敗');
+                    });
                 });
             });
-        });
-    </script>
-
+        </script>
+    @endpush
 @endsection
