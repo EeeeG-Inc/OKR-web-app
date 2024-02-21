@@ -9,7 +9,9 @@
         })
     </script>
 @endpush
-
+@push('scripts-head')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@endpush
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
