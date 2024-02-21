@@ -124,4 +124,17 @@ class KeyResult extends Model
     {
         return TextReplace::urlReplace($this->impression);
     }
+
+    /**
+     * 短い成果指標を取得する
+     *
+     * @return string
+     */
+    public function getShortKeyResultAttribute(): string
+    {
+        if (mb_strlen($this->key_result) > 35) {
+            return mb_substr($this->key_result, 0, 34) . '…';
+        }
+        return $this->key_result;
+    }
 }

@@ -75,8 +75,10 @@ jobs:
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
       - run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      # FIXME: セキュリティチェックにひっかると exit status 1 になるため、一旦 disable にしている
-      - run: php artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
+      # FIXME: https://github.com/nunomaduro/phpinsights/blob/master/docs/get-started.md#allowed-memory-size-of-x-bytes-exhausted
+      # Allowed memory size of 134217728 bytes exhausted が発生するが修正できず...
+      # - run: php -d --memory-limit=2000M artisan insights --no-interaction --disable-security-check --min-quality=70 --min-complexity=70 --min-architecture=70 --min-style=70
+
   deploy:
     machine:
       image: ubuntu-2004:202201-02

@@ -27,4 +27,7 @@ return [
         'edit' => 'ユーザ編集',
         'delete' => 'ユーザ削除',
     ],
+    'other_okr' => [
+        'index' => '他人の OKR 編集権限一覧',
+    ],
 ];

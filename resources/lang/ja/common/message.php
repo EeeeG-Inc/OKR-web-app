@@ -60,4 +60,12 @@ return [
         'stop' => 'Slack 通知を停止しました',
         'restart' => 'Slack 通知を再開しました',
     ],
+    'other_okr' => [
+        'update' => '他人の OKR 編集権限の更新が完了しました',
+        'failed' => '他人の OKR 編集権限の更新に失敗しました',
+    ],
+    'other_scores' => [
+        'update' => 'スコア一括編集の更新が完了しました',
+        'failed' => 'スコア一括編集の更新に失敗しました',
+    ],
 ];

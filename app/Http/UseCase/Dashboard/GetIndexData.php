@@ -71,6 +71,7 @@ class GetIndexData
         $objectives = $this->objectiveRepo->getByUserIdAndYearAndQuarterId($user->id, $quarterData['year'], $quarterData['quarter_id']);
 
         return [
+            'loginUser' => $user,
             'users' => $this->searchService->getUsers($user, $input),
             'companyIdsChecks' => $this->searchService->getCompanyIdsChecks($input, $companies),
             'companies' => $companies,

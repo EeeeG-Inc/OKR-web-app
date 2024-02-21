@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Repositories\ObjectiveRepository;
+use App\Enums\CanEditOtherOkr;
+use BenSampo\Enum\Traits\CastsEnums;
 use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -89,6 +91,8 @@ class User extends Authenticatable
 
     use TwoFactorAuthenticatable;
 
+    use CastsEnums;
+
     /**
      * Database table.
      *
@@ -110,6 +114,7 @@ class User extends Authenticatable
         'password',
         'email_verified_at',
         'profile_image',
+        'can_edit_other_okr',
     ];
 
     /**
@@ -142,6 +147,11 @@ class User extends Authenticatable
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'profile_image' => 'string',
+        'can_edit_other_okr' => 'int',
+    ];
+
+    protected $enumCasts = [
+        'can_edit_other_okr' => CanEditOtherOkr::class,
     ];
 
     /**

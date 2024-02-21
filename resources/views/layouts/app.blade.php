@@ -110,6 +110,12 @@
                                             @endcan
 
                                             @can('company-higher')
+                                                <a class="dropdown-item" href="{{ route('other_okr.index') }}">
+                                                    {{ __('common/nav.other_okr.index') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('company-higher')
                                                 <a class="dropdown-item" href="{{ route('slack.index') }}">
                                                     {{ __('common/nav.slack.index') }}
                                                 </a>
