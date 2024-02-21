@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('title', __('common/title.other_scores.edit'))
 
+@push('scripts-head')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@endpush
 @push('scripts')
     <script>
         // ツールチップ表示
@@ -8,9 +11,6 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-@endpush
-@push('scripts-head')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endpush
 @section('content')
     <div class="container-fluid">
