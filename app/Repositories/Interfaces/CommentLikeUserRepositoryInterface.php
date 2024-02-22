@@ -19,7 +19,7 @@ interface CommentLikeUserRepositoryInterface
 
     public function likeCount(int $comment_id): int;
 
-    public function alreadyLike(int $comment_id, int $user_id): ?CommentLikeUser;
+    public function findByCommentIdAndUserId(int $comment_id, int $user_id): ?CommentLikeUser;
 
     public function likeCansel(CommentLikeUser $target): bool;
 

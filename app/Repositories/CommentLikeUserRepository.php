@@ -70,13 +70,13 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
     }
 
     /**
-     * ログインユーザーによるいいねのレコードが存在している場合、モデルを返すメソッド。
+     * ログインユーザーによるいいねのレコードが存在している場合モデルを返し、存在してない場合はnullを返すメソッド。
      *
      * @param integer $commentId
      * @param integer $userId
-     * @return CommentLikeUser
+     * @return ?CommentLikeUser
      */
-    public function alreadyLike(int $commentId, int $userId): ?CommentLikeUser
+    public function findByCommentIdAndUserId(int $commentId, int $userId): ?CommentLikeUser
     {
         return $this->commentLikeUser::where([
             ['comment_id', $commentId],

@@ -25,10 +25,10 @@ class RemoveLikeOperation
         $commentId = $input['comment_id'];
 
         //対象コメントのモデルを取得
-        $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($commentId, $userId);
+        $findByCommentIdAndUserId = $this->CommentLikeUserRepo->findByCommentIdAndUserId($commentId, $userId);
 
         //いいねの削除
-        $this->CommentLikeUserRepo->likeCansel($alreadyLike);
+        $this->CommentLikeUserRepo->likeCansel($findByCommentIdAndUserId);
 
         return true;
     }

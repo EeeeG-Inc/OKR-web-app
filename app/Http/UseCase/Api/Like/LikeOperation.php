@@ -25,8 +25,8 @@ class LikeOperation
         $commentId = $input['comment_id'];
 
         //このログインユーザーがすでにいいねを過去にしていた場合、モデルが取得される。
-        $alreadyLike = $this->CommentLikeUserRepo->alreadyLike($commentId, $userId);
-        if(is_null($alreadyLike)) {
+        $findByCommentIdAndUserId = $this->CommentLikeUserRepo->findByCommentIdAndUserId($commentId, $userId);
+        if(is_null($findByCommentIdAndUserId)) {
             //いいねがなかった場合、comment_like_usersテーブルへレコードを追加。
             $this->CommentLikeUserRepo->create([
                 'comment_id' => $commentId,
@@ -38,7 +38,7 @@ class LikeOperation
         }
 
         //いいねしていた場合、対象レコードのis_likeをtrueへ
-        $this->CommentLikeUserRepo->update($alreadyLike);
+        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId);
         return true;
     }
 }
