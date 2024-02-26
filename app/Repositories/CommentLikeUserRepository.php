@@ -26,11 +26,11 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
         return $this->commentLikeUser->create($input);
     }
 
-    public function update(CommentLikeUser $target): bool
+    public function update(int $id, array $input): bool
     {
-        return $target->update([
-            'is_like' => true
-        ]);
+        $model = $this->commentLikeUser->findOrFail($id);
+        $model->fill($input);
+        return $model->save();
     }
 
     public function delete(CommentLikeUser $target): bool
@@ -83,18 +83,5 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
             ['user_id', $userId]
         ])
         ->first();
-    }
-
-    /**
-     * いいねを取り消すメソッド。
-     *
-     * @param CommentLikeUser $target
-     * @return bool
-     */
-    public function likeCansel(CommentLikeUser $target): bool
-    {
-        return $target->update([
-            'is_like' => false
-        ]);
     }
 }
