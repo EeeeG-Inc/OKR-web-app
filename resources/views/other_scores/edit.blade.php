@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('title', __('common/title.other_scores.edit'))
 
-@push('scripts-head')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-@endpush
+@include('parts.cdn-jquery')
 @push('scripts')
     <script>
         // ツールチップ表示
