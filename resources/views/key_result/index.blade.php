@@ -124,15 +124,15 @@
                                                     </td>
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
-                                                        @if (!$commentLikeUser->isLikedBy($comment->id,Auth::id()))
+                                                        @if (!$comment->isLiked)
                                                             <span class="likes">
                                                                 <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
-                                                                <span class="like-counter">{{$commentLikeUser->likeCount($comment->id)}}</span>
+                                                                <span class="like-counter">{{$comment->likeCount}}</span>
                                                             </span>
                                                         @else
                                                             <span class="likes">
                                                                 <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
-                                                                <span class="like-counter">{{$commentLikeUser->likeCount($comment->id)}}</span>
+                                                                <span class="like-counter">{{$comment->likeCount}}</span>
                                                             </span>
                                                         @endif
                                                     </td>

@@ -43,9 +43,16 @@ class GetIndexData
         $isArchive = $input['is_archive'] ?? null;
         $isArchive = is_null($isArchive) ? false : (bool) $isArchive;
 
+        $comments = $this->commentRepo->getByObjectiveId($objectiveId);
+
+        //コメントのいいね情報を取得して$commentsに統合
+        foreach ($comments as $key => $comment) {
+            $comments[$key]->isLiked = $this->commentLikeUserRepo->isLikedBy($comment->id, auth()->id());
+            $comments[$key]->likeCount = $this->commentLikeUserRepo->likeCount($comment->id);
+        }
+
         return [
-            'comments' => $this->commentRepo->getByObjectiveId($objectiveId),
-            'commentLikeUser' => $this->commentLikeUserRepo,
+            'comments' => $comments,
             'objective' => $this->objectiveRepo->find($objectiveId),
             'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
             'isArchive' => $isArchive,
