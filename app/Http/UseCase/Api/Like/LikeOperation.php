@@ -38,10 +38,9 @@ class LikeOperation
         }
 
         //いいねしていた場合、対象レコードのis_likeをtrueへ
-        $data = [
+        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId->id, [
             'is_like' => true,
-        ];
-        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId->id, $data);
+        ]);
         return true;
     }
 }

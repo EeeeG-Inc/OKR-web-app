@@ -28,10 +28,9 @@ class RemoveLikeOperation
         $findByCommentIdAndUserId = $this->CommentLikeUserRepo->findByCommentIdAndUserId($commentId, $userId);
 
         //いいねの削除
-        $data = [
+        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId->id, [
             'is_like' => false,
-        ];
-        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId->id, $data);
+        ]);
 
         return true;
     }

@@ -28,9 +28,9 @@ class CommentLikeUserRepository implements CommentLikeUserRepositoryInterface
 
     public function update(int $id, array $input): bool
     {
-        $model = $this->commentLikeUser->findOrFail($id);
-        $model->fill($input);
-        return $model->save();
+        $commentLikeUser = $this->commentLikeUser->find($id);
+        $commentLikeUser->fill($input);
+        return $commentLikeUser->save();
     }
 
     public function delete(CommentLikeUser $target): bool
