@@ -4,6 +4,7 @@ namespace App\Repositories\Interfaces;
 
 use App\Models\Objective;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 interface ObjectiveRepositoryInterface
 {
@@ -20,4 +21,8 @@ interface ObjectiveRepositoryInterface
     public function delete(Objective $target): bool;
 
     public function getYearByUserId(int $userId): Collection;
+
+    public function getYearByCompanyId(int $companyId): SupportCollection;
+
+    public function getQuarterIdsByCompanyId(int $companyId): SupportCollection;
 }

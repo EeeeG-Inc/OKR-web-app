@@ -10,6 +10,8 @@ use App\Http\Controllers\KeyResultController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\OtherOkrController;
+use App\Http\Controllers\OtherScoresController;
 use App\Http\Controllers\QuarterController;
 use App\Http\Controllers\SlackController;
 use App\Http\Controllers\UserController;
@@ -44,6 +46,8 @@ Route::middleware('auth')->group(function (): void {
     Route::resource('objective', ObjectiveController::class, ['except' => ['show']]);
     Route::resource('slack', SlackController::class, ['except' => ['show', 'destroy']]);
     Route::resource('api_token', ApiTokenController::class, ['except' => ['store', 'show', 'destroy']]);
+    Route::resource('other_okr', OtherOkrController::class, ['except' => ['store', 'show', 'destroy']]);
+    Route::resource('other_scores', OtherScoresController::class, ['except' => ['store', 'show', 'destroy']]);
 
     Route::prefix('admin')->group(function (): void {
         Route::get('proxy_login/{user_id}', [AdminController::class, 'proxyLogin'])->name('admin.proxy_login');

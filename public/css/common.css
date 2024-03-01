@@ -30,6 +30,11 @@
     background-color: #000099;
 }
 
+.card-header-score {
+    color: #fff;
+    background-color: #008080;
+}
+
 .score {
     font-size: 34px;
     font-weight: bold;

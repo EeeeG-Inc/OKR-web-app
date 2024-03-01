@@ -21,6 +21,7 @@ return [
         'okr' => '今期 OKR',
         'search' => 'アカウント検索条件',
         'members' => 'アカウント一覧',
+        'powers' => '権限メニュー',
     ],
     'company_group' => [
         'index' => '関連会社一覧',
@@ -60,5 +61,13 @@ return [
         'index' => 'Slack 通知設定',
         'create' => 'Slack Webhook URL 登録',
         'edit' => 'Slack Webhook URL 編集',
+    ],
+    'other_okr' => [
+        'index' => '他人の OKR 編集権限一覧',
+        'edit' => '[:name] 他人の OKR 編集権限編集',
+    ],
+    'other_scores' => [
+        'edit' => 'スコア一括編集',
+        'search' => 'OKR 条件',
     ],
 ];
