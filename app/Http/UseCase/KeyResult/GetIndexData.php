@@ -45,14 +45,18 @@ class GetIndexData
 
         $comments = $this->commentRepo->getByObjectiveId($objectiveId);
 
-        //コメントのいいね情報を取得して$commentsに統合
-        foreach ($comments as $key => $comment) {
-            $comments[$key]->isLiked = $this->commentLikeUserRepo->isLikedBy($comment->id, auth()->id());
-            $comments[$key]->likeCount = $this->commentLikeUserRepo->likeCount($comment->id);
+        // コメントのいいね情報を取得
+        $commentLikeUserInfo = [];
+        foreach ($comments as $comment) {
+            $commentLikeUserInfo[$comment->id] = [
+                'isLiked' => $this->commentLikeUserRepo->isLikedBy($comment->id, auth()->id()),
+                'likeCount' => $this->commentLikeUserRepo->likeCount($comment->id),
+            ];
         }
 
         return [
             'comments' => $comments,
+            'commentLikeUserInfo' => $commentLikeUserInfo,
             'objective' => $this->objectiveRepo->find($objectiveId),
             'keyResults' => $this->keyResultRepo->getByObjectiveId($objectiveId),
             'isArchive' => $isArchive,

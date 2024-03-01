@@ -124,16 +124,12 @@
                                                     </td>
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
-                                                        @if (!$comment->isLiked)
-                                                            <span class="likes">
-                                                                <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= "" id="like"></i>
-                                                                <span class="like-counter">{{$comment->likeCount}}</span>
-                                                            </span>
+                                                        @if (!$commentLikeUserInfo[$comment->id]['isLiked'])
+                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= ""></i>
+                                                            <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
                                                         @else
-                                                            <span class="likes">
-                                                                <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture" id="like"></i>
-                                                                <span class="like-counter">{{$comment->likeCount}}</span>
-                                                            </span>
+                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture"></i>
+                                                            <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
                                                         @endif
                                                     </td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
@@ -187,27 +183,27 @@
     @push('scripts')
         <script>
             $(function () {
-                let likeOperation = $('.like-toggle');
-                likeOperation.on('click', function () {
+                $('.like-toggle').on('click', function () {
                     let $this = $(this);
                     let likeCommentId = $this.data('comment-id');
                     let userId = "{{Auth::user()->id}}";
-                    //いいねの追加か取り消しかを判別
                     let route;
                     let count;
                     let likeRemoveChange;
-                    let likeId = document.getElementById("like");
-                    if (Boolean(likeId.getAttribute("data-like-remove"))){
+
+                    // いいねの追加か取り消しかを判別
+                    if ($this.hasClass('liked')) {
                         console.log('いいねキャンセル');
                         route = '{{ route('remove') }}';
                         count = -1;
                         likeRemoveChange = "";
-                    }else{
+                    } else {
                         console.log('いいね');
                         route= '{{ route('like') }}';
                         count = 1;
                         likeRemoveChange = true;
                     }
+
                     var jqXHR = $.ajax({
                         headers: {
                             'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
@@ -222,9 +218,10 @@
                     .done(function (data) {
                         console.log('DB更新成功');
                         $this.toggleClass('liked');
-                        var likeCounter = Number($('.like-counter').text());
-                        $('.like-counter').text(likeCounter + count);//いいねのカウントを追加または減らす。
-                        likeId.setAttribute("data-like-remove",likeRemoveChange);//data-like-removeへ今回の判定をセット
+                        var likeCounter = $this.siblings('.like-counter');
+                        var currentCount = parseInt(likeCounter.text());
+                        likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
+                        $this.data('like-remove', likeRemoveChange); // data-like-removeへ今回の判定をセット
                     })
                     .fail(function () {
                         console.log('DB更新失敗');
