@@ -25,10 +25,10 @@ class RemoveLikeOperation
         $commentId = $input['comment_id'];
 
         //対象コメントのモデルを取得
-        $findByCommentIdAndUserId = $this->CommentLikeUserRepo->findByCommentIdAndUserId($commentId, $userId);
+        $commentLikeUser = $this->CommentLikeUserRepo->findByCommentIdAndUserId($commentId, $userId);
 
         //いいねの削除
-        $this->CommentLikeUserRepo->update($findByCommentIdAndUserId->id, [
+        $this->CommentLikeUserRepo->update($commentLikeUser->id, [
             'is_like' => false,
         ]);
 

@@ -48,12 +48,30 @@ class LikeController extends Controller
     *              ),
     *          ),
     *      ),
+    *      @OA\Response(
+    *          response="500",
+    *          description="Internal Server Error",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(
+    *                  property="error",
+    *                  type="string",
+    *                  example="Internal Server Error"
+    *              ),
+    *          ),
+    *      ),
     * )
     */
     public function like(LikeRequest $request, LikeOperation $case):JsonResponse
     {
         $input = $request->validated();
         $result = $case($input);
+
+        if ($result === false) {
+            return new JsonResponse([
+                'error' => 'Internal Server Error',
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         return new JsonResponse([
             'result' => $result,
@@ -96,12 +114,30 @@ class LikeController extends Controller
     *              ),
     *          ),
     *      ),
+    *      @OA\Response(
+    *          response="500",
+    *          description="Internal Server Error",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(
+    *                  property="error",
+    *                  type="string",
+    *                  example="Internal Server Error"
+    *              ),
+    *          ),
+    *      ),
     * )
     */
     public function remove(LikeRequest $request, RemoveLikeOperation $case):JsonResponse
     {
         $input = $request->validated();
         $result = $case($input);
+
+        if ($result === false) {
+            return new JsonResponse([
+                'error' => 'Internal Server Error',
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         return new JsonResponse([
             'result' => $result,

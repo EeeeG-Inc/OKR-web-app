@@ -31,6 +31,14 @@ paths:
                 properties:
                   result: { description: 結果, type: boolean }
                 type: object
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Internal Server Error' }
+                type: object
   /api/like_remove:
     post:
       tags:
@@ -58,6 +66,14 @@ paths:
               schema:
                 properties:
                   result: { description: 結果, type: boolean }
+                type: object
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Internal Server Error' }
                 type: object
   /api/okr/mine/get:
     post:
