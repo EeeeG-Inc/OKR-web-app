@@ -125,12 +125,11 @@
                                                     <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
                                                     <td width="5%" class="align-middle">
                                                         @if (!$commentLikeUserInfo[$comment->id]['isLiked'])
-                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}" data-like-remove= ""></i>
-                                                            <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
+                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}"></i>
                                                         @else
-                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}" data-like-remove= "ture"></i>
-                                                            <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
+                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}"></i>
                                                         @endif
+                                                        <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
                                                     </td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
                                                     <td width="5%" class="align-middle">
@@ -189,43 +188,53 @@
                     let userId = "{{Auth::user()->id}}";
                     let route;
                     let count;
-                    let likeRemoveChange;
 
-                    // いいねの追加か取り消しかを判別
                     if ($this.hasClass('liked')) {
-                        console.log('いいねキャンセル');
+                        cancelLike();
+                        return;
+                    }
+                    addLike();
+                    return;
+
+                    //いいね追加
+                    function addLike() {
+                        route = '{{ route('like') }}';
+                        count = 1;
+                        likeRemoveChange = true;
+                        sendAjaxRequest();
+                    }
+
+                    //いいね取り消し
+                    function cancelLike() {
                         route = '{{ route('remove') }}';
                         count = -1;
                         likeRemoveChange = "";
-                    } else {
-                        console.log('いいね');
-                        route= '{{ route('like') }}';
-                        count = 1;
-                        likeRemoveChange = true;
+                        sendAjaxRequest();
                     }
 
-                    var jqXHR = $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url: route,
-                        method: 'POST',
-                        data: {
-                            'comment_id': likeCommentId,
-                            'user_id' : userId
-                        },
-                    })
-                    .done(function (data) {
-                        console.log('DB更新成功');
-                        $this.toggleClass('liked');
-                        var likeCounter = $this.siblings('.like-counter');
-                        var currentCount = parseInt(likeCounter.text());
-                        likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
-                        $this.data('like-remove', likeRemoveChange); // data-like-removeへ今回の判定をセット
-                    })
-                    .fail(function () {
-                        console.log('DB更新失敗');
-                    });
+                    //DB更新
+                    function sendAjaxRequest() {
+                        var jqXHR = $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: route,
+                            method: 'POST',
+                            data: {
+                                'comment_id': likeCommentId,
+                                'user_id': userId
+                            },
+                        })
+                        .done(function (data) {
+                            $this.toggleClass('liked');
+                            var likeCounter = $this.siblings('.like-counter');
+                            var currentCount = parseInt(likeCounter.text());
+                            likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
+                        })
+                        .fail(function () {
+
+                        });
+                    }
                 });
             });
         </script>
