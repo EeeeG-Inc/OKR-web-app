@@ -122,7 +122,8 @@
                                                         <img class="border border-secondary rounded-circle mx-2" src="{{ $comment->user->profile_image_path }}" alt="プロフィール画像">
                                                         {{ $comment->user->name }}
                                                     </td>
-                                                    <td width="60c%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
+                                                    <td width="50%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
+                                                    <td width="10%" class="align-middle"><span class="align-righet comment-error-message"></span></td>
                                                     <td width="5%" class="align-middle">
                                                         @if (!$commentLikeUserInfo[$comment->id]['isLiked'])
                                                             <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}"></i>
@@ -183,38 +184,31 @@
         <script>
             $(function () {
                 $('.like-toggle').on('click', function () {
-                    let $this = $(this);
-                    let likeCommentId = $this.data('comment-id');
-                    let userId = "{{Auth::user()->id}}";
-                    let route;
-                    let count;
+                    let $likeToggle = $(event.currentTarget);
 
-                    if ($this.hasClass('liked')) {
-                        cancelLike();
+                    if ($likeToggle.hasClass('liked')) {
+                        removeLike();
                         return;
                     }
                     addLike();
                     return;
 
-                    //いいね追加
+                    // いいね追加
                     function addLike() {
-                        route = '{{ route('like') }}';
-                        count = 1;
-                        likeRemoveChange = true;
-                        sendAjaxRequest();
+                        postAjaxRequest('{{ route('like') }}',1);
                     }
 
-                    //いいね取り消し
-                    function cancelLike() {
-                        route = '{{ route('remove') }}';
-                        count = -1;
-                        likeRemoveChange = "";
-                        sendAjaxRequest();
+                    // いいね取り消し
+                    function removeLike() {
+                        postAjaxRequest('{{ route('remove') }}',-1);
                     }
 
-                    //DB更新
-                    function sendAjaxRequest() {
-                        var jqXHR = $.ajax({
+                    // DB更新
+                    function postAjaxRequest(route,count) {
+                        let likeCommentId = $likeToggle.data('comment-id');
+                        let userId = "{{Auth::user()->id}}";
+
+                        let jqXHR = $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
@@ -226,13 +220,14 @@
                             },
                         })
                         .done(function (data) {
-                            $this.toggleClass('liked');
-                            var likeCounter = $this.siblings('.like-counter');
-                            var currentCount = parseInt(likeCounter.text());
+                            $likeToggle.toggleClass('liked');
+                            let likeCounter = $likeToggle.siblings('.like-counter');
+                            let currentCount = parseInt(likeCounter.text());
                             likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
                         })
                         .fail(function () {
-
+                            // コメントの箇所に赤字のエラーメッセージを表示する処理を追加する
+                            $likeToggle.closest('tr').find('.comment-error-message').text('DB更新失敗').css('color', 'red');
                         });
                     }
                 });
