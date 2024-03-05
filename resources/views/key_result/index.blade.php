@@ -218,7 +218,6 @@
                         likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
                     })
                     .fail(() => {
-                        // コメントの箇所に赤字のエラーメッセージを表示する処理を追加する
                         $likeToggle.closest('tr').find('.comment-error-message').text('DB更新失敗').css('color', 'red');
                     });
                 };
