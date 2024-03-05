@@ -181,57 +181,57 @@
     </div>
     @include('parts.cdn-jquery')
     @push('scripts')
-        <script>
-            $(function () {
-                $('.like-toggle').on('click', function () {
-                    let $likeToggle = $(event.currentTarget);
+    <script>
+        $(() => {
+            $('.like-toggle').on('click', function () {
 
-                    if ($likeToggle.hasClass('liked')) {
-                        removeLike();
-                        return;
-                    }
-                    addLike();
+                // いいね追加
+                const addLike = () => {
+                    postAjaxRequest('{{ route('like') }}', 1);
+                };
+
+                // いいね取り消し
+                const removeLike = () => {
+                    postAjaxRequest('{{ route('remove') }}', -1);
+                };
+
+                // DB更新
+                const postAjaxRequest = (route, count) => {
+                    let likeCommentId = $likeToggle.data('comment-id');
+                    let userId = "{{Auth::user()->id}}";
+
+                    let jqXHR = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: route,
+                        method: 'POST',
+                        data: {
+                            'comment_id': likeCommentId,
+                            'user_id': userId
+                        },
+                    })
+                    .done((data) => {
+                        $likeToggle.toggleClass('liked');
+                        let likeCounter = $likeToggle.siblings('.like-counter');
+                        let currentCount = parseInt(likeCounter.text());
+                        likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
+                    })
+                    .fail(() => {
+                        // コメントの箇所に赤字のエラーメッセージを表示する処理を追加する
+                        $likeToggle.closest('tr').find('.comment-error-message').text('DB更新失敗').css('color', 'red');
+                    });
+                };
+
+                let $likeToggle = $(event.currentTarget);
+                if ($likeToggle.hasClass('liked')) {
+                    removeLike();
                     return;
-
-                    // いいね追加
-                    function addLike() {
-                        postAjaxRequest('{{ route('like') }}',1);
-                    }
-
-                    // いいね取り消し
-                    function removeLike() {
-                        postAjaxRequest('{{ route('remove') }}',-1);
-                    }
-
-                    // DB更新
-                    function postAjaxRequest(route,count) {
-                        let likeCommentId = $likeToggle.data('comment-id');
-                        let userId = "{{Auth::user()->id}}";
-
-                        let jqXHR = $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            url: route,
-                            method: 'POST',
-                            data: {
-                                'comment_id': likeCommentId,
-                                'user_id': userId
-                            },
-                        })
-                        .done(function (data) {
-                            $likeToggle.toggleClass('liked');
-                            let likeCounter = $likeToggle.siblings('.like-counter');
-                            let currentCount = parseInt(likeCounter.text());
-                            likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
-                        })
-                        .fail(function () {
-                            // コメントの箇所に赤字のエラーメッセージを表示する処理を追加する
-                            $likeToggle.closest('tr').find('.comment-error-message').text('DB更新失敗').css('color', 'red');
-                        });
-                    }
-                });
+                }
+                addLike();
+                return;
             });
-        </script>
+        });
+    </script>
     @endpush
 @endsection
