@@ -122,9 +122,18 @@
                                                         <img class="border border-secondary rounded-circle mx-2" src="{{ $comment->user->profile_image_path }}" alt="プロフィール画像">
                                                         {{ $comment->user->name }}
                                                     </td>
-                                                    <td width="70%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
+                                                    <td width="50%" class="align-middle">{!! nl2br($comment->linked_comment) !!}</td>
+                                                    <td width="10%" class="align-middle"><span class="align-righet comment-error-message"></span></td>
+                                                    <td width="5%" class="align-middle">
+                                                        @if (!$commentLikeUserInfo[$comment->id]['isLiked'])
+                                                            <i class="fas fa-music like-toggle" data-comment-id="{{ $comment->id }}"></i>
+                                                        @else
+                                                            <i class="fas fa-music heart like-toggle liked" data-comment-id="{{ $comment->id }}"></i>
+                                                        @endif
+                                                        <span class="like-counter">{{$commentLikeUserInfo[$comment->id]['likeCount']}}</span>
+                                                    </td>
                                                     <td width="10%" class="align-middle">{{ $comment->created_at }}</td>
-                                                    <td width="10%" class="align-middle">
+                                                    <td width="5%" class="align-middle">
                                                         @if($comment->user_id === Auth::id())
                                                             {{ Form::open(['route' => ['key_result.destroy_comment', [$comment->id, $objective->id]], 'method' => 'delete', 'class' => 'd-inline-block']) }}
                                                             {{ Form::submit(__('common/action.delete'), [
@@ -170,4 +179,58 @@
             </div>
         </div>
     </div>
+    @include('parts.cdn-jquery')
+    @push('scripts')
+    <script>
+        $(() => {
+            $('.like-toggle').on('click', function () {
+
+                // いいね追加
+                const addLike = () => {
+                    postAjaxRequest('{{ route('like') }}', 1);
+                };
+
+                // いいね取り消し
+                const removeLike = () => {
+                    postAjaxRequest('{{ route('remove') }}', -1);
+                };
+
+                // DB更新
+                const postAjaxRequest = (route, count) => {
+                    let likeCommentId = $likeToggle.data('comment-id');
+                    let userId = "{{Auth::user()->id}}";
+
+                    let jqXHR = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: route,
+                        method: 'POST',
+                        data: {
+                            'comment_id': likeCommentId,
+                            'user_id': userId
+                        },
+                    })
+                    .done((data) => {
+                        $likeToggle.toggleClass('liked');
+                        let likeCounter = $likeToggle.siblings('.like-counter');
+                        let currentCount = parseInt(likeCounter.text());
+                        likeCounter.text(currentCount + count); // いいねのカウントを追加または減らす。
+                    })
+                    .fail(() => {
+                        $likeToggle.closest('tr').find('.comment-error-message').text('DB更新失敗').css('color', 'red');
+                    });
+                };
+
+                let $likeToggle = $(event.currentTarget);
+                if ($likeToggle.hasClass('liked')) {
+                    removeLike();
+                    return;
+                }
+                addLike();
+                return;
+            });
+        });
+    </script>
+    @endpush
 @endsection
