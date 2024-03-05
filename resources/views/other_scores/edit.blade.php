@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', __('common/title.other_scores.edit'))
 
+@include('parts.cdn-jquery')
 @push('scripts')
     <script>
         // ツールチップ表示
@@ -9,7 +10,6 @@
         })
     </script>
 @endpush
-
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">

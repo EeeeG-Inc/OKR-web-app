@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-
+    @include('parts.cdn-jquery')
     @push('scripts')
         <script>
             $(function() {

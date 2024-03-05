@@ -57,7 +57,7 @@ php artisan insights
 
 ```sh
 # swagger.yaml 更新
-vendor/bin/openapi app -o storage/swagger.yaml
+vendor/bin/openapi app/Http/Controllers/Api -o storage/swagger.yaml
 ```
 
 - Postman などに `storage/swagger.yaml` をインポートすると、API を投げる雛形が生成されます

@@ -3,11 +3,84 @@ info:
   title: 'OKR API'
   version: '1.0'
 paths:
+  /api/like:
+    post:
+      tags:
+        - いいね追加
+      description: コメントにいいねを追加する
+      operationId: 8e1e9b2f8d273f462544126cfacae4a2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                comment_id:
+                  description: コメントID
+                  type: integer
+                user_id:
+                  description: ユーザーID
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: いいね追加のDB更新
+          content:
+            application/json:
+              schema:
+                properties:
+                  result: { description: 結果, type: boolean }
+                type: object
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Internal Server Error' }
+                type: object
+  /api/like_remove:
+    post:
+      tags:
+        - いいね取り消し
+      description: コメントのいいねを取り消す
+      operationId: 635a9eb0f75af7bfa21708a02e384b76
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                comment_id:
+                  description: コメントID
+                  type: integer
+                user_id:
+                  description: ユーザーID
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: いいね取り消しDB更新
+          content:
+            application/json:
+              schema:
+                properties:
+                  result: { description: 結果, type: boolean }
+                type: object
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Internal Server Error' }
+                type: object
   /api/okr/mine/get:
     post:
       tags:
         - 'OKR 取得処理'
       description: '自身の OKR を取得する'
+      operationId: 9ae9bf8a073d08cb93d837b5ba125bbf
       requestBody:
         required: true
         content:
@@ -45,6 +118,7 @@ paths:
       tags:
         - '会社全体 OKR 取得処理'
       description: 'ユーザに紐づく会社の全員の OKR を取得する'
+      operationId: 850ca943ea684546a7af626563e36288
       requestBody:
         required: true
         content:
@@ -86,6 +160,7 @@ paths:
       tags:
         - 四半期取得処理
       description: 自身の会社に紐づく四半期情報を取得する
+      operationId: 8de0fd211fe855c498362ae0794dc67e
       responses:
         '200':
           description: 四半期一覧取得成功
